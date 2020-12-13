@@ -81,14 +81,14 @@
         </div>
 
         <div class='flex j-c ai-c fl-di-co mt5'>
-            <button class='srchloc-btn relative flex j-s ai-c' id='srchloc'>
+            <button class='move-btn srchloc-btn relative flex j-s ai-c' id='srchloc'>
                 <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
                     <img src='/img/icons/loc.png'/>
                 </div>
                 <span id='txt_srchloc'>Искать другое место</span>
                 <div class='game-btn-bar' id='bar_srchloc'></div>
             </button>
-            <button class='srchlut-btn mt5 relative flex j-s ai-c' id='srchlut'>
+            <button class='move-btn srchlut-btn mt5 relative flex j-s ai-c' id='srchlut'>
                 <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
                     <img src='/img/icons/lut.png'/>
                 </div>
@@ -104,7 +104,7 @@
     <div class='game-actions backgr2 flex j-c ai-c fl-di-co pt5 pb5'>
 
         <div class='flex j-c wdth86'>
-            <button class='game-eat-btn relative flex j-sb ai-c' id='eat'>
+            <button class='move-btn game-eat-btn relative flex j-sb ai-c' id='eat'>
                 <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
                     <img src='/img/items/others/bread.png' class='item14-1'/>
                 </div>
@@ -117,7 +117,7 @@
         </div>
 
         <div class='flex j-c wdth86'>
-            <button class='game-drink-btn relative mt5 flex j-sb ai-c' id='drink'>
+            <button class='move-btn game-drink-btn relative mt5 flex j-sb ai-c' id='drink'>
                 <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
                     <img src='/img/items/others/water.png' style='width: 10px; height: 14px;' />
                 </div>
@@ -130,7 +130,7 @@
         </div>
 
         <div class='flex j-c wdth86' id='sleep_button'>
-            <button class='game-sleep-btn relative mt5 flex j-s ai-c' id='sleep'>
+            <button class='move-btn game-sleep-btn relative mt5 flex j-s ai-c' id='sleep'>
                 <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
                     <img src='/img/icons/sleep.png' />
                 </div>

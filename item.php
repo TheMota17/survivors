@@ -316,7 +316,7 @@
     <? if ($item[ 'type' ] == 2 || $item[ 'type' ] == 3 || $item[ 'type' ] == 4) : ?>
         <div class='flex j-c mt10'>
             <div class='item-moves backgr2 flex j-c pt5 pb5'>
-                <button class='moves-btn relative' id='nadet'>
+                <button class='move-btn moves-btn relative' id='nadet'>
                     <span id='txt_nadet'>Надеть</span>
                     <div class='game-btn-bar' id='bar_nadet'></div>
                 </button>
@@ -326,7 +326,7 @@
         <? if ($game_items[ $item['type'] ][ $item['item'] ][ 'hung' ]) : ?>
             <div class='flex j-c mt10'>
                 <div class='item-moves backgr2 flex j-c pt5 pb5'>
-                    <button class='moves-btn relative' id='eat'>
+                    <button class='move-btn moves-btn relative' id='eat'>
                         <span id='txt_eat'>Использовать</span>
                         <div class='game-btn-bar' id='bar_eat'></div>
                     </button>
@@ -335,7 +335,7 @@
         <? elseif ($game_items[ $item['type'] ][ $item['item'] ][ 'thirst' ]) : ?>
             <div class='flex j-c mt10'>
                 <div class='item-moves backgr2 flex j-c pt5 pb5'>
-                    <button class='moves-btn relative' id='drink'>
+                    <button class='move-btn moves-btn relative' id='drink'>
                         <span id='txt_drink'>Использовать</span>
                         <div class='game-btn-bar' id='bar_drink'></div>
                     </button>
@@ -344,7 +344,7 @@
         <? elseif ($game_items[ $item['type'] ][ $item['item'] ][ 'craft_lvl' ]) : ?>
             <div class='flex j-c mt10'>
                 <div class='item-moves backgr2 flex j-c pt5 pb5'>
-                    <button class='moves-btn relative' id='read'>
+                    <button class='move-btn moves-btn relative' id='read'>
                         <span id='txt_read'>Читать</span>
                         <div class='game-btn-bar' id='bar_read'></div>
                     </button>

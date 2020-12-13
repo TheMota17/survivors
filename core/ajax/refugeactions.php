@@ -2,7 +2,7 @@
 	require realpath('../sys.php');
     require realpath('../gamedata.php');
 
-    Class Refugeactions {
+    Class RefugeАctions {
 
     	public function __construct($pdo, $user, $action)
     	{
@@ -51,7 +51,7 @@
 
     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
         if ($_SESSION['token'] == $_POST['token'] || $_POST['token'] == 0 || $_SESSION['token'] == 0) {
-            $GameActions = new GameActions($pdo, $Sys->get_user(), $_GET['action']);
+            $GameActions = new RefugeActions($pdo, $Sys->get_user(), $_GET['action']);
             $GameActions->main();
         }
     } else { exit('Hi!'); }

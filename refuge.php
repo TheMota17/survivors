@@ -57,13 +57,23 @@
                 <span id='txt_updaterefuge'>Улучшить</span>
                 <div class='game-btn-bar' id='bar_updaterefuge'></div>
 			</button>
-			<button class='refuge-enter relative flex j-s ai-c mt5'>
-                <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
-                    <img src='/img/icons/enter.png' />
-                </div>
-				<span id='txt_enterrefuge'>Войти</span>
-                <div class='game-btn-bar' id='bar_enterrefuge'></div>
-			</button>
+            <? if ($Sys->user_info('userinfo', 'in_refuge')) : ?>
+    			<button class='refuge-enter relative flex j-s ai-c mt5' id='enterrefuge'>
+                    <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
+                        <img src='/img/icons/getout.png' />
+                    </div>
+    				<span id='txt_enterrefuge'>Выйти</span>
+                    <div class='game-btn-bar' id='bar_enterrefuge'></div>
+    			</button>
+            <? else : ?>
+                <button class='refuge-enter relative flex j-s ai-c mt5' id='uprefuge'>
+                    <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
+                        <img src='/img/icons/enter.png' />
+                    </div>
+                    <span id='txt_enterrefuge'>Войти</span>
+                    <div class='game-btn-bar' id='bar_enterrefuge'></div>
+                </button>
+            <? endif; ?>
 		</div>
 	</div>
 </div>

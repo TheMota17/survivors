@@ -1,134 +1,102 @@
-let popup = {
-    methods: {
-        events: function() {
-            $('#close-btn').on('click', function() {
-                popup.methods.close();
-            });
-        },
-        activate: function(text) {
-            $('#main-txt').html(text);
-            $('#pop-up').removeClass('none');
-        },
-        close: function() {
-            $('#main-txt').empty();
-            $('#pop-up').addClass('none');
-        }
+
+let Popup = {
+    activate(text) {
+        $('#main-txt').html(text);
+        $('#pop-up').removeClass('none');
     },
-    start: function() {
-        popup.methods.events();
+    close() {
+        $('#main-txt').empty();
+        $('#pop-up').addClass('none');
     }
 };
 
-let menu = {
-    data: {
-        'workpath': ['/game', '/ivent', '/item', '/craft', '/refuge']
-    },
-    methods: {
-        events: function() {
-            $('#menu-btn').on('click', function() {
-                menu.methods.openclose('auto');
-            });
-            $('#menu-target').on('click', function() {
-                menu.methods.openclose('close');
-            });
-        },
-        pageAvai: function(page) {
-            for(let i = 0; i < menu.data['workpath'].length; i++) {
-                if (page == menu.data['workpath'][i]) return true;
-            }
-        },
-        hide: function(page) {
-            if (! menu.methods.pageAvai(page)) {
-                if (document.getElementById('menu')) {
-                    if (document.getElementById('menu').classList.contains('none')) $('#menu').removeClass('none');
-                }
-            }
-        },
-        openclose: function(move) {
-            switch (move) {
-                case 'open':
-                    $('#menu').addClass('menu-active');
-                    $('#menu-target').removeClass('none');
-                    $('#menu-target').addClass('menu-target-active');
-                    break;
-                case 'close':
-                    $('#menu').removeClass('menu-active');
-                    $('#menu-target').addClass('none');
-                    $('#menu-target').removeClass('menu-target-active');
-                    break;
-                case 'auto':
-                    $('#menu').toggleClass('menu-active');
-                    $('#menu-target').toggleClass('none');
-                    $('#menu-target').toggleClass('menu-target-active');
-                    break;
+let Menu = {
+    hide: function(page) {
+        if (! this.pageAvai(page)) {
+            if (document.getElementById('menu')) {
+                if (document.getElementById('menu').classList.contains('none')) $('#menu').removeClass('none');
             }
         }
     },
-    start: function() {
-        menu.methods.events();
+
+    openclose: function(move) {
+        switch (move) {
+            case 'open':
+                $('#menu').addClass('menu-active');
+                $('#menu-target').removeClass('none');
+                $('#menu-target').addClass('menu-target-active');
+                break;
+            case 'close':
+                $('#menu').removeClass('menu-active');
+                $('#menu-target').addClass('none');
+                $('#menu-target').removeClass('menu-target-active');
+                break;
+            case 'auto':
+                $('#menu').toggleClass('menu-active');
+                $('#menu-target').toggleClass('none');
+                $('#menu-target').toggleClass('menu-target-active');
+                break;
+        }
     }
 };
 
-let barsMove = {
-    data: {
-        'action': 0,
-        'btntext': 0,
-        'iteration': 0,
-        'interval': 0
+let BarsMove = {
+    construct() {
+        this.action    = 0;
+        this.btntext   = 0;
+        this.iteration = 0;
+        this.interval  = 0;
     },
-    methods: {
-        activate: function(action) {
-            if (barsMove.data['action'] == 0) {
 
-                barsMove.data['action']   = action;
-                barsMove.data['btntext']  = $('#txt_' + action).html();
-                barsMove.data['interval'] = setInterval(barsMove.model, 500);
-                barsMove.view('textchange');
+    activate(action) {
+        if (BarsMove.action == 0) {
+            BarsMove.action   = action;
+            BarsMove.btntext  = $('#txt_' + action).html();
+            BarsMove.interval = setInterval(this.iter, 500);
+            BarsMove.view('textchange');
                 
-            } else if (barsMove.data['action'] == action) {
-                barsMove.methods.clear();
-            }
-        },
-        clear: function() {
-            clearInterval(barsMove.data['interval']);
-
-            barsMove.view('textreturn');
-            barsMove.view('barreturn');
-
-            for (data in barsMove['data']) {
-                barsMove.data[data] = 0;
-            }
-        },
-        barMove: function() {
-            $('#bar_' + barsMove.data['action']).css('width', barsMove.data['iteration'] + '%');
-        },
-        actionSend: function(action) {
-            game.methods.actionSend(action);
+        } else if (BarsMove.action == action) {
+            BarsMove.clear();
         }
     },
-    model: function() {
-        if (barsMove.data['iteration'] < 100) {
-            barsMove.data['iteration'] += 20;
-            barsMove.methods.barMove();
+
+    clear() {
+        clearInterval(this.interval);
+
+        this.view('textreturn');
+        this.view('barreturn');
+
+        this.action    = 0;
+        this.btntext   = 0;
+        this.iteration = 0;
+        this.interval  = 0;
+    },
+
+    barMove() {
+        $('#bar_' + this.action).css('width', this.iteration + '%');
+    },
+
+    iter() {
+        if (BarsMove.iteration < 100) {
+            BarsMove.iteration += 20;
+            BarsMove.barMove();
         } else {
-            barsMove.methods.actionSend(barsMove.data['action']);
-            barsMove.methods.clear();
+            Game.actionPrepare(BarsMove.action);
+            BarsMove.clear();
         }
     },
-    view: function(move) {
+
+    view(move) {
         switch (move) {
             case 'textchange':
-                $('#txt_' + barsMove.data['action']).html('Отмена');
+                $('#txt_' + this.action).html('Отмена');
                 break;
             case 'textreturn':
-                $('#txt_' + barsMove.data['action']).html(barsMove.data['btntext']);
+                $('#txt_' + this.action).html(this.btntext);
                 break;
             case 'barreturn':
-                $('#bar_' + barsMove.data['action']).css('width', 0 + '%');
+                $('#bar_' + this.action).css('width', 0 + '%');
                 break;
         }
-    },
-    start: function() {
-        //
     }
 };

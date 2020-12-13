@@ -214,7 +214,7 @@
                         <input class='colvo-range-input mt10' id='colvo_range_input' type='range' min='1' max='50' step='1' value='1'>
                     </div>
                     <div class='flex j-c mt5 mb5'>
-                        <button class='craft-item-btn relative mt5 flex j-s ai-c' id='craft'>
+                        <button class='move-btn craft-item-btn relative mt5 flex j-s ai-c' id='craft'>
                             <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
                                 <img src='/img/icons/menu/craft.png' />
                             </div>
