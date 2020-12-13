@@ -50,7 +50,7 @@
             <img src='<?=$game_refuges[ $Sys->user_info('userinfo', 'refuge') ]['img']?>' class='refuge-img block <?=$game_refuges[ $Sys->user_info('userinfo', 'refuge') ]['class']?>' />
 		</div>
 		<div class='refuge-moves flex j-c ai-c fl-di-co mt5'>
-			<button class='refuge-up relative flex j-s ai-c' id='updaterefuge'>
+			<button class='move-btn refuge-up relative flex j-s ai-c' id='uprefuge'>
                 <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
                     <img src='/img/icons/lvl.png' class='item14-1' />
                 </div>
@@ -58,7 +58,7 @@
                 <div class='game-btn-bar' id='bar_updaterefuge'></div>
 			</button>
             <? if ($Sys->user_info('userinfo', 'in_refuge')) : ?>
-    			<button class='refuge-enter relative flex j-s ai-c mt5' id='enterrefuge'>
+    			<button class='move-btn refuge-enter relative flex j-s ai-c mt5' id='enterrefuge'>
                     <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
                         <img src='/img/icons/getout.png' />
                     </div>
@@ -66,7 +66,7 @@
                     <div class='game-btn-bar' id='bar_enterrefuge'></div>
     			</button>
             <? else : ?>
-                <button class='refuge-enter relative flex j-s ai-c mt5' id='uprefuge'>
+                <button class='move-btn refuge-enter relative flex j-s ai-c mt5' id='uprefuge'>
                     <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
                         <img src='/img/icons/enter.png' />
                     </div>

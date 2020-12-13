@@ -57,7 +57,7 @@
         public function reg() {
 
             $newuser = $this->pdo->query('INSERT INTO users (login, pass, mail, date, lastvisit, ban, adm, live, hp, hung, thirst, fatigue, user_time, user_weather, user_temp, loc, loc_explored, costumize, craft_lvl, refuge, in_refuge) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            array($this->name_reg, $this->pass_reg, $this->mail_reg, time(), 0, 0, 0, 3, 100, 0, 0, 0, 36000, 1, 2, 1, 0, 0, 1, 0, 0));
+            array($this->name_reg, password_hash($this->pass_reg, PASSWORD_DEFAULT), password_hash($this->mail_reg, PASSWORD_DEFAULT), time(), 0, 0, 0, 3, 100, 0, 0, 0, 36000, 1, 2, 1, 0, 0, 1, 0, 0));
             $userid = $this->pdo->last();
 
             $refuge = $this->pdo->query('INSERT INTO refuge (hp, slot1, slot2, slot3, slot4, prot1, prot2, prot3, prot4, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', array(0, 0, 0, 0, 0, 0, 0, 0, 0, $userid));
@@ -73,10 +73,10 @@
         }
         
         public function enter() {
-            
-            $find_user = $this->pdo->fetch('SELECT * FROM `users` WHERE `login` = ?  AND `pass` = ?', array($this->name_ent, $this->pass_ent));
 
-            if ($find_user) {
+            $find_user = $this->pdo->fetch('SELECT * FROM `users` WHERE `login` = ?', array($this->name_ent));
+
+            if ($find_user && password_verify($this->pass_ent, $find_user['pass'])) {
                 if ($find_user['ban'] > time()) {
                     $ban_time = date('d.m.Y H:i:s', $find_user['ban']);
 

@@ -576,4 +576,4 @@ class Controller {
 }
 
 let controller = new Controller();
-controller.allEvents();
+    controller.allEvents();
