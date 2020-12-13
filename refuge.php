@@ -137,7 +137,7 @@
                         </div>
                     </div>
                     <div class='flex j-c fl-di-co fl1'>
-                        <div class=' flex j-e ai-c'>
+                        <div class='flex j-e ai-c'>
                         
                         </div>
                     </div>
