@@ -54,8 +54,8 @@
                 <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
                     <img src='/img/icons/lvl.png' class='item14-1' />
                 </div>
-                <span id='txt_updaterefuge'>Улучшить</span>
-                <div class='game-btn-bar' id='bar_updaterefuge'></div>
+                <span id='txt_uprefuge'>Улучшить</span>
+                <div class='game-btn-bar' id='bar_uprefuge'></div>
 			</button>
             <? if ($Sys->user_info('userinfo', 'in_refuge')) : ?>
     			<button class='move-btn refuge-enter relative flex j-s ai-c mt5' id='enterrefuge'>
@@ -66,7 +66,7 @@
                     <div class='game-btn-bar' id='bar_enterrefuge'></div>
     			</button>
             <? else : ?>
-                <button class='move-btn refuge-enter relative flex j-s ai-c mt5' id='uprefuge'>
+                <button class='move-btn refuge-enter relative flex j-s ai-c mt5' id='enterrefuge'>
                     <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
                         <img src='/img/icons/enter.png' />
                     </div>

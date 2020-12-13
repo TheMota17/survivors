@@ -50,6 +50,7 @@ let BarsMove = {
 
     activate(action) {
         if (BarsMove.action == 0) {
+
             BarsMove.action   = action;
             BarsMove.btntext  = $('#txt_' + action).html();
             BarsMove.interval = setInterval(this.iter, 500);
