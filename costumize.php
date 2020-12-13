@@ -5,14 +5,10 @@
 </div>
 
 <div class='flex j-c mt10'>
-	<div class='cost-message backgr2 flex j-c pt5 pb5'>
-		<div class='wdth86 flex j-c ai-c'>
-			<div class='mr5'>
-				<img src='/img/icons/mess.png'>
-			</div>
-			<div>
-				Следующая настройка будет доступна за игровую валюту
-			</div>
+	<div class='cost-message backgr2 flex j-c ai-c pt5 pb5'>
+		<div class='wdth90 flex j-c ai-c'>
+			<img src='/img/icons/mess.png' class='mr5'>
+			<span class='mess fnt13'>След. настройка будет доступна за игровую валюту</span>
 		</div>
 	</div>
 </div>
