@@ -96,14 +96,12 @@
             if ($this->user['thirst'] >= 100)  $thirst_hp  = intval($time / 600);
             if ($this->user['fatigue'] >= 100) $fatigue_hp = intval($time / 900);
 
-            switch( $this->user['user_temp'] ) {
-                case 3:
-                    $temp_hp = intval($time / 900);
-                    break;
-                case 4:
-                    $temp_hp = intval($time / 600);
-                    break;
-            }
+            if ( $this->user['in_refuge'] == 0 ) {
+                switch( $this->user['user_temp'] ) {
+                    case 3: $temp_hp = intval($time / 900); break;
+                    case 4: $temp_hp = intval($time / 600); break;
+                }
+            } 
 
             $total = $hung_hp + $thirst_hp + $fatigue_hp + $temp_hp;
 
@@ -264,8 +262,10 @@
         }
  
         public function srch_loc() {
-
-            if ($this->user['fatigue'] >= 100) {
+            if ($this->user['in_refuge'] > 0) {
+                $this->message = '<div class=\'flex j-c ai-c\'>Вы в убежище</div>';
+                $this->answer('mess', 0);
+            } else if ($this->user['fatigue'] >= 100) {
                 $this->message = '<div class=\'flex j-c ai-c\'>Вы очень устали</div>';
                 $this->answer('mess', 0);
             } else {
@@ -291,7 +291,10 @@
         public function srch_lut() {
 
             $ivent_cells = $this->pdo->rows('SELECT * FROM `ivent` WHERE `colvo` > 0 AND `user_id` = ?', array($this->user['id']));
-            if ($ivent_cells >= 50) {
+            if ($this->user['in_refuge'] > 0) {
+                $this->message = '<div class=\'flex j-c ai-c\'>Вы в убежище</div>';
+                $this->answer('mess', 0);
+            } else if ($ivent_cells >= 50) {
                 $this->message = '<div class=\'flex j-c ai-c\'>Инвентарь полон</div>';
                 $this->answer('mess', 0);
             } else if ($this->user['fatigue'] >= 100) {

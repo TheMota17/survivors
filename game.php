@@ -135,7 +135,7 @@
         </div>
 
         <div class='flex j-c wdth86' id='sleep_button'>
-            <button class='move-btn game-sleep-btn relative mt5 flex j-s ai-c' id='sleep'>
+            <button class='game-sleep-btn relative mt5 flex j-s ai-c' id='sleep'>
                 <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
                     <img src='/img/icons/sleep.png' />
                 </div>
