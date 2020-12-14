@@ -12,7 +12,7 @@
     		$this->items = $items;
 
             $this->user        = $user;
-            
+
             $this->user_ivent  = array();
             $this->user_nadeto = array();
             $this->all         = 0;
@@ -91,7 +91,7 @@
     	}
 
         public function get_type_name() {
-            $types = [0 => 'Все', 1 => 'Разное', 2 => 'Шлемы', 3 => 'Броня', 4 => 'Оружие'];
+            $types = [0 => 'Все', 1 => 'Разное', 2 => 'Шлемы', 3 => 'Броня', 4 => 'Оружие', 5 => 'Убежище'];
 
             return $types[ $this->type ];
         }
@@ -340,13 +340,16 @@
 	<div class='flex j-c ai-c'>
 		<span class='mr5'>Инвентарь</span>
         <span id='cells_quant'><?=$Ivent->get_cells()?></span>/50 
-        <button class='ivent-sort-btn flex j-c ai-c ml5' id='ivent_sort_btn'><img src='/img/icons/sort.png' class='mr5' id='ivent_sort_btn' /><?=$Ivent->get_type_name()?></button>
+        <button class='ivent-sort-btn flex j-c ai-c ml5' id='ivent_sort_btn'>
+            <img src='/img/icons/sort.png' class='mr5' id='ivent_sort_btn' /><?=$Ivent->get_type_name()?>
+        </button>
 	    <div class='relative flex fnt13'>
             <div class='none ivent-sort-menu flex j-c ai-c fl-di-co' id='ivent_sort_menu'>
                 <a href='/ivent?page=1' class='ajax flex j-c ai-c wdth100'>Все</a>
                 <a href='/ivent?type=2&page=1' class='ajax flex j-c ai-c wdth100 mt5'>Шлемы</a>
                 <a href='/ivent?type=3&page=1' class='ajax flex j-c ai-c wdth100 mt5'>Броня</a>
                 <a href='/ivent?type=4&page=1' class='ajax flex j-c ai-c wdth100 mt5'>Оружие</a>
+                <a href='/ivent?type=5&page=1' class='ajax flex j-c ai-c wdth100 mt5'>Убежище</a>
                 <a href='/ivent?type=1&page=1' class='ajax flex j-c ai-c wdth100 mt5'>Разное</a>
             </div>
         </div>

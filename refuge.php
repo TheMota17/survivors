@@ -170,6 +170,8 @@
             <div class='wdth96 flex j-c ai-c fl-di-co'>
                 <? $prot = $game_refuges[ $Sys->user_info('userinfo', 'refuge') ]['prot']; ?>
                 <? for($i = 0; $i < count($prot); $i++) : ?>
+                    <? $j = $i + 1; ?>
+
                     <div class='protection-slot backgr1 flex j-c mt5'>
                         <div class='flex j-c ai-c'>
                             <div class='item32-1'>
@@ -183,6 +185,10 @@
                                 <div class='bolder fnt13 ml5 flex j-s'>
                                     <? if ($prot[ $i ] == 0) : ?>
                                         Слот <?=$i+1?>
+                                    <? elseif ($refuge['prot'.$j]) : ?>
+
+                                    <? else : ?>
+                                        Пусто
                                     <? endif; ?>
                                 </div>
                                 <div class='item-name fnt13 ml5 flex j-s'>
@@ -195,7 +201,6 @@
                         <div class='flex j-c fl-di-co fl1'>
                             <div class='flex j-e ai-c'>
                                 <? if ($prot[ $i ] > 0) : ?>
-                                    <? $j = $i + 1; ?>
                                     <? if ($refuge['prot'.$j] > 0) : ?>
 
                                     <? else : ?>
@@ -217,6 +222,8 @@
             <div class='wdth96 flex j-c ai-c fl-di-co'>
                 <? $slots = $game_refuges[ $Sys->user_info('userinfo', 'refuge') ]['slots']; ?>
                 <? for($i = 0; $i < count($slots); $i++) : ?>
+                    <? $j = $i + 1; ?>
+
                     <div class='protection-slot backgr1 flex j-c mt5'>
                         <div class='flex j-c ai-c'>
                             <div class='item32-1'>
@@ -230,6 +237,10 @@
                                 <div class='bolder fnt13 ml5 flex j-s'>
                                     <? if ($slots[ $i ] == 0) : ?>
                                         Слот <?=$i+1?>
+                                    <? elseif ($refuge[ 'prot'.$j ]) : ?>
+                                        
+                                    <? else : ?>
+                                        Пусто
                                     <? endif; ?>
                                 </div>
                                 <div class='item-name fnt13 ml5 flex j-s'>
@@ -242,7 +253,6 @@
                         <div class='flex j-c fl-di-co fl1'>
                             <div class='flex j-e ai-c'>
                                 <? if ($slots[ $i ] > 0) : ?>
-                                    <? $j = $i + 1; ?>
                                     <? if ($refuge['slot'.$j] > 0) : ?>
 
                                     <? else : ?>
