@@ -89,14 +89,14 @@ input[type=submit] {cursor: pointer;}
 .input {min-width: 150px; height: 25px; border-radius: 5px; outline: none; background: var(--main-1-color); color: var(--main-3-color); text-align: center;}
 .input::placeholder {padding: 8px; color: var(--main-2-color);}
 
-.auth-reg {width: 86%; background: var(--main-2-color); border-radius: 5px; border: 1px solid var(--main-3-color);}
-.auth-reg-zag {width: 96%; height: 26px; background: var(--main-2-color); color: var(--main-mess-color); border-radius: 5px;}
+.auth-reg {width: 86%; background: var(--main-2-color); border-radius: 0px 0px 5px 5px;}
+.auth-reg-zag {width: 96%; height: 26px; box-shadow: inset 0px 0px 10px var(--main-3-color); color: var(--main-mess-color); border-radius: 5px;}
 .auth-reg-form button {width: 90px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
 .auth-reg-form button:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
-.auth-enter {width: 86%; border: 1px solid var(--main-3-color);}
-.auth-enter-zag {width: 96%; height: 26px; background: var(--main-2-color); color: var(--main-3-color); border-radius: 5px;}
-.auth-enter-form {width: 100%; background: var(--main-2-color); border-radius: 5px;}
+.auth-enter {width: 86%;}
+.auth-enter-zag {width: 96%; height: 26px; box-shadow: inset 0px 0px 10px var(--main-3-color); color: var(--main-3-color); border-radius: 5px;}
+.auth-enter-form {width: 100%; background: var(--main-2-color); border-radius: 0px 0px 5px 5px;}
 .auth-enter-form button {width: 90px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
 .auth-enter-form button:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 

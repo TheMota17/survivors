@@ -366,7 +366,7 @@ let Game = {
                     id: crafting.get('id'),
                     item: crafting.get('item'),
                     type: crafting.get('type'),
-                    colvo: craft.data['colvo'],
+                    colvo: Craft.colvo,
                     from: window.location.pathname.split('/')[1],
                     token: PageLoad.token
                 }; this.gameAction(action, data);

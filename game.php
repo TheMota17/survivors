@@ -49,13 +49,18 @@
         <div class='flex j-c ai-c pt5 pb5 fnt15'>
             <img src='/img/icons/loc.png' class='item14-1 mr5' />
             <div class='loc-name mr5' id='loc_name'>
-                <?=$game_locs[ $Sys->user_info('userinfo', 'loc') ][ 'nm' ]?>
+                <? if ($Sys->user_info('userinfo', 'in_refuge')) : ?>
+                    Убежище
+                <? else : ?>
+                    <?=$game_locs[ $Sys->user_info('userinfo', 'loc') ][ 'nm' ]?>
+                <? endif; ?>
             </div>
         </div>
-
-        <div class='flex j-c pb5 fnt12'>
-            <span class='mr5'>Исследовано </span><span id='loc_explored'><?=$Sys->user_info('userinfo', 'loc_explored')?></span>%
-        </div>
+        <? if ($Sys->user_info('userinfo', 'in_refuge') == 0) : ?>
+            <div class='flex j-c pb5 fnt12'>
+                <span class='mr5'>Исследовано </span><span id='loc_explored'><?=$Sys->user_info('userinfo', 'loc_explored')?></span>%
+            </div>
+        <? endif; ?>
 
         <div class='flex j-c'>
             <? if ($game_locs[ $Sys->user_info('userinfo', 'loc') ][ 'img' ][ $Sys->user_info('userinfo', 'user_weather') ]) : ?>
