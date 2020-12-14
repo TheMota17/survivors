@@ -60,6 +60,8 @@ let PageLoad = {
                     PageLoad.specMoves(pageFormat);
                 }
             });
+        } else {
+            this.loadPage('/auth');
         }
     },
 
@@ -345,7 +347,7 @@ let Game = {
                 break;
             case 'sleep':
                 data = {
-                    hours: game.data['sleep_time'],
+                    hours: Game.sleep_time,
                     from: window.location.pathname.split('/')[1],
                     token: PageLoad.token
                 }; this.gameAction(action, data);
@@ -555,9 +557,7 @@ class Controller {
             PageLoad.loadPage(page);
         }
         if (performance.navigation.type == 1) {
-            if (PageLoad.routeAvai(window.location.pathname)) {
-                PageLoad.loadPage(window.location.pathname + window.location.search);
-            }
+            PageLoad.loadPage(window.location.pathname + window.location.search);
         } else {
             PageLoad.loadPage('/auth');
         }
