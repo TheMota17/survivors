@@ -42,7 +42,7 @@ let PageLoad = {
     },
 
     loadPage(page) {
-        this.view('barnone');
+        this.view('baractivate');
         let pageFormat = this.pageFormat(page);
 
         if (this.routeAvai(pageFormat['page'])) {
@@ -53,7 +53,7 @@ let PageLoad = {
                     token: this.token
                 },
                 success: function(data) {
-                    PageLoad.view('baractivate');
+                    PageLoad.view('barnone');
                     PageLoad.view('page', data, pageFormat);
 
                     PageLoad.pushState(pageFormat);
@@ -72,16 +72,16 @@ let PageLoad = {
                 $('title').html(this.title(pageFormat));
                 $('#upd-page').attr('href', pageFormat['page'] + pageFormat['get']);
                 break;
-            case 'barnone':
+            case 'baractivate':
                 $('#load_bar').css('width', 20 + '%');
                 $('#page_load_bar').removeClass('none');
                 break;
-            case 'baractivate':
+            case 'barnone':
                 $('#load_bar').css('width', 100 + '%');
                 setTimeout(function() {
                     $('#page_load_bar').addClass('none');
-                }, 700);
-                break;
+                }, 300);
+            break;
         }
     },
 };
@@ -529,6 +529,9 @@ class Controller {
                     break;
                 case 'sleep':
                     Game.view('sleep_range');
+                    break;
+                case 'ivent_sort_btn':
+                    $('#ivent_sort_menu').toggleClass('none');
                     break;
             }
         });

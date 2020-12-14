@@ -8,10 +8,10 @@
         Вам предстоит выживать с игроками которые будут всячески мешать в вашем пути. 
         Так сделайте это, скачайте Shadow Leg... Кхм Кхм "Survivors"
     </div>
-    <div class='auth-reg-zag flex j-c ai-c bolder fnt12 mt10'>
-        Начать путь
-    </div>
-    <div class='auth-reg pb10'>
+    <div class='auth-reg flex j-c ai-c fl-di-co pb10 mt5'>
+        <div class='auth-reg-zag flex j-c ai-c bolder fnt12 mt5'>
+            Начать путь
+        </div>
         <div class='auth-reg-form flex ai-c fl-di-co mt10'>
             <div class='relative'>
             <div class='error-star'>*</div>
@@ -36,10 +36,10 @@
 </div>
 
 <div class='flex j-c ai-c fl-di-co mt10'>
-    <div class='auth-enter-zag flex j-c ai-c bolder fnt12'>
-        Войти
-    </div>
-    <div class='auth-enter'>
+    <div class='auth-enter flex j-c ai-c fl-di-co mt5'>
+        <div class='auth-enter-zag flex j-c ai-c bolder fnt12 mt5'>
+            Войти
+        </div>
         <div class='auth-enter-form flex ai-c fl-di-co pb5'>
             <div class='mt10'>
             <input type='text' placeholder='Ник' class='input' id='enter-name' required>

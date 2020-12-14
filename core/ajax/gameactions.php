@@ -262,6 +262,7 @@
         }
  
         public function srch_loc() {
+            
             if ($this->user['in_refuge'] > 0) {
                 $this->message = '<div class=\'flex j-c ai-c\'>Вы в убежище</div>';
                 $this->answer('mess', 0);

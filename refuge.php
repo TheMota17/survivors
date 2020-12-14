@@ -194,7 +194,16 @@
                         </div>
                         <div class='flex j-c fl-di-co fl1'>
                             <div class='flex j-e ai-c'>
-                                
+                                <? if ($prot[ $i ] > 0) : ?>
+                                    <? $j = $i + 1; ?>
+                                    <? if ($refuge['prot'.$j] > 0) : ?>
+
+                                    <? else : ?>
+                                        <a class='ajax refuge-slot-plus flex j-c ai-c' href='/ivent?type=5&page=1'>
+                                            +
+                                        </a>
+                                    <? endif; ?>
+                                <? endif; ?>
                             </div>
                         </div>
                     </div>
@@ -232,13 +241,21 @@
                         </div>
                         <div class='flex j-c fl-di-co fl1'>
                             <div class='flex j-e ai-c'>
-                            
+                                <? if ($slots[ $i ] > 0) : ?>
+                                    <? $j = $i + 1; ?>
+                                    <? if ($refuge['slot'.$j] > 0) : ?>
+
+                                    <? else : ?>
+                                        <a class='ajax refuge-slot-plus flex j-c ai-c' href='/ivent?type=5&page=1'>
+                                            +
+                                        </a>
+                                    <? endif; ?>
+                                <? endif; ?>
                             </div>
                         </div>
                     </div>
                 <? endfor; ?>
             </div>
-
         </div>
     </div>
 <? endif; ?>

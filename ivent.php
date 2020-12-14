@@ -4,7 +4,7 @@
 
     Class Ivent {
 
-    	public function __construct($pdo, $items, $user, $page) 
+    	public function __construct($pdo, $items, $user)
         {
 
             $this->pdo = $pdo;
@@ -12,10 +12,10 @@
     		$this->items = $items;
 
             $this->user        = $user;
+            
             $this->user_ivent  = array();
             $this->user_nadeto = array();
-
-            $this->page = htmlspecialchars( intval( $page ) );
+            $this->all         = 0;
 
     	}
 
@@ -25,15 +25,20 @@
                 $this->page = 1;
             }
 
-            $limit            = 5;
-            $offset           = $limit * ($this->page - 1);
-            $all              = $this->pdo->rows('SELECT * FROM `ivent` WHERE `user_id` = ? AND `colvo` > 0', array( $this->user[ 'id' ] ));
-            $this->user_cells = $all;
-            $maxpage          = intval($all / $limit);
+            if ($this->type == 0)
+                $this->all = $this->pdo->rows('SELECT * FROM `ivent` WHERE `colvo` > 0 AND `user_id` = ?', array($this->user[ 'id' ]));
+            else 
+                $this->all = $this->pdo->rows('SELECT * FROM `ivent` WHERE `type` = ? AND `colvo` > 0 AND `user_id` = ?', array($this->type, $this->user[ 'id' ]));
 
-            if ($all > 5) {
-                if ($this->page != 1) $this->pervpage = '<a href=\'/ivent?page='.($this->page - 1).'\' class=\'ajax nav-btn\'> ◄ </a>';
-                if ($this->page >= 1 && $this->page <= $maxpage && $all !== 10) $this->nextpage = '<a href=\'/ivent?page='.($this->page + 1).'\' class=\'ajax nav-btn\'> ► </a>';
+            $limit  = 5;
+            $offset = $limit * ($this->page - 1);
+            $maxpage = intval($this->all / $limit);
+
+            if ($this->all > 5) {
+                if ($this->page != 1) 
+                    $this->pervpage = '<a href=\'/ivent?page='.($this->page - 1).'\' class=\'ajax nav-btn\'> ◄ </a>';
+                if ($this->page >= 1 && $this->page <= $maxpage && $this->all !== 10)
+                    $this->nextpage = '<a href=\'/ivent?page='.($this->page + 1).'\' class=\'ajax nav-btn\'> ► </a>';
             }
 
             $this->nadeto_items();
@@ -41,26 +46,21 @@
 
         }
 
-        public function user_info($type, $data) {
+        public function get_nadeto() {
 
-        	switch( $type ) {
-        		case 'userinfo':
-        			return $this->user[ $data ];
-        		break;
-        		case 'dopinfo':
-        			switch( $data ) {
-        				case 'nadeto':
-        					return $this->user_nadeto;
-        				break;
-        				case 'ivent':
-        					return $this->user_ivent;
-        				break;
-        				case 'cells':
-        					return $this->user_cells;
-        				break;
-        			}
-        		break;
-        	}
+            return $this->user_nadeto;
+
+        }
+
+        public function get_ivent() {
+
+            return $this->user_ivent;
+
+        }
+
+        public function get_cells() {
+
+            return $this->all;
 
         }
 
@@ -78,13 +78,28 @@
 
     	public function ivent_items($limit, $offset) {
 
-            $this->user_ivent = $this->pdo->fetchAll('SELECT * FROM `ivent` WHERE `user_id` = ? AND `colvo` > 0 LIMIT ? OFFSET ?', array(
-            	$this->user[ 'id' ], $limit, $offset
-            ));
+            if ($this->type == 0) {
+                $this->user_ivent = $this->pdo->fetchAll('SELECT * FROM `ivent` WHERE `colvo` > 0 AND `user_id` = ? LIMIT ? OFFSET ?', array(
+                    $this->user[ 'id' ], $limit, $offset
+                ));
+            } else {
+                $this->user_ivent = $this->pdo->fetchAll('SELECT * FROM `ivent` WHERE `type` = ? AND `colvo` > 0 AND `user_id` = ? LIMIT ? OFFSET ?', array(
+                    $this->type, $this->user[ 'id' ], $limit, $offset
+                ));
+            }
 
     	}
 
+        public function get_type_name() {
+            $types = [0 => 'Все', 1 => 'Разное', 2 => 'Шлемы', 3 => 'Броня', 4 => 'Оружие'];
+
+            return $types[ $this->type ];
+        }
+
     	public function main() {
+
+            $this->type = htmlspecialchars( intval( $_GET['type'] ) );
+            $this->page = htmlspecialchars( intval( $_GET['page'] ) );
 
             $this->init_item_pages();
             
@@ -92,7 +107,7 @@
     }
 
     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
-        $Ivent = new Ivent($pdo, $game_items, $Sys->get_user(), $_GET['page']);
+        $Ivent = new Ivent($pdo, $game_items, $Sys->get_user());
         $Ivent->main();   
     } else { exit('Hi!'); }
 
@@ -103,7 +118,7 @@
 <div class='flex j-c mt10'>
 	<div class='ivent-pers backgr2 flex j-c ai-c pt5 pb5'>
 		
-        <? $nadeto = $Ivent->user_info('dopinfo', 'nadeto'); ?>
+        <? $nadeto = $Ivent->get_nadeto(); ?>
 
 		<div class='maneken relative flex j-c ai-c'>
             <div class='<?=$game_items[ 2 ][ $nadeto['helm'] ]['class']?>'></div>
@@ -123,8 +138,8 @@
 
 		<div class='user-info ml10'>
 			<div class='user-name flex j-c ai-c'>
-				<span class='user-name' id='user_name'><?=$Ivent->user_info('userinfo', 'login')?></span>
-                <img src='/img/icons/hp.png' class='ml5 item14-1' /> <?=$Ivent->user_info('userinfo', 'live')?>
+				<span class='user-name' id='user_name'><?=$Sys->user_info('userinfo', 'login')?></span>
+                <img src='/img/icons/hp.png' class='ml5 item14-1' /> <?=$Sys->user_info('userinfo', 'live')?>
 			</div>
 
 			<div class='user-abs flex j-s ai-c mt5'>
@@ -157,19 +172,19 @@
 			<div class='user-hp-info flex j-c ai-c mt5'>
 				<img src='/img/icons/hung.png' class='mr5' />
                 <div class='ivent-hung-bar'>
-                    <div class='hung-bar' id='hung_bar' style='width: <?=$Ivent->user_info('userinfo', 'hung')?>%'></div>
+                    <div class='hung-bar' id='hung_bar' style='width: <?=$Sys->user_info('userinfo', 'hung')?>%'></div>
                 </div>
 			</div>
 			<div class='user-hung-info flex j-c ai-c mt5'>
 				<img src='/img/icons/thirst.png' class='mr5' />
                 <div class='ivent-thirst-bar'>
-                    <div class='thirst-bar' id='thirst_bar' style='width: <?=$Ivent->user_info('userinfo', 'thirst')?>%'></div>
+                    <div class='thirst-bar' id='thirst_bar' style='width: <?=$Sys->user_info('userinfo', 'thirst')?>%'></div>
                 </div>
 			</div>
 			<div class='user-fatigue-info flex j-c ai-c mt5'>
 				<img src='/img/icons/sleep.png' class='mr5' />
 				<div class='ivent-fatigue-bar'>
-					<div class='fatigue-bar' id='fatigue_bar' style='width: <?=$Ivent->user_info('userinfo', 'fatigue')?>%'></div>
+					<div class='fatigue-bar' id='fatigue_bar' style='width: <?=$Sys->user_info('userinfo', 'fatigue')?>%'></div>
 				</div>
 			</div>
 		</div>
@@ -322,11 +337,22 @@
 </div>
 
 <div class='flex j-c ai-c fl-di-co mt10'>
-	<div class='mb5'>
-		Инвентарь <span id='cells_quant'><?=$Ivent->user_info('dopinfo', 'cells')?></span>/50
-	</div>
-	<div class='ivent-items backgr2 flex j-c ai-c fl-di-co' id='ivent_items'>
-        <? $ivent = $Ivent->user_info('dopinfo', 'ivent'); ?>
+	<div class='flex j-c ai-c'>
+		<span class='mr5'>Инвентарь</span>
+        <span id='cells_quant'><?=$Ivent->get_cells()?></span>/50 
+        <button class='ivent-sort-btn flex j-c ai-c ml5' id='ivent_sort_btn'><img src='/img/icons/sort.png' class='mr5' id='ivent_sort_btn' /><?=$Ivent->get_type_name()?></button>
+	    <div class='relative flex fnt13'>
+            <div class='none ivent-sort-menu flex j-c ai-c fl-di-co' id='ivent_sort_menu'>
+                <a href='/ivent?page=1' class='ajax flex j-c ai-c wdth100'>Все</a>
+                <a href='/ivent?type=2&page=1' class='ajax flex j-c ai-c wdth100 mt5'>Шлемы</a>
+                <a href='/ivent?type=3&page=1' class='ajax flex j-c ai-c wdth100 mt5'>Броня</a>
+                <a href='/ivent?type=4&page=1' class='ajax flex j-c ai-c wdth100 mt5'>Оружие</a>
+                <a href='/ivent?type=1&page=1' class='ajax flex j-c ai-c wdth100 mt5'>Разное</a>
+            </div>
+        </div>
+    </div>
+	<div class='ivent-items backgr2 flex j-c ai-c fl-di-co mt5' id='ivent_items'>
+        <? $ivent = $Ivent->get_ivent(); ?>
 
         <? if ( $ivent ) : ?>
     		<? foreach($ivent as $iv) : ?>
@@ -363,13 +389,11 @@
 	</div>
 	<div class='ivent-nav backgr2 flex j-c mt5 pt5 pb5' id='ivent_nav'>
 		<? foreach($Ivent->navInfo() as $nav) : ?>
-
 			<? if ( $nav ) : ?>
 				<span class='nav-btn'>
 					<?=$nav?>
 				</span>
 			<? endif; ?>
-
 		<? endforeach; ?>
 	</div>
 </div>
