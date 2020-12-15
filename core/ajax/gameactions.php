@@ -361,9 +361,9 @@
                     $this->message = '<div class=\'flex j-c ai-c\'>Вы не голодны</div>';
                     $this->answer('mess', 0);
                 } else {
-                    $hp  = (($this->user['hp'] + $this->items[ $item['type'] ][ $item['item'] ]['hp'] ) > 100) ? 100 : ($this->user['hp'] + $this->items[ $item['type'] ][ $item['item'] ]['hp']);
+                    $hp  = (($this->user['hp'] + $this->items[ $item['type'] ][ $item['item'] ]['eff']['hp'] ) > 100) ? 100 : ($this->user['hp'] + $this->items[ $item['type'] ][ $item['item'] ]['eff']['hp']);
                     $eat = $this->pdo->query('UPDATE `users` SET `hung` = ?, `hp` = ? WHERE `id` = ?', array(
-                        ($this->user['hung'] - $this->items[ $item['type'] ][ $item['item'] ][ 'hung' ]), $hp, $this->user['id']
+                        ($this->user['hung'] - $this->items[ $item['type'] ][ $item['item'] ]['eff'][ 'hung' ]), $hp, $this->user['id']
                     ));
 
                     $this->item_substr($item['id'], $item['colvo']);
@@ -397,9 +397,9 @@
                     $this->message = '<div class=\'flex j-c ai-c\'>Недостаточно воды</div>';
                     $this->answer('mess', 0);
                 } else {
-                    $hp    = (($this->user['hp'] + $this->items[ $item['type'] ][ $item['item'] ]['hp'] ) > 100) ? 100 : ($this->user['hp'] + $this->items[ $item['type'] ][ $item['item'] ]['hp']);
+                    $hp    = (($this->user['hp'] + $this->items[ $item['type'] ][ $item['item'] ]['eff']['hp'] ) > 100) ? 100 : ($this->user['hp'] + $this->items[ $item['type'] ][ $item['item'] ]['eff']['hp']);
                     $drink = $this->pdo->query('UPDATE `users` SET `thirst` = ?, `hp` = ? WHERE `id` = ?', array(
-                        ($this->user['thirst'] - $this->items[ $item['type'] ][ $item['item'] ][ 'thirst' ]), $hp, $this->user['id']
+                        ($this->user['thirst'] - $this->items[ $item['type'] ][ $item['item'] ]['eff'][ 'thirst' ]), $hp, $this->user['id']
                     ));
 
                     $this->item_substr($item['id'], $item['colvo']);

@@ -31,45 +31,27 @@
 
     	}
 
-        public function user_info($type, $data) {
+        public function get_game_item() {
 
-            switch( $type ) {
-                case 'userinfo':
-                    return $this->user[ $data ];
-                break;
-                case 'dopinfo':
-                    switch( $data ) {
-                        case 'nadeto':
-                            return $this->user_nadeto;
-                        break;
-                        case 'ivent':
-                            return $this->user_ivent;
-                        break;
-                        case 'cells':
-                            return $this->user_cells;
-                        break;
-                    }
-                break;
-            }
+            return $this->game_item;
 
         }
 
-    	public function get_item_info( $item ) {
+        public function get_ivent_item() {
 
-            switch( $item ) {
-                case 'game':
-                    return $this->game_item;
-                    break;
-                case 'ivent':
-                    return $this->item_ivent;
-                    break;
-            }
-            
-    	}
+            return $this->ivent_item;
+
+        }
 
         public function get_view() {
 
             return $this->view;
+
+        }
+
+        public function get_nadeto() {
+
+            return $this->user_nadeto;
 
         }
 
@@ -85,11 +67,11 @@
         public function ivent_item() {
 
             if ($this->all_exist('id')) {
-                $this->item_ivent = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `colvo` > 0 AND `user_id` = ?', array(
+                $this->ivent_item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `colvo` > 0 AND `user_id` = ?', array(
                     $this->id_item, $this->user[ 'id' ]
                 ));
 
-                if (! $this->item_ivent) {
+                if (! $this->ivent_item) {
                     $this->message = '
                         <div class=\'flex j-c mt10\'>
                             <a href=\'/ivent\' class=\'ajax\'>Предмет не найден</a>
@@ -151,20 +133,17 @@
     require ''.$_SERVER['DOCUMENT_ROOT'].'/core/modules/menu.php';
 ?>
 
-<?
-    $item = $Item->get_item_info( ($Item->get_view()) ? 'game' : 'ivent');
-
-    if (! $Item->get_view()) {
-        $nadeto       = $Item->user_info('dopinfo', 'nadeto');
-        $nadeto_elems = [0, 0, 'helm', 'arm', 'weap'];
-    }
+<? 
+    $item         = ($Item->get_view()) ? $Item->get_game_item() : $Item->get_ivent_item();
+    $nadeto       = ($Item->get_view()) ? 0 : $Item->get_nadeto();
+    $nadeto_elems = [0, 0, 'helm', 'arm', 'weap'];
 ?>
 
 <div class='flex j-c ai-c fl-di-co mt10'>
     <div class='flex j-c'>
         Предмет
     </div>
-	<div class='item-iteminfo backgr2 pt5 pb5 mt5'>
+    <div class='item-iteminfo backgr2 pt5 pb5 mt5'>
         <div class='flex ml5'>
             <div class='iteminfo-img flex j-s'>
                 <div class='item32-1 flex j-c ai-c ml5'>
@@ -194,38 +173,48 @@
                 <div class='iteminfo-div'>
                     <span class='ml5'>Тип: <?=$game_items[ $item['type'] ][ $item['item'] ][ 'type' ]?></span>
                 </div>
-                <? if ($item[ 'type' ] == 1) : ?>
-                    <? if ($game_items[ $item['type'] ][ $item['item'] ]['hung']) : ?>
-                        <div class='iteminfo-div mt5'>
-                            <span class='ml5'>
-                                <img src='/img/icons/hung.png' />
-                                Голод: -<?=$game_items[ $item['type'] ][ $item['item'] ][ 'hung' ]?>
-                            </span>
-                        </div>
-                    <? elseif ($game_items[ $item['type'] ][ $item['item'] ]['thirst']) : ?>
-                        <div class='iteminfo-div mt5'>
-                            <span class='ml5'>
-                                <img src='/img/icons/thirst.png' />
-                                Жажда: -<?=$game_items[ $item['type'] ][ $item['item'] ][ 'thirst' ]?>
-                            </span>
-                        </div>
-                    <? else : ?>
-                        <div class='iteminfo-div mt5'>
-                            <span class='ml5'>
-                                <img src='/img/icons/info.png' />
-                                <?=$items_pred[ $item['type'] ][ $item['item'] ]?>
-                            </span>
-                        </div>
-                    <? endif; ?>
-                    <? if ($game_items[ $item['type'] ][ $item['item'] ]['hp']) : ?>
-                        <div class='iteminfo-div mt5'>
-                            <span class='ml5'>
-                                <img src='/img/icons/hp.png' />
-                                Здоровье: +<?=$game_items[ $item['type'] ][ $item['item'] ]['hp']?>
-                            </span>
-                        </div>
-                    <? endif; ?>
-                <? elseif ($item[ 'type' ] == 2 || $item[ 'type' ] == 3) : ?>
+
+                <? if ($items_pred[ $item['type'] ][ $item['item'] ]) : ?>
+                    <div class='iteminfo-div mt5'>
+                        <span class='ml5'>
+                            <img src='/img/icons/info.png' />
+                            <?=$items_pred[ $item['type'] ][ $item['item'] ]?>
+                        </span>
+                    </div>
+                <? endif; ?>
+
+                <? if ($game_items[ $item['type'] ][ $item['item'] ]['eff']) : ?>
+                    <? foreach($game_items[ $item['type'] ][ $item['item'] ]['eff'] as $key => $eff) : ?>
+                        <? switch($key) :
+                            case 'hung': ?>
+                                <div class='iteminfo-div mt5'>
+                                    <span class='ml5'>
+                                        <img src='/img/icons/hung.png' />
+                                        Голод: -<?=$eff?>
+                                    </span>
+                                </div>
+                            <? break; ?>
+                            <? case 'thirst': ?>
+                                <div class='iteminfo-div mt5'>
+                                    <span class='ml5'>
+                                        <img src='/img/icons/thirst.png' />
+                                        Жажда: -<?=$eff?>
+                                    </span>
+                                </div>
+                            <? break; ?>
+                            <? case 'hp': ?>
+                                <div class='iteminfo-div mt5'>
+                                    <span class='ml5'>
+                                        <img src='/img/icons/hp.png' />
+                                        Здоровье: +<?=$eff?>
+                                    </span>
+                                </div>
+                            <? break; ?>
+                        <? endswitch; ?>
+                    <? endforeach; ?>
+                <? endif; ?>
+
+                <? if ($game_items[ $item['type'] ][ $item['item'] ]['dmgabs']) : ?>
                     <div class='iteminfo-div flex j-sb mt5'>
                         <div class='ml5'>
                             <img src='/img/icons/abs.png' class='item14-1' /> Подавление урона: -<?=$game_items[ $item['type'] ][ $item['item'] ][ 'dmgabs' ]?>
@@ -242,14 +231,7 @@
                             </div>
                         <? endif; ?>
                     </div>
-                <? elseif ($item['type'] == 5) : ?>
-                    <div class='iteminfo-div mt5'>
-                        <span class='ml5'>
-                            <img src='/img/icons/info.png' />
-                            <?=$items_pred[ $item['type'] ][ $item['item'] ]?>
-                        </span>
-                    </div>
-                <? else : ?>
+                <? elseif ($game_items[ $item['type'] ][ $item['item'] ]['dmgmin']): ?>
                     <div class='iteminfo-div flex j-sb mt5'>
                         <div class='ml5'>
                             <img src='/img/icons/dmg.png' class='item14-1' /> Урон:
@@ -270,7 +252,8 @@
                         <? endif; ?>
                     </div>
                 <? endif; ?>
-                <? if ($item[ 'type' ] !== 1 && $item['type'] !== 5 && !$Item->get_view()) : ?>
+
+                <? if ($game_items[ $item['type'] ][ $item['item'] ][ 'power' ]) : ?>
                     <div class='iteminfo-div flex j-sb mt5'>
                         <div class='ml5'>
                             <img src='/img/icons/power.png' class='item14-1' /> Бонус к мощи: <?=$game_items[ $item['type'] ][ $item['item'] ][ 'power' ]?>
@@ -288,7 +271,8 @@
                         <? endif; ?>
                     </div>
                 <? endif; ?>
-                <? if (! $Item->get_view()) : ?>
+
+                <? if (!$Item->get_view()) : ?>
                     <div class='iteminfo-div flex ai-c mt5'>
                         <span class='ml5'>
                             <img src='/img/icons/colvo.png' class='item14-1' /> Количество: <?=$item[ 'colvo' ]?>
@@ -303,35 +287,38 @@
                     <hr class='hr-style mr5'> Боеприпасы <hr class='hr-style ml5'>
                 </div>      
             </div>
-            <div class='backgr2 flex j-c pt5 pb5'>
-                <div class='wdth96 flex j-s'>
-                    <? foreach($game_items[ $item['type'] ][ $item['item'] ]['ammu'] as $ammu) : ?>
-                        <div class='flex j-c ai-c fl-di-co mr5'>
-                            <div class='<?=$game_rares[ $game_items[ $ammu['t'] ][ $ammu['i'] ]['rare'] ]['border']?>'>
-                                <a href='/item?item=<?=$ammu['i']?>&type=<?=$ammu['t']?>&view=1' class='ajax'>
-                                    <img src='<?=$game_items[ $ammu['t'] ][ $ammu['i'] ]['img']?>' />
-                                </a>
+            <div class='flex j-c ai-c pt5 pb5'>
+                <div class='wdth96 flex j-c'>
+                    <div class='wdth96 flex j-s'>
+                        <? foreach($game_items[ $item['type'] ][ $item['item'] ]['ammu'] as $ammu) : ?>
+                            <div class='flex j-c ai-c fl-di-co mr5'>
+                                <div class='<?=$game_rares[ $game_items[ $ammu['t'] ][ $ammu['i'] ]['rare'] ]['border']?>'>
+                                    <a href='/item?item=<?=$ammu['i']?>&type=<?=$ammu['t']?>&view=1' class='ajax'>
+                                        <img src='<?=$game_items[ $ammu['t'] ][ $ammu['i'] ]['img']?>' />
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    <? endforeach; ?>
+                        <? endforeach; ?>
+                    </div>
                 </div>
             </div>
         <? endif; ?>
-	</div>
+    </div>
 </div>
 
 <? if (! $Item->get_view()) : ?>
-    <? if ($item[ 'type' ] == 2 || $item[ 'type' ] == 3 || $item[ 'type' ] == 4) : ?>
-        <div class='flex j-c mt10'>
-            <div class='item-moves backgr2 flex j-c pt5 pb5'>
-                <button class='move-btn moves-btn relative' id='nadet'>
-                    <span id='txt_nadet'>Надеть</span>
-                    <div class='game-btn-bar' id='bar_nadet'></div>
-                </button>
+    <? switch($game_items[ $item['type'] ][ $item['item'] ]['move']) : 
+        case 'nadet': ?>
+            <div class='flex j-c mt10'>
+                <div class='item-moves backgr2 flex j-c pt5 pb5'>
+                    <button class='move-btn moves-btn relative' id='nadet'>
+                        <span id='txt_nadet'>Надеть</span>
+                        <div class='game-btn-bar' id='bar_nadet'></div>
+                    </button>
+                </div>
             </div>
-        </div>
-    <? else: ?>
-        <? if ($game_items[ $item['type'] ][ $item['item'] ][ 'hung' ]) : ?>
+        <? break; ?>
+        <? case 'eat': ?>
             <div class='flex j-c mt10'>
                 <div class='item-moves backgr2 flex j-c pt5 pb5'>
                     <button class='move-btn moves-btn relative' id='eat'>
@@ -340,7 +327,8 @@
                     </button>
                 </div>
             </div>
-        <? elseif ($game_items[ $item['type'] ][ $item['item'] ][ 'thirst' ]) : ?>
+        <? break; ?>    
+        <? case 'drink': ?>
             <div class='flex j-c mt10'>
                 <div class='item-moves backgr2 flex j-c pt5 pb5'>
                     <button class='move-btn moves-btn relative' id='drink'>
@@ -349,7 +337,8 @@
                     </button>
                 </div>
             </div>
-        <? elseif ($game_items[ $item['type'] ][ $item['item'] ][ 'craft_lvl' ]) : ?>
+        <? break; ?>
+        <? case 'read': ?>
             <div class='flex j-c mt10'>
                 <div class='item-moves backgr2 flex j-c pt5 pb5'>
                     <button class='move-btn moves-btn relative' id='read'>
@@ -358,12 +347,12 @@
                     </button>
                 </div>
             </div>
-        <? endif; ?>
-    <? endif; ?>
+        <? break; ?>
+
+    <? endswitch; ?> 
 <? endif; ?>
 
 <? if ($item['type'] !== 1 && $item['type'] !== 5 && !$Item->get_view()) : ?>
-
     <? if ($nadeto[ $nadeto_elems[$item['type']] ] > 0) : ?>
         <div class='flex j-c ai-c fl-di-co mt10'>
             <div class='flex j-c'>
@@ -401,7 +390,7 @@
                             <?=$game_items[ $item['type'] ][ $nadeto[ $nadeto_elems[$item['type']] ] ][ 'type' ]?>
                         </span>
                     </div>
-                    <? if ($item[ 'type' ] == 2 || $item[ 'type' ] == 3) : ?>
+                    <? if ($game_items[ $item['type'] ][ $item['item'] ]['dmgabs']) : ?>
                         <div class='iteminfo-div mt5'>
                             <span class='ml5'>
                                 <img src='/img/icons/abs.png' class='item14-1' /> 
@@ -427,5 +416,4 @@
             </div>
         </div>
     <? endif; ?>
-    
 <? endif; ?>

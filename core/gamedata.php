@@ -2,8 +2,8 @@
 
 $game_items = [ // Предметы
     1 => [ // Others: food, wood and more...
-        1 => ['nm' => 'Мясо', 'hung' => 35, 'hp' => 10, 'chance' => 6, 'colvo' => 2, 'rare' => 1, 'img' => '/img/items/others/meat.png', 'type' => 'Пища'],
-        2 => ['nm' => 'Вода', 'thirst' => 10, 'hp' => 2, 'chance' => 3, 'colvo' => 5, 'rare' => 1, 'img' => '/img/items/others/water.png', 'type' => 'Пища'],
+        1 => ['nm' => 'Мясо', 'eff' => ['hung' => 35, 'hp' => 10], 'move' => 'eat', 'chance' => 6, 'colvo' => 2, 'rare' => 1, 'img' => '/img/items/others/meat.png', 'type' => 'Пища'],
+        2 => ['nm' => 'Вода', 'eff' => ['thirst' => 10, 'hp' => 2], 'move' => 'drink', 'chance' => 3, 'colvo' => 5, 'rare' => 1, 'img' => '/img/items/others/water.png', 'type' => 'Пища'],
         3 => ['nm' => 'Дрова', 'chance' => 2, 'colvo' => 5, 'rare' => 1, 'img' => '/img/items/others/wood.png', 'type' => 'Материал'],
         4 => ['nm' => 'Палка', 'chance' => 2, 'colvo' => 3, 'rare' => 1, 'img' => '/img/items/others/stick.png', 'type' => 'Материал'],
         5 => ['nm' => 'Камень', 'chance' => 4, 'colvo' => 4, 'rare' => 1, 'img' => '/img/items/others/rock.png', 'type' => 'Материал'],
@@ -11,28 +11,28 @@ $game_items = [ // Предметы
         7 => ['nm' => 'Веревка', 'chance' => 4, 'colvo' => 3, 'rare' => 1, 'img' => '/img/items/others/rope.png', 'type' => 'Материал'],
         8 => ['nm' => 'Крепкая веревка', 'rare' => 1, 'img' => '/img/items/others/dur_rope.png', 'type' => 'Материал'],
         9 => ['nm' => 'Стрела', 'rare' => 1, 'img' => '/img/items/others/arrow.png', 'type' => 'Боеприпас'],
-        10 => ['nm' => 'Крафт 2', 'chance' => 6, 'colvo' => 1, 'rare' => 2, 'craft_lvl' => 2, 'img' => '/img/items/others/craft_book2.png', 'type' => 'Книга'],
-        11 => ['nm' => 'Крафт 3', 'chance' => 15, 'colvo' => 1, 'rare' => 3, 'craft_lvl' => 3, 'img' => '/img/items/others/craft_book3.png', 'type' => 'Книга'],
-        12 => ['nm' => 'Крафт 4', 'chance' => 20, 'colvo' => 1, 'rare' => 4, 'craft_lvl' => 4, 'img' => '/img/items/others/craft_book4.png', 'type' => 'Книга'],
-        13 => ['nm' => 'Хлеб', 'hung' => 10, 'hp' => 3, 'chance' => 3, 'colvo' => 5, 'rare' => 1, 'img' => '/img/items/others/bread.png', 'type' => 'Пища'],
-        14 => ['nm' => 'Консервы', 'hung' => 20, 'hp' => 5, 'chance' => 4, 'colvo' => 3, 'rare' => 1, 'img' => '/img/items/others/canned.png', 'type' => 'Пища'],
-        15 => ['nm' => 'Газировка', 'thirst' => 25, 'hp' => 5, 'chance' => 4, 'colvo' => 3, 'rare' => 1, 'img' => '/img/items/others/soda.png', 'type' => 'Пища'],
+        10 => ['nm' => 'Крафт 2', 'move' => 'read', 'chance' => 6, 'colvo' => 1, 'rare' => 2, 'craft_lvl' => 2, 'img' => '/img/items/others/craft_book2.png', 'type' => 'Книга'],
+        11 => ['nm' => 'Крафт 3', 'move' => 'read', 'chance' => 15, 'colvo' => 1, 'rare' => 3, 'craft_lvl' => 3, 'img' => '/img/items/others/craft_book3.png', 'type' => 'Книга'],
+        12 => ['nm' => 'Крафт 4', 'move' => 'read', 'chance' => 20, 'colvo' => 1, 'rare' => 4, 'craft_lvl' => 4, 'img' => '/img/items/others/craft_book4.png', 'type' => 'Книга'],
+        13 => ['nm' => 'Хлеб', 'eff' => ['hung' => 10, 'hp' => 3], 'move' => 'eat', 'chance' => 3, 'colvo' => 5, 'rare' => 1, 'img' => '/img/items/others/bread.png', 'type' => 'Пища'],
+        14 => ['nm' => 'Консервы', 'eff' => ['hung' => 20, 'hp' => 5], 'move' => 'eat', 'chance' => 4, 'colvo' => 3, 'rare' => 1, 'img' => '/img/items/others/canned.png', 'type' => 'Пища'],
+        15 => ['nm' => 'Газировка', 'eff' => ['thirst' => 25, 'hp' => 5], 'move' => 'drink', 'chance' => 4, 'colvo' => 3, 'rare' => 1, 'img' => '/img/items/others/soda.png', 'type' => 'Пища'],
         16 => ['nm' => 'Обработанное дерево', 'rare' => 1, 'img' => '/img/items/others/treated_wood.png', 'type' => 'Материал']
     ],
     2 => [ // Helms
-        1 => ['nm' => 'Шапка из дерева', 'power' => 2, 'dmgabs' => 2, 'rare' => 1, 'img' => '/img/items/helms/wood-cap.png', 'class' => 'item-wood_cap', 'type' => 'Шлем'],
-        2 => ['nm' => 'Деревянный шлем', 'power' => 4, 'dmgabs' => 4, 'rare' => 1, 'img' => '/img/items/helms/wood-helm.png', 'class' => 'item-wood_helm', 'type' => 'Шлем']
+        1 => ['nm' => 'Шапка из дерева', 'move' => 'nadet', 'power' => 2, 'dmgabs' => 2, 'rare' => 1, 'img' => '/img/items/helms/wood-cap.png', 'class' => 'item-wood_cap', 'type' => 'Шлем'],
+        2 => ['nm' => 'Деревянный шлем', 'move' => 'nadet', 'power' => 4, 'dmgabs' => 4, 'rare' => 1, 'img' => '/img/items/helms/wood-helm.png', 'class' => 'item-wood_helm', 'type' => 'Шлем']
     ],
     3 => [ // Armors
-        1 => ['nm' => 'Накидка', 'power' => 2, 'dmgabs' => 2, 'rare' => 1, 'img' => '/img/items/arms/nakidka.png', 'class' => 'item-nakidka', 'type' => 'Броня'],
-        2 => ['nm' => 'Броня из дерева', 'power' => 4, 'dmgabs' => 4, 'rare' => 1, 'img' => '/img/items/arms/wood-arm.png', 'class' => 'item-wood_arm', 'type' => 'Броня']
+        1 => ['nm' => 'Накидка', 'move' => 'nadet', 'power' => 2, 'dmgabs' => 2, 'rare' => 1, 'img' => '/img/items/arms/nakidka.png', 'class' => 'item-nakidka', 'type' => 'Броня'],
+        2 => ['nm' => 'Броня из дерева', 'move' => 'nadet', 'power' => 4, 'dmgabs' => 4, 'rare' => 1, 'img' => '/img/items/arms/wood-arm.png', 'class' => 'item-wood_arm', 'type' => 'Броня']
     ],
     4 => [ // Weaps
-        1 => ['nm' => 'Нож', 'power' => 5, 'dmgmin' => 2, 'dmgmax' => 4, 'rare' => 1, 'img' => '/img/items/weaps/knife.png', 'class' => 'item-knife', 'type' => 'Оружиe'],
-        2 => ['nm' => 'Большой нож', 'power' => 10, 'dmgmin' => 4, 'dmgmax' => 8, 'rare' => 1, 'img' => '/img/items/weaps/big_knife.png', 'class' => 'item-big_knife', 'type' => 'Оружие'],
-        3 => ['nm' => 'Деревянный топор', 'power' => 14, 'dmgmin' => 8, 'dmgmax' => 12, 'rare' => 1, 'img' => '/img/items/weaps/axe.png', 'class' => 'item-axe', 'type' => 'Оружие'],
-        4 => ['nm' => 'Лук', 'ammu' => [['i' => 9, 't' => 1]], 'power' => 18, 'dmgmin' => 12, 'dmgmax' => 14, 'rare' => 1, 'img' => '/img/items/weaps/bow.png', 'class' => 'item-bow', 'type' => 'Оружие'],
-        5 => ['nm' => 'Арбалет', 'ammu' => [['i' => 9, 't' => 1]], 'power' => 24, 'dmgmin' => 14, 'dmgmax' => 18, 'rare' => 2, 'img' => '/img/items/weaps/rebalet.png', 'class' => 'item-rebalet', 'type' => 'Оружие']
+        1 => ['nm' => 'Нож', 'move' => 'nadet', 'power' => 5, 'dmgmin' => 2, 'dmgmax' => 4, 'rare' => 1, 'img' => '/img/items/weaps/knife.png', 'class' => 'item-knife', 'type' => 'Оружиe'],
+        2 => ['nm' => 'Большой нож', 'move' => 'nadet', 'power' => 10, 'dmgmin' => 4, 'dmgmax' => 8, 'rare' => 1, 'img' => '/img/items/weaps/big_knife.png', 'class' => 'item-big_knife', 'type' => 'Оружие'],
+        3 => ['nm' => 'Деревянный топор', 'move' => 'nadet', 'power' => 14, 'dmgmin' => 8, 'dmgmax' => 12, 'rare' => 1, 'img' => '/img/items/weaps/axe.png', 'class' => 'item-axe', 'type' => 'Оружие'],
+        4 => ['nm' => 'Лук', 'move' => 'nadet', 'ammu' => [['i' => 9, 't' => 1]], 'power' => 18, 'dmgmin' => 12, 'dmgmax' => 14, 'rare' => 1, 'img' => '/img/items/weaps/bow.png', 'class' => 'item-bow', 'type' => 'Оружие'],
+        5 => ['nm' => 'Арбалет', 'move' => 'nadet', 'ammu' => [['i' => 9, 't' => 1]], 'power' => 24, 'dmgmin' => 14, 'dmgmax' => 18, 'rare' => 2, 'img' => '/img/items/weaps/rebalet.png', 'class' => 'item-rebalet', 'type' => 'Оружие']
     ],
     5 => [ // Refuge items
         1 => ['nm' => 'Сундук', 'rare' => 2, 'img' => '/img/items/refuge/chest.png', 'type' => 'Убежище']
