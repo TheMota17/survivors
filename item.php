@@ -151,15 +151,16 @@
     require ''.$_SERVER['DOCUMENT_ROOT'].'/core/modules/menu.php';
 ?>
 
-<div class='flex j-c ai-c fl-di-co mt10'>
-    <?
-        $item = $Item->get_item_info( ($Item->get_view()) ? 'game' : 'ivent');
+<?
+    $item = $Item->get_item_info( ($Item->get_view()) ? 'game' : 'ivent');
 
-        if (! $Item->get_view()) {
-            $nadeto       = $Item->user_info('dopinfo', 'nadeto');
-            $nadeto_elems = [0, 0, 'helm', 'arm', 'weap'];
-        }
-    ?>
+    if (! $Item->get_view()) {
+        $nadeto       = $Item->user_info('dopinfo', 'nadeto');
+        $nadeto_elems = [0, 0, 'helm', 'arm', 'weap'];
+    }
+?>
+
+<div class='flex j-c ai-c fl-di-co mt10'>
     <div class='flex j-c'>
         Предмет
     </div>
@@ -241,6 +242,13 @@
                             </div>
                         <? endif; ?>
                     </div>
+                <? elseif ($item['type'] == 5) : ?>
+                    <div class='iteminfo-div mt5'>
+                        <span class='ml5'>
+                            <img src='/img/icons/info.png' />
+                            <?=$items_pred[ $item['type'] ][ $item['item'] ]?>
+                        </span>
+                    </div>
                 <? else : ?>
                     <div class='iteminfo-div flex j-sb mt5'>
                         <div class='ml5'>
@@ -262,7 +270,7 @@
                         <? endif; ?>
                     </div>
                 <? endif; ?>
-                <? if ($item[ 'type' ] !== 1 && !$Item->get_view()) : ?>
+                <? if ($item[ 'type' ] !== 1 && $item['type'] !== 5 && !$Item->get_view()) : ?>
                     <div class='iteminfo-div flex j-sb mt5'>
                         <div class='ml5'>
                             <img src='/img/icons/power.png' class='item14-1' /> Бонус к мощи: <?=$game_items[ $item['type'] ][ $item['item'] ][ 'power' ]?>
@@ -354,7 +362,7 @@
     <? endif; ?>
 <? endif; ?>
 
-<? if ($item['type'] !== 1 && !$Item->get_view()) : ?>
+<? if ($item['type'] !== 1 && $item['type'] !== 5 && !$Item->get_view()) : ?>
 
     <? if ($nadeto[ $nadeto_elems[$item['type']] ] > 0) : ?>
         <div class='flex j-c ai-c fl-di-co mt10'>

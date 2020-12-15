@@ -8,7 +8,7 @@
         Вам предстоит выживать с игроками которые будут всячески мешать в вашем пути. 
         Так сделайте это, скачайте Shadow Leg... Кхм Кхм "Survivors"
     </div>
-    <div class='auth-reg flex j-c ai-c fl-di-co pb10 mt5'>
+    <div class='auth-reg flex j-c ai-c fl-di-co pb10 mt10'>
         <div class='auth-reg-zag flex j-c ai-c bolder fnt12 mt5'>
             Начать путь
         </div>
