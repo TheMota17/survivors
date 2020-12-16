@@ -481,46 +481,63 @@
 
         public function craft() {
 
-            if ($this->item_craft && $this->type_craft) {
-                if ($this->crafts[ $this->id_craft ]['item'] == $this->item_craft && $this->crafts[ $this->id_craft ]['type'] == $this->type_craft) {
-                    if ($this->crafts[ $this->id_craft ]['craft_lvl'] <= $this->user['craft_lvl']) {
+            // Проверка соответсвия
+            if ($this->crafts[ $this->id_craft ]['item'] == $this->item_craft && $this->crafts[ $this->id_craft ]['type'] == $this->type_craft) {
+                if ($this->crafts[ $this->id_craft ]['craft_lvl'] <= $this->user['craft_lvl']) {
 
-                        $all_items   = count( $this->crafts[ $this->id_craft ]['craft_items'] );
-                        $all_exist   = 0;
-                        $items       = array();
-                        $items_colvo = array();
+                    // Проверка на соответсвие инструментов
+                    if ($this->crafts[ $this->id_craft ]['tools']) {
+                        $tools_colvo = count($this->crafts[ $this->id_craft ]['tools']);
+                        $tools_exist = 0;
+                        $refuge      = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
 
-                        // Проверка на соответсвие предметов
-                        foreach ($this->crafts[ $this->id_craft ]['craft_items'] as $ci) {
-                            $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `item` = ? AND `type` = ? AND `colvo` >= ? AND `user_id` = ?', array($ci['item'], $ci['type'], ($ci['colvo'] * $this->colvo_craft), $this->user['id']));
-                            if ($item) {
-                                array_push($items, $item);
-                                array_push($items_colvo, ($ci['colvo'] * $this->colvo_craft));
-                                $all_exist += 1;
-                            }
-                        }
-                        // Если общее кол-во нужных предметов совпадет с проверенными
-                        if ($all_items == $all_exist) {
-                            for($i = 0; $i < count( $items ); $i++) {
-                                // Убераем из инвентаря необходимые вещи для крафта
-                                $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(($items[$i]['colvo'] - $items_colvo[ $i ]), $items[$i]['item'], $items[$i]['type'], $this->user['id']));
-                            }
-                            // Добавляем создаваемый предмет в инвентарь
-                            $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array($this->item_craft, $this->type_craft, $this->user['id']));
-                            if ($item) {
-                                $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(($item['colvo'] + $this->colvo_craft), $this->item_craft, $this->type_craft, $this->user['id']));
-                            } else {
-                                $this->pdo->query('INSERT INTO ivent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array($this->item_craft, $this->type_craft, $this->colvo_craft, $this->user['id']));
-                            }
-
-                            $this->message = '<div class=\'flex j-c ai-c\'>Предмет успешно создан!</div>';
-                            $this->answer('mess', 0);
-                        } else {
-                            $this->message = '<div class=\'flex j-c ai-c\'>Недостаточно ресурсов!</div>';
-                            $this->answer('mess', 0);
+                        // Проверяем все слоты инструментов игрока
+                        foreach($this->crafts[ $this->id_craft ]['tools'] as $t) {
+                            if ($refuge['t1'] == $t['item'] || $refuge['t2'] == $t['item'] || $refuge['t3'] == $t['item'] || $refuge['t4'] == $t['item'])
+                                { $tools_exits += 1; }
                         }
 
+                        // Если у игрока есть все требуемые инструменты
+                        if ($tools_colvo !== $tools_exits) {
+                            $this->message = '<div class=\'flex j-c ai-c\'>Не хватает инструментов</div>';
+                            $this->answer('mess', 0);
+                        }
+                    } 
+
+                    $all_items   = count( $this->crafts[ $this->id_craft ]['craft_items'] );
+                    $all_exist   = 0;
+                    $items       = array();
+                    $items_colvo = array();
+                    // Проверка на соответсвие предметов для крафта
+                    foreach ($this->crafts[ $this->id_craft ]['craft_items'] as $ci) {
+                        $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `item` = ? AND `type` = ? AND `colvo` >= ? AND `user_id` = ?', array($ci['item'], $ci['type'], ($ci['colvo'] * $this->colvo_craft), $this->user['id']));
+                        if ($item) {
+                            array_push($items, $item);
+                            array_push($items_colvo, ($ci['colvo'] * $this->colvo_craft));
+                            $all_exist += 1;
+                        }
                     }
+                    // Если общее кол-во нужных предметов совпадет с проверенными
+                    if ($all_items == $all_exist) {
+                        for($i = 0; $i < count( $items ); $i++) {
+                            // Убераем из инвентаря необходимые вещи для крафта
+                            $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(($items[$i]['colvo'] - $items_colvo[ $i ]), $items[$i]['item'], $items[$i]['type'], $this->user['id']));
+                        }
+                        // Добавляем создаваемый предмет в инвентарь
+                        $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array($this->item_craft, $this->type_craft, $this->user['id']));
+                        if ($item) {
+                            $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(($item['colvo'] + $this->colvo_craft), $this->item_craft, $this->type_craft, $this->user['id']));
+                        } else {
+                            $this->pdo->query('INSERT INTO ivent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array($this->item_craft, $this->type_craft, $this->colvo_craft, $this->user['id']));
+                        }
+
+                        $this->message = '<div class=\'flex j-c ai-c\'>Предмет успешно создан!</div>';
+                        $this->answer('mess', 0);
+                    } else {
+                        $this->message = '<div class=\'flex j-c ai-c\'>Недостаточно ресурсов!</div>';
+                        $this->answer('mess', 0);
+                    }
+
                 }
             }
 

@@ -185,7 +185,7 @@
                     <div class='iteminfo-div mt5'>
                         <span class='ml5'>
                             <img src='/img/icons/info.png' />
-                            <? switch($game_items[ $Craft->get_type() ][ $Craft->get_item() ]['type']) :
+                            <? switch($game_items[ $item['type'] ][ $item['item'] ]['type']) :
                                 case 'Пища' : ?>
                                     Ну пищу едят как-бы)
                                 <? break; ?>

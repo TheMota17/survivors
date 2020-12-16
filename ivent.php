@@ -35,10 +35,10 @@
             $maxpage = intval($this->all / $limit);
 
             if ($this->all > 5) {
-                if ($this->page != 1) 
-                    $this->pervpage = '<a href=\'/ivent?page='.($this->page - 1).'\' class=\'ajax nav-btn\'> ◄ </a>';
+                if ($this->page != 1)
+                    $this->pervpage = '<a href=\'/ivent?type='.$this->type.'&page='.($this->page - 1).'\' class=\'ajax nav-btn\'> ◄ </a>';
                 if ($this->page >= 1 && $this->page <= $maxpage && $this->all !== 10)
-                    $this->nextpage = '<a href=\'/ivent?page='.($this->page + 1).'\' class=\'ajax nav-btn\'> ► </a>';
+                    $this->nextpage = '<a href=\'/ivent?type='.$this->type.'&page='.($this->page + 1).'\' class=\'ajax nav-btn\'> ► </a>';
             }
 
             $this->nadeto_items();

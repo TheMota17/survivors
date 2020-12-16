@@ -37,9 +37,9 @@ $game_items = [ // Предметы
         5 => ['nm' => 'Арбалет', 'move' => 'nadet', 'ammu' => [['i' => 9, 't' => 1]], 'power' => 24, 'dmgmin' => 14, 'dmgmax' => 18, 'rare' => 2, 'img' => '/img/items/weaps/rebalet.png', 'class' => 'item-rebalet', 'type' => 'Оружие']
     ],
     5 => [ // Refuge items
-        1 => ['nm' => 'Сундук', 'move' => 'place', 'rare' => 2, 'img' => '/img/items/refuge/chest.png', 'type' => 'Убежище'],
-        2 => ['nm' => 'Печка', 'move' => 'place', 'rare' => 2, 'img' => '/img/items/refuge/pech.png', 'type' => 'Убежище'],
-        3 => ['nm' => 'Верстак', 'move' => 'place', 'rare' => 2, 'img' => '/img/items/refuge/crafttable.png', 'type' => 'Убежище']
+        1 => ['nm' => 'Сундук', 'move' => 'place', 'rare' => 2, 'img' => '/img/items/refuge/chest.png', 'type' => 'Убежище', 'reftype' => 1],
+        2 => ['nm' => 'Печка', 'move' => 'place', 'rare' => 2, 'img' => '/img/items/refuge/pech.png', 'type' => 'Убежище', 'reftype' => 1],
+        3 => ['nm' => 'Верстак', 'move' => 'place', 'rare' => 2, 'img' => '/img/items/refuge/crafttable.png', 'type' => 'Убежище', 'reftype' => 1]
     ]
 ];
 
@@ -57,7 +57,7 @@ $items_pred = [ // Информация о предметах
 ];
 
 $game_crafts = [ // Рецепты крафтов
-    ['item' => 1, 'type' => 2, 'craft_lvl' => 1, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 20], ['item' => 4, 'type' => 1, 'colvo' => 5] ]],
+    ['item' => 1, 'type' => 2, 'craft_lvl' => 1, 'tools' => [['item' => 3, 'type' => 5]], 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 20], ['item' => 4, 'type' => 1, 'colvo' => 5] ]],
     ['item' => 2, 'type' => 2, 'craft_lvl' => 1, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 50], ['item' => 4, 'type' => 1, 'colvo' => 15] ]],
 
     ['item' => 1, 'type' => 3, 'craft_lvl' => 1, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 25], ['item' => 4, 'type' => 1, 'colvo' => 10], ['item' => 7, 'type' => 1, 'colvo' => 5] ]],

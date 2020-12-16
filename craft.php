@@ -250,6 +250,34 @@
                             <? endforeach; ?>
                         </div>
                     </div>
+                    <? if ($game_crafts[ $Craft->get_id() ]['tools']) : ?>
+                        <div class='flex j-c mt10'>
+                            <div class='wdth96 flex j-с'>
+                                <hr class='hr-style mr5'> Инструменты <hr class='hr-style ml5'>
+                            </div>
+                        </div>
+                        <div class='flex j-c mt5'>
+                            <div class='wdth96 flex j-s'>
+                                <? $all_tools  = count($game_crafts[ $Craft->get_id() ]['tools']); ?>
+                                <? $t_iter = 1; ?>
+                                <? foreach($game_crafts[ $Craft->get_id() ]['tools'] as $t) : ?>
+                                    <div class='flex j-c ai-c fl-di-co'>
+                                        <div class='<?=$game_rares[ $game_items[ $t['type'] ][ $t['item'] ]['rare'] ]['border']?>'>
+                                            <a href='/item?item=<?=$t['item']?>&type=<?=$t['type']?>&view=1' class='ajax'>
+                                                <img src='<?=$game_items[ $t['type'] ][ $t['item'] ]['img']?>' />
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <? if ($t_iter < $all_tools) : ?>
+                                        <div class='flex j-c ai-c ml5 mr5'>
+                                            +
+                                        </div>
+                                    <? endif; ?>
+                                    <? $t_iter += 1; ?>
+                                <? endforeach; ?>
+                            </div>
+                        </div>
+                    <? endif; ?>
                     <? if ($game_items[ $Craft->get_type() ][ $Craft->get_item() ]['ammu']) : ?>
                         <div class='flex j-c mt10'>
                             <div class='wdth96 flex j-с'>
@@ -338,7 +366,6 @@
                 
                 <? $iter += 1; ?>
             <? endforeach; ?>
-
         <? endif; ?>
 
     </div>
