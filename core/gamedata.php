@@ -36,7 +36,7 @@ $game_items = [ // Предметы
     ],
     5 => [ // Refuge items
         1 => ['nm' => 'Сундук', 'move' => 'place', 'rare' => 2, 'img' => '/img/items/refuge/chest.png', 'type' => 'Убежище'],
-        2 => ['nm' => 'Печь', 'move' => 'place', 'rare' => 2, 'img' => '/img/items/refuge/pech.png', 'type' => 'Убежище'],
+        2 => ['nm' => 'Печка', 'move' => 'place', 'rare' => 2, 'img' => '/img/items/refuge/pech.png', 'type' => 'Убежище'],
         3 => ['nm' => 'Верстак', 'move' => 'place', 'rare' => 2, 'img' => '/img/items/refuge/crafttable.png', 'type' => 'Убежище']
     ]
 ];
@@ -78,6 +78,10 @@ $game_crafts = [ // Рецепты крафтов
     ['item' => 3, 'type' => 4, 'craft_lvl' => 1, 'craft_items' => [ ['item' => 4, 'type' => 1, 'colvo' => 25], ['item' => 8, 'type' => 1, 'colvo' => 5], ['item' => 6, 'type' => 1, 'colvo' => 6] ]],
     ['item' => 4, 'type' => 4, 'craft_lvl' => 1, 'craft_items' => [ ['item' => 4, 'type' => 1, 'colvo' => 25], ['item' => 8, 'type' => 1, 'colvo' => 10] ]],
     ['item' => 5, 'type' => 4, 'craft_lvl' => 2, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 20], ['item' => 4, 'type' => 1, 'colvo' => 30], ['item' => 8, 'type' => 1, 'colvo' => 20] ]],
+
+    ['item' => 1, 'type' => 5, 'craft_lvl' => 2, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 20], ['item' => 4, 'type' => 1, 'colvo' => 30], ['item' => 8, 'type' => 1, 'colvo' => 20] ]],
+    ['item' => 2, 'type' => 5, 'craft_lvl' => 2, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 20], ['item' => 4, 'type' => 1, 'colvo' => 30], ['item' => 8, 'type' => 1, 'colvo' => 20] ]],
+    ['item' => 3, 'type' => 5, 'craft_lvl' => 2, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 20], ['item' => 4, 'type' => 1, 'colvo' => 30], ['item' => 8, 'type' => 1, 'colvo' => 20] ]],
 
     ['item' => 6, 'type' => 1, 'craft_lvl' => 1, 'craft_items' => [ ['item' => 5, 'type' => 1, 'colvo' => 3] ]],
     ['item' => 8, 'type' => 1, 'craft_lvl' => 1, 'craft_items' => [ ['item' => 7, 'type' => 1, 'colvo' => 5] ]],
