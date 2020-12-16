@@ -8,7 +8,7 @@
 	<div class='cost-message backgr2 flex j-c ai-c pt5 pb5'>
 		<div class='wdth90 flex j-c ai-c'>
 			<img src='/img/icons/mess.png' class='mr5'>
-			<span class='mess fnt13'>След. настройка будет доступна за игровую валюту</span>
+			<span class='mess'>След. настройка будет доступна за игровую валюту</span>
 		</div>
 	</div>
 </div>

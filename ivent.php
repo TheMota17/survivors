@@ -211,19 +211,19 @@
 		        </div>
 		        <div class='flex j-c fl-di-co'>
                     <? if ($nadeto[ 'helm' ] > 0) : ?>
-    		            <div class='item-name fnt13 ml5 flex j-s'>
+    		            <div class='item-name ml5 flex j-s'>
     		                <?=$game_items[ 2 ][ $nadeto['helm'] ][ 'nm' ]?>
     		            </div>
-    		            <div class='item-rare fnt13 ml5 flex j-s'>
+    		            <div class='item-rare ml5 flex j-s'>
     		                <span class='<?=$game_rares[ $game_items[ 2 ][ $nadeto['helm'] ][ 'rare' ] ]['class']?>'>
     		                	<?=$game_rares[ $game_items[ 2 ][ $nadeto['helm'] ][ 'rare' ] ]['word']?>
     		                </span>
     		            </div>
                     <? else : ?>
-                        <div class='bolder fnt13 ml5 flex j-s'>
+                        <div class='bolder ml5 flex j-s'>
                             Голова
                         </div>
-                        <div class='item-name fnt13 ml5 flex j-s'>
+                        <div class='item-name ml5 flex j-s'>
                             Ничего не надето
                         </div>
                     <? endif; ?>
@@ -256,19 +256,19 @@
 		        </div>
 		        <div class='flex j-c fl-di-co'>
                     <? if ($nadeto[ 'arm' ] > 0) : ?>
-    		            <div class='item-name fnt13 ml5 flex j-s'>
+    		            <div class='item-name ml5 flex j-s'>
     		            	<?=$game_items[ 3 ][ $nadeto['arm'] ][ 'nm' ]?>
     		            </div>
-    		            <div class='item-rare fnt13 ml5 flex j-s'>
+    		            <div class='item-rare ml5 flex j-s'>
     		                <span class='<?=$game_rares[ $game_items[ 3 ][ $nadeto['arm'] ][ 'rare' ] ]['class']?>'>
     		                	<?=$game_rares[ $game_items[ 3 ][ $nadeto['arm'] ][ 'rare' ] ]['word']?>
     		                </span>
     		            </div>
                     <? else : ?>
-                        <div class='bolder fnt13 ml5 flex j-s'>
+                        <div class='bolder ml5 flex j-s'>
                             Тело
                         </div>
-                        <div class='item-name fnt13 ml5 flex j-s'>
+                        <div class='item-name ml5 flex j-s'>
                             Ничего не надето
                         </div>
                     <? endif; ?>
@@ -301,19 +301,19 @@
 	            </div>
 	            <div class='flex j-c fl-di-co'>
                     <? if ($nadeto[ 'weap' ] > 0) : ?>
-    	                <div class='item-name fnt13 ml5 flex j-s'>
+    	                <div class='item-name ml5 flex j-s'>
     	                    <?=$game_items[ 4 ][ $nadeto['weap'] ][ 'nm' ]?>
     	                </div>
-    	                <div class='item-rare fnt13 ml5 flex j-s'>
+    	                <div class='item-rare ml5 flex j-s'>
     	                    <span class='<?=$game_rares[ $game_items[ 4 ][ $nadeto['weap'] ][ 'rare' ] ]['class']?>'>
     	                    	<?=$game_rares[ $game_items[ 4 ][ $nadeto['weap'] ][ 'rare' ] ]['word']?>
     	                    </span>
     	                </div>
                     <? else : ?>
-                        <div class='bolder fnt13 ml5 flex j-s'>
+                        <div class='bolder ml5 flex j-s'>
                             Оружие
                         </div>
-                        <div class='item-name fnt13 ml5 flex j-s'>
+                        <div class='item-name ml5 flex j-s'>
                             Ничего не надето
                         </div>
                     <? endif; ?>
@@ -370,7 +370,7 @@
                         <div class='ivent-item-name flex j-c'>
                             <?=$game_items[ $iv[ 'type' ] ][ $iv[ 'item' ] ][ 'nm' ]?>
                         </div>
-                        <div class='flex j-c fnt13'>
+                        <div class='flex j-c'>
                             Тип: <?=$game_items[ $iv[ 'type' ] ][ $iv[ 'item' ] ][ 'type' ]?>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-body {color: var(--main-3-color); background: var(--main-1-color); max-width: 500px; min-width: 240px; margin: 0 auto; font-family: Geneva, Verdana, Arial, sans-serif; font-size: 14px; overflow-x: hidden;}
+body {color: var(--main-3-color); background: var(--main-1-color); max-width: 500px; min-width: 240px; margin: 0 auto; font-family: Geneva, Verdana, Arial, sans-serif; font-size: 13px; overflow-x: hidden;}
 a {color: var(--main-3-color); cursor: pointer;}
 a:hover {text-decoration: underline;}
 button {cursor: pointer;}

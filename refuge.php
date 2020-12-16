@@ -28,7 +28,7 @@
             <div class='refuge-back flex j-c' style='background: url(<?=$game_locs[ 1 ][ 'img' ][ img($game_locs, $Sys->user_info('userinfo', 'user_weather')) ]?>) top/cover no-repeat; align-items: center;'>
                 <div class='refuge-no-mess backgr1 flex j-c ai-c'>
                     <img src='/img/icons/mess.png' class='mr5' /> 
-                    <span class='mess fnt13'>У вас нету убежища</span>
+                    <span class='mess'>У вас нету убежища</span>
                 </div>
             </div>
             <div class='wdth96 flex j-c mt5'>
@@ -93,7 +93,7 @@
                 </div>
                 <div class='refuge-hp-colvo backgr1 flex j-c ai-c pl5 pr5 pb5 pt5'>
                     <div class='flex j-c ai-c'>
-                        <img src='/img/icons/hp.png' class='item14-1 mr5' /> <span class='fnt13'><?=$refuge['hp']?>/<?=$game_refuges[ $refuge['lvl'] ]['maxhp']?> </span>
+                        <img src='/img/icons/hp.png' class='item14-1 mr5' /> <span><?=$refuge['hp']?>/<?=$game_refuges[ $refuge['lvl'] ]['maxhp']?></span>
                     </div>
                 </div>
                 <img src='<?=$game_refuges[ $refuge['lvl'] ]['img']?>' class='refuge-img block <?=$game_refuges[ $refuge['lvl'] ]['class']?>' />
@@ -128,7 +128,7 @@
                     </div>
                 <? else : ?>
                     <div class='wdth100 flex j-c ai-c'>
-                        <span class='mess fnt13'>Максимальный уровень</span>
+                        <span class='mess'>Максимальный уровень</span>
                     </div>
                 <? endif; ?>
             </div>
@@ -187,10 +187,10 @@
                                     <? endif; ?>
                                 </div>
                                 <div class='flex j-c fl-di-co'>
-                                    <div class='bolder fnt13 ml5 flex j-s'>
+                                    <div class='bolder ml5 flex j-s'>
                                         
                                     </div>
-                                    <div class='item-name fnt13 ml5 flex j-s'>
+                                    <div class='item-name ml5 flex j-s'>
                                         
                                     </div>
                                 </div>
@@ -235,10 +235,10 @@
                                     <? endif; ?>
                                 </div>
                                 <div class='flex j-c fl-di-co'>
-                                    <div class='bolder fnt13 ml5 flex j-s'>
+                                    <div class='bolder ml5 flex j-s'>
                                         
                                     </div>
-                                    <div class='item-name fnt13 ml5 flex j-s'>
+                                    <div class='item-name ml5 flex j-s'>
                                         
                                     </div>
                                 </div>

@@ -32,14 +32,14 @@
 <div class='flex j-c mt10'>
     <div class='game-meteoсharact backgr2 flex j-sa pt5 pb5'>
         <div class='meteocharact-time'>
-            <img class='mr5' src='/img/icons/time.png'><span id='time'><?=convertTime( $Sys->user_info('userinfo', 'user_time') )?></span>
+            <img class='item14-1 mr5' src='/img/icons/time.png'><span id='time'><?=convertTime( $Sys->user_info('userinfo', 'user_time') )?></span>
         </div>
         <div class='meteocharact-weather'>
-            <img class='mr5' src='<?=$game_weathers[ $Sys->user_info('userinfo', 'user_weather') ]['img']?>' id='weather_img'>
+            <img class='item14-1 mr5' src='<?=$game_weathers[ $Sys->user_info('userinfo', 'user_weather') ]['img']?>' id='weather_img'>
             <span id='weather_name'><?=$game_weathers[ $Sys->user_info('userinfo', 'user_weather') ]['nm']?></span>
         </div>
         <div class='meteocharact-temp'>
-            <img class='mr5' src='/img/icons/temp.png'><span id='temp'><?=$game_temps[$Sys->user_info('userinfo', 'user_temp')]['nm']?></span>°
+            <img class='item14-1 mr5' src='/img/icons/temp.png'><span id='temp'><?=$game_temps[$Sys->user_info('userinfo', 'user_temp')]['nm']?></span>°
         </div>
     </div>
 </div>
@@ -72,7 +72,7 @@
 
         <div class='flex j-c mt5'>
             <div class='loc-whatsrch'>
-                <div class='mb5'>Можно найти:</div>
+                <div class='mb5 '>Можно найти:</div>
                 <div class='game-avai-items flex' id='available_items'>
                     <? foreach($game_locs[ $Sys->user_info('userinfo', 'loc') ]['srch_items'] as $si) : ?>
                         <div class='item32-1 mr5 mb5 flex j-c ai-c'>

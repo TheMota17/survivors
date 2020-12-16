@@ -36,7 +36,7 @@
 <div class='pop-up none' id='pop-up'>
     <div class='pop-up-body'>
         <div class='pop-up-content'>
-            <div class='pop-up-maincontent txt-center fnt13' id='main-txt'></div>
+            <div class='pop-up-maincontent txt-center' id='main-txt'></div>
             <div class='flex j-c'>
             <button class='close-btn' id='close-btn'>Ок</button>
             </div>

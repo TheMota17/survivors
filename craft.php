@@ -105,10 +105,10 @@
                         <img src='<?=$game_items[ $Craft->get_type() ][ $Craft->get_item() ]['img']?>'>
                     </div>
                     <div class='flex j-s fl-di-co'>
-                        <div class='item-name fnt13 ml5 flex j-s'>
+                        <div class='item-name ml5 flex j-s'>
                             <?=$game_items[ $Craft->get_type() ][ $Craft->get_item() ]['nm']?>
                         </div>
-                        <div class='item-rare fnt13 ml5 flex j-s'>
+                        <div class='item-rare ml5 flex j-s'>
                             <span class='<?=$game_rares[ $game_items[ $Craft->get_type() ][ $Craft->get_item() ]['rare'] ]['class']?>'>
                                 <?=$game_rares[ $game_items[ $Craft->get_type() ][ $Craft->get_item() ]['rare'] ]['word']?>
                             </span>
@@ -345,10 +345,10 @@
                                     <img src='<?=$game_items[ $gc['type'] ][ $gc['item'] ]['img']?>'>
                                 </div>
                                 <div class='flex j-s fl-di-co'>
-                                    <div class='item-name fnt13 ml5 flex j-s'>
+                                    <div class='item-name ml5 flex j-s'>
                                         <?=$game_items[ $gc['type'] ][ $gc['item'] ]['nm']?>
                                     </div>
-                                    <div class='item-rare fnt13 ml5 flex j-s'>
+                                    <div class='item-rare ml5 flex j-s'>
                                         <span class='<?=$game_rares[ $game_items[ $gc['type'] ][ $gc['item'] ]['rare'] ]['class']?>'>
                                             <?=$game_rares[ $game_items[ $gc['type'] ][ $gc['item'] ]['rare'] ]['word']?>
                                         </span>

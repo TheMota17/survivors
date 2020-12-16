@@ -157,7 +157,7 @@
                     <?=$game_items[ $item['type'] ][ $item['item'] ][ 'nm' ]?>
                 </div>
                 <div class='iteminfo-rare ml5'>
-                    <span class='<?=$game_rares[ $game_items[ $item['type'] ][ $item['item'] ][ 'rare' ] ]['class']?> fnt13'>
+                    <span class='<?=$game_rares[ $game_items[ $item['type'] ][ $item['item'] ][ 'rare' ] ]['class']?>'>
                         <?=$game_rares[ $game_items[ $item['type'] ][ $item['item'] ][ 'rare' ] ]['word']?>
                     </span>
                 </div>
@@ -410,7 +410,7 @@
                             <?=$game_items[ $item['type'] ][ $nadeto[ $nadeto_elems[$item['type']] ] ][ 'nm' ]?>
                         </div>
                         <div class='iteminfo-rare ml5'>
-                            <span class='<?=$game_rares[ $game_items[ $item['type'] ][ $nadeto[$nadeto_elems[$item['type']]] ][ 'rare' ] ]['class']?> fnt13'>
+                            <span class='<?=$game_rares[ $game_items[ $item['type'] ][ $nadeto[$nadeto_elems[$item['type']]] ][ 'rare' ] ]['class']?>'>
                                 <?=$game_rares[ $game_items[ $item['type'] ][ $nadeto[$nadeto_elems[$item['type']]] ][ 'rare' ] ]['word']?>
                             </span>
                         </div>
