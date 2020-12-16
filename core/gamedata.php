@@ -17,7 +17,9 @@ $game_items = [ // Предметы
         13 => ['nm' => 'Хлеб', 'eff' => ['hung' => 10, 'hp' => 3], 'move' => 'eat', 'chance' => 3, 'colvo' => 5, 'rare' => 1, 'img' => '/img/items/others/bread.png', 'type' => 'Пища'],
         14 => ['nm' => 'Консервы', 'eff' => ['hung' => 20, 'hp' => 5], 'move' => 'eat', 'chance' => 4, 'colvo' => 3, 'rare' => 1, 'img' => '/img/items/others/canned.png', 'type' => 'Пища'],
         15 => ['nm' => 'Газировка', 'eff' => ['thirst' => 25, 'hp' => 5], 'move' => 'drink', 'chance' => 4, 'colvo' => 3, 'rare' => 1, 'img' => '/img/items/others/soda.png', 'type' => 'Пища'],
-        16 => ['nm' => 'Обработанное дерево', 'rare' => 1, 'img' => '/img/items/others/treated_wood.png', 'type' => 'Материал']
+        16 => ['nm' => 'Обработанное дерево', 'rare' => 1, 'img' => '/img/items/others/treated_wood.png', 'type' => 'Материал'],
+        17 => ['nm' => 'Металлолом', 'rare' => 1, 'img' => '/img/items/others/scrap.png', 'type' => 'Материал'],
+        18 => ['nm' => 'Металл', 'rare' => 1, 'img' => '/img/items/others/metall.png', 'type' => 'Материал'],
     ],
     2 => [ // Helms
         1 => ['nm' => 'Шапка из дерева', 'move' => 'nadet', 'power' => 2, 'dmgabs' => 2, 'rare' => 1, 'img' => '/img/items/helms/wood-cap.png', 'class' => 'item-wood_cap', 'type' => 'Шлем'],
@@ -43,21 +45,9 @@ $game_items = [ // Предметы
 
 $items_pred = [ // Информация о предметах
     1 => [ // Others: food, wood and more...
-        1 => 'Ну пищу едят как бы)',
-        2 => 'Ну пищу едят как бы)',
-        3 => 'Используется для крафта',
-        4 => 'Используется для крафта',
-        5 => 'Используется для крафта',
-        6 => 'Используется для крафта',
-        7 => 'Используется для крафта',
-        8 => 'Используется для крафта',
-        9 => 'Используется для оружия',
         10 => 'Повышает уровень крафта',
         11 => 'Повышает уровень крафта',
         12 => 'Повышает уровень крафта',
-        13 => 'Ну пищу едят как бы)',
-        14 => 'Ну пищу едят как бы)',
-        15 => 'Ну пищу едят как бы)'
     ],
     5 => [
         1 => 'Используется для хранения предметов',
@@ -79,9 +69,9 @@ $game_crafts = [ // Рецепты крафтов
     ['item' => 4, 'type' => 4, 'craft_lvl' => 1, 'craft_items' => [ ['item' => 4, 'type' => 1, 'colvo' => 25], ['item' => 8, 'type' => 1, 'colvo' => 10] ]],
     ['item' => 5, 'type' => 4, 'craft_lvl' => 2, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 20], ['item' => 4, 'type' => 1, 'colvo' => 30], ['item' => 8, 'type' => 1, 'colvo' => 20] ]],
 
-    ['item' => 1, 'type' => 5, 'craft_lvl' => 2, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 20], ['item' => 4, 'type' => 1, 'colvo' => 30], ['item' => 8, 'type' => 1, 'colvo' => 20] ]],
-    ['item' => 2, 'type' => 5, 'craft_lvl' => 2, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 20], ['item' => 4, 'type' => 1, 'colvo' => 30], ['item' => 8, 'type' => 1, 'colvo' => 20] ]],
-    ['item' => 3, 'type' => 5, 'craft_lvl' => 2, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 20], ['item' => 4, 'type' => 1, 'colvo' => 30], ['item' => 8, 'type' => 1, 'colvo' => 20] ]],
+    ['item' => 1, 'type' => 5, 'craft_lvl' => 2, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 30], ['item' => 4, 'type' => 1, 'colvo' => 10], ['item' => 8, 'type' => 1, 'colvo' => 5] ]],
+    ['item' => 2, 'type' => 5, 'craft_lvl' => 2, 'craft_items' => [ ['item' => 5, 'type' => 1, 'colvo' => 50] ]],
+    ['item' => 3, 'type' => 5, 'craft_lvl' => 2, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 20], ['item' => 4, 'type' => 1, 'colvo' => 30], ['item' => 8, 'type' => 1, 'colvo' => 20], ['item' => 18, 'type' => 1, 'colvo' => 5] ]],
 
     ['item' => 6, 'type' => 1, 'craft_lvl' => 1, 'craft_items' => [ ['item' => 5, 'type' => 1, 'colvo' => 3] ]],
     ['item' => 8, 'type' => 1, 'craft_lvl' => 1, 'craft_items' => [ ['item' => 7, 'type' => 1, 'colvo' => 5] ]],

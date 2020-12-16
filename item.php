@@ -181,6 +181,35 @@
                             <?=$items_pred[ $item['type'] ][ $item['item'] ]?>
                         </span>
                     </div>
+                <? else : ?>
+                    <div class='iteminfo-div mt5'>
+                        <span class='ml5'>
+                            <img src='/img/icons/info.png' />
+                            <? switch($game_items[ $Craft->get_type() ][ $Craft->get_item() ]['type']) :
+                                case 'Пища' : ?>
+                                    Ну пищу едят как-бы)
+                                <? break; ?>
+                                <? case 'Материал' : ?>
+                                    Используется для крафта
+                                <? break; ?>
+                                <? case 'Боеприпас' : ?>
+                                    Используется для оружия
+                                <? break; ?>
+                                <? case 'Книга' : ?>
+                                    Повышает уровень крафта
+                                <? break; ?>
+                                <? case 'Шлем' : ?>
+                                    Повышает защиту от крит. удара
+                                <? break; ?>
+                                <? case 'Броня' : ?>
+                                    Защищает от входящего урона
+                                <? break; ?>
+                                <? case 'Оружие' : ?>
+                                    Средство обороны
+                                <? break; ?>
+                            <? endswitch; ?>
+                        </span>
+                    </div>
                 <? endif; ?>
 
                 <? if ($game_items[ $item['type'] ][ $item['item'] ]['eff']) : ?>
