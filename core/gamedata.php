@@ -35,7 +35,9 @@ $game_items = [ // Предметы
         5 => ['nm' => 'Арбалет', 'move' => 'nadet', 'ammu' => [['i' => 9, 't' => 1]], 'power' => 24, 'dmgmin' => 14, 'dmgmax' => 18, 'rare' => 2, 'img' => '/img/items/weaps/rebalet.png', 'class' => 'item-rebalet', 'type' => 'Оружие']
     ],
     5 => [ // Refuge items
-        1 => ['nm' => 'Сундук', 'rare' => 2, 'img' => '/img/items/refuge/chest.png', 'type' => 'Убежище']
+        1 => ['nm' => 'Сундук', 'move' => 'place', 'rare' => 2, 'img' => '/img/items/refuge/chest.png', 'type' => 'Убежище'],
+        2 => ['nm' => 'Печь', 'move' => 'place', 'rare' => 2, 'img' => '/img/items/refuge/pech.png', 'type' => 'Убежище'],
+        3 => ['nm' => 'Верстак', 'move' => 'place', 'rare' => 2, 'img' => '/img/items/refuge/crafttable.png', 'type' => 'Убежище']
     ]
 ];
 
@@ -153,7 +155,7 @@ $game_rares = [ // Рамка, цвет, слово предметов
 ];
 
 $game_refuges = [ // Убежища
-    1 => ['nm' => 'Шалаш', 'img' => '/img/locs/refuges/hut.png', 'class' => 'hut', 'maxhp' => 50, 'dmgabs' => 1, 'slots' => [0, 0, 0, 0], 'prot' => [0, 0, 0, 0], 'pech' => false, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 20], ['item' => 4, 'type' => 1, 'colvo' => 20], ['item' => 7, 'type' => 1, 'colvo' => 5] ]],
-    2 => ['nm' => 'Дом из дерева', 'img' => '/img/locs/refuges/house1.png', 'class' => 'house1', 'maxhp' => 70, 'dmgabs' => 4, 'slots' => [1, 0, 0, 0], 'prot' => [0, 0, 0, 0], 'pech' => false, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 100], ['item' => 4, 'type' => 1, 'colvo' => 50], ['item' => 7, 'type' => 1, 'colvo' => 25] ]],
-    3 => ['nm' => 'Дом с дымоходом', 'img' => '/img/locs/refuges/house2.png', 'class' => 'house2', 'maxhp' => 100, 'dmgabs' => 7, 'slots' => [1, 1, 0, 0], 'prot' => [1, 0, 0, 0], 'pech' => true, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 250], ['item' => 4, 'type' => 1, 'colvo' => 100], ['item' => 8, 'type' => 1, 'colvo' => 20], ['item' => 5, 'type' => 1, 'colvo' => 20] ]],
+    1 => ['nm' => 'Шалаш', 'img' => '/img/locs/refuges/hut.png', 'class' => 'hut', 'maxhp' => 50, 'dmgabs' => 1, 'tools' => 0, 'prot' => 0, 'pech' => false, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 20], ['item' => 4, 'type' => 1, 'colvo' => 20], ['item' => 7, 'type' => 1, 'colvo' => 5] ]],
+    2 => ['nm' => 'Дом из дерева', 'img' => '/img/locs/refuges/house1.png', 'class' => 'house1', 'maxhp' => 70, 'dmgabs' => 4, 'tools' => 1, 'prot' => 0, 'pech' => false, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 100], ['item' => 4, 'type' => 1, 'colvo' => 50], ['item' => 7, 'type' => 1, 'colvo' => 25] ]],
+    3 => ['nm' => 'Дом с дымоходом', 'img' => '/img/locs/refuges/house2.png', 'class' => 'house2', 'maxhp' => 100, 'dmgabs' => 7, 'tools' => 2, 'prot' => 1, 'pech' => true, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 250], ['item' => 4, 'type' => 1, 'colvo' => 100], ['item' => 8, 'type' => 1, 'colvo' => 20], ['item' => 5, 'type' => 1, 'colvo' => 20] ]],
 ];

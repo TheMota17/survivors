@@ -37,6 +37,13 @@
 
         }
 
+        public function get_type_name() {
+            $types = [0 => 'Все', 1 => 'Разное', 2 => 'Шлемы', 3 => 'Броня', 4 => 'Оружие', 5 => 'Убежище'];
+
+            return $types[ $this->type ];
+        }
+
+
         public function set_type() {
 
             if (! $this->type || $this->type == 0) $this->type = 2; // Тип шлем
@@ -226,28 +233,15 @@
             </div>
 
         <? else: ?>
-
-            <div class='flex j-c mt5 mb5'>
-                <? if ($Craft->get_type() == 2) : ?>
-                    <div class='craft-nav-active flex j-c ai-c mr5 pl5 pr5'>Шлемы</div>
-                <? else : ?>
-                    <a href='/craft?type=2' class='ajax craft-nav-btns flex j-c ai-c mr5 pl5 pr5'>Шлемы</a>
-                <? endif; ?>
-                <? if ($Craft->get_type() == 3) : ?>
-                    <div class='craft-nav-active flex j-c ai-c mr5 pl5 pr5'>Броня</div>
-                <? else : ?>
-                    <a href='/craft?type=3' class='ajax craft-nav-btns flex j-c ai-c mr5 pl5 pr5'>Броня</a>
-                <? endif; ?>
-                <? if ($Craft->get_type() == 4) : ?>
-                    <div class='craft-nav-active flex j-c ai-c mr5 pl5 pr5'>Оружие</div>
-                <? else : ?>
-                    <a href='/craft?type=4' class='ajax craft-nav-btns flex j-c ai-c mr5 pl5 pr5'>Оружие</a>
-                <? endif; ?>
-                <? if ($Craft->get_type() == 1) : ?>
-                    <div class='craft-nav-active flex j-c ai-c mr5 pl5 pr5'>Прочее</div>
-                <? else : ?>
-                    <a href='/craft?type=1' class='ajax craft-nav-btns flex j-c ai-c mr5 pl5 pr5'>Прочее</a>
-                <? endif; ?>
+            <button class='sort-btn flex j-c ai-c ml5' id='craft_sort_btn'>
+                <img src='/img/icons/sort.png' class='mr5' id='craft_sort_btn' /><?=$Craft->get_type_name()?>
+            </button>
+            <div class='none craft-sort-menu flex j-s ai-c mt5' id='craft_sort_menu'>
+                <a href='/craft?type=2' class='ajax flex j-c ai-c wdth100 mr5'>Шлемы</a>
+                <a href='/craft?type=3' class='ajax flex j-c ai-c wdth100 mr5'>Броня</a>
+                <a href='/craft?type=4' class='ajax flex j-c ai-c wdth100 mr5'>Оружие</a>
+                <a href='/craft?type=5' class='ajax flex j-c ai-c wdth100 mr5'>Убежище</a>
+                <a href='/craft?type=1' class='ajax flex j-c ai-c wdth100'>Разное</a>
             </div>
 
             <? $iter = 0; ?>

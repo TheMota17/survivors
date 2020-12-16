@@ -340,19 +340,17 @@
 	<div class='flex j-c ai-c'>
 		<span class='mr5'>Инвентарь</span>
         <span id='cells_quant'><?=$Ivent->get_cells()?></span>/50 
-        <button class='ivent-sort-btn flex j-c ai-c ml5' id='ivent_sort_btn'>
+        <button class='sort-btn flex j-c ai-c ml5' id='ivent_sort_btn'>
             <img src='/img/icons/sort.png' class='mr5' id='ivent_sort_btn' /><?=$Ivent->get_type_name()?>
         </button>
-	    <div class='relative flex fnt13'>
-            <div class='none ivent-sort-menu flex j-c ai-c fl-di-co' id='ivent_sort_menu'>
-                <a href='/ivent?page=1' class='ajax flex j-c ai-c wdth100'>Все</a>
-                <a href='/ivent?type=2&page=1' class='ajax flex j-c ai-c wdth100 mt5'>Шлемы</a>
-                <a href='/ivent?type=3&page=1' class='ajax flex j-c ai-c wdth100 mt5'>Броня</a>
-                <a href='/ivent?type=4&page=1' class='ajax flex j-c ai-c wdth100 mt5'>Оружие</a>
-                <a href='/ivent?type=5&page=1' class='ajax flex j-c ai-c wdth100 mt5'>Убежище</a>
-                <a href='/ivent?type=1&page=1' class='ajax flex j-c ai-c wdth100 mt5'>Разное</a>
-            </div>
-        </div>
+    </div>
+    <div class='none sort-menu flex j-s ai-c mt5' id='ivent_sort_menu'>
+        <a href='/ivent?page=1' class='ajax flex j-c ai-c wdth100 mr5'>Все</a>
+        <a href='/ivent?type=2&page=1' class='ajax flex j-c ai-c wdth100 mr5'>Шлемы</a>
+        <a href='/ivent?type=3&page=1' class='ajax flex j-c ai-c wdth100 mr5'>Броня</a>
+        <a href='/ivent?type=4&page=1' class='ajax flex j-c ai-c wdth100 mr5'>Оружие</a>
+        <a href='/ivent?type=5&page=1' class='ajax flex j-c ai-c wdth100 mr5'>Убежище</a>
+        <a href='/ivent?type=1&page=1' class='ajax flex j-c ai-c wdth100'>Разное</a>
     </div>
 	<div class='ivent-items backgr2 flex j-c ai-c fl-di-co mt5' id='ivent_items'>
         <? $ivent = $Ivent->get_ivent(); ?>

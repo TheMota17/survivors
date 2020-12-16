@@ -321,13 +321,13 @@ let Game = {
                 data = {
                     from: window.location.pathname.split('/')[1],
                     token: PageLoad.token
-                }; this.gameAction(action, data);
+                };
                 break;
             case 'srchlut':
                 data = {
                     from: window.location.pathname.split('/')[1],
                     token: PageLoad.token
-                }; this.gameAction(action, data);
+                }; 
                 break;
             case 'eat':
                 let eat = new URLSearchParams(window.location.search);
@@ -335,7 +335,7 @@ let Game = {
                     id_item: eat.get('id'),
                     from: window.location.pathname.split('/')[1],
                     token: PageLoad.token
-                }; this.gameAction(action, data);
+                }; 
                 break;
             case 'drink':
                 let drink = new URLSearchParams(window.location.search);
@@ -343,14 +343,14 @@ let Game = {
                     id_item: drink.get('id'),
                     from: window.location.pathname.split('/')[1],
                     token: PageLoad.token
-                }; this.gameAction(action, data);
+                }; 
                 break;
             case 'sleep':
                 data = {
                     hours: Game.sleep_time,
                     from: window.location.pathname.split('/')[1],
                     token: PageLoad.token
-                }; this.gameAction(action, data);
+                }; 
                 break;
             case 'nadet':
                 let nadet = new URLSearchParams(window.location.search);
@@ -358,7 +358,7 @@ let Game = {
                     id_item: nadet.get('id'),
                     from: window.location.pathname.split('/')[1],
                     token: PageLoad.token
-                }; this.gameAction(action, data);
+                }; 
                 break;
             case 'craft':
                 let crafting = new URLSearchParams(window.location.search);
@@ -369,7 +369,7 @@ let Game = {
                     colvo: Craft.colvo,
                     from: window.location.pathname.split('/')[1],
                     token: PageLoad.token
-                }; this.gameAction(action, data);
+                }; 
                 break;
             case 'read':
                 let read = new URLSearchParams(window.location.search);
@@ -377,41 +377,26 @@ let Game = {
                     id_item: read.get('id'),
                     from: window.location.pathname.split('/')[1],
                     token: PageLoad.token
-                }; this.gameAction(action, data);
+                }; 
             break;
             case 'enterrefuge':
                 data = {
                     token: PageLoad.token
-                }; this.refugeAction(action, data);
+                };
             break;
             case 'uprefuge':
                 data = {
                     token: PageLoad.token
-                }; this.refugeAction(action, data);
+                };
             break;
         }
+        this.gameAction(action, data);
     },
 
     gameAction(action, data) {
         if (this.pageAvai()) {
             $.ajax({
                 url: 'core/ajax/gameactions.php?action=' + action,
-                data: data,
-                method: 'POST',
-                success: function(data) {
-                    if (data) {
-                        data = JSON.parse(data);
-                        Game.messHandler(data);
-                    }
-                }
-            });
-        }
-    },
-
-    refugeAction(action, data) {
-        if (this.pageAvai()) {
-            $.ajax({
-                url: 'core/ajax/refugeactions.php?action=' + action,
                 data: data,
                 method: 'POST',
                 success: function(data) {
@@ -532,6 +517,9 @@ class Controller {
                     break;
                 case 'ivent_sort_btn':
                     $('#ivent_sort_menu').toggleClass('none');
+                    break;
+                case 'craft_sort_btn':
+                    $('#craft_sort_menu').toggleClass('none');
                     break;
             }
         });

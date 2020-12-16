@@ -4,7 +4,7 @@
 
     Class GameActions {
 
-    	public function __construct($pdo, $items, $locs, $action_times, $crafts, $weathers, $temps, $user, $action)
+    	public function __construct($pdo, $items, $locs, $action_times, $crafts, $weathers, $temps, $refuges, $user, $action)
     	{
             
             $this->pdo = $pdo;
@@ -15,6 +15,7 @@
             $this->crafts       = $crafts;
             $this->weathers     = $weathers;
             $this->temps        = $temps;
+            $this->refuges      = $refuges;
 
     		$this->user    = $user;
             $this->action  = htmlspecialchars( $action );
@@ -552,6 +553,64 @@
 
         }
 
+        public function enter() {
+
+            $refuge = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
+
+            if ($refuge['lvl'] > 0) {
+                if ($this->user['in_refuge']) {
+                    $this->pdo->query('UPDATE users SET `in_refuge` = ? WHERE `id` = ?', array(0, $this->user['id']));
+                } else {
+                    $this->pdo->query('UPDATE users SET `in_refuge` = ? WHERE `id` = ?', array(1, $this->user['id']));
+                }
+
+                $this->answer('reload', 0);
+            }
+
+        }
+
+        public function up_refuge() {
+
+            $refuge = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
+
+            if ($this->refuges[ $refuge['lvl'] + 1 ]) {
+                $all_items = count($this->refuges[ $refuge['lvl'] + 1 ]['craft_items']);
+                $all_exist = 0;
+                $items       = array();
+                $items_colvo = array();
+
+                // Проверка на соответсвие предметов
+                foreach ($this->refuges[ $refuge['lvl'] + 1 ]['craft_items'] as $ci) {
+                    $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `item` = ? AND `type` = ? AND `colvo` >= ? AND `user_id` = ?', array($ci['item'], $ci['type'], $ci['colvo'], $this->user['id']));
+                    if ($item) {
+                        array_push($items, $item);
+                        array_push($items_colvo, $ci['colvo']);
+                        $all_exist += 1;
+                    }
+                }
+                // Если общее кол-во нужных предметов совпадет с проверенными
+                if ($all_items == $all_exist) {
+                    for($i = 0; $i < count( $items ); $i++) {
+                        // Убераем из инвентаря необходимые вещи для крафта
+                        $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(($items[$i]['colvo'] - $items_colvo[ $i ]), $items[$i]['item'], $items[$i]['type'], $this->user['id']));
+                    }
+                    
+                    // Повышаем уровень убежища
+                    $this->pdo->query('UPDATE refuge SET `lvl` = ?, `hp` = ? WHERE `user_id` = ?', array($refuge['lvl'] + 1, $this->refuges[ $refuge['lvl'] + 1 ]['maxhp'], $this->user['id']));
+
+                    $this->message = '<div class=\'flex j-c ai-c\'>Успешно!</div>';
+                    $this->answer('messreload', 0);
+                } else {
+                    $this->message = '<div class=\'flex j-c ai-c\'>Недостаточно ресурсов!</div>';
+                    $this->answer('mess', 0);
+                }
+            } else {
+                $this->message = '<div class=\'flex j-c ai-c\'>Максимальный уровень!</div>';
+                $this->answer('mess', 0);
+            }
+
+        }
+
         public function formation_answer() {
 
             if ($this->weather_mess) $this->message .= $this->weather_mess;
@@ -586,7 +645,7 @@
             $this->from = htmlspecialchars( trim( $_POST['from'] ) );
 
             switch( $this->action ) {
-                case 'srchloc':
+                case 'srchloc': 
                     $this->srch_loc();
                     break;
                 case 'srchlut':
@@ -619,6 +678,12 @@
                     $this->id_item_read = htmlspecialchars( trim( $_POST['id_item'] ) );
                     $this->read();
                 break;
+                case 'enterrefuge':
+                    $this->enter();
+                    break;
+                case 'uprefuge':
+                    $this->up_refuge();
+                    break;
             }
 
     	}
@@ -626,7 +691,7 @@
 
     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
         if ($_SESSION['token'] == $_POST['token'] || $_POST['token'] == 0 || $_SESSION['token'] == 0) {
-            $GameActions = new GameActions($pdo, $game_items, $game_locs, $game_action_times, $game_crafts, $game_weathers, $game_temps, $Sys->get_user(), $_GET['action']);
+            $GameActions = new GameActions($pdo, $game_items, $game_locs, $game_action_times, $game_crafts, $game_weathers, $game_temps, $game_refuges, $Sys->get_user(), $_GET['action']);
             $GameActions->main();
         }
     } else { exit('Hi!'); }

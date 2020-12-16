@@ -348,8 +348,17 @@
                 </div>
             </div>
         <? break; ?>
-
-    <? endswitch; ?> 
+        <? case 'place': ?>
+            <div class='flex j-c mt10'>
+                <div class='item-moves backgr2 flex j-c pt5 pb5'>
+                    <button class='move-btn moves-btn relative' id='place'>
+                        <span id='txt_place'>Поместить</span>
+                        <div class='game-btn-bar' id='bar_place'></div>
+                    </button>
+                </div>
+            </div>
+        <? break; ?>
+    <? endswitch; ?>
 <? endif; ?>
 
 <? if ($item['type'] !== 1 && $item['type'] !== 5 && !$Item->get_view()) : ?>
