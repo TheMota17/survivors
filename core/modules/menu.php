@@ -1,7 +1,7 @@
 <div class='menu-target none' id='menu-target'></div>
 <div class='menu relative none' id='menu'>
     <div class='menu-list pl5 pr5'>
-        <div class='menu-zag flex j-c mt10'>Игра</div>
+        <div class='menu-zag flex j-c fnt14 mt10'>Игра</div>
             <a href='/game' class='menu-a ajax flex j-c ai-c mt10'>
                 <span class='ml5'> <img src='/img/icons/menu/game.png' class='item14-1'> Игра</span>
             </a>
@@ -14,7 +14,7 @@
             <a href='/refuge' class='menu-a ajax flex j-c ai-c mt10'>
                 <span class='ml5'> <img src='/img/icons/menu/refuge.png' class='item14-1'> Убежище</span>
             </a>
-        <div class='menu-zag flex j-c mt10'>Online</div>
+        <div class='menu-zag flex j-c fnt14 mt10'>Online</div>
             <a href='/duel' class='menu-a ajax flex j-c ai-c mt10'>
                 <span class='ml5'> <img src='/img/icons/menu/duel.png' class='item14-1'> Дуэль</span>
             </a>
@@ -24,7 +24,7 @@
             <a href='/chat' class='menu-a ajax flex j-c ai-c mt10'>
                 <span class='ml5'> <img src='/img/icons/menu/chat.png' class='item14-1'> Общий чат</span>
             </a>
-        <div class='menu-zag flex j-c mt10'>Система</div>
+        <div class='menu-zag flex j-c fnt14 mt10'>Система</div>
             <? $user = $Sys->get_user(); ?>
             <? if ($user['adm'] > 0) : ?>
                 <a href='/panel' class='menu-a ajax flex j-c ai-c mt10'>
