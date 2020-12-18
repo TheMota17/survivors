@@ -351,14 +351,14 @@
         public function eat() {
 
             $item;
-            if ( $this->id_item_eat )
-                $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item_eat, $this->user['id']));
+            if ( $this->id_item )
+                $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
             else
                 $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `item` = ? AND `type` = ? AND `colvo` > 0 AND `user_id` = ?', array(13, 1, $this->user['id']));
 
             if ($item && $item['colvo'] > 0) {
 
-                if ($this->user['hung'] < $this->items[ 1 ][ $item['item'] ]['hung']) {
+                if ($this->user['hung'] < $this->items[ 1 ][ $item['item'] ]['eff']['hung']) {
                     $this->message = '<div class=\'flex j-c ai-c\'>Вы не голодны</div>';
                     $this->answer('mess', 0);
                 } else {
@@ -384,14 +384,14 @@
         public function drink() {
 
             $item;
-            if ( $this->id_item_drink ) 
-                $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item_drink, $this->user['id']));
+            if ( $this->id_item ) 
+                $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
             else
                 $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `item` = ? AND `type` = ? AND `colvo` > 0 AND `user_id` = ?', array(2, 1, $this->user['id']));
 
             if ($item && $item['colvo'] > 0) {
 
-                if ($this->user['thirst'] < $this->items[ 1 ][ $item['item'] ]['thirst']) {
+                if ($this->user['thirst'] < $this->items[ 1 ][ $item['item'] ]['eff']['thirst']) {
                     $this->message = '<div class=\'flex j-c ai-c\'>Вы не хотите пить</div>';
                     $this->answer('mess', 0);
                 } else if ($item['colvo'] <= 0) {
@@ -420,15 +420,15 @@
 
             if ($this->user['fatigue'] !== 0 && $this->user['fatigue'] >= 10) {
 
-                if ($this->hours_sleep > 0 && $this->hours_sleep < 24) {
+                if ($this->hours > 0 && $this->hours < 24) {
 
-                    $sleep_time = $this->hours_sleep * 10;
+                    $sleep_time = $this->hours * 10;
                     if (($this->user['fatigue'] - $sleep_time) < 0) $sleep_time = 0;
                     else $sleep_time = $this->user['fatigue'] - $sleep_time;
 
                     $this->pdo->query('UPDATE `users` SET `fatigue` = ? WHERE `id` = ?', array($sleep_time, $this->user['id']));
 
-                    $this->action_times('sleep', ($this->hours_sleep * 3600));
+                    $this->action_times('sleep', ($this->hours * 3600));
 
                     $this->message = '<div class=\'flex j-s ai-c\'>- Вы проснулись</div>';
                     if ($this->formation_answer()) $this->answer('messreload', 0);
@@ -443,9 +443,9 @@
 
         public function nadet() {
             
-            if ($this->id_item_nadet) {
+            if ($this->id_item) {
                 // Надеваемый предмет из инвентаря
-                $ivent_item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item_nadet, $this->user['id']));
+                $ivent_item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
                 // Все надетые предметы игрока
                 $nadeto_items = $this->pdo->fetch('SELECT * FROM `nadeto` WHERE `user_id` = ?', array($this->user['id']));
 
@@ -482,17 +482,17 @@
         public function craft() {
 
             // Проверка соответсвия
-            if ($this->crafts[ $this->id_craft ]['item'] == $this->item_craft && $this->crafts[ $this->id_craft ]['type'] == $this->type_craft) {
-                if ($this->crafts[ $this->id_craft ]['craft_lvl'] <= $this->user['craft_lvl']) {
+            if ($this->crafts[ $this->id ]['item'] == $this->item && $this->crafts[ $this->id ]['type'] == $this->type) {
+                if ($this->crafts[ $this->id ]['craft_lvl'] <= $this->user['craft_lvl']) {
 
                     // Проверка на соответсвие инструментов
-                    if ($this->crafts[ $this->id_craft ]['tools']) {
-                        $tools_colvo = count($this->crafts[ $this->id_craft ]['tools']);
+                    if ($this->crafts[ $this->id ]['tools']) {
+                        $tools_colvo = count($this->crafts[ $this->id ]['tools']);
                         $tools_exist = 0;
                         $refuge      = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
 
                         // Проверяем все слоты инструментов игрока
-                        foreach($this->crafts[ $this->id_craft ]['tools'] as $t) {
+                        foreach($this->crafts[ $this->id ]['tools'] as $t) {
                             if ($refuge['t1'] == $t['item'] || $refuge['t2'] == $t['item'] || $refuge['t3'] == $t['item'] || $refuge['t4'] == $t['item'])
                                 { $tools_exits += 1; }
                         }
@@ -504,16 +504,16 @@
                         }
                     } 
 
-                    $all_items   = count( $this->crafts[ $this->id_craft ]['craft_items'] );
+                    $all_items   = count( $this->crafts[ $this->id ]['craft_items'] );
                     $all_exist   = 0;
                     $items       = array();
                     $items_colvo = array();
                     // Проверка на соответсвие предметов для крафта
-                    foreach ($this->crafts[ $this->id_craft ]['craft_items'] as $ci) {
-                        $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `item` = ? AND `type` = ? AND `colvo` >= ? AND `user_id` = ?', array($ci['item'], $ci['type'], ($ci['colvo'] * $this->colvo_craft), $this->user['id']));
+                    foreach ($this->crafts[ $this->id ]['craft_items'] as $ci) {
+                        $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `item` = ? AND `type` = ? AND `colvo` >= ? AND `user_id` = ?', array($ci['item'], $ci['type'], ($ci['colvo'] * $this->colvo), $this->user['id']));
                         if ($item) {
                             array_push($items, $item);
-                            array_push($items_colvo, ($ci['colvo'] * $this->colvo_craft));
+                            array_push($items_colvo, ($ci['colvo'] * $this->colvo));
                             $all_exist += 1;
                         }
                     }
@@ -524,11 +524,11 @@
                             $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(($items[$i]['colvo'] - $items_colvo[ $i ]), $items[$i]['item'], $items[$i]['type'], $this->user['id']));
                         }
                         // Добавляем создаваемый предмет в инвентарь
-                        $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array($this->item_craft, $this->type_craft, $this->user['id']));
+                        $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array($this->item, $this->type, $this->user['id']));
                         if ($item) {
-                            $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(($item['colvo'] + $this->colvo_craft), $this->item_craft, $this->type_craft, $this->user['id']));
+                            $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(($item['colvo'] + $this->colvo), $this->item, $this->type, $this->user['id']));
                         } else {
-                            $this->pdo->query('INSERT INTO ivent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array($this->item_craft, $this->type_craft, $this->colvo_craft, $this->user['id']));
+                            $this->pdo->query('INSERT INTO ivent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array($this->item, $this->type, $this->colvo, $this->user['id']));
                         }
 
                         $this->message = '<div class=\'flex j-c ai-c\'>Предмет успешно создан!</div>';
@@ -545,9 +545,9 @@
 
         public function read() {
 
-            if ($this->id_item_read) {
+            if ($this->id_item) {
 
-                $item_ivent = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item_read, $this->user['id']));
+                $item_ivent = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
                 if ($item_ivent) {
                     $item = $this->items[ $item_ivent['type'] ][ $item_ivent['item'] ];
                     if ($item['craft_lvl'] < $this->user['craft_lvl']) {
@@ -628,6 +628,69 @@
 
         }
 
+        public function place() {
+
+            // Если слот выбран, и слот больше нуля, и если слоты не больше 4, и если ID предмета выбран
+            if ($this->slot && $this->slot > 0 && $this->slot < 5 && $this->id_item) {
+                // Поиск помещаемого в слот предмета в инвентаре
+                $ivent_item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
+                if ($ivent_item) {
+                    // Ищем предмет в дате игры
+                    $item   = $this->items[ $ivent_item['type'] ][ $ivent_item['item'] ];
+                    // Вся информация об убежище игрока 
+                    $refuge = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
+                    $sql    = 0;
+
+                    // Тип надеваемого предмета, Инструмент или Защитное оружие
+                    switch($item['reftype']) {
+                        case 1:
+                            if ($refuge['lvl'] > 0) {
+                                // Если предмет из слота не равняется помещаемому, и если он не занят другим предметом и если помещаемый предмет уже не установен
+                                if ($refuge['t'.$this->slot] !== $this->id_item && $refuge['t'.$this->slot] == 0) {
+                                    if (
+                                        $refuge['t1'] !== $ivent_item['item'] &&
+                                        $refuge['t2'] !== $ivent_item['item'] &&
+                                        $refuge['t3'] !== $ivent_item['item'] &&
+                                        $refuge['t4'] !== $ivent_item['item']
+                                    ) {
+                                        $sql = "UPDATE refuge SET `t".$this->slot."` = ? WHERE `user_id` = ?";       
+                                    }
+                                } 
+                            }
+                        break;
+                        case 2:
+                            if ($refuge['lvl'] > 2) {
+                                // Если предмет из слота не равняется помещаемому, и если он не занят другим предметом
+                                if ($refuge['p'.$this->slot] !== $this->id_item && $refuge['p'.$this->slot] == 0) {
+                                    if (
+                                        $refuge['p1'] !== $ivent_item['item'] &&
+                                        $refuge['p2'] !== $ivent_item['item'] &&
+                                        $refuge['p3'] !== $ivent_item['item'] &&
+                                        $refuge['p4'] !== $ivent_item['item']
+                                    ) {
+                                        $sql = "UPDATE refuge SET `p".$this->slot."` = ? WHERE `user_id` = ?";
+                                    }
+                                }
+                            }
+                        break;
+                    }
+
+                    // Помещаем предмет в слот
+                    $this->pdo->query($sql, array($ivent_item['item'], $this->user['id']));
+                    // Минусуем предмет из инвентаря
+                    $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `id` = ? AND `user_id` = ?', array(($ivent_item['colvo'] - 1), $this->id_item, $this->user['id']));
+
+                    if ($ivent_item['colvo'] == 1) {
+                        $this->answer('page', '/ivent');
+                    } else $this->answer('reload', 0);
+                }               
+            } else {
+                $this->message = '<div class=\'flex j-c ai-c\'>Выберите слот!</div>';
+                $this->answer('mess', 0);
+            }
+
+        }
+
         public function formation_answer() {
 
             if ($this->weather_mess) $this->message .= $this->weather_mess;
@@ -669,30 +732,30 @@
                     $this->srch_lut();
                 break;
                 case 'eat':
-                    $this->id_item_eat = htmlspecialchars( intval( $_POST['id_item'] ) );
+                    $this->id_item = htmlspecialchars( intval( $_POST['id_item'] ) );
                     $this->eat();
                     break;
                 case 'drink':
-                    $this->id_item_drink = htmlspecialchars( intval( $_POST['id_item'] ) );
+                    $this->id_item = htmlspecialchars( intval( $_POST['id_item'] ) );
                     $this->drink();
                     break;
                 case 'sleep':
-                    $this->hours_sleep = htmlspecialchars( intval( $_POST['hours'] ) );
+                    $this->hours = htmlspecialchars( intval( $_POST['hours'] ) );
                     $this->sleep();
                     break;
                 case 'nadet':
-                    $this->id_item_nadet = htmlspecialchars( trim( $_POST['id_item'] ) );
+                    $this->id_item = htmlspecialchars( intval( $_POST['id_item'] ) );
                     $this->nadet();
                     break;
                 case 'craft':
-                    $this->id_craft    = htmlspecialchars( intval( $_POST['id'] ) );
-                    $this->item_craft  = htmlspecialchars( intval( $_POST['item'] ) );
-                    $this->type_craft  = htmlspecialchars( intval( $_POST['type'] ) );
-                    $this->colvo_craft = htmlspecialchars( intval( $_POST['colvo'] ) );
+                    $this->id    = htmlspecialchars( intval( $_POST['id'] ) );
+                    $this->item  = htmlspecialchars( intval( $_POST['item'] ) );
+                    $this->type  = htmlspecialchars( intval( $_POST['type'] ) );
+                    $this->colvo = htmlspecialchars( intval( $_POST['colvo'] ) );
                     $this->craft();
                     break;
                 case 'read':
-                    $this->id_item_read = htmlspecialchars( trim( $_POST['id_item'] ) );
+                    $this->id_item = htmlspecialchars( intval( $_POST['id_item'] ) );
                     $this->read();
                 break;
                 case 'enterrefuge':
@@ -700,6 +763,11 @@
                     break;
                 case 'uprefuge':
                     $this->up_refuge();
+                    break;
+                case 'place':
+                    $this->slot    = htmlspecialchars( intval( $_POST['slot'] ) );
+                    $this->id_item = htmlspecialchars( intval( $_POST['id_item'] ) );
+                    $this->place();
                     break;
             }
 

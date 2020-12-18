@@ -177,14 +177,14 @@
                 <? if ($items_pred[ $item['type'] ][ $item['item'] ]) : ?>
                     <div class='iteminfo-div mt5'>
                         <span class='ml5'>
-                            <img src='/img/icons/info.png' />
+                            <img src='/img/icons/info.png' class='item14-1' />
                             <?=$items_pred[ $item['type'] ][ $item['item'] ]?>
                         </span>
                     </div>
                 <? else : ?>
                     <div class='iteminfo-div mt5'>
                         <span class='ml5'>
-                            <img src='/img/icons/info.png' />
+                            <img src='/img/icons/info.png' class='item14-1' />
                             <? switch($game_items[ $item['type'] ][ $item['item'] ]['type']) :
                                 case 'Пища' : ?>
                                     Ну пищу едят как-бы)
@@ -218,7 +218,7 @@
                             case 'hung': ?>
                                 <div class='iteminfo-div mt5'>
                                     <span class='ml5'>
-                                        <img src='/img/icons/hung.png' />
+                                        <img src='/img/icons/hung.png' class='item14-1' />
                                         Голод: -<?=$eff?>
                                     </span>
                                 </div>
@@ -226,7 +226,7 @@
                             <? case 'thirst': ?>
                                 <div class='iteminfo-div mt5'>
                                     <span class='ml5'>
-                                        <img src='/img/icons/thirst.png' />
+                                        <img src='/img/icons/thirst.png' class='item14-1' />
                                         Жажда: -<?=$eff?>
                                     </span>
                                 </div>
@@ -234,7 +234,7 @@
                             <? case 'hp': ?>
                                 <div class='iteminfo-div mt5'>
                                     <span class='ml5'>
-                                        <img src='/img/icons/hp.png' />
+                                        <img src='/img/icons/hp.png' class='item14-1' />
                                         Здоровье: +<?=$eff?>
                                     </span>
                                 </div>
@@ -379,13 +379,36 @@
         <? break; ?>
         <? case 'place': ?>
             <div class='flex j-c mt10'>
-                <div class='item-moves backgr2 flex j-c pt5 pb5'>
+                <div class='item-moves backgr2 flex j-c fl-di-co ai-c pt5 pb5'>
+                    <div class='wdth96 flex j-c'>
+                        <hr class='hr-style mr5'> Слоты <hr class='hr-style ml5'>
+                    </div>
+                    <div class='flex j-c'>
+                        <form class='item-slots-form flex j-c ai-c mt5 mb10' for='slot1' id='form'>
+                            <label class='item-slot mr10 fl1'>
+                                <input type='radio' class='item-slot-radio' name='slot' id='slot1' value='1'>
+                                <label class='wdth100 flex j-c ai-c mr5' for='slot1'>01</label>
+                            </label>
+                            <label class='item-slot mr10 fl1' for='slot2'>
+                                <input type='radio' class='item-slot-radio' name='slot' id='slot2' value='2'>
+                                <label class='wdth100 flex j-c ai-c mr5' for='slot2'>02</label>
+                            </label>
+                            <label class='item-slot mr10 fl1' for='slot3'>
+                                <input type='radio' class='item-slot-radio' name='slot' id='slot3' value='3'>
+                                <label class='wdth100 flex j-c ai-c mr5' for='slot3'>03</label>
+                            </label>
+                            <label class='item-slot fl1' for='slot4'>
+                                <input type='radio' class='item-slot-radio' name='slot' id='slot4' value='4'>
+                                <label class='wdth100 flex j-c ai-c' for='slot4'>04</label>
+                            </label>
+                        </form>
+                    </div>
                     <button class='move-btn moves-btn relative' id='place'>
                         <span id='txt_place'>Поместить</span>
                         <div class='game-btn-bar' id='bar_place'></div>
                     </button>
                 </div>
-            </div>
+            </div>            
         <? break; ?>
     <? endswitch; ?>
 <? endif; ?>

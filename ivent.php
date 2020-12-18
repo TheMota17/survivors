@@ -139,17 +139,17 @@
 		<div class='user-info ml10'>
 			<div class='user-name flex j-c ai-c'>
 				<span class='user-name' id='user_name'><?=$Sys->user_info('userinfo', 'login')?></span>
-                <img src='/img/icons/hp.png' class='ml5 item14-1' /> <?=$Sys->user_info('userinfo', 'live')?>
+                <img src='/img/icons/hp.png' class='item14-1 ml5' /> <?=$Sys->user_info('userinfo', 'live')?>
 			</div>
 
 			<div class='user-abs flex j-s ai-c mt5'>
-				<img src='/img/icons/abs.png' class='ml5 mr5' />
+				<img src='/img/icons/abs.png' class='item14-1 ml5 mr5' />
 				<span id='user_abs'>
 					<?=( $game_items[ 2 ][ $nadeto['helm'] ]['dmgabs'] + $game_items[ 3 ][ $nadeto['arm'] ]['dmgabs'] )?>
 				</span>
 			</div>
 			<div class='user-dmg flex j-s ai-c mt5'>
-				<img src='/img/icons/dmg.png' class='ml5 mr5' />
+				<img src='/img/icons/dmg.png' class='item14-1 ml5 mr5' />
                 <? if ($nadeto[ 'weap' ] > 0) : ?>
     				<span id='user_dmg_min'>
     					<?=$game_items[ 4 ][ $nadeto['weap'] ]['dmgmin']?>
@@ -163,26 +163,26 @@
                 <? endif; ?>
 			</div>
 			<div class='user-power flex j-s ai-c mt5'>
-				<img src='/img/icons/power.png' class='ml5 mr5' />
+				<img src='/img/icons/power.png' class='item14-1 ml5 mr5' />
 				<span id='user_power'>
 				<?=( $game_items[ 2 ][ $nadeto['helm'] ]['power'] + $game_items[ 3 ][ $nadeto['arm'] ]['power'] + $game_items[ 4 ][ $nadeto['weap'] ]['power'] )?>
 				</span>
 			</div>
 
 			<div class='user-hp-info flex j-c ai-c mt5'>
-				<img src='/img/icons/hung.png' class='mr5' />
+				<img src='/img/icons/hung.png' class='item14-1 mr5' />
                 <div class='ivent-hung-bar'>
                     <div class='hung-bar' id='hung_bar' style='width: <?=$Sys->user_info('userinfo', 'hung')?>%'></div>
                 </div>
 			</div>
 			<div class='user-hung-info flex j-c ai-c mt5'>
-				<img src='/img/icons/thirst.png' class='mr5' />
+				<img src='/img/icons/thirst.png' class='item14-1 mr5' />
                 <div class='ivent-thirst-bar'>
                     <div class='thirst-bar' id='thirst_bar' style='width: <?=$Sys->user_info('userinfo', 'thirst')?>%'></div>
                 </div>
 			</div>
 			<div class='user-fatigue-info flex j-c ai-c mt5'>
-				<img src='/img/icons/sleep.png' class='mr5' />
+				<img src='/img/icons/sleep.png' class='item14-1 mr5' />
 				<div class='ivent-fatigue-bar'>
 					<div class='fatigue-bar' id='fatigue_bar' style='width: <?=$Sys->user_info('userinfo', 'fatigue')?>%'></div>
 				</div>

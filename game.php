@@ -70,20 +70,26 @@
             <? endif; ?>
         </div>
 
-        <div class='flex j-c mt5'>
-            <div class='loc-whatsrch'>
-                <div class='mb5 '>Можно найти:</div>
-                <div class='game-avai-items flex' id='available_items'>
-                    <? foreach($game_locs[ $Sys->user_info('userinfo', 'loc') ]['srch_items'] as $si) : ?>
-                        <div class='item32-1 mr5 mb5 flex j-c ai-c'>
-                            <a href='/item?item=<?=$si['i']?>&type=<?=$si['t']?>&view=1' class='ajax'>
-                                <img src='<?=$game_items[ $si['t'] ][ $si['i'] ]['img']?>'/>
-                            </a>
-                        </div>
-                    <? endforeach; ?>
+        <? if (! $Sys->user_info('userinfo', 'in_refuge')) : ?>
+            <div class='flex j-c mt5'>
+                <div class='loc-whatsrch'>
+                    <div class='mb5 '>Можно найти:</div>
+                    <div class='game-avai-items flex' id='available_items'>
+                        <? foreach($game_locs[ $Sys->user_info('userinfo', 'loc') ]['srch_items'] as $si) : ?>
+                            <div class='item32-1 mr5 mb5 flex j-c ai-c'>
+                                <a href='/item?item=<?=$si['i']?>&type=<?=$si['t']?>&view=1' class='ajax'>
+                                    <img src='<?=$game_items[ $si['t'] ][ $si['i'] ]['img']?>'/>
+                                </a>
+                            </div>
+                        <? endforeach; ?>
+                    </div>
                 </div>
             </div>
-        </div>
+        <? else : ?>
+            <div class='flex j-c ai-c mt5 mb5'>
+                В убежище нельзя вести поиски
+            </div>
+        <? endif; ?>
 
         <div class='flex j-c ai-c fl-di-co mt5'>
             <button class='move-btn srchloc-btn relative flex j-s ai-c' id='srchloc'>

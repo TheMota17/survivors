@@ -282,7 +282,7 @@ let Costumize = {
 let Game = {
     construct() {
         this.workpath      = ['/game', '/item', '/craft', '/refuge'];
-        this.actions       = ['srchloc', 'srchlut', 'eat', 'drink', 'sleep', 'nadet', 'craft', 'read', 'enterrefuge', 'uprefuge'];
+        this.actions       = ['srchloc', 'srchlut', 'eat', 'drink', 'sleep', 'nadet', 'craft', 'read', 'enterrefuge', 'uprefuge', 'place'];
         this.interval_time = 1000;
         this.sleep_time    = 1;
     },
@@ -298,7 +298,7 @@ let Game = {
         } else if (data['page']) {
             PageLoad.loadPage(data['page']);
         } else if (data['reload']) {
-           PageLoad.loadPage(window.location.pathname + window.location.search);
+            PageLoad.loadPage(window.location.pathname + window.location.search);
         }  
     },
 
@@ -380,15 +380,19 @@ let Game = {
                 }; 
             break;
             case 'enterrefuge':
-                data = {
-                    token: PageLoad.token
-                };
-            break;
             case 'uprefuge':
                 data = {
                     token: PageLoad.token
                 };
             break;
+            case 'place':
+                let place = new URLSearchParams(window.location.search);
+                data = {
+                    slot: Item.slot,
+                    id_item: place.get('id'),
+                    token: PageLoad.token
+                };
+                break;
         }
         this.gameAction(action, data);
     },
@@ -426,29 +430,16 @@ let Game = {
     }
 };
 
+let Item = {
+    construct() {
+        this.workpath = '/item';
+        this.slot     = 0;
+    },
+};
+
 let Craft = {
     construct() {
-        this.workpath = '/craft';
         this.colvo    = 1;
-    },
-
-    messHandler(data) {
-        if (data['dom_data']) {
-            this.view(data);
-        } else if (data['popup'] && data['reload']) {
-            Popup.activate(data['message']);
-            PageLoad.loadPage(window.location.pathname + window.location.search);
-        } else if (data['popup']) {
-            Popup.activate(data['message']);
-        } else if (data['page']) {
-            PageLoad.loadPage(data['page']);
-        } else if (data['reload']) {
-           PageLoad.loadPage(window.location.pathname + window.location.search);
-        }  
-    },
-
-    pageAvai() {
-        if (this.workpath === window.location.pathname) return true;
     },
 
     view(move, data) {
@@ -463,11 +454,11 @@ let Craft = {
 class Controller {
     constructor() {
         BarsMove.construct();
-
         PageLoad.construct();
         Auth.construct();
         Costumize.construct();
         Game.construct();
+        Item.construct();
         Craft.construct();
     }
 
@@ -533,6 +524,12 @@ class Controller {
                 case 'colvo_range_input':
                     Craft.colvo = $('#' + e.target.id).val();
                     Craft.view('colvo');
+                break;
+                case 'slot1':
+                case 'slot2':
+                case 'slot3':
+                case 'slot4':
+                    Item.slot = $('#' + e.target.id).val();
                 break;
             }
         });
