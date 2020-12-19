@@ -278,7 +278,14 @@
                             <div class='flex j-c fl-di-co fl1'>
                                 <div class='flex j-e ai-c'>
                                     <? if ($item) : ?>
+                                        <? switch($tools[ $i ]['item']) : 
+                                            case 1: ?>
+                                                
+                                            <? break; ?>
+                                            <? default: ?>
 
+                                            <? break; ?>
+                                        <? endswitch; ?>
                                     <? else : ?>
                                         <a class='ajax refuge-slot-plus flex j-c ai-c' href='/ivent?type=5&page=1'>
                                             +

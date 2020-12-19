@@ -485,6 +485,28 @@
             if ($this->crafts[ $this->id ]['item'] == $this->item && $this->crafts[ $this->id ]['type'] == $this->type) {
                 if ($this->crafts[ $this->id ]['craft_lvl'] <= $this->user['craft_lvl']) {
 
+                    // Проверка на соответсвие инструментов
+                    if ($this->crafts[ $this->id ]['tools']) {
+                        $tools_colvo = count($this->crafts[ $this->id ]['tools']);
+                        $tools_exist = 0;
+                        $tools       = $this->pdo->fetchAll('SELECT * FROM `slots` WHERE `item` > 0 AND `type` = 1 AND `user_id` = ?', array($this->user['id']));
+
+                        // Проверяем все слоты инструментов игрока
+                        foreach($tools as $t) {
+                            for($i = 0; $i < $tools_colvo; $i++) {
+                                if ($t['item'] == $this->crafts[ $this->id ]['tools'][ $i ]['item']) {
+                                    $tools_exist += 1;
+                                }
+                            }
+                        }
+
+                        // Если у игрока нет требуемых инструментов
+                        if ($tools_colvo !== $tools_exist) {
+                            $this->message = '<div class=\'flex j-c ai-c\'>Не хватает инструментов</div>';
+                            $this->answer('mess', 0);
+                        }
+                    } 
+
                     $all_items   = count( $this->crafts[ $this->id ]['craft_items'] );
                     $all_exist   = 0;
                     $items       = array();
