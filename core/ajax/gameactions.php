@@ -450,7 +450,7 @@
                 $nadeto_items = $this->pdo->fetch('SELECT * FROM `nadeto` WHERE `user_id` = ?', array($this->user['id']));
 
                 if ($ivent_item['item'] == $nadeto_items[ $this->type($ivent_item['type']) ]) {
-                    $this->message = '<div class=\'flex j-c ai-c\'>На вас уже надет данный предмет!</div>';
+                    $this->message = '<div class=\'flex j-c ai-c\'>На вас уже надет данный предмет</div>';
                     $this->answer('mess', 0);
                 } else {
                     // Было ли надето на игрока вообще что то
@@ -515,7 +515,7 @@
                         $this->message = '<div class=\'flex j-c ai-c\'>Предмет успешно создан!</div>';
                         $this->answer('mess', 0);
                     } else {
-                        $this->message = '<div class=\'flex j-c ai-c\'>Недостаточно ресурсов!</div>';
+                        $this->message = '<div class=\'flex j-c ai-c\'>Недостаточно ресурсов</div>';
                         $this->answer('mess', 0);
                     }
 
@@ -535,7 +535,7 @@
                         $this->message = '<div class=\'flex j-c ai-c\'>Вы уже открыли данный уровень!</div>';
                         $this->answer('mess', 0);
                     } else if ($item['craft_lvl'] !== ($this->user['craft_lvl'] + 1) && $item['craft_lvl'] !== $this->user['craft_lvl']) {
-                        $this->message = '<div class=\'flex j-c ai-c\'>Откройте предыдущий ур. крафта!</div>';
+                        $this->message = '<div class=\'flex j-c ai-c\'>Откройте предыдущий ур. крафта</div>';
                         $this->answer('mess', 0);
                     } else {
                         $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `id` = ?', array(($item_ivent['colvo'] - 1), $item_ivent['id']));
@@ -599,12 +599,73 @@
                     $this->message = '<div class=\'flex j-c ai-c\'>Успешно!</div>';
                     $this->answer('messreload', 0);
                 } else {
-                    $this->message = '<div class=\'flex j-c ai-c\'>Недостаточно ресурсов!</div>';
+                    $this->message = '<div class=\'flex j-c ai-c\'>Недостаточно ресурсов</div>';
                     $this->answer('mess', 0);
                 }
             } else {
-                $this->message = '<div class=\'flex j-c ai-c\'>Максимальный уровень!</div>';
+                $this->message = '<div class=\'flex j-c ai-c\'>Максимальный уровень</div>';
                 $this->answer('mess', 0);
+            }
+
+        }
+
+        public function place() {
+
+            if ($this->id_item) {
+                $ivent_item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
+                $item       = $this->items[ $ivent_item['type'] ][ $ivent_item['item'] ];
+                $refuge     = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
+
+                $slots       = $this->pdo->fetchAll('SELECT * FROM `slots` WHERE `item` > 0 AND `user_id` = ?', array($this->user['id']));
+                $slots_elems = ['tools' => array(), 'prot' => array()];
+                $type_name   = ($item['reftype'] == 1) ? 'tools' : 'prot';
+                foreach($slots as $s) {
+                    switch($s['type']) {
+                        case 1:
+                        array_push($slots_elems['tools'], $s);
+                            break;
+                        case 2:
+                        array_push($slots_elems['prot'], $s);
+                            break;
+                    }
+                }
+
+                if ($this->refuges[ $refuge['lvl'] ][ $type_name ] > 0) {
+                    if (count($slots_elems[ $type_name ]) < $this->refuges[ $refuge['lvl'] ][ $type_name ]) {
+                        
+                        // Если тип надеваемого предмета Инструменты
+                        if ($item['reftype'] == 1) {
+                            // Проверяем, есть ли такой предмет уже в слотах или нет
+                            foreach($slots_elems[ $type_name ] as $se) {
+                                if ($se['item'] == $ivent_item['item']) {
+                                    $this->message = '<div class=\'flex j-c ai-c\'>Данный предмет уже помещен</div>';
+                                    $this->answer('mess', 0);
+                                }
+                            }
+                        }
+
+                        // Помещаем предмет в слот
+                        $find_slot = $this->pdo->fetch('SELECT * FROM `slots` WHERE `item` = 0 AND `type` = ? AND `user_id` = ?', array($item['reftype'], $this->user['id']));
+                        if ($find_slot) {
+                            $this->pdo->query('UPDATE slots SET `item` = ? WHERE `id` = ? AND `user_id` = ?', array($ivent_item['item'], $find_slot['id'], $this->user['id']));
+                        } else {
+                            $this->pdo->query('INSERT INTO slots (item, type, user_id) VALUES (?, ?, ?)', array($ivent_item['item'], $item['reftype'], $this->user['id']));
+                        }
+
+                        // Вычитаем помещаемый предмет из инвентаря
+                        $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `id` = ? AND `user_id` = ?', array(($ivent_item['colvo'] - 1), $ivent_item['id'], $this->user['id']));
+
+                        if ($ivent_item['colvo'] == 1) {
+                            $this->answer('page', '/ivent');
+                        } else $this->answer('reload', 0);
+                    } else {
+                        $this->message = '<div class=\'flex j-c ai-c\'>Все слоты заняты</div>';
+                        $this->answer('mess', 0);
+                    }
+                } else {
+                    $this->message = '<div class=\'flex j-c ai-c\'>Улучшите убежище</div>';
+                    $this->answer('mess', 0);
+                }
             }
 
         }
@@ -682,9 +743,14 @@
                 case 'uprefuge':
                     $this->up_refuge();
                     break;
+                case 'place':
+                    $this->id_item = htmlspecialchars( intval( $_POST['id_item'] ) );
+                    $this->place();
+                    break;
             }
 
     	}
+        
     }
 
     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {

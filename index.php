@@ -25,7 +25,6 @@
     <meta name='viewport' content='width=device-width, minimum-scale=1, maximum-scale=1' />
 
     <script src='/js/libs/jquery.js' defer></script>
-    <script src='/js/ui.js' defer></script>
     <script src='/js/app.js' defer></script>
 
     <title>Survivors | Created by Mota</title>

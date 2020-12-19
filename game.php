@@ -31,14 +31,14 @@
 
 <div class='flex j-c mt10'>
     <div class='game-meteoсharact backgr2 flex j-sa pt5 pb5'>
-        <div class='meteocharact-time'>
+        <div class='flex j-c ai-c'>
             <img class='item14-1 mr5' src='/img/icons/time.png'><span id='time'><?=convertTime( $Sys->user_info('userinfo', 'user_time') )?></span>
         </div>
-        <div class='meteocharact-weather'>
+        <div class='flex j-c ai-c'>
             <img class='item14-1 mr5' src='<?=$game_weathers[ $Sys->user_info('userinfo', 'user_weather') ]['img']?>' id='weather_img'>
             <span id='weather_name'><?=$game_weathers[ $Sys->user_info('userinfo', 'user_weather') ]['nm']?></span>
         </div>
-        <div class='meteocharact-temp'>
+        <div class='flex j-c ai-c'>
             <img class='item14-1 mr5' src='/img/icons/temp.png'><span id='temp'><?=$game_temps[$Sys->user_info('userinfo', 'user_temp')]['nm']?></span>°
         </div>
     </div>
