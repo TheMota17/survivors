@@ -1,8 +1,22 @@
 <?php
-	require ''.$_SERVER['DOCUMENT_ROOT'].'/core/sys.php';
+    require ''.$_SERVER['DOCUMENT_ROOT'].'/core/sys.php';
     require ''.$_SERVER['DOCUMENT_ROOT'].'/core/gamedata.php';
 
-    $refuge       = $pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($Sys->user_info('userinfo', 'id')));
+    $refuge = $pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($Sys->user_info('userinfo', 'id')));
+    $slots  = $pdo->fetchAll('SELECT * FROM `slots` WHERE `item` > 0 AND `user_id` = ?', array($Sys->user_info('userinfo', 'id')));
+    $tools  = array();
+    $prot   = array();
+
+    foreach($slots as $s) {
+        switch($s['type']) {
+            case 1:
+                array_push($tools, $s);
+            break;
+            case 2:
+                array_push($prot, $s);
+            break;
+        }
+    }
 
     function img($game_locs, $user_weather) {
         if ($game_locs[ 1 ][ 'img' ][ $user_weather ]) {
@@ -93,7 +107,7 @@
                 </div>
                 <div class='refuge-hp-colvo backgr1 flex j-c ai-c pl5 pr5 pb5 pt5'>
                     <div class='flex j-c ai-c'>
-                        <img src='/img/icons/hp.png' class='item14-1 mr5' /> <span><?=$refuge['hp']?>/<?=$game_refuges[ $refuge['lvl'] ]['maxhp']?></span>
+                        <img src='/img/icons/hp.png' class='item14-1 mr5' /> <span><?=$refuge['hp']?> / <?=$game_refuges[ $refuge['lvl'] ]['maxhp']?></span>
                     </div>
                 </div>
                 <img src='<?=$game_refuges[ $refuge['lvl'] ]['img']?>' class='refuge-img block <?=$game_refuges[ $refuge['lvl'] ]['class']?>' />
@@ -157,6 +171,123 @@
                         <span id='txt_enterrefuge'>Войти</span>
                         <div class='game-btn-bar' id='bar_enterrefuge'></div>
                     </button>
+                <? endif; ?>
+            </div>
+        </div>
+    </div>
+
+    <div class='flex j-c ai-c fl-di-co mt10'>
+        <div class='refuge-protection-slots backgr2 flex j-c ai-c fl-di-co mt5 pt5 pb5'>
+            <div class='wdth96 flex j-c'>
+                <hr class='hr-style mr5'> Защита <hr class='hr-style ml5'>
+            </div>
+            <div class='wdth96 flex j-c ai-c fl-di-co'>
+                <? $prot_colvo = $game_refuges[ $refuge['lvl'] ]['prot']; ?>
+
+                <? if ($prot_colvo == 0) : ?>
+                    <div class='protection-slot backgr1 flex j-c mt5'>
+                        Улучшите убежище
+                    </div>
+                <? else : ?>
+                    <? for($i = 0; $i < $prot_colvo; $i++) : ?>
+                        <? $item = $game_items[ 5 ][ $prot[$i]['item'] ]; ?>
+                        <? $j    = $i + 1; ?>
+                        <div class='protection-slot backgr1 flex j-c mt5'>
+                            <div class='flex j-c ai-c'>
+                                <div class='item32-1'>
+                                    <? if ($item) : ?>
+                                        <div class='<?=$game_rares[ $item['rare'] ]['border']?> flex j-c ai-c'>
+                                            <img src='<?=$item['img']?>' />
+                                        </div>
+                                    <? else : ?>
+                                        <img src='/img/icons/slot.png' />
+                                    <? endif; ?>
+                                </div>
+                                <div class='flex j-c fl-di-co'>
+                                    <? if ($item) : ?>
+                                        <div class='item-name ml5 flex j-s'>
+                                            <?=$item['nm']?>
+                                        </div>
+                                        <div class='item-rare ml5 flex j-s'>
+                                            <span class='<?=$game_rares[ $item['rare'] ]['class']?>'>
+                                                <?=$game_rares[ $item['rare'] ]['word']?>
+                                            </span>
+                                        </div>
+                                    <? else : ?>
+                                        <div class='ml5'>Пусто</div>
+                                    <? endif; ?>
+                                </div>
+                            </div>
+                            <div class='flex j-c fl-di-co fl1'>
+                                <div class='flex j-e ai-c'>
+                                    <? if ($item) : ?>
+
+                                    <? else : ?>
+                                        <a class='ajax refuge-slot-plus flex j-c ai-c' href='/ivent?type=5&page=1'>
+                                            +
+                                        </a>
+                                    <? endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    <? endfor; ?>
+                <? endif; ?>
+            </div>
+
+            <div class='wdth96 flex j-c mt5'>
+                <hr class='hr-style mr5'> Инструменты <hr class='hr-style ml5'>
+            </div>
+
+            <div class='wdth96 flex j-c ai-c fl-di-co'>
+                <? $tools_colvo = $game_refuges[ $refuge['lvl'] ]['tools']; ?>
+
+                <? if ($tools_colvo == 0) : ?>
+                    <div class='protection-slot backgr1 flex j-c mt5'>
+                        Улучшите убежище       
+                    </div>
+                <? else : ?>
+                    <? for($i = 0; $i < $tools_colvo; $i++) : ?>
+                        <? $item = $game_items[ 5 ][ $tools[$i]['item'] ]; ?>
+                        <? $j    = $i + 1; ?>
+                        <div class='protection-slot backgr1 flex j-c mt5'>
+                            <div class='flex j-c ai-c'>
+                                <div class='item32-1'>
+                                    <? if ($item) : ?>
+                                        <div class='<?=$game_rares[ $item['rare'] ]['border']?> flex j-c ai-c'>
+                                            <img src='<?=$item['img']?>' />
+                                        </div>
+                                    <? else : ?>
+                                        <img src='/img/icons/slot.png' />
+                                    <? endif; ?>
+                                </div>
+                                <div class='flex j-c fl-di-co'>
+                                    <? if ($item) : ?>
+                                        <div class='item-name ml5 flex j-s'>
+                                            <?=$item['nm']?>
+                                        </div>
+                                        <div class='item-rare ml5 flex j-s'>
+                                            <span class='<?=$game_rares[ $item['rare'] ]['class']?>'>
+                                                <?=$game_rares[ $item['rare'] ]['word']?>
+                                            </span>
+                                        </div>
+                                    <? else : ?>
+                                        <div class='ml5'>Пусто</div>
+                                    <? endif; ?>
+                                </div>
+                            </div>
+                            <div class='flex j-c fl-di-co fl1'>
+                                <div class='flex j-e ai-c'>
+                                    <? if ($item) : ?>
+
+                                    <? else : ?>
+                                        <a class='ajax refuge-slot-plus flex j-c ai-c' href='/ivent?type=5&page=1'>
+                                            +
+                                        </a>
+                                    <? endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    <? endfor; ?>
                 <? endif; ?>
             </div>
         </div>

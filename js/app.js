@@ -283,7 +283,7 @@ let Game = {
     construct() {
         this.workpath      = ['/game', '/item', '/craft', '/refuge'];
         this.actions       = ['srchloc', 'srchlut', 'eat', 'drink', 'sleep', 'nadet', 'craft', 'read', 'enterrefuge', 'uprefuge'];
-        this.interval_time = 100;
+        this.interval_time = 500;
         this.sleep_time    = 1;
     },
 

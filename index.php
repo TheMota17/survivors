@@ -15,6 +15,9 @@
 <head>
     <link rel='shortcut icon' href='/favicon.png' type='image/x-icon'>
 
+    <link rel='preconnect' href='https://fonts.gstatic.com'>
+    <link href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swapp' rel='stylesheet'>
+
     <link rel='stylesheet' href='/style/index.css'>
     <link rel='stylesheet' href='/style/style.css'>
 
@@ -44,7 +47,7 @@
     </div>
 </div>
 
-<input class='flex j-c none' id='token' value='<?=$_SESSION['token']?>'>
+<input class='none' id='token' value='<?=$_SESSION['token']?>'>
 
 <div class='container' id='container'></div>
 

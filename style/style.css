@@ -1,5 +1,4 @@
-* {box-sizing: border-box; margin: 0; padding: 0;}
-body {color: var(--main-3-color); background: var(--main-1-color); max-width: 500px; min-width: 240px; margin: 0 auto; font-family: Geneva, Verdana, Arial, sans-serif; font-size: 13px; overflow-x: hidden;}
+body {color: var(--main-3-color); background: var(--main-1-color); max-width: 500px; min-width: 240px; margin: 0 auto; font-family: 'Montserrat', sans-serif; font-size: 13px; overflow-x: hidden;}
 a {color: var(--main-3-color); cursor: pointer;}
 a:hover {text-decoration: underline;}
 button {cursor: pointer;}
@@ -34,7 +33,7 @@ input[type=submit] {cursor: pointer;}
 .wdth85 {width: 85%;}
 .wdth80 {width: 80%;}
 .wdth75 {width: 75%;}
-.hght30 {height: 30px;}
+.hght25 {height: 25px;}
 
 /* ИСП-СЯ ВО ВСЕХ СТРАНИЦАХ */
 ::-webkit-scrollbar {width: 10px; height: 10px;}
@@ -51,7 +50,7 @@ input[type=submit] {cursor: pointer;}
 .close-btn {width: 90px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: box-shadow 0.2s; border-radius: 5px; margin-top: 15px;}
 .close-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
-.menu {position: fixed; top: 0; right: 0; width: 200px; height: 100%; margin-top: 30px; background: var(--main-2-color); display: flex; align-items: center; justify-content: center; transition: 0.2s ease-in-out; transform: translateX(100%); border-left: 1px solid var(--main-3-color); z-index: 9999;}
+.menu {position: fixed; top: 0; right: 0; width: 200px; height: 100%; margin-top: 25px; background: var(--main-2-color); display: flex; align-items: center; justify-content: center; transition: 0.2s ease-in-out; transform: translateX(100%); border-left: 1px solid var(--main-3-color); z-index: 9999;}
 .menu-list {width: 100%; height: 100%;}
 .menu-zag {background: var(--main-1-color); border-radius: 3px; padding-top: 2px; padding-bottom: 2px;}
 .menu-a {width: 100%; height: 30px; display: flex; justify-content: flex-start; align-items: center; border-radius: 3px; transition: .2s;}
@@ -61,7 +60,7 @@ input[type=submit] {cursor: pointer;}
 .menu-target {width: 100%; height: 100%; background: var(--main-1-color); opacity: .7; position: absolute; top: 0; left: 0; z-index: 8888; transition: 0.5s ease-in-out; transform: translateX(100%);}
 .menu-target-active {transform: translateX(0%);}
 
-.info-table {width: 100%; height: 30px; position: fixed; top: 0; left: 0; z-index: 9999; border-bottom: 1px solid var(--main-3-color);}
+.info-table {width: 100%; height: 25px; position: fixed; top: 0; left: 0; z-index: 9999; border-bottom: 1px solid var(--main-3-color);}
 
 .hr-style {width: 100%; height: 1px; background: var(--main-1-color); margin-top: 10px; border: 0; clear: both; display: block;}
 
@@ -220,3 +219,9 @@ input[type=submit] {cursor: pointer;}
 .refuge-up:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 .refuge-enter {width: 85%; height: 30px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
 .refuge-enter:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
+
+.refuge-protection-slots {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
+.protection-slot {width: 96%; border-radius: 3px; padding: 5px;}
+
+.refuge-slot-plus {width: 32px; height: 32px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
+.refuge-slot-plus:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color); text-decoration: none;}

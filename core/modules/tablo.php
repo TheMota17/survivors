@@ -1,4 +1,4 @@
-<div class='hght30' id='tablo'>
+<div class='hght25' id='tablo'>
     <div class='info-table backgr2 flex j-c ai-c'>
         
         <div class='info-hp fl1 flex j-e ai-c'>
@@ -21,7 +21,7 @@
             <span class='ml5 fnt14' id='fatigue'><?=$Sys->user_info('userinfo', 'fatigue')?></span>
         </div>
         
-        <div class='fl1 flex j-e mr10 relative'>
+        <div class='fl1 flex j-e ai-c mr10 relative'>
             <a class='menu-btn' id='menu-btn'></a>
         </div>
         
