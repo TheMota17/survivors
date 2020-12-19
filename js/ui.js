@@ -53,7 +53,7 @@ let BarsMove = {
 
             BarsMove.action   = action;
             BarsMove.btntext  = $('#txt_' + action).html();
-            BarsMove.interval = setInterval(this.iter, 500);
+            BarsMove.interval = setInterval(this.iter, Game.interval_time);
             BarsMove.view('textchange');
                 
         } else if (BarsMove.action == action) {

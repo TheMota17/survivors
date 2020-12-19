@@ -282,8 +282,8 @@ let Costumize = {
 let Game = {
     construct() {
         this.workpath      = ['/game', '/item', '/craft', '/refuge'];
-        this.actions       = ['srchloc', 'srchlut', 'eat', 'drink', 'sleep', 'nadet', 'craft', 'read', 'enterrefuge', 'uprefuge', 'place'];
-        this.interval_time = 1000;
+        this.actions       = ['srchloc', 'srchlut', 'eat', 'drink', 'sleep', 'nadet', 'craft', 'read', 'enterrefuge', 'uprefuge'];
+        this.interval_time = 100;
         this.sleep_time    = 1;
     },
 
@@ -385,14 +385,6 @@ let Game = {
                     token: PageLoad.token
                 };
             break;
-            case 'place':
-                let place = new URLSearchParams(window.location.search);
-                data = {
-                    slot: Item.slot,
-                    id_item: place.get('id'),
-                    token: PageLoad.token
-                };
-                break;
         }
         this.gameAction(action, data);
     },

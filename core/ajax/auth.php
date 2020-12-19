@@ -60,7 +60,7 @@
             array($this->name_reg, password_hash($this->pass_reg, PASSWORD_DEFAULT), password_hash($this->mail_reg, PASSWORD_DEFAULT), time(), 0, 0, 0, 3, 100, 0, 0, 0, 36000, 1, 2, 1, 0, 0, 1, 0));
             $userid = $this->pdo->last();
 
-            $refuge = $this->pdo->query('INSERT INTO refuge (hp, lvl, t1, t2, t3, t4, p1, p2, p3, p4, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, $userid));
+            $refuge = $this->pdo->query('INSERT INTO refuge (hp, lvl, user_id) VALUES (?, ?, ?)', array(0, 0, $userid));
             $nadeto = $this->pdo->query('INSERT INTO nadeto (helm, arm, weap, hair, beard, cloth, pants, fwear, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', array(0, 0, 0, 1, 1, 1, 1, 1, $userid));
 
             $food   = $this->pdo->query('INSERT INTO ivent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array(13, 1, 5, $userid));

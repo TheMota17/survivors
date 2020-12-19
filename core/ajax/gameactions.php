@@ -309,7 +309,7 @@
                 $night          = $this->night();
                 $items          = array();
                 $rand_colvo     = array();
-                $this->message .= '<div class=\'flex j-s\'>- Вы нашли</div><div class=\'flex j-c mt5\'>';
+                $this->message .= '<div class=\'flex j-s\'>- Вы нашли</div><div class=\'srched-items flex j-c mt10\'>';
 
                 for($i = 0; $i < count( $this->locs[ $this->user['loc'] ]['srch_items'] ); $i++) {
                     if ( $this->item_drop('isdrop', $this->locs[ $this->user['loc'] ]['srch_items'][ $i ], 0) ) {
@@ -319,11 +319,11 @@
                         array_push($rand_colvo, $colvo);
 
                         $this->message .= '
-                        <div class=\'flex j-s ai-c fl-di-co mr5\'>
+                        <div class=\'srched-item relative flex j-s ai-c fl-di-co mr10\'>
                             <div class=\'item32-2 flex j-c ai-c\'>
                                 <img src=\''.$this->items[ $this->locs[$this->user['loc']]['srch_items'][$i]['t'] ][ $this->locs[$this->user['loc']]['srch_items'][$i]['i'] ]['img'].'\' />
                             </div>
-                            <div class=\'item-colvo backgr2 flex j-c ai-c\'>
+                            <div class=\'item-colvo-min flex j-c ai-c\'>
                                 '.$colvo.'
                             </div>
                         </div>';
@@ -628,69 +628,6 @@
 
         }
 
-        public function place() {
-
-            // Если слот выбран, и слот больше нуля, и если слоты не больше 4, и если ID предмета выбран
-            if ($this->slot && $this->slot > 0 && $this->slot < 5 && $this->id_item) {
-                // Поиск помещаемого в слот предмета в инвентаре
-                $ivent_item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
-                if ($ivent_item) {
-                    // Ищем предмет в дате игры
-                    $item   = $this->items[ $ivent_item['type'] ][ $ivent_item['item'] ];
-                    // Вся информация об убежище игрока 
-                    $refuge = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
-                    $sql    = 0;
-
-                    // Тип надеваемого предмета, Инструмент или Защитное оружие
-                    switch($item['reftype']) {
-                        case 1:
-                            if ($refuge['lvl'] > 0) {
-                                // Если предмет из слота не равняется помещаемому, и если он не занят другим предметом и если помещаемый предмет уже не установен
-                                if ($refuge['t'.$this->slot] !== $this->id_item && $refuge['t'.$this->slot] == 0) {
-                                    if (
-                                        $refuge['t1'] !== $ivent_item['item'] &&
-                                        $refuge['t2'] !== $ivent_item['item'] &&
-                                        $refuge['t3'] !== $ivent_item['item'] &&
-                                        $refuge['t4'] !== $ivent_item['item']
-                                    ) {
-                                        $sql = "UPDATE refuge SET `t".$this->slot."` = ? WHERE `user_id` = ?";       
-                                    }
-                                } 
-                            }
-                        break;
-                        case 2:
-                            if ($refuge['lvl'] > 2) {
-                                // Если предмет из слота не равняется помещаемому, и если он не занят другим предметом
-                                if ($refuge['p'.$this->slot] !== $this->id_item && $refuge['p'.$this->slot] == 0) {
-                                    if (
-                                        $refuge['p1'] !== $ivent_item['item'] &&
-                                        $refuge['p2'] !== $ivent_item['item'] &&
-                                        $refuge['p3'] !== $ivent_item['item'] &&
-                                        $refuge['p4'] !== $ivent_item['item']
-                                    ) {
-                                        $sql = "UPDATE refuge SET `p".$this->slot."` = ? WHERE `user_id` = ?";
-                                    }
-                                }
-                            }
-                        break;
-                    }
-
-                    // Помещаем предмет в слот
-                    $this->pdo->query($sql, array($ivent_item['item'], $this->user['id']));
-                    // Минусуем предмет из инвентаря
-                    $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `id` = ? AND `user_id` = ?', array(($ivent_item['colvo'] - 1), $this->id_item, $this->user['id']));
-
-                    if ($ivent_item['colvo'] == 1) {
-                        $this->answer('page', '/ivent');
-                    } else $this->answer('reload', 0);
-                }               
-            } else {
-                $this->message = '<div class=\'flex j-c ai-c\'>Выберите слот!</div>';
-                $this->answer('mess', 0);
-            }
-
-        }
-
         public function formation_answer() {
 
             if ($this->weather_mess) $this->message .= $this->weather_mess;
@@ -763,11 +700,6 @@
                     break;
                 case 'uprefuge':
                     $this->up_refuge();
-                    break;
-                case 'place':
-                    $this->slot    = htmlspecialchars( intval( $_POST['slot'] ) );
-                    $this->id_item = htmlspecialchars( intval( $_POST['id_item'] ) );
-                    $this->place();
                     break;
             }
 
