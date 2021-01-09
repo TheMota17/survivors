@@ -21,9 +21,11 @@
 
         public function user() {
 
-            $this->user = $this->pdo->fetch('SELECT * FROM `users` WHERE `id` = ?', array( $this->id ));
+            if (!$this->id) $this->exit('auth');
 
-            if (!$this->user || !$this->id) $this->exit('auth');
+            $this->user = $this->pdo->fetch('SELECT * FROM `users` WHERE `id` = ?', array( $this->id ));
+            $this->game = $this->pdo->fetch('SELECT * FROM `game` WHERE `user_id` = ?', array($this->user['id']));
+            $this->game = json_decode( $this->game['data'] );
 
             $this->ban();
             $this->costumize();
@@ -41,6 +43,9 @@
             switch($type) {
                 case 'userinfo':
                     return $this->user[ $data ];
+                break;
+                case 'gameinfo':
+                    return $this->game->$data;
                 break;
             }
 

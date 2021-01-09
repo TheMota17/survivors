@@ -172,19 +172,19 @@
 			<div class='user-hp-info flex j-c ai-c mt5'>
 				<img src='/assets/icons/hung.png' class='item14-1 mr5' />
                 <div class='ivent-hung-bar'>
-                    <div class='hung-bar' id='hung_bar' style='width: <?=$Sys->user_info('userinfo', 'hung')?>%'></div>
+                    <div class='hung-bar' id='hung_bar' style='width: <?=$Sys->user_info('gameinfo', 'hung')?>%'></div>
                 </div>
 			</div>
 			<div class='user-hung-info flex j-c ai-c mt5'>
 				<img src='/assets/icons/thirst.png' class='item14-1 mr5' />
                 <div class='ivent-thirst-bar'>
-                    <div class='thirst-bar' id='thirst_bar' style='width: <?=$Sys->user_info('userinfo', 'thirst')?>%'></div>
+                    <div class='thirst-bar' id='thirst_bar' style='width: <?=$Sys->user_info('gameinfo', 'thirst')?>%'></div>
                 </div>
 			</div>
 			<div class='user-fatigue-info flex j-c ai-c mt5'>
 				<img src='/assets/icons/sleep.png' class='item14-1 mr5' />
 				<div class='ivent-fatigue-bar'>
-					<div class='fatigue-bar' id='fatigue_bar' style='width: <?=$Sys->user_info('userinfo', 'fatigue')?>%'></div>
+					<div class='fatigue-bar' id='fatigue_bar' style='width: <?=$Sys->user_info('gameinfo', 'fatigue')?>%'></div>
 				</div>
 			</div>
 		</div>

@@ -1,5 +1,5 @@
 class GameLive {
-	constructor(time, weather, temp, weatherTime) 
+	constructor(time, weather, temp, weatherTime)
 	{
 		this.time    = time;
 		this.weather = weather;

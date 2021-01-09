@@ -60,8 +60,8 @@
             array($this->name_reg, password_hash($this->pass_reg, PASSWORD_DEFAULT), password_hash($this->mail_reg, PASSWORD_DEFAULT), time(), 0, 0, 0, 3, 100, 0, 0, 0, 0, 1, 0));
             $userid = $this->pdo->last();
 
-            $map    = $this->pdo->query('INSERT INTO map (data, user_id) VALUES (?, ?)', 
-            array(json_encode(['x' => 50, 'y' => 50, 's' => 100, 'time' => 36000, 'weather' => 1, 'weatherTime' => 0, 'temp' => 1, 'loc' => 1, 'loc_explored' => 0]), $userid));
+            $map    = $this->pdo->query('INSERT INTO game (data, user_id) VALUES (?, ?)', 
+            array(json_encode(['x' => 50, 'y' => 50, 's' => 100, 'time' => 36000, 'weather' => 1, 'hp' => 100, 'hung' => 0, 'thirst' => 0, 'fatigue' => 0, 'temp' => 1, 'loc' => 1, 'loc_explored' => 0, 'weatherTime' => 0, 'hpTime' => 0, 'hungTime' => 0, 'thirstTime' => 0, 'fatigueTime' => 0]), $userid));
             $refuge = $this->pdo->query('INSERT INTO refuge (hp, lvl, user_id) VALUES (?, ?, ?)', array(0, 0, $userid));
             $nadeto = $this->pdo->query('INSERT INTO nadeto (helm, arm, weap, hair, beard, cloth, pants, fwear, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', array(0, 0, 0, 1, 1, 1, 1, 1, $userid));
 

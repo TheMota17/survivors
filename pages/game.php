@@ -3,8 +3,8 @@
     require ''.$_SERVER['DOCUMENT_ROOT'].'/core/gamedata.php';
 
     $ivent = $pdo->fetchAll('SELECT * FROM `ivent` WHERE `user_id` = ? AND `colvo` > ?', array($Sys->user_info('userinfo', 'id'), 0));
-    $map   = $pdo->fetch('SELECT * FROM `map` WHERE `user_id` = ?', array($Sys->user_info('userinfo', 'id')));
-    $map   = json_decode( $map['data'] );
+    $game  = $pdo->fetch('SELECT * FROM `game` WHERE `user_id` = ?', array($Sys->user_info('userinfo', 'id')));
+    $game  = json_decode( $game['data'] );
     
     function items_info($item, $ivent) {
         $items = [0, 0];
@@ -34,14 +34,14 @@
 <div class='flex j-c mt10'>
     <div class='game-meteoсharact backgr2 flex j-sa pt5 pb5'>
         <div class='flex j-c ai-c'>
-            <img class='item14-1 mr5' src='/assets/icons/time.png'><span id='time'><?=convertTime( $map->time )?></span>
+            <img class='item14-1 mr5' src='/assets/icons/time.png'><span id='time'><?=convertTime( $game->time )?></span>
         </div>
         <div class='flex j-c ai-c'>
-            <img class='item14-1 mr5' src='<?=$game_weathers[ $map->weather ]['img']?>' id='weather_img'>
-            <span id='weather_name'><?=$game_weathers[ $map->weather ]['nm']?></span>
+            <img class='item14-1 mr5' src='<?=$game_weathers[ $game->weather ]['img']?>' id='weather_img'>
+            <span id='weather_name'><?=$game_weathers[ $game->weather ]['nm']?></span>
         </div>
         <div class='flex j-c ai-c'>
-            <img class='item14-1 mr5' src='/assets/icons/temp.png'><span id='temp'><?=$game_temps[ $map->temp ]['nm']?></span>°
+            <img class='item14-1 mr5' src='/assets/icons/temp.png'><span id='temp'><?=$game_temps[ $game->temp ]['nm']?></span>°
         </div>
     </div>
 </div>
@@ -54,13 +54,13 @@
                 <? if ($Sys->user_info('userinfo', 'in_refuge')) : ?>
                     Убежище
                 <? else : ?>
-                    <?=$game_locs[ $map->loc ][ 'nm' ]?>
+                    <?=$game_locs[ $game->loc ][ 'nm' ]?>
                 <? endif; ?>
             </div>
         </div>
         <? if ($Sys->user_info('userinfo', 'in_refuge') == 0) : ?>
             <div class='flex j-c pb5 fnt12'>
-                <span class='mr5'>Исследовано </span><span id='loc_explored'><?=$map->loc_explored?></span>%
+                <span class='mr5'>Исследовано </span><span id='loc_explored'><?=$game->loc_explored?></span>%
             </div>
         <? endif; ?>
 
@@ -96,7 +96,7 @@
                 <div class='loc-whatsrch'>
                     <div class='mb5 '>Можно найти:</div>
                     <div class='game-avai-items flex' id='available_items'>
-                        <? foreach($game_locs[ $map->loc ]['srch_items'] as $si) : ?>
+                        <? foreach($game_locs[ $game->loc ]['srch_items'] as $si) : ?>
                             <div class='item32-1 mr5 mb5 flex j-c ai-c'>
                                 <a href='/item?item=<?=$si['i']?>&type=<?=$si['t']?>&view=1' class='ajax'>
                                     <img src='<?=$game_items[ $si['t'] ][ $si['i'] ]['img']?>'/>
@@ -227,9 +227,13 @@ import {Player} from '../js/game/Player.js';
                     loc:          Game.world.loc,
                     loc_explored: Game.world.loc_explored,
                     hp:           Game.player.hp,
+                    hpTime:       Game.player.hpTime,
                     hung:         Game.player.hung,
+                    hungTime:     Game.player.hungTime,
                     thirst:       Game.player.thirst,
+                    thirstTime:   Game.player.thirstTime,
                     fatigue:      Game.player.fatigue,
+                    fatigueTime:  Game.player.fatigueTime,
                     token:        $('#token').val()
                 }
             });
@@ -367,10 +371,14 @@ import {Player} from '../js/game/Player.js';
                 this.data.game.x,
                 this.data.game.y,
                 this.data.game.s,
-                this.data.user.hp,
-                this.data.user.hung,
-                this.data.user.thirst,
-                this.data.user.fatigue,
+                this.data.game.hp,
+                this.data.game.hung,
+                this.data.game.thirst,
+                this.data.game.fatigue,
+                this.data.game.hpTime,
+                this.data.game.hungTime,
+                this.data.game.thirstTime,
+                this.data.game.fatigueTime,
                 this.sprites['pl']
             );
 

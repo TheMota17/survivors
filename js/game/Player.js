@@ -1,5 +1,5 @@
 class Player {
-	constructor(x, y, s, hp, hung, thirst, fatigue, img) 
+	constructor(x, y, s, hp, hung, thirst, fatigue, hpTime, hungTime, thirstTime, fatigueTime, img) 
 	{
 		this.x       = x;
 		this.y       = y;
@@ -8,6 +8,11 @@ class Player {
 		this.hung    = hung;
 		this.thirst  = thirst;
 		this.fatigue = fatigue;
+
+		this.hpTime      = hpTime;
+		this.hungTime    = hungTime;
+		this.thirstTime  = thirstTime;
+		this.fatigueTime = fatigueTime;
 
 		this.img     = img;
 		this.width   = img.width;
@@ -134,12 +139,44 @@ class Player {
 		{
 			this.y += 1 * (this.s * dt);
 		}
+
+		this.changeAllCharacts(dt);
 	}
 
 	render(ctx)
 	{
 		ctx.fillText('Вы', (this.x - ctx.measureText('Вы').width/2), this.y - 12);
 		ctx.drawImage(this.img, 0, 0, this.width, this.height, this.x - this.width/2, this.y - this.height/2, this.width, this.height);
+	}
+
+	changeAllCharacts(dt)
+	{
+		if (this.hungTime >= 300) 
+		{
+			if (this.hung < 100) 
+			{
+				this.hung++;
+				this.hungTime = 0;
+			}
+		} else this.hungTime += 10 * dt;
+
+		if (this.thirstTime >= 300)
+		{
+			if (this.thirst < 100)
+			{
+				this.thirst++;
+				this.thirstTime = 0;
+			}
+		} else this.thirstTime += 10 * dt;
+
+		if (this.fatigueTime >= 600)
+		{
+			if (this.fatigue < 100)
+			{
+				this.fatigue++;
+				this.fatigueTime = 0;
+			}
+		} else this.fatigueTime += 10 * dt;
 	}
 
 	distance(p1, p2)

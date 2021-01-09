@@ -19,26 +19,29 @@
 
         public function update() {
 
-            $this->pdo->query('UPDATE users SET `hp` = ?, `hung` = ?, `thirst` = ?, `fatigue` = ? WHERE `id` = ?', array(
-                $this->hp,
-                $this->hung,
-                $this->thirst,
-                $this->fatigue,
-                $this->user['id']
-            ));
-
-            $this->pdo->query('UPDATE map SET `data` = ? WHERE `user_id` = ?', array(
+            $this->pdo->query('UPDATE `game` SET `data` = ? WHERE `user_id` = ?', array(
                 json_encode(
                     [
                         'x' => $this->x,
                         'y' => $this->y, 
-                        's' => $this->s, 
+                        's' => $this->s,
+
                         'time' => $this->time, 
                         'weather' => $this->weather,
-                        'weatherTime' => $this->weatherTime,
                         'temp' => $this->temp, 
                         'loc' => $this->loc, 
-                        'loc_explored' => $this->loc_explored
+                        'loc_explored' => $this->loc_explored,
+                        
+                        'hp' => $this->hp,
+                        'hung' => $this->hung,
+                        'thirst' => $this->thirst,
+                        'fatigue' => $this->fatigue,
+
+                        'weatherTime' => $this->weatherTime,
+                        'hpTime' => $this->hpTime,
+                        'hungTime' => $this->hungTime, 
+                        'thirstTime' => $this->thirstTime, 
+                        'fatigueTime' => $this->fatigueTime
                     ]
                 ),
                 $this->user['id']
@@ -50,8 +53,8 @@
 
         public function load() {
 
-            $this->map = $this->pdo->fetch('SELECT * FROM `map` WHERE `user_id` = ?', array($this->user['id']));
-            $this->map = json_decode( $this->map['data'] );
+            $this->game = $this->pdo->fetch('SELECT * FROM `game` WHERE `user_id` = ?', array($this->user['id']));
+            $this->game = json_decode( $this->game['data'] );
 
             $this->answer('load');
 
@@ -64,8 +67,7 @@
                     exit(
                         json_encode(
                             [
-                                'game' => $this->map,
-                                'user' => ['hp' => $this->user['hp'], 'hung' => $this->user['hung'], 'thirst' => $this->user['thirst'], 'fatigue' => $this->user['fatigue']],
+                                'game' => $this->game,
                                 'sys'  => ['weathers' => $this->weathers, 'temps' => $this->temps]
                             ]
                         )
@@ -88,16 +90,22 @@
                     $this->x            = intval( htmlspecialchars( $_POST['x'] ) );
                     $this->y            = intval( htmlspecialchars( $_POST['y'] ) );
                     $this->s            = intval( htmlspecialchars( $_POST['s'] ) );
+
                     $this->time         = intval( htmlspecialchars( $_POST['time'] ) );
                     $this->weather      = intval( htmlspecialchars( $_POST['weather'] ) );
-                    $this->weatherTime  = intval( htmlspecialchars( $_POST['weatherTime'] ) );
                     $this->temp         = intval( htmlspecialchars( $_POST['temp'] ) );
                     $this->loc          = intval( htmlspecialchars( $_POST['loc'] ) );
                     $this->loc_explored = intval( htmlspecialchars( $_POST['loc_explored'] ) );
+
+                    $this->weatherTime  = intval( htmlspecialchars( $_POST['weatherTime'] ) );
                     $this->hp           = intval( htmlspecialchars( $_POST['hp'] ) );
+                    $this->hpTime       = intval( htmlspecialchars( $_POST['hpTime'] ) );
                     $this->hung         = intval( htmlspecialchars( $_POST['hung'] ) );
+                    $this->hungTime     = intval( htmlspecialchars( $_POST['hungTime'] ) );
                     $this->thirst       = intval( htmlspecialchars( $_POST['thirst'] ) );
+                    $this->thirstTime   = intval( htmlspecialchars( $_POST['thirstTime'] ) );
                     $this->fatigue      = intval( htmlspecialchars( $_POST['fatigue'] ) );
+                    $this->fatigueTime  = intval( htmlspecialchars( $_POST['fatigueTime'] ) );
 
                     $this->update();
                 break;

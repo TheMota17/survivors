@@ -3,22 +3,22 @@
         
         <div class='info-hp fl1 flex j-e ai-c'>
             <img src='/assets/icons/hp.png' class='item14-1' alt='Жизнь' />
-            <span class='ml5 fnt14' id='hp'><?=$Sys->user_info('userinfo', 'hp')?></span>
+            <span class='ml5 fnt14' id='hp'><?=$Sys->user_info('gameinfo', 'hp')?></span>
         </div>
         
         <div class='info-hung fl1 flex j-e ai-c'>
             <img src='/assets/icons/hung.png' class='item14-1' alt='Голод' />
-            <span class='ml5 fnt14' id='hung'><?=$Sys->user_info('userinfo', 'hung')?></span>
+            <span class='ml5 fnt14' id='hung'><?=$Sys->user_info('gameinfo', 'hung')?></span>
         </div>
         
         <div class='info-thirst fl1 flex j-e ai-c'>
             <img src='/assets/icons/thirst.png' class='item14-1' alt='Жажда' />
-            <span class='ml5 fnt14' id='thirst'><?=$Sys->user_info('userinfo', 'thirst')?></span>
+            <span class='ml5 fnt14' id='thirst'><?=$Sys->user_info('gameinfo', 'thirst')?></span>
         </div>
         
         <div class='info-fatigue fl1 flex j-e ai-c'>
             <img src='/assets/icons/sleep.png' class='item14-1' alt='Истощение' />
-            <span class='ml5 fnt14' id='fatigue'><?=$Sys->user_info('userinfo', 'fatigue')?></span>
+            <span class='ml5 fnt14' id='fatigue'><?=$Sys->user_info('gameinfo', 'fatigue')?></span>
         </div>
         
         <div class='fl1 flex j-e ai-c mr10 relative'>
