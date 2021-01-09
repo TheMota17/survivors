@@ -1,3 +1,7 @@
+<?php
+	require ''.$_SERVER['DOCUMENT_ROOT'].'/core/sys.php';
+?>
+
 <div class='flex j-c mt10'>
 	<div class='cost-zag backgr2 flex j-c pt5 pb5'>
 		Настройте своего персонажа
@@ -7,7 +11,7 @@
 <div class='flex j-c mt10'>
 	<div class='cost-message backgr2 flex j-c ai-c pt5 pb5'>
 		<div class='wdth90 flex j-c ai-c'>
-			<img src='/img/icons/mess.png' class='mr5'>
+			<img src='/assets/icons/mess.png' class='mr5'>
 			<span class='mess'>След. настройка будет доступна за игровую валюту</span>
 		</div>
 	</div>
@@ -35,7 +39,7 @@
 				<div class='pants1' id='pants'></div>
 				<div class='fwear1' id='fwear'></div>
 
-				<img class='man' src='/img/man/man.png'>
+				<img class='man' src='/assets/man/man.png'>
 
 				<div class='maneken-shadow'></div>
 			</div>

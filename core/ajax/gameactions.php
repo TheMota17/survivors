@@ -261,7 +261,7 @@
             $this->change_weather( $time );
 
         }
- 
+
         public function srch_loc() {
             
             if ($this->user['in_refuge'] > 0) {
@@ -776,7 +776,7 @@
     }
 
     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
-        if ($_SESSION['token'] == $_POST['token'] || $_POST['token'] == 0 || $_SESSION['token'] == 0) {
+        if ($_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
             $GameActions = new GameActions($pdo, $game_items, $game_locs, $game_action_times, $game_crafts, $game_weathers, $game_temps, $game_refuges, $Sys->get_user(), $_GET['action']);
             $GameActions->main();
         }

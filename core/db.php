@@ -1,8 +1,10 @@
 <?php
 	session_start();
 
+	require 'config.php';
 	require 'pdo.php';
 	
-	$pdo = new PDO('mysql:host=localhost;dbname=survive;charset=utf8', 'root', '89626545803');
+	$pdo = new PDO('mysql:host=localhost;dbname='.$config['db']['dbname'].';charset=utf8', ''.$config['db']['name'].'', ''.$config['db']['pass'].'');
 	$pdo = new db( $pdo );
-	$pdo->offEmulate();
+
+	if ($config['db']['offEmulate']) $pdo->offEmulate();

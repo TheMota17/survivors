@@ -1,6 +1,6 @@
 <div class='flex j-c ai-c fl-di-co mt10'>
     <div class='auth-logo'>
-        <img src='/img/auth.png' class='logo'>
+        <img src='/assets/auth.png' class='logo'>
     </div>
     <div class='auth-info wdth96 fnt12 mt10'>
         Мир в котором все уже опустошено, мир где царит мрак, где нет ни добра ни зла.

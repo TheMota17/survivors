@@ -72,37 +72,37 @@ img 	{vertical-align: middle;}
 .hidden {visibility: hidden;}
 
 /* РАСПОЛОЖЕНИЕ ПРЕДМЕТОВ НА МАНЕКЕНЕ */
-	.maneken-shadow {width: 72px; height: 24px; background: url('/img/man/shadow.png') no-repeat top/cover; position: absolute; top: 128px; z-index: 0;}
+	.maneken-shadow {width: 72px; height: 24px; background: url('/assets/man/shadow.png') no-repeat top/cover; position: absolute; top: 128px; z-index: 0;}
 
 	/* ВОЛОСЫ */
-	.hair1 {width: 40px; height: 24px; background: url('/img/man/hair/1.png') no-repeat top/cover; position: absolute; top: 1px; z-index: 2;}
-	.hair2 {width: 40px; height: 20px; background: url('/img/man/hair/2.png') no-repeat top/cover; position: absolute; top: 5px; z-index: 2;}
-	.hair3 {width: 40px; height: 20px; background: url('/img/man/hair/3.png') no-repeat top/cover; position: absolute; top: 5px; z-index: 2;}
+	.hair1 {width: 40px; height: 24px; background: url('/assets/man/hair/1.png') no-repeat top/cover; position: absolute; top: 1px; z-index: 2;}
+	.hair2 {width: 40px; height: 20px; background: url('/assets/man/hair/2.png') no-repeat top/cover; position: absolute; top: 5px; z-index: 2;}
+	.hair3 {width: 40px; height: 20px; background: url('/assets/man/hair/3.png') no-repeat top/cover; position: absolute; top: 5px; z-index: 2;}
 
 	/* БОРОДА/УСЫ */
-	.beard1 {width: 40px; height: 25px; background: url('/img/man/beard/1.png') no-repeat top/cover; position: absolute; top: 25px; z-index: 7}
-	.beard2 {width: 40px; height: 32px; background: url('/img/man/beard/2.png') no-repeat top/cover; position: absolute; top: 25px; z-index: 7}
-	.beard3 {width: 16px; height:  8px; background: url('/img/man/beard/3.png') no-repeat top/cover; position: absolute; top: 33px; z-index: 7}
-	.beard4 {width: 16px; height: 16px; background: url('/img/man/beard/4.png') no-repeat top/cover; position: absolute; top: 33px; z-index: 7}
-	.beard5 {width: 16px; height: 11px; background: url('/img/man/beard/5.png') no-repeat top/cover; position: absolute; top: 34px; z-index: 7}
+	.beard1 {width: 40px; height: 25px; background: url('/assets/man/beard/1.png') no-repeat top/cover; position: absolute; top: 25px; z-index: 7}
+	.beard2 {width: 40px; height: 32px; background: url('/assets/man/beard/2.png') no-repeat top/cover; position: absolute; top: 25px; z-index: 7}
+	.beard3 {width: 16px; height:  8px; background: url('/assets/man/beard/3.png') no-repeat top/cover; position: absolute; top: 33px; z-index: 7}
+	.beard4 {width: 16px; height: 16px; background: url('/assets/man/beard/4.png') no-repeat top/cover; position: absolute; top: 33px; z-index: 7}
+	.beard5 {width: 16px; height: 11px; background: url('/assets/man/beard/5.png') no-repeat top/cover; position: absolute; top: 34px; z-index: 7}
 
 	/* ВЕРХ */
-	.cloth1 {width: 80px; height: 52px; background: url('/img/man/clothes/1.png') no-repeat top/cover; position: absolute; top: 41px; z-index: 5}
-	.cloth2 {width: 80px; height: 56px; background: url('/img/man/clothes/2.png') no-repeat top/cover; position: absolute; top: 37px; z-index: 5}
+	.cloth1 {width: 80px; height: 52px; background: url('/assets/man/clothes/1.png') no-repeat top/cover; position: absolute; top: 41px; z-index: 5}
+	.cloth2 {width: 80px; height: 56px; background: url('/assets/man/clothes/2.png') no-repeat top/cover; position: absolute; top: 37px; z-index: 5}
 
 	/* НИЗ */
-	.pants1 {width: 40px; height: 40px; background: url('/img/man/pants/1.png') no-repeat top/cover; position: absolute; top: 93px; z-index: 4}
-	.pants2 {width: 40px; height: 40px; background: url('/img/man/pants/2.png') no-repeat top/cover; position: absolute; top: 93px; z-index: 4}
+	.pants1 {width: 40px; height: 40px; background: url('/assets/man/pants/1.png') no-repeat top/cover; position: absolute; top: 93px; z-index: 4}
+	.pants2 {width: 40px; height: 40px; background: url('/assets/man/pants/2.png') no-repeat top/cover; position: absolute; top: 93px; z-index: 4}
 
 	/* ОБУВЬ */
-	.fwear1 {width: 56px; height: 16px; background: url('/img/man/footwear/1.png') no-repeat top/cover; position: absolute; top: 133px; z-index: 3}
+	.fwear1 {width: 56px; height: 16px; background: url('/assets/man/footwear/1.png') no-repeat top/cover; position: absolute; top: 133px; z-index: 3}
 
 	/* ШЛЕМЫ */
-	.item-wood_cap {width: 40px; height: 20px; background: url('/img/man/helms/wood-cap.png') no-repeat top/cover; position: absolute; top: 5px; z-index: 8;}
-	.item-wood_helm {width: 40px; height: 44px; background: url('/img/man/helms/wood-helm.png') no-repeat top/cover; position: absolute; top: 5px; z-index: 8;}
+	.item-wood_cap {width: 40px; height: 20px; background: url('/assets/man/helms/wood-cap.png') no-repeat top/cover; position: absolute; top: 5px; z-index: 8;}
+	.item-wood_helm {width: 40px; height: 44px; background: url('/assets/man/helms/wood-helm.png') no-repeat top/cover; position: absolute; top: 5px; z-index: 8;}
 	/* БРОНЯ */
-	.item-nakidka {width: 40px; height: 52px; background: url('/img/man/arms/nakidka.png') no-repeat top/cover; position: absolute; top: 37px; z-index: 6;}
-	.item-wood_arm {width: 56px; height: 56px; background: url('/img/man/arms/wood-arm.png') no-repeat top/cover; position: absolute; top: 37px; z-index: 6;}
+	.item-nakidka {width: 40px; height: 52px; background: url('/assets/man/arms/nakidka.png') no-repeat top/cover; position: absolute; top: 37px; z-index: 6;}
+	.item-wood_arm {width: 56px; height: 56px; background: url('/assets/man/arms/wood-arm.png') no-repeat top/cover; position: absolute; top: 37px; z-index: 6;}
 
 /* РАЗМЕР И Т.Д. УБЕЖИЩ */
 	.hut {width: 100px; height: 100px;}

@@ -1,4 +1,4 @@
-body {color: var(--main-3-color); background: var(--main-1-color); max-width: 500px; min-width: 240px; margin: 0 auto; font-family: 'Montserrat', sans-serif; font-size: 13px; overflow-x: hidden;}
+body {color: var(--main-3-color); background: var(--main-1-color); max-width: 500px; min-width: 240px; margin: 0 auto; font-family: 'Montserrat', 'Courier new'; font-size: 13px; overflow-x: hidden;}
 a {color: var(--main-3-color); cursor: pointer;}
 a:hover {text-decoration: underline;}
 button {cursor: pointer;}
@@ -51,28 +51,28 @@ input[type=submit] {cursor: pointer;}
 .close-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
 .menu {position: fixed; top: 0; right: 0; width: 200px; height: 100%; margin-top: 25px; background: var(--main-2-color); display: flex; align-items: center; justify-content: center; transition: 0.2s ease-in-out; transform: translateX(100%); border-left: 1px solid var(--main-3-color); z-index: 9999;}
-.menu-list {width: 100%; height: 100%;}
+.menu-list {width: 100%; height: 100%; overflow-y: auto;}
 .menu-zag {background: var(--main-1-color); border-radius: 3px; padding-top: 2px; padding-bottom: 2px;}
 .menu-a {width: 100%; height: 30px; display: flex; justify-content: flex-start; align-items: center; border-radius: 3px; transition: .2s;}
 .menu-a:hover {background: var(--main-1-color); text-decoration: none;}
-.menu-btn {width: 10px; height: 25px; background: url('/img/icons/menu-open.png') no-repeat top/cover;}
+.menu-btn {width: 10px; height: 25px; background: url('/assets/icons/menu-open.png') no-repeat top/cover;}
 .menu-active {transform: translateX(0%);}
 .menu-target {width: 100%; height: 100%; background: var(--main-1-color); opacity: .7; position: absolute; top: 0; left: 0; z-index: 8888; transition: 0.5s ease-in-out; transform: translateX(100%);}
 .menu-target-active {transform: translateX(0%);}
 
 .info-table {width: 100%; height: 25px; position: fixed; top: 0; left: 0; z-index: 9999; border-bottom: 1px solid var(--main-3-color);}
 
-.hr-style {width: 100%; height: 1px; background: var(--main-1-color); margin-top: 10px; border: 0; clear: both; display: block;}
+.hr-style {width: 100%; height: 1px; background: var(--main-1-color); margin-top: 8px; border: 0; clear: both; display: block;}
 
 .item14-1 {width: 14px; height: 14px;}
 .item32-1 {width: 32px; height: 32px; border-radius: 3px; background: var(--main-1-color);}
 .item32-2 {width: 32px; height: 32px; border-radius: 3px; background: var(--main-2-color);}
 
 .usual {color: #868188;} .rare {color: #80493a;} .epic {color: #752ca8;} .legend {color: #d3a068;}
-.usual_border {width: 32px; height: 32px; background: url('/img/icons/ivent-usual-border.png') top/cover no-repeat;}
-.rare_border {width: 32px; height: 32px; background: url('/img/icons/ivent-rare-border.png') top/cover no-repeat;}
-.epic_border {width: 32px; height: 32px; background: url('/img/icons/ivent-epic-border.png') top/cover no-repeat;}
-.legend_border {width: 32px; height: 32px; background: url('/img/icons/ivent-legend-border.png') top/cover no-repeat;}
+.usual_border {width: 32px; height: 32px; background: url('/assets/icons/ivent-usual-border.png') top/cover no-repeat;}
+.rare_border {width: 32px; height: 32px; background: url('/assets/icons/ivent-rare-border.png') top/cover no-repeat;}
+.epic_border {width: 32px; height: 32px; background: url('/assets/icons/ivent-epic-border.png') top/cover no-repeat;}
+.legend_border {width: 32px; height: 32px; background: url('/assets/icons/ivent-legend-border.png') top/cover no-repeat;}
 
 .sort-menu {width: 96%; height: 50px; background: var(--main-2-color); border-radius: 3px; border: 1px solid var(--main-3-color); padding: 5px; overflow: auto;}
 .sort-menu a {height: 25px; background: var(--main-1-color); padding: 4px; border-radius: 3px;}
@@ -107,7 +107,7 @@ input[type=submit] {cursor: pointer;}
 
 /* РЕДАКТИРОВАНИЕ ПЕРСОНАЖА (costumize.php) */
 .pers-maneken {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
-.maneken {width: 90px; height: 154px; background: url('/img/decor/maneken-back.png') no-repeat top/cover;}
+.maneken {width: 90px; height: 154px; background: url('/assets/decor/maneken-back.png') no-repeat top/cover;}
 .man {position: absolute; z-index: 1;}
 
 .cost-zag {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
@@ -124,15 +124,16 @@ input[type=submit] {cursor: pointer;}
 /* ИГРА (game.php) */
 .game-meteoсharact {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
 .game-location {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
-.game-loc-img {width: 100%; border-radius: 5px;}
+.game-canvas {width: 96%; border-radius: 2px; background-color: var(--main-1-color);}
+.game-canvas-loader {width: 100%; height: 100%; position: absolute; top: 0; left: 0;}
+.game-canvas-btns {width: 100%; height: 100%; position: absolute; top: 0; left: 0;}
+.game-canvas-btns-wdth {margin-right: 20px; margin-bottom: 10px; opacity: 0.7;}
+.game-btn-big {width: 20px; height: 20px; background: var(--main-1-color);}
+.game-btn-min {width: 14px; height: 14px; background: var(--main-1-color);}
 .game-avai-items {overflow-x: auto;}
 .loc-whatsrch {width: 96%;}
 
 .game-srch {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
-.srchlut-btn {width: 85%; height: 30px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
-.srchlut-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
-.srchloc-btn {width: 85%; height: 30px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
-.srchloc-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
 .game-actions {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
 

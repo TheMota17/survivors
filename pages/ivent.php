@@ -30,8 +30,8 @@
             else 
                 $this->all = $this->pdo->rows('SELECT * FROM `ivent` WHERE `type` = ? AND `colvo` > 0 AND `user_id` = ?', array($this->type, $this->user[ 'id' ]));
 
-            $limit  = 5;
-            $offset = $limit * ($this->page - 1);
+            $limit   = 5;
+            $offset  = $limit * ($this->page - 1);
             $maxpage = intval($this->all / $limit);
 
             if ($this->all > 5) {
@@ -132,24 +132,24 @@
 			<div class='pants<?=$nadeto['pants']?>'></div>
 			<div class='fwear<?=$nadeto['fwear']?>'></div>
 
-			<img class='man' src='/img/man/man.png' />
+			<img class='man' src='/assets/man/man.png' />
 			<div class='maneken-shadow'></div>
 		</div>
 
 		<div class='user-info ml10'>
 			<div class='user-name flex j-c ai-c'>
 				<span class='user-name' id='user_name'><?=$Sys->user_info('userinfo', 'login')?></span>
-                <img src='/img/icons/hp.png' class='item14-1 ml5' /> <?=$Sys->user_info('userinfo', 'live')?>
+                <img src='/assets/icons/hp.png' class='item14-1 ml5' /> <?=$Sys->user_info('userinfo', 'live')?>
 			</div>
 
 			<div class='user-abs flex j-s ai-c mt5'>
-				<img src='/img/icons/abs.png' class='item14-1 ml5 mr5' />
+				<img src='/assets/icons/abs.png' class='item14-1 ml5 mr5' />
 				<span id='user_abs'>
 					<?=( $game_items[ 2 ][ $nadeto['helm'] ]['dmgabs'] + $game_items[ 3 ][ $nadeto['arm'] ]['dmgabs'] )?>
 				</span>
 			</div>
 			<div class='user-dmg flex j-s ai-c mt5'>
-				<img src='/img/icons/dmg.png' class='item14-1 ml5 mr5' />
+				<img src='/assets/icons/dmg.png' class='item14-1 ml5 mr5' />
                 <? if ($nadeto[ 'weap' ] > 0) : ?>
     				<span id='user_dmg_min'>
     					<?=$game_items[ 4 ][ $nadeto['weap'] ]['dmgmin']?>
@@ -163,26 +163,26 @@
                 <? endif; ?>
 			</div>
 			<div class='user-power flex j-s ai-c mt5'>
-				<img src='/img/icons/power.png' class='item14-1 ml5 mr5' />
+				<img src='/assets/icons/power.png' class='item14-1 ml5 mr5' />
 				<span id='user_power'>
 				<?=( $game_items[ 2 ][ $nadeto['helm'] ]['power'] + $game_items[ 3 ][ $nadeto['arm'] ]['power'] + $game_items[ 4 ][ $nadeto['weap'] ]['power'] )?>
 				</span>
 			</div>
 
 			<div class='user-hp-info flex j-c ai-c mt5'>
-				<img src='/img/icons/hung.png' class='item14-1 mr5' />
+				<img src='/assets/icons/hung.png' class='item14-1 mr5' />
                 <div class='ivent-hung-bar'>
                     <div class='hung-bar' id='hung_bar' style='width: <?=$Sys->user_info('userinfo', 'hung')?>%'></div>
                 </div>
 			</div>
 			<div class='user-hung-info flex j-c ai-c mt5'>
-				<img src='/img/icons/thirst.png' class='item14-1 mr5' />
+				<img src='/assets/icons/thirst.png' class='item14-1 mr5' />
                 <div class='ivent-thirst-bar'>
                     <div class='thirst-bar' id='thirst_bar' style='width: <?=$Sys->user_info('userinfo', 'thirst')?>%'></div>
                 </div>
 			</div>
 			<div class='user-fatigue-info flex j-c ai-c mt5'>
-				<img src='/img/icons/sleep.png' class='item14-1 mr5' />
+				<img src='/assets/icons/sleep.png' class='item14-1 mr5' />
 				<div class='ivent-fatigue-bar'>
 					<div class='fatigue-bar' id='fatigue_bar' style='width: <?=$Sys->user_info('userinfo', 'fatigue')?>%'></div>
 				</div>
@@ -206,7 +206,7 @@
                             <img src='<?=$game_items[ 2 ][ $nadeto['helm'] ][ 'img' ]?>' />
                         </div>
                     <? else : ?>
-                        <img src='/img/icons/ivent-helm.png' />
+                        <img src='/assets/icons/ivent-helm.png' />
                     <? endif; ?>
 		        </div>
 		        <div class='flex j-c fl-di-co'>
@@ -232,11 +232,11 @@
             <div class='flex j-c fl-di-co fl1'>
                 <? if ($nadeto[ 'helm' ] > 0) : ?>
                     <div class='item-dmg-abs flex j-e ai-c'>
-                        <img src='/img/icons/abs.png' />
+                        <img src='/assets/icons/abs.png' />
                         <span><?=$game_items[ 2 ][ $nadeto['helm'] ][ 'dmgabs' ]?></span>
                     </div>
                     <div class='helm-power flex j-e ai-c'>
-                        <img src='/img/icons/power.png' />
+                        <img src='/assets/icons/power.png' />
                         <span><?=$game_items[ 2 ][ $nadeto['helm'] ][ 'power' ]?></span>
                     </div>
                 <? endif; ?>
@@ -251,7 +251,7 @@
                             <img src='<?=$game_items[ 3 ][ $nadeto['arm'] ][ 'img' ]?>' />
                         </div>
                     <? else : ?>
-                        <img src='/img/icons/ivent-arm.png' />
+                        <img src='/assets/icons/ivent-arm.png' />
                     <? endif; ?>
 		        </div>
 		        <div class='flex j-c fl-di-co'>
@@ -277,11 +277,11 @@
             <div class='flex j-c fl-di-co fl1'>
                 <? if ($nadeto[ 'arm' ] > 0) : ?>
                     <div class='item-dmg-abs flex j-e ai-c'>
-                        <img src='/img/icons/abs.png' />
+                        <img src='/assets/icons/abs.png' />
                         <span><?=$game_items[ 3 ][ $nadeto['arm'] ][ 'dmgabs' ]?></span>
                     </div>
                     <div class='helm-power flex j-e ai-c'>
-                        <img src='/img/icons/power.png' />
+                        <img src='/assets/icons/power.png' />
                         <span><?=$game_items[ 3 ][ $nadeto['arm'] ][ 'power' ]?></span>
                     </div>
                 <? endif; ?>
@@ -296,7 +296,7 @@
                             <img src='<?=$game_items[ 4 ][ $nadeto['weap'] ][ 'img' ]?>' />
                         </div>
                     <? else : ?>
-                        <img src='/img/icons/ivent-weap.png' />
+                        <img src='/assets/icons/ivent-weap.png' />
                     <? endif; ?>
 	            </div>
 	            <div class='flex j-c fl-di-co'>
@@ -322,11 +322,11 @@
             <div class='flex j-c fl-di-co fl1'>
                 <? if ($nadeto[ 'weap' ] > 0) : ?>
                     <div class='item-dmg-abs flex j-e ai-c'>
-                        <img src='/img/icons/dmg.png' />
+                        <img src='/assets/icons/dmg.png' />
                         <span><?=$game_items[ 4 ][ $nadeto['weap'] ][ 'dmgmin' ]?></span> - <span><?=$game_items[ 4 ][ $nadeto['weap'] ][ 'dmgmax' ]?></span>
                     </div>
                     <div class='helm-power flex j-e ai-c'>
-                        <img src='/img/icons/power.png' />
+                        <img src='/assets/icons/power.png' />
                         <span><?=$game_items[ 4 ][ $nadeto['weap'] ][ 'power' ]?></span>
                     </div>
                 <? endif; ?>
@@ -341,7 +341,7 @@
 		<span class='mr5'>Инвентарь</span>
         <span id='cells_quant'><?=$Ivent->get_cells()?></span>/50 
         <button class='sort-btn flex j-c ai-c ml5' id='ivent_sort_btn'>
-            <img src='/img/icons/sort.png' class='mr5' id='ivent_sort_btn' /><?=$Ivent->get_type_name()?>
+            <img src='/assets/icons/sort.png' class='mr5' id='ivent_sort_btn' /><?=$Ivent->get_type_name()?>
         </button>
     </div>
     <div class='none sort-menu flex j-s ai-c mt5' id='ivent_sort_menu'>

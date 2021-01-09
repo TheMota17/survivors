@@ -1,6 +1,6 @@
 <?php
     require 'db.php';
-    require 'funcs.php';
+    require 'utils.php';
 
     Class Sys {
         private $pdo;
@@ -106,6 +106,8 @@
     }
 
     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
-        $Sys = new Sys($pdo, $_SESSION['user']);
-        $Sys->main();
-    } else { exit('Hi!'); }
+        if ($_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
+            $Sys = new Sys($pdo, $_SESSION['user']);
+            $Sys->main();
+        } else exit;
+    } else exit;

@@ -56,8 +56,8 @@
     }
 
     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
-        if ($_SESSION['token'] == $_POST['token'] || $_POST['token'] == 0 || $_SESSION['token'] == 0) {
+        if ($_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
             $Savesett = new Savesett($pdo, $_POST['hair'], $_POST['beard'], $_POST['cloth'], $_POST['pants'], $_POST['fwear']);
             $Savesett->main();
         }
-    } else { exit('Hi!'); }
+    } else exit;

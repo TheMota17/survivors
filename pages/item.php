@@ -177,14 +177,14 @@
                 <? if ($items_pred[ $item['type'] ][ $item['item'] ]) : ?>
                     <div class='iteminfo-div mt5'>
                         <span class='ml5'>
-                            <img src='/img/icons/info.png' class='item14-1' />
+                            <img src='/assets/icons/info.png' class='item14-1' />
                             <?=$items_pred[ $item['type'] ][ $item['item'] ]?>
                         </span>
                     </div>
                 <? else : ?>
                     <div class='iteminfo-div mt5'>
                         <span class='ml5'>
-                            <img src='/img/icons/info.png' class='item14-1' />
+                            <img src='/assets/icons/info.png' class='item14-1' />
                             <? switch($game_items[ $item['type'] ][ $item['item'] ]['type']) :
                                 case 'Пища' : ?>
                                     Ну пищу едят как-бы)
@@ -218,7 +218,7 @@
                             case 'hung': ?>
                                 <div class='iteminfo-div mt5'>
                                     <span class='ml5'>
-                                        <img src='/img/icons/hung.png' class='item14-1' />
+                                        <img src='/assets/icons/hung.png' class='item14-1' />
                                         Голод: -<?=$eff?>
                                     </span>
                                 </div>
@@ -226,7 +226,7 @@
                             <? case 'thirst': ?>
                                 <div class='iteminfo-div mt5'>
                                     <span class='ml5'>
-                                        <img src='/img/icons/thirst.png' class='item14-1' />
+                                        <img src='/assets/icons/thirst.png' class='item14-1' />
                                         Жажда: -<?=$eff?>
                                     </span>
                                 </div>
@@ -234,7 +234,7 @@
                             <? case 'hp': ?>
                                 <div class='iteminfo-div mt5'>
                                     <span class='ml5'>
-                                        <img src='/img/icons/hp.png' class='item14-1' />
+                                        <img src='/assets/icons/hp.png' class='item14-1' />
                                         Здоровье: +<?=$eff?>
                                     </span>
                                 </div>
@@ -246,16 +246,16 @@
                 <? if ($game_items[ $item['type'] ][ $item['item'] ]['dmgabs']) : ?>
                     <div class='iteminfo-div flex j-sb mt5'>
                         <div class='ml5'>
-                            <img src='/img/icons/abs.png' class='item14-1' /> Подавление урона: -<?=$game_items[ $item['type'] ][ $item['item'] ][ 'dmgabs' ]?>
+                            <img src='/assets/icons/abs.png' class='item14-1' /> Подавление урона: -<?=$game_items[ $item['type'] ][ $item['item'] ][ 'dmgabs' ]?>
                         </div>
                         <? if (! $Item->get_view()) : ?>
                             <div class='ml5'>
                                 <? if ($game_items[ $item['type'] ][ $item['item'] ]['dmgabs'] > $game_items[ $item['type'] ][ $nadeto[ $nadeto_elems[$item['type']] ] ]['dmgabs']) : ?>
-                                    <img src='/img/icons/better.png' class='item14-1 mr5' />
+                                    <img src='/assets/icons/better.png' class='item14-1 mr5' />
                                 <? elseif ($game_items[ $item['type'] ][ $nadeto[ $nadeto_elems[$item['type']] ] ]['dmgabs'] == $game_items[ $item['type'] ][ $item['item'] ]['dmgabs']) : ?>
-                                    <img src='/img/icons/equally.png' class='item14-1 mr5' />
+                                    <img src='/assets/icons/equally.png' class='item14-1 mr5' />
                                 <? else : ?>
-                                    <img src='/img/icons/worse.png' class='item14-1 mr5' />
+                                    <img src='/assets/icons/worse.png' class='item14-1 mr5' />
                                 <? endif; ?>
                             </div>
                         <? endif; ?>
@@ -263,7 +263,7 @@
                 <? elseif ($game_items[ $item['type'] ][ $item['item'] ]['dmgmin']): ?>
                     <div class='iteminfo-div flex j-sb mt5'>
                         <div class='ml5'>
-                            <img src='/img/icons/dmg.png' class='item14-1' /> Урон:
+                            <img src='/assets/icons/dmg.png' class='item14-1' /> Урон:
                             <?=$game_items[ $item['type'] ][ $item['item'] ][ 'dmgmin' ]?>
                             -
                             <?=$game_items[ $item['type'] ][ $item['item'] ][ 'dmgmax' ]?>
@@ -271,11 +271,11 @@
                         <? if (! $Item->get_view()) : ?>
                             <div class='ml5'>
                                 <? if ($game_items[ $item['type'] ][ $item['item'] ]['dmgmin'] > $game_items[ $item['type'] ][ $nadeto[ $nadeto_elems[$item['type']] ] ]['dmgmin']) : ?>
-                                    <img src='/img/icons/better.png' class='item14-1 mr5' />
+                                    <img src='/assets/icons/better.png' class='item14-1 mr5' />
                                 <? elseif ($game_items[ $item['type'] ][ $nadeto[ $nadeto_elems[$item['type']] ] ]['dmgmin'] == $game_items[ $item['type'] ][ $item['item'] ]['dmgmin']) : ?>
-                                    <img src='/img/icons/equally.png' class='item14-1 mr5' />
+                                    <img src='/assets/icons/equally.png' class='item14-1 mr5' />
                                 <? else : ?>
-                                    <img src='/img/icons/worse.png' class='item14-1 mr5' />
+                                    <img src='/assets/icons/worse.png' class='item14-1 mr5' />
                                 <? endif; ?>
                             </div>
                         <? endif; ?>
@@ -285,16 +285,16 @@
                 <? if ($game_items[ $item['type'] ][ $item['item'] ][ 'power' ]) : ?>
                     <div class='iteminfo-div flex j-sb mt5'>
                         <div class='ml5'>
-                            <img src='/img/icons/power.png' class='item14-1' /> Бонус к мощи: <?=$game_items[ $item['type'] ][ $item['item'] ][ 'power' ]?>
+                            <img src='/assets/icons/power.png' class='item14-1' /> Бонус к мощи: <?=$game_items[ $item['type'] ][ $item['item'] ][ 'power' ]?>
                         </div>
                         <? if (! $Item->get_view()) : ?>
                             <div class='ml5'>
                                 <? if ($game_items[ $item['type'] ][ $item['item'] ]['power'] > $game_items[ $item['type'] ][ $nadeto[ $nadeto_elems[$item['type']] ] ]['power']) : ?>
-                                    <img src='/img/icons/better.png' class='item14-1 mr5' />
+                                    <img src='/assets/icons/better.png' class='item14-1 mr5' />
                                 <? elseif ($game_items[ $item['type'] ][ $nadeto[ $nadeto_elems[$item['type']] ] ]['power'] == $game_items[ $item['type'] ][ $item['item'] ]['power']) : ?>
-                                    <img src='/img/icons/equally.png' class='item14-1 mr5' />
+                                    <img src='/assets/icons/equally.png' class='item14-1 mr5' />
                                 <? else : ?>
-                                    <img src='/img/icons/worse.png' class='item14-1 mr5' />
+                                    <img src='/assets/icons/worse.png' class='item14-1 mr5' />
                                 <? endif; ?>
                             </div>
                         <? endif; ?>
@@ -304,7 +304,7 @@
                 <? if (!$Item->get_view()) : ?>
                     <div class='iteminfo-div flex ai-c mt5'>
                         <span class='ml5'>
-                            <img src='/img/icons/colvo.png' class='item14-1' /> Количество: <?=$item[ 'colvo' ]?>
+                            <img src='/assets/icons/colvo.png' class='item14-1' /> Количество: <?=$item[ 'colvo' ]?>
                         </span>
                     </div>
                 <? endif; ?>
@@ -431,14 +431,14 @@
                     <? if ($game_items[ $item['type'] ][ $item['item'] ]['dmgabs']) : ?>
                         <div class='iteminfo-div mt5'>
                             <span class='ml5'>
-                                <img src='/img/icons/abs.png' class='item14-1' /> 
+                                <img src='/assets/icons/abs.png' class='item14-1' /> 
                                 Подавление урона: -<?=$game_items[ $item['type'] ][ $nadeto[ $nadeto_elems[$item['type']] ] ][ 'dmgabs' ]?>
                             </span>
                         </div>
                     <? else : ?>
                         <div class='iteminfo-div mt5'>
                             <span class='ml5'>
-                                <img src='/img/icons/dmg.png' class='item14-1' /> Урон:
+                                <img src='/assets/icons/dmg.png' class='item14-1' /> Урон:
                                 <?=$game_items[ $item['type'] ][ $nadeto[ $nadeto_elems[$item['type']] ] ][ 'dmgmin' ]?> 
                                 -
                                 <?=$game_items[ $item['type'] ][ $nadeto[ $nadeto_elems[$item['type']] ] ][ 'dmgmax' ]?>
@@ -447,7 +447,7 @@
                     <? endif; ?>
                     <div class='iteminfo-div mt5'>
                         <span class='ml5'>
-                            <img src='/img/icons/power.png' class='item14-1' /> Бонус к мощи: <?=$game_items[ $item['type'] ][ $nadeto[ $nadeto_elems[$item['type']] ] ][ 'power' ]?>
+                            <img src='/assets/icons/power.png' class='item14-1' /> Бонус к мощи: <?=$game_items[ $item['type'] ][ $nadeto[ $nadeto_elems[$item['type']] ] ][ 'power' ]?>
                         </span>
                     </div>
                 </div>

@@ -128,14 +128,14 @@
                         <? if ($items_pred[ $Craft->get_type() ][ $Craft->get_item() ]) : ?>
                             <div class='iteminfo-div mt5'>
                                 <span class='ml5'>
-                                    <img src='/img/icons/info.png' />
+                                    <img src='/assets/icons/info.png' />
                                     <?=$items_pred[ $Craft->get_type() ][ $Craft->get_item() ]?>
                                 </span>
                             </div>
                         <? else : ?>
                             <div class='iteminfo-div mt5'>
                                 <span class='ml5'>
-                                    <img src='/img/icons/info.png' />
+                                    <img src='/assets/icons/info.png' />
                                     <? switch($game_items[ $Craft->get_type() ][ $Craft->get_item() ]['type']) :
                                         case 'Пища' : ?>
                                             Ну пищу едят как-бы)
@@ -169,7 +169,7 @@
                                     case 'hung': ?>
                                         <div class='iteminfo-div mt5'>
                                             <span class='ml5'>
-                                                <img src='/img/icons/hung.png' />
+                                                <img src='/assets/icons/hung.png' />
                                                 Голод: -<?=$eff?>
                                             </span>
                                         </div>
@@ -177,7 +177,7 @@
                                     <? case 'thirst': ?>
                                         <div class='iteminfo-div mt5'>
                                             <span class='ml5'>
-                                                <img src='/img/icons/thirst.png' />
+                                                <img src='/assets/icons/thirst.png' />
                                                 Жажда: -<?=$eff?>
                                             </span>
                                         </div>
@@ -185,7 +185,7 @@
                                     <? case 'hp': ?>
                                         <div class='iteminfo-div mt5'>
                                             <span class='ml5'>
-                                                <img src='/img/icons/hp.png' />
+                                                <img src='/assets/icons/hp.png' />
                                                 Здоровье: +<?=$eff?>
                                             </span>
                                         </div>
@@ -197,13 +197,13 @@
                         <? if ($game_items[ $Craft->get_type() ][ $Craft->get_item() ]['dmgabs']) : ?>
                             <div class='iteminfo-div flex j-sb mt5'>
                                 <div class='ml5'>
-                                    <img src='/img/icons/abs.png' class='item14-1' /> Подавление урона: -<?=$game_items[ $Craft->get_type() ][ $Craft->get_item() ][ 'dmgabs' ]?>
+                                    <img src='/assets/icons/abs.png' class='item14-1' /> Подавление урона: -<?=$game_items[ $Craft->get_type() ][ $Craft->get_item() ][ 'dmgabs' ]?>
                                 </div>
                             </div>
                         <? elseif($game_items[ $Craft->get_type() ][ $Craft->get_item() ]['dmgmin']) : ?>
                             <div class='iteminfo-div flex j-sb mt5'>
                                 <div class='ml5'>
-                                    <img src='/img/icons/dmg.png' class='item14-1' /> Урон:
+                                    <img src='/assets/icons/dmg.png' class='item14-1' /> Урон:
                                     <?=$game_items[ $Craft->get_type() ][ $Craft->get_item() ][ 'dmgmin' ]?>
                                     -
                                     <?=$game_items[ $Craft->get_type() ][ $Craft->get_item() ][ 'dmgmax' ]?>
@@ -214,7 +214,7 @@
                         <? if ($game_items[ $Craft->get_type() ][ $Craft->get_item() ][ 'power' ]) : ?>
                             <div class='iteminfo-div flex j-sb mt5'>
                                 <div class='ml5'>
-                                    <img src='/img/icons/power.png' class='item14-1' /> Бонус к мощи: <?=$game_items[ $Craft->get_type() ][ $Craft->get_item() ][ 'power' ]?>
+                                    <img src='/assets/icons/power.png' class='item14-1' /> Бонус к мощи: <?=$game_items[ $Craft->get_type() ][ $Craft->get_item() ][ 'power' ]?>
                                 </div>
                             </div>
                         <? endif; ?>
@@ -312,7 +312,7 @@
                     <div class='flex j-c mt5 mb5'>
                         <button class='move-btn craft-item-btn relative mt5 flex j-s ai-c' id='craft'>
                             <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
-                                <img src='/img/icons/menu/craft.png' />
+                                <img src='/assets/icons/menu/craft.png' />
                             </div>
                             <div class='flex j-c ai-c' id='txt_craft'>Создать</div>
                             <div class='game-btn-bar' id='bar_craft'></div>
@@ -324,7 +324,7 @@
         <? else: ?>
             <div class='wdth96 flex j-s'>
                 <button class='sort-btn flex j-c ai-c ml5' id='craft_sort_btn'>
-                    <img src='/img/icons/sort.png' class='mr5' id='craft_sort_btn' /><?=$Craft->get_type_name()?>
+                    <img src='/assets/icons/sort.png' class='mr5' id='craft_sort_btn' /><?=$Craft->get_type_name()?>
                 </button>
             </div>
             <div class='none craft-sort-menu flex j-s ai-c mt5' id='craft_sort_menu'>
@@ -356,7 +356,7 @@
                                 </div>
                                 <div class='ml5 mr5 fl1 flex j-e'>
                                     <a class='ajax craft-item-info flex j-c ai-c' href='/craft?id=<?=$iter?>&item=<?=$gc['item']?>&type=<?=$gc['type']?>'>
-                                        <img src='/img/icons/menu/craft.png'/>
+                                        <img src='/assets/icons/menu/craft.png'/>
                                     </a>
                                 </div>
                             </div>

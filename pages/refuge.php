@@ -41,7 +41,7 @@
         <div class='refuge-no backgr2 flex j-c ai-c fl-di-co pb5'>
             <div class='refuge-back flex j-c' style='background: url(<?=$game_locs[ 1 ][ 'img' ][ img($game_locs, $Sys->user_info('userinfo', 'user_weather')) ]?>) top/cover no-repeat; align-items: center;'>
                 <div class='refuge-no-mess backgr1 flex j-c ai-c'>
-                    <img src='/img/icons/mess.png' class='mr5' /> 
+                    <img src='/assets/icons/mess.png' class='mr5' /> 
                     <span class='mess'>У вас нету убежища</span>
                 </div>
             </div>
@@ -76,7 +76,7 @@
             </div>
             <button class='move-btn refuge-up relative flex j-s ai-c mt5' id='uprefuge'>
                 <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
-                    <img src='/img/icons/lvl.png' class='item14-1' />
+                    <img src='/assets/icons/lvl.png' class='item14-1' />
                 </div>
                 <span id='txt_uprefuge'>Построить</span>
                 <div class='game-btn-bar' id='bar_uprefuge'></div>
@@ -91,13 +91,13 @@
             </div>
             <div class='wdth96 flex j-c ai-c fl-di-co'>
                 <div class='iteminfo-div mt5'>
-                    <span class='ml5'><img src='/img/icons/info.png' /> <?=$game_refuges[ $refuge['lvl'] ]['nm']?></span>
+                    <span class='ml5'><img src='/assets/icons/info.png' /> <?=$game_refuges[ $refuge['lvl'] ]['nm']?></span>
                 </div>
                 <div class='iteminfo-div mt5'>
-                    <span class='ml5'><img src='/img/icons/lvl.png' class='item14-1' /> Уровень: <?=$refuge['lvl']?></span>
+                    <span class='ml5'><img src='/assets/icons/lvl.png' class='item14-1' /> Уровень: <?=$refuge['lvl']?></span>
                 </div>
                 <div class='iteminfo-div mt5'>
-                    <span class='ml5'><img src='/img/icons/abs.png' class='item14-1' /> Броня: <?=$game_refuges[ $refuge['lvl'] ]['dmgabs']?></span>
+                    <span class='ml5'><img src='/assets/icons/abs.png' class='item14-1' /> Броня: <?=$game_refuges[ $refuge['lvl'] ]['dmgabs']?></span>
                 </div>
             </div>
             <div class='refuge-back relative flex j-c mt5' style='background: url(<?=$game_locs[ 1 ][ 'img' ][ img($game_locs, $Sys->user_info('userinfo', 'user_weather')) ]?>) top/cover no-repeat; align-items: flex-end;'>
@@ -107,7 +107,7 @@
                 </div>
                 <div class='refuge-hp-colvo backgr1 flex j-c ai-c pl5 pr5 pb5 pt5'>
                     <div class='flex j-c ai-c'>
-                        <img src='/img/icons/hp.png' class='item14-1 mr5' /> <span><?=$refuge['hp']?> / <?=$game_refuges[ $refuge['lvl'] ]['maxhp']?></span>
+                        <img src='/assets/icons/hp.png' class='item14-1 mr5' /> <span><?=$refuge['hp']?> / <?=$game_refuges[ $refuge['lvl'] ]['maxhp']?></span>
                     </div>
                 </div>
                 <img src='<?=$game_refuges[ $refuge['lvl'] ]['img']?>' class='refuge-img block <?=$game_refuges[ $refuge['lvl'] ]['class']?>' />
@@ -150,7 +150,7 @@
             <div class='refuge-moves flex j-c ai-c fl-di-co mt5'>
                 <button class='move-btn refuge-up relative flex j-s ai-c' id='uprefuge'>
                     <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
-                        <img src='/img/icons/lvl.png' class='item14-1' />
+                        <img src='/assets/icons/lvl.png' class='item14-1' />
                     </div>
                     <span id='txt_uprefuge'>Улучшить</span>
                     <div class='game-btn-bar' id='bar_uprefuge'></div>
@@ -158,7 +158,7 @@
                 <? if ($Sys->user_info('userinfo', 'in_refuge')) : ?>
                     <button class='move-btn refuge-enter relative flex j-s ai-c mt5' id='enterrefuge'>
                         <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
-                            <img src='/img/icons/getout.png' />
+                            <img src='/assets/icons/getout.png' />
                         </div>
                         <span id='txt_enterrefuge'>Выйти</span>
                         <div class='game-btn-bar' id='bar_enterrefuge'></div>
@@ -166,7 +166,7 @@
                 <? else : ?>
                     <button class='move-btn refuge-enter relative flex j-s ai-c mt5' id='enterrefuge'>
                         <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
-                            <img src='/img/icons/enter.png' />
+                            <img src='/assets/icons/enter.png' />
                         </div>
                         <span id='txt_enterrefuge'>Войти</span>
                         <div class='game-btn-bar' id='bar_enterrefuge'></div>
@@ -200,7 +200,7 @@
                                             <img src='<?=$item['img']?>' />
                                         </div>
                                     <? else : ?>
-                                        <img src='/img/icons/slot.png' />
+                                        <img src='/assets/icons/slot.png' />
                                     <? endif; ?>
                                 </div>
                                 <div class='flex j-c fl-di-co'>
@@ -257,7 +257,7 @@
                                             <img src='<?=$item['img']?>' />
                                         </div>
                                     <? else : ?>
-                                        <img src='/img/icons/slot.png' />
+                                        <img src='/assets/icons/slot.png' />
                                     <? endif; ?>
                                 </div>
                                 <div class='flex j-c fl-di-co'>

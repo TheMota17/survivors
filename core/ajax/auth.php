@@ -1,6 +1,6 @@
 <?php
     require realpath('../db.php');
-    require realpath('../funcs.php');
+    require realpath('../utils.php');
 
     Class Auth {
 
@@ -56,10 +56,12 @@
         
         public function reg() {
 
-            $newuser = $this->pdo->query('INSERT INTO users (login, pass, mail, date, lastvisit, ban, adm, live, hp, hung, thirst, fatigue, user_time, user_weather, user_temp, loc, loc_explored, costumize, craft_lvl, in_refuge) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            array($this->name_reg, password_hash($this->pass_reg, PASSWORD_DEFAULT), password_hash($this->mail_reg, PASSWORD_DEFAULT), time(), 0, 0, 0, 3, 100, 0, 0, 0, 36000, 1, 2, 1, 0, 0, 1, 0));
+            $newuser = $this->pdo->query('INSERT INTO users (login, pass, mail, date, lastvisit, ban, adm, live, hp, hung, thirst, fatigue, costumize, craft_lvl, in_refuge) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            array($this->name_reg, password_hash($this->pass_reg, PASSWORD_DEFAULT), password_hash($this->mail_reg, PASSWORD_DEFAULT), time(), 0, 0, 0, 3, 100, 0, 0, 0, 0, 1, 0));
             $userid = $this->pdo->last();
 
+            $map    = $this->pdo->query('INSERT INTO map (data, user_id) VALUES (?, ?)', 
+            array(json_encode(['x' => 50, 'y' => 50, 's' => 100, 'time' => 36000, 'weather' => 1, 'weatherTime' => 0, 'temp' => 1, 'loc' => 1, 'loc_explored' => 0]), $userid));
             $refuge = $this->pdo->query('INSERT INTO refuge (hp, lvl, user_id) VALUES (?, ?, ?)', array(0, 0, $userid));
             $nadeto = $this->pdo->query('INSERT INTO nadeto (helm, arm, weap, hair, beard, cloth, pants, fwear, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', array(0, 0, 0, 1, 1, 1, 1, 1, $userid));
 
@@ -124,8 +126,8 @@
     }
 
     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
-        if ($_SESSION['token'] == $_POST['token'] || $_POST['token'] == 0 || $_SESSION['token'] == 0) {
+        if ($_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
             $Auth = new Auth($pdo, $_POST['reg_name'], $_POST['reg_pass'], $_POST['reg_mail'], $_POST['enter_name'], $_POST['enter_pass']);
             $Auth->main();
         }
-    } else { exit('Hi!'); }
+    } else exit;

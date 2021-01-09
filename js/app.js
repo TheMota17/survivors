@@ -136,13 +136,13 @@
 
         title(pageFormat) {
             switch (pageFormat['page']) {
-                case '/auth':return 'Survivors';break;
-                case '/costumize':return 'Настроить персонажа';break;
-                case '/game':return 'Главная';break;
-                case '/ivent':return 'Инвентарь';break;
-                case '/item':return 'Предмет';break;
-                case '/craft':return 'Крафт';break;
-                case '/refuge':return 'Убежище';break;
+                case '/auth': return 'Survivors'; break;
+                case '/costumize': return 'Настроить персонажа'; break;
+                case '/game': return 'Главная'; break;
+                case '/ivent': return 'Инвентарь'; break;
+                case '/item': return 'Предмет'; break;
+                case '/craft': return 'Крафт'; break;
+                case '/refuge': return 'Убежище'; break;
             }
         },
 
@@ -152,11 +152,9 @@
 
             if (this.routeAvai(pageFormat['page'])) {
                 $.ajax({
-                    url: pageFormat['page'] + '.php' + pageFormat['get'],
+                    url: '/pages' + pageFormat['page'] + '.php' + pageFormat['get'],
                     method: 'POST',
-                    data: {
-                        token: this.token
-                    },
+                    data: { token: PageLoad.token },
                     success: function(data) {
                         PageLoad.view('barnone');
                         PageLoad.view('page', data, pageFormat);
@@ -534,16 +532,9 @@
         }
     };
 
-    let Item = {
-        construct() {
-            this.workpath = '/item';
-            this.slot     = 0;
-        },
-    };
-
     let Craft = {
         construct() {
-            this.colvo    = 1;
+            this.colvo = 1;
         },
 
         view(move, data) {
@@ -562,7 +553,6 @@
             Auth.construct();
             Costumize.construct();
             Game.construct();
-            Item.construct();
             Craft.construct();
         }
 
@@ -629,12 +619,6 @@
                         Craft.colvo = $('#' + e.target.id).val();
                         Craft.view('colvo');
                     break;
-                    case 'slot1':
-                    case 'slot2':
-                    case 'slot3':
-                    case 'slot4':
-                        Item.slot = $('#' + e.target.id).val();
-                    break;
                 }
             });
         }
@@ -671,6 +655,6 @@
     }
 
     let controller = new Controller();
-        controller.allEvents();
+    controller.allEvents();
 
 })(); // Начало на первой строке
