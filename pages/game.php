@@ -177,6 +177,7 @@ import {GameWorld} from '../js/game/GameWorld.js';
 import {Player} from '../js/game/Player.js';
 
 (function() {
+    'use strict';
 
     let Resources = {
         loadSprites: function(all_sprites)
@@ -315,7 +316,7 @@ import {Player} from '../js/game/Player.js';
 
         update: function(dt)
         {
-            this.gameLive.update(dt);
+            this.gameLive.update(dt, this.canv);
             this.player.update(dt, this.loc.width, this.loc.height);
             this.camera.update(dt, this.player.x, this.player.y, this.loc.width, this.loc.height);
             

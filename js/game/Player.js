@@ -153,14 +153,14 @@ class Player {
 	{
 		if (this.hungTime >= 300) 
 		{
-			if (this.hung < 100) 
+			if (this.hung < 100)
 			{
 				this.hung++;
 				this.hungTime = 0;
 			}
 		} else this.hungTime += 10 * dt;
 
-		if (this.thirstTime >= 300)
+		if (this.thirstTime >= 150)
 		{
 			if (this.thirst < 100)
 			{
@@ -169,7 +169,7 @@ class Player {
 			}
 		} else this.thirstTime += 10 * dt;
 
-		if (this.fatigueTime >= 600)
+		if (this.fatigueTime >= 500)
 		{
 			if (this.fatigue < 100)
 			{
@@ -177,6 +177,33 @@ class Player {
 				this.fatigueTime = 0;
 			}
 		} else this.fatigueTime += 10 * dt;
+
+		if (this.hpTime >= 600)
+		{
+			if (this.hp > 0)
+			{
+				let dmgForHp  = (this.hung >= 100)    ? 1 : 0;
+					dmgForHp += (this.thirst >= 100)  ? 1 : 0;
+					dmgForHp += (this.fatigue >= 100) ? 1 : 0;
+
+				if (dmgForHp == 0) 
+				{
+					if (this.hp < 100)
+					{
+						this.hp++;
+					}
+				} else {
+					if ((this.hp - dmgForHp) < 0)
+					{
+						this.hp = 0;
+					} else {
+						this.hp -= dmgForHp;
+					}
+				}
+
+				this.hpTime = 0;
+			}
+		} else this.hpTime += 10 * dt;
 	}
 
 	distance(p1, p2)

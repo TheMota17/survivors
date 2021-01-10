@@ -1,10 +1,12 @@
 (function() {
+    'use strict';
 
     let Popup = {
         activate(text) {
             $('#main-txt').html(text);
             $('#pop-up').removeClass('none');
         },
+
         close() {
             $('#main-txt').empty();
             $('#pop-up').addClass('none');
@@ -19,7 +21,7 @@
                 }
             }
         },
-
+        
         openclose: function(move) {
             switch (move) {
                 case 'open':
