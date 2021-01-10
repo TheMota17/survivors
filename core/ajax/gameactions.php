@@ -343,7 +343,6 @@
 
         public function eat() {
 
-            $item;
             if ( $this->id_item )
                 $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
             else
@@ -376,7 +375,6 @@
 
         public function drink() {
 
-            $item;
             if ( $this->id_item ) 
                 $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
             else
