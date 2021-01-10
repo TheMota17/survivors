@@ -1,7 +1,3 @@
-<?php
-	require ''.$_SERVER['DOCUMENT_ROOT'].'/core/sys.php';
-?>
-
 <div class='flex j-c mt10'>
 	<div class='cost-zag backgr2 flex j-c pt5 pb5'>
 		Настройте своего персонажа

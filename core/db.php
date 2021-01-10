@@ -9,9 +9,7 @@
 	        if ($config['db']['offEmulate']) $pdo->offEmulate();
 	        session_start();
 
-	    } else {
-	        throw new Exception('Что то пошло не так');
 	    }
 	} catch(Exception $e) {
-	    echo $e->getMessage();
+	    echo 'Что то пошло не так';
 	}
