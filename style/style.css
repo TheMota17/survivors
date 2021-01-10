@@ -126,6 +126,7 @@ input[type=submit] {cursor: pointer;}
 .game-location {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
 .game-canvas {width: 96%; border-radius: 2px; background-color: var(--main-1-color);}
 .game-canvas-loader {width: 100%; height: 100%; position: absolute; top: 0; left: 0;}
+.game-canvas-fps {width: 100%; height: 100%; position: absolute; top: 0; left: 0;}
 .game-canvas-btns {width: 100%; height: 100%; position: absolute; top: 0; left: 0;}
 .game-canvas-btns-wdth {margin-right: 20px; margin-bottom: 10px; opacity: 0.7;}
 .game-btn-big {width: 20px; height: 20px; background: var(--main-1-color);}
@@ -137,10 +138,6 @@ input[type=submit] {cursor: pointer;}
 
 .game-actions {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
 
-.game-eat-btn {width: 100%; height: 30px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
-.game-eat-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
-.game-drink-btn {width: 100%; height: 30px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
-.game-drink-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 .game-sleep-btn {width: 100%; height: 30px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
 .game-sleep-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 .sleep-range {border-radius: 5px; background: var(--main-1-color);}

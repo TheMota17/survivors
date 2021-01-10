@@ -136,16 +136,9 @@
             if ($thirst > 100) $thirst   = 100;
             if ($fatigue > 100) $fatigue = 100;
 
-            switch( $action ) {
-                case 'sleep':
-                    $sql = 'UPDATE `users` SET `hung` = ?, `thirst` = ? WHERE `id` = ?';
-                    $arr = [$hung, $thirst, $this->user['id']];
-                    break;
-                default:
-                    $sql = 'UPDATE `users` SET `hung` = ?, `thirst` = ?, `fatigue` = ? WHERE `id` = ?';
-                    $arr = [$hung, $thirst, $fatigue, $this->user['id']];
-                    break;
-            }
+            $sql = 'UPDATE `users` SET `hung` = ?, `thirst` = ?, `fatigue` = ? WHERE `id` = ?';
+            $arr = [$hung, $thirst, $fatigue, $this->user['id']];
+
             $this->pdo->query($sql, $arr);
 
         }
@@ -369,7 +362,7 @@
 
                     $this->item_substr($item['id'], $item['colvo']);
 
-                    if ($this->from == 'item' && $item['colvo'] == 1) {
+                    if ($item['colvo'] == 1) {
                         $this->answer('page', '/ivent');
                     } else $this->answer('reload', 0);
                 }
@@ -404,38 +397,13 @@
                     ));
 
                     $this->item_substr($item['id'], $item['colvo']);
-                    if ($this->from == 'item' && $item['colvo'] == 1) {
+                    if ($item['colvo'] == 1) {
                         $this->answer('page', '/ivent');
                     } else $this->answer('reload', false);
                 }
 
             } else {
                 $this->message = '<div class=\'flex j-c ai-c\'>Недостаточно воды</div>';
-                $this->answer('mess', 0);
-            }
-
-        }
-
-        public function sleep() {
-
-            if ($this->user['fatigue'] !== 0 && $this->user['fatigue'] >= 10) {
-
-                if ($this->hours > 0 && $this->hours < 24) {
-
-                    $sleep_time = $this->hours * 10;
-                    if (($this->user['fatigue'] - $sleep_time) < 0) $sleep_time = 0;
-                    else $sleep_time = $this->user['fatigue'] - $sleep_time;
-
-                    $this->pdo->query('UPDATE `users` SET `fatigue` = ? WHERE `id` = ?', array($sleep_time, $this->user['id']));
-
-                    $this->action_times('sleep', ($this->hours * 3600));
-
-                    $this->message = '<div class=\'flex j-s ai-c\'>- Вы проснулись</div>';
-                    if ($this->formation_answer()) $this->answer('messreload', 0);
-                }
-
-            } else {
-                $this->message = '<div class=\'flex j-c ai-c\'>Вы не хотите спать</div>';
                 $this->answer('mess', 0);
             }
 
@@ -472,7 +440,7 @@
                     $this->pdo->query('UPDATE `ivent` SET `colvo` = ? WHERE `id` = ?', array(($ivent_item['colvo'] - 1), $ivent_item['id']));
                 }
 
-                if ($this->from == 'item' && $ivent_item['colvo'] == 1) {
+                if ($ivent_item['colvo'] == 1) {
                     $this->answer('page', '/ivent');
                 } else $this->answer('reload', 0);
             }
@@ -563,7 +531,7 @@
                         $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `id` = ?', array(($item_ivent['colvo'] - 1), $item_ivent['id']));
                         $this->pdo->query('UPDATE users SET `craft_lvl` = ? WHERE `id` = ?', array($item['craft_lvl'], $this->user['id']));
 
-                        if ($this->from == 'item' && $item_ivent['colvo'] == 1) {
+                        if ($item_ivent['colvo'] == 1) {
                             $this->answer('page', '/ivent');
                         } else $this->answer('reload', 0);
                     }
@@ -722,8 +690,6 @@
         }
 
     	public function main() {
-            
-            $this->from = htmlspecialchars( trim( $_POST['from'] ) );
 
             switch( $this->action ) {
                 case 'srchloc': 
@@ -739,10 +705,6 @@
                 case 'drink':
                     $this->id_item = htmlspecialchars( intval( $_POST['id_item'] ) );
                     $this->drink();
-                    break;
-                case 'sleep':
-                    $this->hours = htmlspecialchars( intval( $_POST['hours'] ) );
-                    $this->sleep();
                     break;
                 case 'nadet':
                     $this->id_item = htmlspecialchars( intval( $_POST['id_item'] ) );

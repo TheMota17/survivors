@@ -70,6 +70,13 @@
                     Загрузка...
                 </div>
             </div>
+            <div class='game-canvas-fps'>
+                <div class='flex j-s ai-c bolder ml10'>
+                    <div class='flex'>
+                        FPS: <span class='ml5' id='fps'>0</span>
+                    </div>
+                </div>
+            </div>
             <div class='game-canvas-btns flex j-e ai-e'>
                 <div class='game-canvas-btns-wdth flex j-c ai-c fl-di-co'>
                     <div class='flex j-c ai-c'>
@@ -118,34 +125,8 @@
 <div class='flex j-c mt10'>
     <div class='game-actions backgr2 flex j-c ai-c fl-di-co pt5 pb5'>
 
-        <div class='flex j-c wdth86'>
-            <button class='move-btn game-eat-btn relative flex j-sb ai-c' id='eat'>
-                <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
-                    <img src='/assets/items/others/bread.png' class='item14-1'/>
-                </div>
-                <span id='txt_eat'>Есть</span>
-                <div class='game-item-colvo flex j-c ai-c mr5'>
-                    <span id='food_colvo'><?=items_info('food', $ivent)?></span>
-                </div>
-                <div class='game-btn-bar' id='bar_eat'></div>
-            </button>
-        </div>
-
-        <div class='flex j-c wdth86'>
-            <button class='move-btn game-drink-btn relative mt5 flex j-sb ai-c' id='drink'>
-                <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
-                    <img src='/assets/items/others/water.png' style='width: 10px; height: 14px;' />
-                </div>
-                <span id='txt_drink'>Пить</span>
-                <div class='game-item-colvo flex j-c ai-c mr5'>
-                    <span id='water_colvo'><?=items_info('water', $ivent)?></span>
-                </div>
-                <div class='game-btn-bar' id='bar_drink'></div>
-            </button>
-        </div>
-
         <div class='flex j-c wdth86' id='sleep_button'>
-            <button class='game-sleep-btn relative mt5 flex j-s ai-c' id='sleep'>
+            <button class='game-sleep-btn relative flex j-s ai-c' id='sleep'>
                 <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
                     <img src='/assets/icons/sleep.png' />
                 </div>
@@ -170,7 +151,6 @@
 </div>
 
 <script type='module'>
-
 import {GameLive} from '../js/game/GameLive.js';
 import {Camera} from '../js/game/Camera.js';
 import {GameWorld} from '../js/game/GameWorld.js';
@@ -188,9 +168,9 @@ import {Player} from '../js/game/Player.js';
 
             for(let i = 0; i < all_sprites.length; i++)
             {
-                let sprite     = new Image();
-                sprite.src     = all_sprites[i].path + all_sprites[i].nm + '.png';
-                sprite.onload  = () => {this.load+=1};
+                let sprite    = new Image();
+                sprite.src    = all_sprites[i].path + all_sprites[i].nm + '.png';
+                sprite.onload = () => {this.load+=1};
 
                 sprites[ all_sprites[i]['nm'] ] = sprite;
             }
@@ -239,7 +219,7 @@ import {Player} from '../js/game/Player.js';
                 }
             });
         },
-        pagedate: function() 
+        pagedate: function(dt) 
         {
             let info_elems = ['hp', 'hung', 'thirst', 'fatigue'];
 
@@ -252,6 +232,7 @@ import {Player} from '../js/game/Player.js';
             this.elems.temp.html( Game.temps[ Game.gameLive.temp ]['nm'] );
             this.elems.weather_name.html( Game.weathers[ Game.gameLive.weather ]['nm'] );
             this.elems.weather_img.attr('src', Game.weathers[ Game.gameLive.weather ]['img'] );
+            this.elems.fps.html(Math.floor((1000 / dt) / 1000));
         },
         start: function()
         {
@@ -263,7 +244,8 @@ import {Player} from '../js/game/Player.js';
                 time: $('#time'),
                 temp: $('#temp'),
                 weather_name: $('#weather_name'),
-                weather_img: $('#weather_img') 
+                weather_img: $('#weather_img'),
+                fps: $('#fps')
             };
 
             this.timer = setInterval(function() {
@@ -271,7 +253,6 @@ import {Player} from '../js/game/Player.js';
             }, 5000);
         }
     };
-    Updater.start();
 
     let Utils = {
         rand: function(min, max) 
@@ -320,14 +301,11 @@ import {Player} from '../js/game/Player.js';
             this.player.update(dt, this.loc.width, this.loc.height);
             this.camera.update(dt, this.player.x, this.player.y, this.loc.width, this.loc.height);
             
-            Updater.pagedate();
+            Updater.pagedate(dt);
         },
 
-        render: function(dt)
+        render: function()
         {
-            // Sys
-            this.ctx.clearRect(0, 0, this.canv.width, this.canv.height);
-
             // Game
             this.ctx.save();
             this.ctx.translate(-this.camera.x, -this.camera.y);
@@ -338,9 +316,6 @@ import {Player} from '../js/game/Player.js';
             this.ctx.restore();
 
             this.gameLive.render(this.ctx, this.canv);
-
-            this.ctx.fillStyle = '#dac09c';
-            this.ctx.fillText('FPS: ' + Math.floor((1000 / dt) / 1000), 2, 10);
         },
 
         start: function()
@@ -358,8 +333,7 @@ import {Player} from '../js/game/Player.js';
 
             this.ctx                       = this.canv.getContext('2d', {alpha: false});
             this.ctx.imageSmoothingEnabled = false;
-            this.ctx.font                  = '13px Courier new';
-            this.ctx.fillStyle             = '#dac09c';
+            this.ctx.font                  = '13px Montserrat';
 
             this.lastDt = Date.now();
             this.pause  = false;
@@ -409,7 +383,8 @@ import {Player} from '../js/game/Player.js';
             });
         }
     }; // end of game
+
+    Updater.start();
     Game.load();
-    
-})(); // 176
+})(); // 6 stroke
 </script>

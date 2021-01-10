@@ -387,9 +387,8 @@
     let Game = {
         construct() {
             this.workpath      = ['/game', '/item', '/craft', '/refuge'];
-            this.actions       = ['srchloc', 'srchlut', 'eat', 'drink', 'sleep', 'nadet', 'craft', 'read', 'enterrefuge', 'uprefuge', 'place'];
+            this.actions       = ['srchloc', 'srchlut', 'eat', 'drink', 'nadet', 'craft', 'read', 'enterrefuge', 'uprefuge', 'place'];
             this.interval_time = 500;
-            this.sleep_time    = 1;
         },
 
         messHandler(data) {
@@ -424,21 +423,18 @@
             switch(action) {
                 case 'srchloc':
                     data = {
-                        from: window.location.pathname.split('/')[1],
                         token: PageLoad.token
                     };
                     break;
                 case 'srchlut':
                     data = {
-                        from: window.location.pathname.split('/')[1],
                         token: PageLoad.token
-                    }; 
+                    };
                     break;
                 case 'eat':
                     let eat = new URLSearchParams(window.location.search);
                     data = {
                         id_item: eat.get('id'),
-                        from: window.location.pathname.split('/')[1],
                         token: PageLoad.token
                     }; 
                     break;
@@ -446,14 +442,6 @@
                     let drink = new URLSearchParams(window.location.search);
                     data = {
                         id_item: drink.get('id'),
-                        from: window.location.pathname.split('/')[1],
-                        token: PageLoad.token
-                    }; 
-                    break;
-                case 'sleep':
-                    data = {
-                        hours: Game.sleep_time,
-                        from: window.location.pathname.split('/')[1],
                         token: PageLoad.token
                     }; 
                     break;
@@ -461,7 +449,6 @@
                     let nadet = new URLSearchParams(window.location.search);
                     data = {
                         id_item: nadet.get('id'),
-                        from: window.location.pathname.split('/')[1],
                         token: PageLoad.token
                     }; 
                     break;
@@ -472,7 +459,6 @@
                         item: crafting.get('item'),
                         type: crafting.get('type'),
                         colvo: Craft.colvo,
-                        from: window.location.pathname.split('/')[1],
                         token: PageLoad.token
                     }; 
                     break;
@@ -480,7 +466,6 @@
                     let read = new URLSearchParams(window.location.search);
                     data = {
                         id_item: read.get('id'),
-                        from: window.location.pathname.split('/')[1],
                         token: PageLoad.token
                     }; 
                 break;
@@ -514,22 +499,6 @@
                         }
                     }
                 });
-            }
-        },
-
-        view(move, data) {
-            switch (move) {
-                case 'sleep_range':
-                    $('#sleep_button').addClass('none');
-                    $('#sleep_range').removeClass('none');
-                    break;
-                case 'sleep_no':
-                    $('#sleep_button').removeClass('none');
-                    $('#sleep_range').addClass('none');
-                    break;
-                case 'sleep_time':
-                    $('#sleep_time').html(this.sleep_time);
-                    break;
             }
         }
     };
@@ -593,15 +562,6 @@
                     case 'costumize_yes':
                         Costumize.saveSett();
                         break;
-                    case 'sleep_no':
-                        Game.view('sleep_no');
-                        break;
-                    case 'sleep_yes':
-                        Game.actionPrepare('sleep');
-                        break;
-                    case 'sleep':
-                        Game.view('sleep_range');
-                        break;
                     case 'ivent_sort_btn':
                         $('#ivent_sort_menu').toggleClass('none');
                         break;
@@ -613,10 +573,6 @@
 
             $('body').on('change', function(e) {
                 switch(e.target.id) {
-                    case 'sleep_range_input':
-                        Game.sleep_time = $('#' + e.target.id).val();
-                        Game.view('sleep_time');
-                    break;
                     case 'colvo_range_input':
                         Craft.colvo = $('#' + e.target.id).val();
                         Craft.view('colvo');

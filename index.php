@@ -18,14 +18,14 @@
     <link rel='preconnect' href='https://fonts.gstatic.com'>
     <link href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swapp' rel='stylesheet'>
 
-    <link rel='stylesheet' href='/style/index.css'>
-    <link rel='stylesheet' href='/style/style.css'>
+    <link rel='stylesheet' href='/style/index.css?17'>
+    <link rel='stylesheet' href='/style/style.css?17'>
 
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, minimum-scale=1, maximum-scale=1' />
 
-    <script src='/js/libs/jquery.js' defer></script>
-    <script src='/js/app.js' defer></script>
+    <script src='/js/libs/jquery.js?17' defer></script>
+    <script src='/js/app.js?17' defer></script>
 
     <title>Survivors | Created by Mota</title>
 </head>
