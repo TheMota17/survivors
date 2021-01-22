@@ -1,10 +1,11 @@
-RewriteEngine on
-RewriteCond %{SCRIPT_FILENAME} !-d 
-RewriteCond %{SCRIPT_FILENAME} !-f
-RewriteRule ^(.*)$ ./index.php?route=$1
-ErrorDocument 404 /
-ErrorDocument 403 /
-ErrorDocument 500 /
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.php$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.php [L]
+</IfModule>
 
 <FilesMatch ".(pl|php|cgi|spl|scgi|fcgi|js|css)$">
 Header unset Cache-Control

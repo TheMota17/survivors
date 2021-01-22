@@ -5,27 +5,6 @@
     $ivent = $pdo->fetchAll('SELECT * FROM `ivent` WHERE `user_id` = ? AND `colvo` > ?', array($Sys->user_info('userinfo', 'id'), 0));
     $game  = $pdo->fetch('SELECT * FROM `game` WHERE `user_id` = ?', array($Sys->user_info('userinfo', 'id')));
     $game  = json_decode( $game['data'] );
-    
-    function items_info($item, $ivent) {
-        $items = [0, 0];
-
-        foreach($ivent as $iv) {
-            if ($iv[ 'item' ] == 13 && $iv[ 'type' ] == 1) {
-                $items[ 0 ] = $iv[ 'colvo' ];
-            } else if ($iv[ 'item' ] == 2 && $iv[ 'type' ] == 1) {
-                $items[ 1 ] = $iv[ 'colvo' ];
-            }
-        }
-
-        switch( $item ) {
-            case 'food':
-                return $items[ 0 ];
-            break;
-            case 'water':
-                return $items[ 1 ];
-            break;
-        }
-    }
 
     require ''.$_SERVER['DOCUMENT_ROOT'].'/core/modules/tablo.php';
     require ''.$_SERVER['DOCUMENT_ROOT'].'/core/modules/menu.php';

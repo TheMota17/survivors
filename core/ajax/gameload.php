@@ -115,9 +115,9 @@
         
     }
 
-    if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
-        if ($_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
-            $GameLoad = new GameLoad($pdo, $game_weathers, $game_temps, $Sys->get_user(), $_GET['action']);
-            $GameLoad->main();
-        }
-    } else exit;
+    if ($_SESSION['user'] && $_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
+        $GameLoad = new GameLoad($pdo, $game_weathers, $game_temps, $Sys->get_user(), $_GET['action']);
+        $GameLoad->main();
+    } else {
+        exit( json_encode( ['page' => '/auth'] ) );
+    }

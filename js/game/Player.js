@@ -25,7 +25,8 @@ class Player {
 
 		window.addEventListener('keydown', this.input.bind(this));
 		window.addEventListener('keyup', this.input.bind(this));
-		$('.game-btn').on('touchstart touchend', this.input.bind(this));
+		window.addEventListener('touchstart', this.input.bind(this));
+		window.addEventListener('touchend', this.input.bind(this));
 	}
 
 	input(e, camera)

@@ -79,25 +79,13 @@
 
             switch( $move) {
                 case 'auth':
-                    exit('
-                        <div class=\'flex j-c mt10\'>
-                            <a href=\'/auth\' class=\'ajax\'>Авторизуйтесь</a>
-                        </div>
-                    ');
+                    exit( json_encode( ['page' => '/auth'] ) );
                 break;
                 case 'costumize':
-                    exit('
-                        <div class=\'flex j-c mt10\'>
-                            <a href=\'/costumize\' class=\'ajax\'>Кастомизировать</a>
-                        </div>
-                    ');
+                    exit( json_encode( ['page' => '/costumize'] ) );
                 break;
                 case 'ban':
-                    exit('
-                        <div class=\'flex j-c mt10\'>
-                            <a href=\'/auth\' class=\'ajax\'>Вы заблокированы до - '.$this->message.'</a>
-                        </div>
-                    ');
+                    exit( json_encode( ['message' => 'Вы заблокированы до - '.$this->message.'', 'popup' => true] ) );
                 break;
             }
 
@@ -110,9 +98,9 @@
         }
     }
 
-    if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
-        if ($_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
-            $Sys = new Sys($pdo, $_SESSION['user']);
-            $Sys->main();
-        } else exit;
-    } else exit;
+    if ($_SESSION['user'] && $_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
+        $Sys = new Sys($pdo, $_SESSION['user']);
+        $Sys->main();
+    } else {
+        exit( json_encode( ['page' => '/auth'] ) );
+    }

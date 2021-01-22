@@ -26,9 +26,9 @@
                 
                 $this->pdo->query('UPDATE `users` SET `costumize` = ? WHERE `id` = ?', array(1, $this->user['id']));
 
-                $this->answer('page', '/game');
+                $this->answer('page', '/');
             } else {
-                $this->answer('page', '/game');
+                $this->answer('page', '/');
             }
             
         }
@@ -37,7 +37,7 @@
 
             switch( $ans ) {
                 case 'page':
-                    exit( json_encode( ['page' => $page, 'popup' => false] ) );
+                    exit( json_encode( ['page' => $page] ) );
                 break;
                 case 'mess':
                     exit( json_encode( ['message' => $this->message, 'popup' => true] ) );
@@ -48,16 +48,14 @@
 
         public function main() {
 
-            if (isset($_POST['save_sett'])) {
-                $this->save();
-            }
+            $this->save();
 
         }
     }
 
-    if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
-        if ($_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
-            $Savesett = new Savesett($pdo, $_POST['hair'], $_POST['beard'], $_POST['cloth'], $_POST['pants'], $_POST['fwear']);
-            $Savesett->main();
-        }
-    } else exit;
+    if ($_SESSION['user'] && $_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
+        $Savesett = new Savesett($pdo, $_POST['hair'], $_POST['beard'], $_POST['cloth'], $_POST['pants'], $_POST['fwear']);
+        $Savesett->main();
+    } else {
+        exit( json_encode( ['page' => '/auth'] ) );
+    }
