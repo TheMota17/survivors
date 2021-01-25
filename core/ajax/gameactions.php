@@ -24,7 +24,7 @@
 
         public function item_substr($id_item, $colvo) {
 
-            $substr = $this->pdo->query('UPDATE `ivent` SET `colvo` = ? WHERE `id` = ?', array(($colvo - 1), $id_item));
+            $substr = $this->pdo->query('UPDATE `invent` SET `colvo` = ? WHERE `id` = ?', array(($colvo - 1), $id_item));
 
         }
 
@@ -71,14 +71,14 @@
                 $this->pdo->query('UPDATE users SET `live` = ?, `hp` = ?, `hung` = ?, `thirst` = ?, `fatigue` = ?, `user_time` = ?, `user_weather` = ?, `user_temp` = ?, `loc` = ?, `loc_explored` = ?',
                 array(3, 100, 0, 0, 0, 35600, 1, 1, 1, 0));
 
-                $ivent_items = $this->pdo->fetchAll('SELECT * FROM `ivent` WHERE `user_id` = ? AND `colvo` > 0', array($this->user['id']));
+                $ivent_items = $this->pdo->fetchAll('SELECT * FROM `invent` WHERE `user_id` = ? AND `colvo` > 0', array($this->user['id']));
                 foreach($ivent_items as $iv) {
-                    $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `user_id` = ?', array(0, $this->user['id']));
+                    $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `user_id` = ?', array(0, $this->user['id']));
                 }
 
                 $this->pdo->query('UPDATE nadeto SET `helm` = ?, `arm` = ?, `weap` = ? WHERE `id` = ?', array(0, 0, 0, $this->user['id']));
 
-                $this->message = '<div class=\'flex j-s ai-c\'>Вы чуть не умерли, ваше везение не знает границ! Потрепанные после нескольких часов без сознания, вы просыпаетесь, и к сожалению вы обнаруживаете что, все ваши вещи были украдены...</div>';
+                $this->message = 'Вы чуть не умерли, ваше везение не знает границ! Потрепанные после нескольких часов без сознания, вы просыпаетесь, и к сожалению вы обнаруживаете что, все ваши вещи были украдены...';
                 $this->answer('messreload', 0);
 
             }
@@ -116,8 +116,6 @@
                 } else {
                     $this->pdo->query('UPDATE users SET `hp` = ? WHERE `id` = ?', array($this->user['hp'] - $total, $this->user['id']));
                 }
-
-                $this->hp_mess = '<div class=\'errors2 flex j-s ai-c mt5\'>- Вы теряете здоровье</div>';
             }
 
         }
@@ -171,7 +169,6 @@
                             break;
                     }
 
-                    $this->weather_mess = '<div class=\'flex j-s ai-c mt5\'>- '.$this->weathers[ $weathers[ $rand_weather ] ]['onchange'].'</div>';
                     $this->change_temp( $weathers[ $rand_weather ] );
                     $this->pdo->query('UPDATE users SET `user_weather` = ? WHERE `id` = ?', array($weathers[ $rand_weather ], $this->user['id']));
                 }
@@ -204,9 +201,6 @@
                     break;
             }
 
-            if ($this->temps[ $temps[ $rand_temp ] ]['alert']) {
-                $this->temp_mess = '<div class=\'mess flex j-s ai-c mt5\'>- '.$this->temps[ $temps[ $rand_temp ] ]['alert'].'</div>';
-            }
             $this->pdo->query('UPDATE users SET `user_temp` = ? WHERE `id` = ?', array($temps[ $rand_temp ], $this->user['id']));
 
         }
@@ -258,10 +252,10 @@
         public function srch_loc() {
             
             if ($this->user['in_refuge'] > 0) {
-                $this->message = '<div class=\'flex j-c ai-c\'>Вы в убежище</div>';
+                $this->message = 'Вы в убежище';
                 $this->answer('mess', 0);
             } else if ($this->user['fatigue'] >= 100) {
-                $this->message = '<div class=\'flex j-c ai-c\'>Вы очень устали</div>';
+                $this->message = 'Вы очень устали';
                 $this->answer('mess', 0);
             } else {
 
@@ -269,12 +263,12 @@
                 if ($rand !== 1 && $rand <= (count($this->locs))) {
 
                     $this->pdo->query('UPDATE `users` SET `loc` = ?, `loc_explored` = ? WHERE `id` = ?', array($this->locs[ $rand ][ 'id' ], 0, $this->user['id']));
-                    $this->message = '<div class=\'flex j-c ai-c\'>Вы нашли - '.$this->locs[ $rand ]['nm'].'</div>';
+                    $this->message = 'Вы нашли - '.$this->locs[ $rand ]['nm'].'';
                     if ($this->formation_answer()) $this->answer('messreload', 0);
                 } else {
 
                     $this->pdo->query('UPDATE `users` SET `loc` = ?, `loc_explored` = ? WHERE `id` = ?', array(1, 0, $this->user['id']));
-                    $this->message = '<div class=\'flex j-c ai-c\'>Вы ничего не нашли</div>';
+                    $this->message = 'Вы ничего не нашли';
                     if ($this->formation_answer()) $this->answer('messreload', 0);
                 }
 
@@ -285,18 +279,18 @@
 
         public function srch_lut() {
 
-            $ivent_cells = $this->pdo->rows('SELECT * FROM `ivent` WHERE `colvo` > 0 AND `user_id` = ?', array($this->user['id']));
+            $ivent_cells = $this->pdo->rows('SELECT * FROM `invent` WHERE `colvo` > 0 AND `user_id` = ?', array($this->user['id']));
             if ($this->user['in_refuge'] > 0) {
-                $this->message = '<div class=\'flex j-c ai-c\'>Вы в убежище</div>';
+                $this->message = 'Вы в убежище';
                 $this->answer('mess', 0);
             } else if ($ivent_cells >= 50) {
-                $this->message = '<div class=\'flex j-c ai-c\'>Инвентарь полон</div>';
+                $this->message = 'Инвентарь полон';
                 $this->answer('mess', 0);
             } else if ($this->user['fatigue'] >= 100) {
-                $this->message = '<div class=\'flex j-c ai-c\'>Вы очень устали</div>';
+                $this->message = 'Вы очень устали';
                 $this->answer('mess', 0);
             } else if ($this->user['loc_explored'] >= 100) {
-                $this->message = '<div class=\'flex j-c ai-c\'>Локация полностью исследована</div>';
+                $this->message = 'Локация полностью исследована';
                 $this->answer('mess', 0);
             } else {
                 $night          = $this->night();
@@ -324,11 +318,11 @@
                 }
 
                 for($i = 0; $i < count($items); $i++) {
-                    $item_in_ivent = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array($items[ $i ]['i'], $items[ $i ]['t'], $this->user['id']));
+                    $item_in_ivent = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array($items[ $i ]['i'], $items[ $i ]['t'], $this->user['id']));
                     if ($item_in_ivent) {
-                        $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `id` = ? AND `user_id` = ?', array(($item_in_ivent['colvo'] + $rand_colvo[ $i ]), $item_in_ivent['id'], $this->user['id']));
+                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ? AND `user_id` = ?', array(($item_in_ivent['colvo'] + $rand_colvo[ $i ]), $item_in_ivent['id'], $this->user['id']));
                     } else {
-                        $this->pdo->query('INSERT INTO ivent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array($items[ $i ]['i'], $items[ $i ]['t'], $rand_colvo[ $i ], $this->user['id']));
+                        $this->pdo->query('INSERT INTO invent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array($items[ $i ]['i'], $items[ $i ]['t'], $rand_colvo[ $i ], $this->user['id']));
                     }
                 }
 
@@ -344,14 +338,14 @@
         public function eat() {
 
             if ( $this->id_item )
-                $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
+                $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
             else
-                $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `item` = ? AND `type` = ? AND `colvo` > 0 AND `user_id` = ?', array(13, 1, $this->user['id']));
+                $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `colvo` > 0 AND `user_id` = ?', array(13, 1, $this->user['id']));
 
             if ($item && $item['colvo'] > 0) {
 
                 if ($this->user['hung'] < $this->items[ 1 ][ $item['item'] ]['eff']['hung']) {
-                    $this->message = '<div class=\'flex j-c ai-c\'>Вы не голодны</div>';
+                    $this->message = 'Вы не голодны';
                     $this->answer('mess', 0);
                 } else {
                     $hp  = (($this->user['hp'] + $this->items[ $item['type'] ][ $item['item'] ]['eff']['hp'] ) > 100) ? 100 : ($this->user['hp'] + $this->items[ $item['type'] ][ $item['item'] ]['eff']['hp']);
@@ -367,7 +361,7 @@
                 }
 
             } else {
-                $this->message = '<div class=\'flex j-c ai-c\'>Недостаточно еды</div>';
+                $this->message = 'Недостаточно еды';
                 $this->answer('mess', 0);
             }
 
@@ -376,17 +370,17 @@
         public function drink() {
 
             if ( $this->id_item ) 
-                $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
+                $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
             else
-                $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `item` = ? AND `type` = ? AND `colvo` > 0 AND `user_id` = ?', array(2, 1, $this->user['id']));
+                $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `colvo` > 0 AND `user_id` = ?', array(2, 1, $this->user['id']));
 
             if ($item && $item['colvo'] > 0) {
 
                 if ($this->user['thirst'] < $this->items[ 1 ][ $item['item'] ]['eff']['thirst']) {
-                    $this->message = '<div class=\'flex j-c ai-c\'>Вы не хотите пить</div>';
+                    $this->message = 'Вы не хотите пить';
                     $this->answer('mess', 0);
                 } else if ($item['colvo'] <= 0) {
-                    $this->message = '<div class=\'flex j-c ai-c\'>Недостаточно воды</div>';
+                    $this->message = 'Недостаточно воды';
                     $this->answer('mess', 0);
                 } else {
                     $hp    = (($this->user['hp'] + $this->items[ $item['type'] ][ $item['item'] ]['eff']['hp'] ) > 100) ? 100 : ($this->user['hp'] + $this->items[ $item['type'] ][ $item['item'] ]['eff']['hp']);
@@ -401,7 +395,7 @@
                 }
 
             } else {
-                $this->message = '<div class=\'flex j-c ai-c\'>Недостаточно воды</div>';
+                $this->message = 'Недостаточно воды';
                 $this->answer('mess', 0);
             }
 
@@ -411,31 +405,31 @@
             
             if ($this->id_item) {
                 // Надеваемый предмет из инвентаря
-                $ivent_item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
+                $ivent_item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
                 // Все надетые предметы игрока
                 $nadeto_items = $this->pdo->fetch('SELECT * FROM `nadeto` WHERE `user_id` = ?', array($this->user['id']));
 
                 if ($ivent_item['item'] == $nadeto_items[ $this->type($ivent_item['type']) ]) {
-                    $this->message = '<div class=\'flex j-c ai-c\'>На вас уже надет данный предмет</div>';
+                    $this->message = 'На вас уже надет данный предмет';
                     $this->answer('mess', 0);
                 } else {
                     // Было ли надето на игрока вообще что то
                     if ($nadeto_items[ $this->type($ivent_item['type']) ] > 0) {
                         // Ищем в инвентаре снимаемый предмет с игрока
-                        $nadeto_item_ivent = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `type` = ? AND `item` = ? AND `user_id` = ?',array($ivent_item['type'], $nadeto_items[ $this->type($ivent_item['type']) ], $this->user['id']));
+                        $nadeto_item_ivent = $this->pdo->fetch('SELECT * FROM `invent` WHERE `type` = ? AND `item` = ? AND `user_id` = ?',array($ivent_item['type'], $nadeto_items[ $this->type($ivent_item['type']) ], $this->user['id']));
                         if ($nadeto_item_ivent) {
                             // Если предмет найден, то просто увеличиваем на единицу
-                            $this->pdo->query('UPDATE `ivent` SET `colvo` = ? WHERE `id` = ?', array(($nadeto_item_ivent['colvo'] + 1), $nadeto_item_ivent['id']));
+                            $this->pdo->query('UPDATE `invent` SET `colvo` = ? WHERE `id` = ?', array(($nadeto_item_ivent['colvo'] + 1), $nadeto_item_ivent['id']));
                         } else {
                             // Если нет, то создаем новую запись для предмета
-                            $this->pdo->query('INSERT INTO ivent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array($nadeto_items[ $this->type($ivent_item['type']) ], $ivent_item['type'], 1, $this->user['id']));
+                            $this->pdo->query('INSERT INTO invent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array($nadeto_items[ $this->type($ivent_item['type']) ], $ivent_item['type'], 1, $this->user['id']));
                         }
                     }
 
                     // надеваем предмет на игрока
                     $this->pdo->query('UPDATE `nadeto` SET `'.$this->type($ivent_item['type']).'` = ? WHERE `user_id` = ?', array($ivent_item['item'], $this->user['id']));
                     // надеваемый предмет вычитаем из инвентаря
-                    $this->pdo->query('UPDATE `ivent` SET `colvo` = ? WHERE `id` = ?', array(($ivent_item['colvo'] - 1), $ivent_item['id']));
+                    $this->pdo->query('UPDATE `invent` SET `colvo` = ? WHERE `id` = ?', array(($ivent_item['colvo'] - 1), $ivent_item['id']));
                 }
 
                 if ($ivent_item['colvo'] == 1) {
@@ -468,7 +462,7 @@
 
                         // Если у игрока нет требуемых инструментов
                         if ($tools_colvo !== $tools_exist) {
-                            $this->message = '<div class=\'flex j-c ai-c\'>Не хватает инструментов</div>';
+                            $this->message = 'Не хватает инструментов';
                             $this->answer('mess', 0);
                         }
                     } 
@@ -479,7 +473,7 @@
                     $items_colvo = array();
                     // Проверка на соответсвие предметов для крафта
                     foreach ($this->crafts[ $this->id ]['craft_items'] as $ci) {
-                        $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `item` = ? AND `type` = ? AND `colvo` >= ? AND `user_id` = ?', array($ci['item'], $ci['type'], ($ci['colvo'] * $this->colvo), $this->user['id']));
+                        $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `colvo` >= ? AND `user_id` = ?', array($ci['item'], $ci['type'], ($ci['colvo'] * $this->colvo), $this->user['id']));
                         if ($item) {
                             array_push($items, $item);
                             array_push($items_colvo, ($ci['colvo'] * $this->colvo));
@@ -490,20 +484,20 @@
                     if ($all_items == $all_exist) {
                         for($i = 0; $i < count( $items ); $i++) {
                             // Убераем из инвентаря необходимые вещи для крафта
-                            $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(($items[$i]['colvo'] - $items_colvo[ $i ]), $items[$i]['item'], $items[$i]['type'], $this->user['id']));
+                            $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(($items[$i]['colvo'] - $items_colvo[ $i ]), $items[$i]['item'], $items[$i]['type'], $this->user['id']));
                         }
                         // Добавляем создаваемый предмет в инвентарь
-                        $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array($this->item, $this->type, $this->user['id']));
+                        $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array($this->item, $this->type, $this->user['id']));
                         if ($item) {
-                            $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(($item['colvo'] + $this->colvo), $this->item, $this->type, $this->user['id']));
+                            $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(($item['colvo'] + $this->colvo), $this->item, $this->type, $this->user['id']));
                         } else {
-                            $this->pdo->query('INSERT INTO ivent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array($this->item, $this->type, $this->colvo, $this->user['id']));
+                            $this->pdo->query('INSERT INTO invent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array($this->item, $this->type, $this->colvo, $this->user['id']));
                         }
 
-                        $this->message = '<div class=\'flex j-c ai-c\'>Предмет успешно создан!</div>';
+                        $this->message = 'Предмет успешно создан!';
                         $this->answer('mess', 0);
                     } else {
-                        $this->message = '<div class=\'flex j-c ai-c\'>Недостаточно ресурсов</div>';
+                        $this->message = 'Недостаточно ресурсов';
                         $this->answer('mess', 0);
                     }
 
@@ -516,17 +510,17 @@
 
             if ($this->id_item) {
 
-                $item_ivent = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
+                $item_ivent = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
                 if ($item_ivent) {
                     $item = $this->items[ $item_ivent['type'] ][ $item_ivent['item'] ];
                     if ($item['craft_lvl'] < $this->user['craft_lvl']) {
-                        $this->message = '<div class=\'flex j-c ai-c\'>Вы уже открыли данный уровень!</div>';
+                        $this->message = 'Вы уже открыли данный уровень!';
                         $this->answer('mess', 0);
                     } else if ($item['craft_lvl'] !== ($this->user['craft_lvl'] + 1) && $item['craft_lvl'] !== $this->user['craft_lvl']) {
-                        $this->message = '<div class=\'flex j-c ai-c\'>Откройте предыдущий ур. крафта</div>';
+                        $this->message = 'Откройте предыдущий ур. крафта';
                         $this->answer('mess', 0);
                     } else {
-                        $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `id` = ?', array(($item_ivent['colvo'] - 1), $item_ivent['id']));
+                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ?', array(($item_ivent['colvo'] - 1), $item_ivent['id']));
                         $this->pdo->query('UPDATE users SET `craft_lvl` = ? WHERE `id` = ?', array($item['craft_lvl'], $this->user['id']));
 
                         if ($item_ivent['colvo'] == 1) {
@@ -567,7 +561,7 @@
 
                 // Проверка на соответсвие предметов
                 foreach ($this->refuges[ $refuge['lvl'] + 1 ]['craft_items'] as $ci) {
-                    $item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `item` = ? AND `type` = ? AND `colvo` >= ? AND `user_id` = ?', array($ci['item'], $ci['type'], $ci['colvo'], $this->user['id']));
+                    $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `colvo` >= ? AND `user_id` = ?', array($ci['item'], $ci['type'], $ci['colvo'], $this->user['id']));
                     if ($item) {
                         array_push($items, $item);
                         array_push($items_colvo, $ci['colvo']);
@@ -578,20 +572,20 @@
                 if ($all_items == $all_exist) {
                     for($i = 0; $i < count( $items ); $i++) {
                         // Убераем из инвентаря необходимые вещи для крафта
-                        $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(($items[$i]['colvo'] - $items_colvo[ $i ]), $items[$i]['item'], $items[$i]['type'], $this->user['id']));
+                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(($items[$i]['colvo'] - $items_colvo[ $i ]), $items[$i]['item'], $items[$i]['type'], $this->user['id']));
                     }
                     
                     // Повышаем уровень убежища
                     $this->pdo->query('UPDATE refuge SET `lvl` = ?, `hp` = ? WHERE `user_id` = ?', array($refuge['lvl'] + 1, $this->refuges[ $refuge['lvl'] + 1 ]['maxhp'], $this->user['id']));
 
-                    $this->message = '<div class=\'flex j-c ai-c\'>Успешно!</div>';
+                    $this->message = 'Успешно!';
                     $this->answer('messreload', 0);
                 } else {
-                    $this->message = '<div class=\'flex j-c ai-c\'>Недостаточно ресурсов</div>';
+                    $this->message = 'Недостаточно ресурсов';
                     $this->answer('mess', 0);
                 }
             } else {
-                $this->message = '<div class=\'flex j-c ai-c\'>Максимальный уровень</div>';
+                $this->message = 'Максимальный уровень';
                 $this->answer('mess', 0);
             }
 
@@ -600,7 +594,7 @@
         public function place() {
 
             if ($this->id_item) {
-                $ivent_item = $this->pdo->fetch('SELECT * FROM `ivent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
+                $ivent_item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
                 $item       = $this->items[ $ivent_item['type'] ][ $ivent_item['item'] ];
                 $refuge     = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
 
@@ -626,7 +620,7 @@
                             // Проверяем, есть ли такой предмет уже в слотах или нет
                             foreach($slots_elems[ $type_name ] as $se) {
                                 if ($se['item'] == $ivent_item['item']) {
-                                    $this->message = '<div class=\'flex j-c ai-c\'>Данный предмет уже помещен</div>';
+                                    $this->message = 'Данный предмет уже помещен';
                                     $this->answer('mess', 0);
                                 }
                             }
@@ -641,17 +635,17 @@
                         }
 
                         // Вычитаем помещаемый предмет из инвентаря
-                        $this->pdo->query('UPDATE ivent SET `colvo` = ? WHERE `id` = ? AND `user_id` = ?', array(($ivent_item['colvo'] - 1), $ivent_item['id'], $this->user['id']));
+                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ? AND `user_id` = ?', array(($ivent_item['colvo'] - 1), $ivent_item['id'], $this->user['id']));
 
                         if ($ivent_item['colvo'] == 1) {
                             $this->answer('page', '/ivent');
                         } else $this->answer('reload', 0);
                     } else {
-                        $this->message = '<div class=\'flex j-c ai-c\'>Все слоты заняты</div>';
+                        $this->message = 'Все слоты заняты';
                         $this->answer('mess', 0);
                     }
                 } else {
-                    $this->message = '<div class=\'flex j-c ai-c\'>Улучшите убежище</div>';
+                    $this->message = 'Улучшите убежище';
                     $this->answer('mess', 0);
                 }
             }

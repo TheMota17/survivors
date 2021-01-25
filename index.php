@@ -1,7 +1,6 @@
 <?php
     require ''.$_SERVER['DOCUMENT_ROOT'].'/core/db.php';
 
-    // Ищем игроков которые онлайн
     $online = $pdo->rows('SELECT * FROM `users` WHERE `lastvisit` > ?', array(time() - 600));
 ?>
 
@@ -36,12 +35,12 @@
     <router-view></router-view>
 </div>
 
-<div class='flex j-c fl-di-co ai-c txt-center fnt12 mt10 op5 pb5'>
+<div class='flex j-c fl-di-co ai-c mt10 op5 pb5'>
     <div class='flex j-c ai-c'>
-    <img class='item14-1 mr5' src='/assets/favicon.png' /> Survivors (v0.1) created by Mota
+        <?=date('H:i:s')?> | В игре: <?=$online?>
     </div>
     <div class='flex j-c ai-c mt5'>
-        Онлайн <?=$online?>
+        <img class='item14-1 mr5' src='/assets/favicon.png' /> Mota © 2020-2021, 18+
     </div>
 </div>
 

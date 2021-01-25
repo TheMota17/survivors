@@ -1,5 +1,5 @@
 <template>
-	<div v-if='$route.path !== "/auth" && $route.path !== "/costumize"' class='hght25'>
+	<div v-if='this.$route.path !== "/auth" && this.$route.path !== "/costumize"' class='hght25'>
 	    <div class='info-table backgr2 flex j-c ai-c'>
 	        
 	        <div class='info-hp fl1 flex j-c ai-c'>

@@ -4,16 +4,17 @@
 
     Class GameLoad {
 
-    	public function __construct($pdo, $weathers, $temps, $user, $action)
+    	public function __construct($pdo, $weathers, $temps, $locs, $items, $user)
     	{
             
             $this->pdo = $pdo;
 
             $this->weathers = $weathers;
             $this->temps    = $temps;
+            $this->locs     = $locs;
+            $this->items    = $items;
 
             $this->user   = $user;
-            $this->action = htmlspecialchars( trim( $action ) );
             
     	}
 
@@ -68,7 +69,7 @@
                         json_encode(
                             [
                                 'game' => $this->game,
-                                'sys'  => ['weathers' => $this->weathers, 'temps' => $this->temps]
+                                'sys'  => ['weathers' => $this->weathers, 'temps' => $this->temps, 'locs' => $this->locs, 'items' => $this->items]
                             ]
                         )
                     );
@@ -82,7 +83,7 @@
 
     	public function main() {
             
-            switch($this->action) {
+            switch($_GET['action']) {
                 case 'load':
                     $this->load();
                 break;
@@ -116,7 +117,7 @@
     }
 
     if ($_SESSION['user'] && $_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
-        $GameLoad = new GameLoad($pdo, $game_weathers, $game_temps, $Sys->get_user(), $_GET['action']);
+        $GameLoad = new GameLoad($pdo, $game_weathers, $game_temps, $game_locs, $game_items, $Sys->get_user());
         $GameLoad->main();
     } else {
         exit( json_encode( ['page' => '/auth'] ) );

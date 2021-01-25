@@ -9,6 +9,9 @@
     let Game      = httpVueLoader('./js/views/Game.vue')
     let Auth      = httpVueLoader('./js/views/Auth.vue')
     let Costumize = httpVueLoader('./js/views/Costumize.vue')
+    let Invent    = httpVueLoader('./js/views/Invent.vue')
+    let Item      = httpVueLoader('./js/views/Item.vue')
+    let Craft     = httpVueLoader('./js/views/Craft.vue')
 
     const routes = [
         {
@@ -30,6 +33,18 @@
             path: '/costumize',
             name: 'Costumize',
             component: Costumize
+        }, {
+            path: '/invent',
+            name: 'Invent',
+            component: Invent
+        }, {
+            path: '/item',
+            name: 'Item',
+            component: Item
+        }, {
+            path: '/craft',
+            name: 'Craft',
+            component: Craft
         }
     ];
 

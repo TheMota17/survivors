@@ -38,14 +38,17 @@
 
         }
 
+        public function get_game() {
+
+            return $this->game;
+
+        }
+
         public function user_info($type, $data) {
 
             switch($type) {
                 case 'userinfo':
                     return $this->user[ $data ];
-                break;
-                case 'gameinfo':
-                    return $this->game->$data;
                 break;
             }
 

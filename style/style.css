@@ -75,8 +75,8 @@ input[type=submit] {cursor: pointer;}
 .legend_border {width: 32px; height: 32px; background: url('/assets/icons/ivent-legend-border.png') top/cover no-repeat;}
 
 .sort-menu {width: 96%; height: 50px; background: var(--main-2-color); border-radius: 3px; border: 1px solid var(--main-3-color); padding: 5px; overflow: auto;}
-.sort-menu a {height: 25px; background: var(--main-1-color); padding: 4px; border-radius: 3px;}
-.sort-btn {background: var(--main-3-color); padding: 1px 5px; border-radius: 2px;}
+.sort-menu button {height: 25px; color: var(--main-3-color); background: var(--main-1-color); padding: 4px; border-radius: 3px;}
+.sort-btn {color: var(--main-3-color); background: var(--main-2-color); border: 1px solid var(--main-3-color); padding: 1px 5px; border-radius: 2px;}
 
 /* Панель */
 .panel-moves {width: 96%; background: var(--main-2-color); border: 1px solid var(--main-3-color); border-radius: 5px;}
@@ -94,12 +94,12 @@ input[type=submit] {cursor: pointer;}
 .input {min-width: 150px; height: 25px; border-radius: 5px; outline: none; background: var(--main-1-color); color: var(--main-3-color); text-align: center;}
 .input::placeholder {padding: 8px; color: var(--main-2-color);}
 
-.auth-reg {width: 86%; background: var(--main-2-color); border-radius: 5px 5px 0 0; box-shadow: 0px 0px 10px var(--main-2-color);}
+.auth-reg {width: 90%; background: var(--main-2-color); border-radius: 5px 5px 0 0; box-shadow: 0px 0px 10px var(--main-2-color);}
 .auth-reg-zag {width: 96%; height: 26px; background: var(--main-1-color); color: var(--main-mess-color); border-radius: 5px;}
 .auth-reg-form button {width: 90px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
 .auth-reg-form button:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
-.auth-enter {width: 86%; background: var(--main-2-color); border-radius: 0 0 5px 5px; box-shadow: 0px 0px 20px var(--main-2-color);}
+.auth-enter {width: 90%; background: var(--main-2-color); border-radius: 0 0 5px 5px; box-shadow: 0px 0px 20px var(--main-2-color);}
 .auth-enter-zag {width: 96%; height: 26px; background: var(--main-1-color); border-radius: 5px;}
 .auth-enter-form {width: 100%; background: var(--main-2-color); border-radius: 0px 0px 5px 5px;}
 .auth-enter-form button {width: 90px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
@@ -186,7 +186,7 @@ input[type=submit] {cursor: pointer;}
 
 .item-moves {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
 .moves-btn {width: 86%; height: 30px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
-.moves-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
+.moves-btn:focus {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
 /* КРАФТ (craft.php) */
 .craft-items {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
@@ -197,10 +197,11 @@ input[type=submit] {cursor: pointer;}
 .craft-item-info:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
 .craft-info {border-radius: 3px; padding-top: 2px; padding-bottom: 2px;}
-.colvo-range-input {width: 96%; appearance: none; height: 10px; outline: none; background: var(--main-1-color); border-radius: 5px;}
+.colvo-range-input {width: 86%; appearance: none; height: 10px; outline: none; background: var(--main-1-color); border-radius: 5px;}
 .colvo-range-input::-webkit-slider-thumb {appearance: none; width: 20px; height: 20px; background: var(--main-3-color); border-radius: 10px;}
-.craft-item-btn {width: 96%; height: 30px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
-.craft-item-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
+
+.craft-back-btn {width: 100px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
+.craft-back-btn:focus {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
 /* УБЕЖИЩЕ (refuge.php) */
 .refuge-no {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
