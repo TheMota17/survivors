@@ -73,6 +73,9 @@
     	public function main() {
             
             switch($_GET['page']) {
+                case '404':
+                    exit();
+                break;
                 case 'game':
                     $this->answer('game');
                     break;

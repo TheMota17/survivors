@@ -84,7 +84,7 @@
 			</div>
 		</div>
 
-		<div class='flex j-c ai-c fl-di-co mt10'>
+		<div class='flex j-c ai-c fl-di-co mt5'>
 			<div class='mb5'>
 				Надето
 			</div>

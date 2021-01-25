@@ -15,7 +15,7 @@
     <link rel='stylesheet' href='/style/index.css?17'>
     <link rel='stylesheet' href='/style/style.css?17'>
 
-    <meta name='keywords' content='survivors, survs, srvs, выжившие, онлайн игра, выживание, браузерная игра'>
+    <meta name='keywords' content='survivors, survs, srvs, выжившие, онлайн игра, выживание, браузерная игра, игра'>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, minimum-scale=1, maximum-scale=1' />
 
