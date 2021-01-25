@@ -301,7 +301,6 @@ module.exports = {
 				this.$root.popup.active = true;
 				this.$root.popup.text   = response.data.message;
 			} else if (response.data.page) {
-				localStorage.setItem('token', response.data.token)
 				this.$router.push(response.data.page)
 			} else {
 				this.nadeto = response.data.nadeto;

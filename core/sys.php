@@ -24,8 +24,7 @@
             if (!$this->id) $this->exit('auth');
 
             $this->user = $this->pdo->fetch('SELECT * FROM `users` WHERE `id` = ?', array( $this->id ));
-            $this->game = $this->pdo->fetch('SELECT * FROM `game` WHERE `user_id` = ?', array($this->user['id']));
-            $this->game = json_decode( $this->game['data'] );
+            $this->game = json_decode( $this->user['game'] );
 
             $this->ban();
             $this->costumize();
@@ -67,7 +66,7 @@
 
         public function costumize() {
 
-            if ($this->user[ 'costumize' ] > 0) return true;
+            if ($this->user['costumize'] > 0) return true;
             else $this->exit('costumize');
 
         }
@@ -82,10 +81,10 @@
 
             switch( $move) {
                 case 'auth':
-                    exit( json_encode( ['page' => '/auth'] ) );
+                    exit( json_encode( ['page' => 'auth'] ) );
                 break;
                 case 'costumize':
-                    exit( json_encode( ['page' => '/costumize'] ) );
+                    exit( json_encode( ['page' => 'costumize'] ) );
                 break;
                 case 'ban':
                     exit( json_encode( ['message' => 'Вы заблокированы до - '.$this->message.'', 'popup' => true] ) );
@@ -105,5 +104,5 @@
         $Sys = new Sys($pdo, $_SESSION['user']);
         $Sys->main();
     } else {
-        exit( json_encode( ['page' => '/auth'] ) );
+        exit( json_encode( ['page' => 'auth'] ) );
     }

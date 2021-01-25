@@ -4,7 +4,7 @@
 
     Class GameLoad {
 
-    	public function __construct($pdo, $weathers, $temps, $locs, $items, $user)
+    	public function __construct($pdo, $weathers, $temps, $locs, $items, $user, $game)
     	{
             
             $this->pdo = $pdo;
@@ -14,13 +14,14 @@
             $this->locs     = $locs;
             $this->items    = $items;
 
-            $this->user   = $user;
+            $this->user = $user;
+            $this->game = $game;
             
     	}
 
         public function update() {
 
-            $this->pdo->query('UPDATE `game` SET `data` = ? WHERE `user_id` = ?', array(
+            $this->pdo->query('UPDATE `users` SET `game` = ? WHERE `id` = ?', array(
                 json_encode(
                     [
                         'x' => $this->x,
@@ -52,26 +53,15 @@
 
         }
 
-        public function load() {
-
-            $this->game = $this->pdo->fetch('SELECT * FROM `game` WHERE `user_id` = ?', array($this->user['id']));
-            $this->game = json_decode( $this->game['data'] );
-
-            $this->answer('load');
-
-        }
-
         public function answer($type) {
 
             switch($type) {
                 case 'load':
                     exit(
-                        json_encode(
-                            [
-                                'game' => $this->game,
-                                'sys'  => ['weathers' => $this->weathers, 'temps' => $this->temps, 'locs' => $this->locs, 'items' => $this->items]
-                            ]
-                        )
+                        json_encode([
+                            'game' => $this->game,
+                            'sys'  => ['weathers' => $this->weathers, 'temps' => $this->temps, 'locs' => $this->locs, 'items' => $this->items]
+                        ])
                     );
                 break;
                 case 'update':
@@ -85,7 +75,7 @@
             
             switch($_GET['action']) {
                 case 'load':
-                    $this->load();
+                    $this->answer('load');
                 break;
                 case 'update':
                     $this->x            = intval( htmlspecialchars( $_POST['x'] ) );
@@ -117,8 +107,8 @@
     }
 
     if ($_SESSION['user'] && $_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
-        $GameLoad = new GameLoad($pdo, $game_weathers, $game_temps, $game_locs, $game_items, $Sys->get_user());
+        $GameLoad = new GameLoad($pdo, $game_weathers, $game_temps, $game_locs, $game_items, $Sys->get_user(), $Sys->get_game());
         $GameLoad->main();
     } else {
-        exit( json_encode( ['page' => '/auth'] ) );
+        exit( json_encode( ['page' => 'auth'] ) );
     }

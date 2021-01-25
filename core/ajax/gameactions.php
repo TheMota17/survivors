@@ -4,7 +4,7 @@
 
     Class GameActions {
 
-    	public function __construct($pdo, $items, $locs, $action_times, $crafts, $weathers, $temps, $refuges, $user, $action)
+    	public function __construct($pdo, $items, $locs, $action_times, $crafts, $weathers, $temps, $refuges, $user, $game)
     	{
             
             $this->pdo = $pdo;
@@ -17,8 +17,8 @@
             $this->temps        = $temps;
             $this->refuges      = $refuges;
 
-    		$this->user    = $user;
-            $this->action  = htmlspecialchars( $action );
+    		$this->user = $user;
+            $this->game = $game;
             
     	}
 
@@ -79,7 +79,7 @@
                 $this->pdo->query('UPDATE nadeto SET `helm` = ?, `arm` = ?, `weap` = ? WHERE `id` = ?', array(0, 0, 0, $this->user['id']));
 
                 $this->message = 'Вы чуть не умерли, ваше везение не знает границ! Потрепанные после нескольких часов без сознания, вы просыпаетесь, и к сожалению вы обнаруживаете что, все ваши вещи были украдены...';
-                $this->answer('messreload', 0);
+                $this->answer('mess', 0);
 
             }
 
@@ -264,12 +264,12 @@
 
                     $this->pdo->query('UPDATE `users` SET `loc` = ?, `loc_explored` = ? WHERE `id` = ?', array($this->locs[ $rand ][ 'id' ], 0, $this->user['id']));
                     $this->message = 'Вы нашли - '.$this->locs[ $rand ]['nm'].'';
-                    if ($this->formation_answer()) $this->answer('messreload', 0);
+                    if ($this->formation_answer()) $this->answer('mess', 0);
                 } else {
 
                     $this->pdo->query('UPDATE `users` SET `loc` = ?, `loc_explored` = ? WHERE `id` = ?', array(1, 0, $this->user['id']));
                     $this->message = 'Вы ничего не нашли';
-                    if ($this->formation_answer()) $this->answer('messreload', 0);
+                    if ($this->formation_answer()) $this->answer('mess', 0);
                 }
 
                 $this->action_times('srchloc', 0);
@@ -330,36 +330,32 @@
                 if ($this->user['loc'] !== 1) $this->change_explored();
 
                 $this->message .= '</div>';
-                if ($this->formation_answer()) $this->answer('messreload', 0);
+                if ($this->formation_answer()) $this->answer('mess', 0);
             }
 
         }
 
         public function eat() {
 
-            if ( $this->id_item )
-                $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
-            else
-                $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `colvo` > 0 AND `user_id` = ?', array(13, 1, $this->user['id']));
+            if ($this->id_item) $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
 
             if ($item && $item['colvo'] > 0) {
-
-                if ($this->user['hung'] < $this->items[ 1 ][ $item['item'] ]['eff']['hung']) {
+                if ($this->game->hung < $this->items[ 1 ][ $item['item'] ]['eff']['hung']) {
                     $this->message = 'Вы не голодны';
                     $this->answer('mess', 0);
                 } else {
-                    $hp  = (($this->user['hp'] + $this->items[ $item['type'] ][ $item['item'] ]['eff']['hp'] ) > 100) ? 100 : ($this->user['hp'] + $this->items[ $item['type'] ][ $item['item'] ]['eff']['hp']);
-                    $eat = $this->pdo->query('UPDATE `users` SET `hung` = ?, `hp` = ? WHERE `id` = ?', array(
-                        ($this->user['hung'] - $this->items[ $item['type'] ][ $item['item'] ]['eff'][ 'hung' ]), $hp, $this->user['id']
-                    ));
+                    $hp = (($this->game->hp + $this->items[ $item['type'] ][ $item['item'] ]['eff']['hp'] ) > 100) ? 100 : ($this->game->hp + $this->items[ $item['type'] ][ $item['item'] ]['eff']['hp']);
+                    $this->game->hp   = $hp;
+                    $this->game->hung = $this->game->hung - $this->items[ $item['type'] ][ $item['item'] ]['eff']['hung'];
+
+                    $eat = $this->pdo->query('UPDATE `users` SET `game` = ? WHERE `id` = ?', array(json_encode($this->game), $this->user['id']));
 
                     $this->item_substr($item['id'], $item['colvo']);
 
                     if ($item['colvo'] == 1) {
-                        $this->answer('page', '/ivent');
+                        $this->answer('page', 'invent');
                     } else $this->answer('reload', 0);
                 }
-
             } else {
                 $this->message = 'Недостаточно еды';
                 $this->answer('mess', 0);
@@ -369,31 +365,27 @@
 
         public function drink() {
 
-            if ( $this->id_item ) 
-                $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
-            else
-                $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `colvo` > 0 AND `user_id` = ?', array(2, 1, $this->user['id']));
+            if ($this->id_item) $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
 
             if ($item && $item['colvo'] > 0) {
-
-                if ($this->user['thirst'] < $this->items[ 1 ][ $item['item'] ]['eff']['thirst']) {
+                if ($this->game->thirst < $this->items[ 1 ][ $item['item'] ]['eff']['thirst']) {
                     $this->message = 'Вы не хотите пить';
                     $this->answer('mess', 0);
                 } else if ($item['colvo'] <= 0) {
                     $this->message = 'Недостаточно воды';
                     $this->answer('mess', 0);
                 } else {
-                    $hp    = (($this->user['hp'] + $this->items[ $item['type'] ][ $item['item'] ]['eff']['hp'] ) > 100) ? 100 : ($this->user['hp'] + $this->items[ $item['type'] ][ $item['item'] ]['eff']['hp']);
-                    $drink = $this->pdo->query('UPDATE `users` SET `thirst` = ?, `hp` = ? WHERE `id` = ?', array(
-                        ($this->user['thirst'] - $this->items[ $item['type'] ][ $item['item'] ]['eff'][ 'thirst' ]), $hp, $this->user['id']
-                    ));
+                    $hp = (($this->game->hp + $this->items[ $item['type'] ][ $item['item'] ]['eff']['hp'] ) > 100) ? 100 : ($this->game->hp + $this->items[ $item['type'] ][ $item['item'] ]['eff']['hp']);
+                    $this->game->hp     = $hp;
+                    $this->game->thirst = $this->game->thirst - $this->items[ $item['type'] ][ $item['item'] ]['eff']['thirst'];
+
+                    $drink = $this->pdo->query('UPDATE `users` SET `game` = ? WHERE `id` = ?', array(json_encode($this->game), $this->user['id']));
 
                     $this->item_substr($item['id'], $item['colvo']);
                     if ($item['colvo'] == 1) {
-                        $this->answer('page', '/ivent');
+                        $this->answer('page', 'invent');
                     } else $this->answer('reload', false);
                 }
-
             } else {
                 $this->message = 'Недостаточно воды';
                 $this->answer('mess', 0);
@@ -433,7 +425,7 @@
                 }
 
                 if ($ivent_item['colvo'] == 1) {
-                    $this->answer('page', '/ivent');
+                    $this->answer('page', 'invent');
                 } else $this->answer('reload', 0);
             }
 
@@ -524,7 +516,7 @@
                         $this->pdo->query('UPDATE users SET `craft_lvl` = ? WHERE `id` = ?', array($item['craft_lvl'], $this->user['id']));
 
                         if ($item_ivent['colvo'] == 1) {
-                            $this->answer('page', '/ivent');
+                            $this->answer('page', 'invent');
                         } else $this->answer('reload', 0);
                     }
                 }
@@ -579,7 +571,7 @@
                     $this->pdo->query('UPDATE refuge SET `lvl` = ?, `hp` = ? WHERE `user_id` = ?', array($refuge['lvl'] + 1, $this->refuges[ $refuge['lvl'] + 1 ]['maxhp'], $this->user['id']));
 
                     $this->message = 'Успешно!';
-                    $this->answer('messreload', 0);
+                    $this->answer('mess', 0);
                 } else {
                     $this->message = 'Недостаточно ресурсов';
                     $this->answer('mess', 0);
@@ -638,7 +630,7 @@
                         $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ? AND `user_id` = ?', array(($ivent_item['colvo'] - 1), $ivent_item['id'], $this->user['id']));
 
                         if ($ivent_item['colvo'] == 1) {
-                            $this->answer('page', '/ivent');
+                            $this->answer('page', 'invent');
                         } else $this->answer('reload', 0);
                     } else {
                         $this->message = 'Все слоты заняты';
@@ -674,16 +666,13 @@
                 case 'reload':
                     exit( json_encode( ['reload' => true] ) );
                     break;
-                case 'messreload':
-                    exit( json_encode( ['reload' => true, 'message' => $this->message, 'popup' => true] ) );
-                    break;
             }
 
         }
 
     	public function main() {
 
-            switch( $this->action ) {
+            switch($_GET['action']) {
                 case 'srchloc': 
                     $this->srch_loc();
                     break;
@@ -730,8 +719,8 @@
     }
 
     if ($_SESSION['user'] && $_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
-        $GameActions = new GameActions($pdo, $game_items, $game_locs, $game_action_times, $game_crafts, $game_weathers, $game_temps, $game_refuges, $Sys->get_user(), $_GET['action']);
+        $GameActions = new GameActions($pdo, $game_items, $game_locs, $game_action_times, $game_crafts, $game_weathers, $game_temps, $game_refuges, $Sys->get_user(), $Sys->get_game());
         $GameActions->main();
     } else {
-        exit( json_encode( ['page' => '/auth'] ) );
+        exit( json_encode( ['page' => 'auth'] ) );
     }

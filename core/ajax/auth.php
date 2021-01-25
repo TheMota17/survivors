@@ -49,22 +49,22 @@
         
         public function reg() {
 
-            $newuser = $this->pdo->query('INSERT INTO users (login, pass, mail, date, lastvisit, ban, adm, live, costumize, craft_lvl, in_refuge) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            array($this->name, password_hash($this->pass, PASSWORD_DEFAULT), password_hash($this->mail, PASSWORD_DEFAULT), time(), 0, 0, 0, 3, 0, 1, 0));
+            $game = json_encode(['x' => 50, 'y' => 50, 's' => 100, 'time' => 36000, 'weather' => 1, 'hp' => 100, 'hung' => 0, 'thirst' => 0, 'fatigue' => 0, 'temp' => 1, 'loc' => 1, 'loc_explored' => 0, 'weatherTime' => 0, 'hpTime' => 0, 'hungTime' => 0, 'thirstTime' => 0, 'fatigueTime' => 0]);
+
+            $newuser = $this->pdo->query('INSERT INTO users (login, pass, mail, date, lastvisit, ban, adm, live, costumize, craft_lvl, in_refuge, game) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            array($this->name, password_hash($this->pass, PASSWORD_DEFAULT), password_hash($this->mail, PASSWORD_DEFAULT), time(), 0, 0, 0, 3, 0, 1, 0, $game));
             $userid = $this->pdo->last();
 
-            $game   = $this->pdo->query('INSERT INTO game (data, user_id) VALUES (?, ?)',
-            array(json_encode(['x' => 50, 'y' => 50, 's' => 100, 'time' => 36000, 'weather' => 1, 'hp' => 100, 'hung' => 0, 'thirst' => 0, 'fatigue' => 0, 'temp' => 1, 'loc' => 1, 'loc_explored' => 0, 'weatherTime' => 0, 'hpTime' => 0, 'hungTime' => 0, 'thirstTime' => 0, 'fatigueTime' => 0]), $userid));
             $refuge = $this->pdo->query('INSERT INTO refuge (hp, lvl, user_id) VALUES (?, ?, ?)', array(0, 0, $userid));
             $nadeto = $this->pdo->query('INSERT INTO nadeto (helm, arm, weap, hair, beard, cloth, pants, fwear, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', array(0, 0, 0, 1, 1, 1, 1, 1, $userid));
 
-            $food   = $this->pdo->query('INSERT INTO ivent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array(13, 1, 5, $userid));
-            $water  = $this->pdo->query('INSERT INTO ivent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array(2, 1, 5, $userid));
+            $food   = $this->pdo->query('INSERT INTO invent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array(13, 1, 5, $userid));
+            $water  = $this->pdo->query('INSERT INTO invent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array(2, 1, 5, $userid));
 
             $_SESSION['token'] = token();
             $_SESSION['user']  = $userid;
             
-            $this->answer('page', '/costumize');
+            $this->answer('page', 'costumize');
             
         }
         

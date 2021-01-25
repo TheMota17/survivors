@@ -25,11 +25,8 @@
                 array($this->hair, $this->beard, $this->cloth, $this->pants, $this->fwear, $this->user['id']));
                 
                 $this->pdo->query('UPDATE `users` SET `costumize` = ? WHERE `id` = ?', array(1, $this->user['id']));
-
-                $this->answer('page', '/');
-            } else {
-                $this->answer('page', '/');
             }
+            $this->answer('page', '/');
             
         }
 
@@ -57,5 +54,5 @@
         $Savesett = new Savesett($pdo, $_POST['hair'], $_POST['beard'], $_POST['cloth'], $_POST['pants'], $_POST['fwear']);
         $Savesett->main();
     } else {
-        exit( json_encode( ['page' => '/auth'] ) );
+        exit( json_encode( ['page' => 'auth'] ) );
     }

@@ -15,6 +15,7 @@
     <link rel='stylesheet' href='/style/index.css?17'>
     <link rel='stylesheet' href='/style/style.css?17'>
 
+    <meta name='keywords' content='survivors, survs, srvs, выжившие, онлайн игра, выживание, браузерная игра'>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, minimum-scale=1, maximum-scale=1' />
 
@@ -23,7 +24,7 @@
     <script src='/js/libs/vue-router.js' defer></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js' defer></script>
 
-    <title>Survivors | Created by Mota</title>
+    <title>Survivors | Выжившие</title>
 </head>
 <body>
 

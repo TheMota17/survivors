@@ -26,7 +26,7 @@
                 case 'game':
                     exit(
                         json_encode([
-                            'game_data' => $this->game_data,
+                            'game' => $this->game,
                             'items' => $this->items,
                             'locs' => $this->locs
                         ])
@@ -74,9 +74,6 @@
             
             switch($_GET['page']) {
                 case 'game':
-                    $game = $this->pdo->fetch('SELECT * FROM `game` WHERE `user_id` = ?', array($this->user['id']));
-                    $this->game_data = json_decode( $game['data'] );
-
                     $this->answer('game');
                     break;
                 case 'invent':
@@ -108,5 +105,5 @@
         $Api = new Api($pdo, $game_items, $game_locs, $game_rares, $items_pred, $game_crafts, $Sys->get_user(), $Sys->get_game());
         $Api->main();
     } else {
-        exit( json_encode( ['page' => '/auth'] ) );
+        exit( json_encode( ['page' => 'auth'] ) );
     }

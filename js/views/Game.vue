@@ -111,10 +111,9 @@ module.exports = {
 				this.$root.popup.active = true;
 				this.$root.popup.text   = response.data.message;
 			} else if (response.data.page) {
-				localStorage.setItem('token', response.data.token)
 				this.$router.push(response.data.page)
 			} else {
-				this.gameData = response.data.game_data;
+				this.gameData = response.data.game;
 				this.items    = response.data.items;
 				this.locs     = response.data.locs;
 
