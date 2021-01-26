@@ -3,8 +3,8 @@
 		<div class='flex j-c mt10'>
 			<div class='ivent-pers backgr2 flex j-c ai-c pt5 pb5'>
 				<div class='maneken relative flex j-c ai-c'>
-		            <div :class='[nadeto[`helm`] == 0 ? `` : items[ 2 ][ nadeto[`helm`] ][`class`]]'></div>
-		            <div :class='[nadeto[`arm`] == 0 ? `` : items[ 3 ][ nadeto[`arm`] ][`class`]]'></div>
+		            <div v-if='nadeto[`helm`] > 0' :class='items[ 2 ][ nadeto[`helm`] ][`class`]'></div>
+		            <div v-if='nadeto[`arm`]  > 0' :class='items[ 3 ][ nadeto[`arm`] ][`class`]'></div>
 
 					<div v-if='nadeto[`helm`] == 0' :class='`hair` + nadeto[`hair`]'></div>
 					<div :class='`beard` + nadeto[`beard`]'></div>

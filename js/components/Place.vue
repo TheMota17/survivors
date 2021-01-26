@@ -1,9 +1,8 @@
 <template>
 	<div class='flex j-c mt10'>
         <div class='item-moves backgr2 flex j-c pt5 pb5'>
-            <button class='moves-btn relative'>
-                <span id='txt_place'>Поместить</span>
-                <div class='game-btn-bar'></div>
+            <button class='moves-btn' @click='place'>
+                <span>Поместить</span>
             </button>
         </div>
     </div>
@@ -11,6 +10,28 @@
 
 <script>
 module.exports = {
-	name: 'Place'
+	name: 'Place',
+	methods: {
+		place() {
+			let params = new FormData();
+			params.append('id_item', this.$route.query.id);
+	    	params.append('token', localStorage.getItem('token'));
+
+			axios.post('/core/ajax/gameactions.php?action=place', params)
+			.then((response) => {
+				if (response.data.popup) {
+					this.$root.popup.active = true;
+					this.$root.popup.text   = response.data.message;
+				} else if (response.data.page) {
+					this.$router.push(response.data.page)
+				} else if (response.data.reload) {
+					this.$router.go()
+				}
+			})
+			.catch((error) => {
+				console.log(error)
+			})
+		}
+	}
 }
 </script>
