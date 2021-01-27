@@ -2,7 +2,6 @@ body {color: var(--main-3-color); background: var(--main-1-color); max-width: 50
 a {color: var(--main-3-color); cursor: pointer;}
 a:hover {text-decoration: underline;}
 button {cursor: pointer;}
-input[type=submit] {cursor: pointer;}
 
 :root {
     --main-1-color: rgb(24, 23, 23); 
@@ -75,7 +74,7 @@ input[type=submit] {cursor: pointer;}
 .legend_border {width: 32px; height: 32px; background: url('/assets/icons/ivent-legend-border.png') top/cover no-repeat;}
 
 .sort-menu {width: 96%; height: 50px; background: var(--main-2-color); border-radius: 3px; border: 1px solid var(--main-3-color); padding: 5px; overflow: auto;}
-.sort-menu button {height: 25px; color: var(--main-3-color); background: var(--main-1-color); padding: 4px; border-radius: 3px;}
+.sort-menu button {width: 100px; height: 25px; color: var(--main-3-color); background: var(--main-1-color); padding: 4px; border-radius: 3px;}
 .sort-btn {color: var(--main-3-color); background: var(--main-2-color); border: 1px solid var(--main-3-color); padding: 1px 5px; border-radius: 2px;}
 
 /* Панель */
@@ -104,7 +103,7 @@ input[type=submit] {cursor: pointer;}
 .auth-enter-form button {width: 90px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
 .auth-enter-form button:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
-/* РЕДАКТИРОВАНИЕ ПЕРСОНАЖА (costumize.php) */
+/* РЕДАКТИРОВАНИЕ ПЕРСОНАЖА */
 .pers-maneken {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
 .maneken {width: 90px; height: 154px; background: url('/assets/decor/maneken-back.png') no-repeat top/cover;}
 .man {position: absolute; z-index: 1;}
@@ -120,7 +119,7 @@ input[type=submit] {cursor: pointer;}
 .cost-confirm-btn {width: 50px; height: 25px; outline: none; border-radius: 5px; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color);}
 .cost-confirm-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
-/* ИГРА (game.php) */
+/* ИГРА */
 .game-meteoсharact {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
 .game-location {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
 .game-canvas {width: 96%; border-radius: 2px; background-color: var(--main-1-color);}
@@ -147,24 +146,23 @@ input[type=submit] {cursor: pointer;}
 .game-btn-bar {position: absolute; top: 27px; width: 0%; height: 3px; background: var(--main-2-color); border-radius: 4px; opacity: .5; transition: .5s;}
 .game-item-colvo {min-width: 22px; height: 22px; color: var(--main-3-color); background: var(--main-2-color); border-radius: 3px; padding: 0 2px;}
 
-/* ИНВЕНТАРЬ (ivent.php) */
-.ivent-pers {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
+/* ИНВЕНТАРЬ */
+.ivent-user {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
 .pers-ivent-img {width: 63px; height: 126px;}
 
 .user-abs {background: var(--main-1-color); border-radius: 3px;}
 .user-dmg {background: var(--main-1-color); border-radius: 3px;}
 .user-power {background: var(--main-1-color); border-radius: 3px;}
 
-.ivent-hp-bar {width: 100px; height: 10px; background: var(--main-1-color); border-radius: 3px;}
+.ivent-hp-bar {width: 100px; height: 16px; background: var(--main-1-color); border-radius: 3px;}
 .hp-bar {width: 0%; height: inherit; background: #b45252; border-radius: inherit; transition: width .5s;}
-.ivent-hung-bar {width: 100px; height: 10px; background: var(--main-1-color); border-radius: 3px;}
+.ivent-hung-bar {width: 100px; height: 16px; background: var(--main-1-color); border-radius: 3px;}
 .hung-bar {width: 0%; height: inherit; background: #80493a; border-radius: inherit; transition: width .5s;}
-.ivent-thirst-bar {width: 100px; height: 10px; background: var(--main-1-color); border-radius: 3px;}
+.ivent-thirst-bar {width: 100px; height: 16px; background: var(--main-1-color); border-radius: 3px;}
 .thirst-bar {width: 0%; height: inherit; background: #4b80ca; border-radius: inherit; transition: width .5s;}
-.ivent-fatigue-bar {width: 100px; height: 10px; background: var(--main-1-color); border-radius: 3px;}
+.ivent-fatigue-bar {width: 100px; height: 16px; background: var(--main-1-color); border-radius: 3px;}
 .fatigue-bar {width: 0%; height: inherit; background: #868188; border-radius: inherit; transition: width .5s;}
 
-.pers-nadeto-items {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
 .nadeto-helm {width: 96%; border-radius: 3px; padding: 5px;}
 .nadeto-arm {width: 96%; border-radius: 3px; padding: 5px;}
 .nadeto-weap {width: 96%; border-radius: 3px; padding: 5px;}
@@ -179,7 +177,7 @@ input[type=submit] {cursor: pointer;}
 .ivent-nav {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
 .nav-btn {width: 25px; height: 25px; background: var(--main-1-color); color: var(--main-3-color); display: flex; justify-content: center; align-items: center; border-radius: 3px; margin-left: 5px; margin-right: 5px;}
 
-/* ПРОСМОТР ПРЕДМЕТА (item.php) */
+/* ПРОСМОТР ПРЕДМЕТА */
 .item-iteminfo {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
 .iteminfo-div {width: 96%; padding-top: 4px; padding-bottom: 4px; background: var(--main-1-color);}
 
@@ -187,10 +185,8 @@ input[type=submit] {cursor: pointer;}
 .moves-btn {width: 86%; height: 30px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
 .moves-btn:focus {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
-/* КРАФТ (craft.php) */
+/* КРАФТ */
 .craft-items {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
-.craft-sort-menu {width: 96%; height: 50px; background: var(--main-1-color); border-radius: 3px; padding: 5px; overflow: auto;}
-.craft-sort-menu a {height: 25px; background: var(--main-2-color); padding: 4px; border-radius: 3px;}
 .craft-item {width: 96%; border-radius: 5px;}
 .craft-item-info {width: 32px; height: 32px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
 .craft-item-info:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
@@ -202,7 +198,7 @@ input[type=submit] {cursor: pointer;}
 .craft-back-btn {width: 100px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
 .craft-back-btn:focus {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
-/* УБЕЖИЩЕ (refuge.php) */
+/* УБЕЖИЩЕ */
 .refuge-no {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
 .refuge-no-mess {border-radius: 3px; padding: 10px 12px; box-shadow: 0px 0px 10px var(--main-1-color);}
 .refuge-back {width: 100%; height: 180px; border-radius: 5px;}

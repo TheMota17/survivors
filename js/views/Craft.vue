@@ -8,11 +8,11 @@
                 </button>
 		    </div>
             <div v-if='sort' class='sort-menu flex j-s ai-c mt5'>
-		        <button @click='changeType(2)' class='flex j-c ai-c wdth100 mr5'>Шлемы</button>
-		        <button @click='changeType(3)' class='flex j-c ai-c wdth100 mr5'>Броня</button>
-		        <button @click='changeType(4)' class='flex j-c ai-c wdth100 mr5'>Оружие</button>
-		        <button @click='changeType(5)' class='flex j-c ai-c wdth100 mr5'>Убежище</button>
-		        <button @click='changeType(1)' class='flex j-c ai-c wdth100'>Разное</button>
+		        <button @click='changeType(2)' class='flex j-c ai-c mr5'>Шлемы</button>
+		        <button @click='changeType(3)' class='flex j-c ai-c mr5'>Броня</button>
+		        <button @click='changeType(4)' class='flex j-c ai-c mr5'>Оружие</button>
+		        <button @click='changeType(5)' class='flex j-c ai-c mr5'>Убежище</button>
+		        <button @click='changeType(1)' class='flex j-c ai-c'>Разное</button>
 			</div>
 		    <div class='craft-items backgr2 flex j-c ai-c fl-di-co mt5 pt5 pb5'>
 
