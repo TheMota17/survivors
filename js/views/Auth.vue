@@ -2,12 +2,9 @@
 	<div class='flex j-c ai-c fl-di-co'>
 	    <div class='auth-logo'>
 	        <img src='/assets/auth.png' class='logo'>
-	    </div>
-	    <div class='auth-info wdth96 fnt12'>
-	        Мир в котором все уже опустошено, мир где царит мрак, где нет ни добра ни зла.
-	        Все это ждёт вас в мире где есть только выжившие.
-	        Вам предстоит выживать с игроками которые будут всячески мешать в вашем пути. 
-	        Так сделайте это, скачайте Shadow Leg... Кхм Кхм 'Survivors'
+	        <div class='auth-info wdth100 flex j-c ai-e mt5 bolder'>
+	        	Исследуйте, стройте, уничтожайте в игре - которая перевернет все ваши стереотипы о Выживших!
+	    	</div>
 	    </div>
 	    <div class='auth-reg flex j-c ai-c fl-di-co pb10'>
 	        <div class='auth-reg-zag flex j-c ai-c bolder fnt12 mt5'>
@@ -15,17 +12,17 @@
 	        </div>
 	        <div class='auth-reg-form flex ai-c fl-di-co mt10'>
 	            <div class='relative'>
-	            <div class='error-star'>*</div>
+	            <div class='error-star' v-if='!regData.name'>*</div>
 	            <input type='text' placeholder='Придумайте ник' class='input' v-model='regData.name' required>
 	            </div>
 
 	    	    <div class='relative mt10'>
-	            <div class='error-star'>*</div>
+	            <div class='error-star' v-if='!regData.pass'>*</div>
 	    		<input type='password' placeholder='Придумайте пароль' class='input' v-model='regData.pass' required>
 	    	    </div>
 
 	            <div class='relative mt10'>
-	            <div class='error-star'>*</div>
+	            <div class='error-star' v-if='!regData.mail'>*</div>
 	            <input type='mail' placeholder='Ваша почта' class='input' v-model='regData.mail' required>
 	            </div>
 

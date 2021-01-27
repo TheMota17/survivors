@@ -87,9 +87,8 @@ input[type=submit] {cursor: pointer;}
 /* Регистрация, вход и т.д. */
 .error-star {display: block; color: var(--main-red-color); position: absolute; left: 1px; top: -2px;}
 
-.auth-logo {width: 96%;}
 .logo {width: 100%; border-radius: 5px;}
-.auth-info {text-align: center; transform: translateY(-20px);}
+.auth-info {text-align: center; font-size: 15px; transform: translateY(-20px);}
 
 .input {min-width: 150px; height: 25px; border-radius: 5px; outline: none; background: var(--main-1-color); color: var(--main-3-color); text-align: center;}
 .input::placeholder {padding: 8px; color: var(--main-2-color);}
