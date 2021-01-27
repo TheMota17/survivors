@@ -1,8 +1,8 @@
 <?php
-	require realpath('../sys.php');
+	require realpath('../User.php');
     require realpath('../gamedata.php');
 
-    Class GameActions {
+    Class All_actions {
 
     	public function __construct($pdo, $items, $locs, $action_times, $crafts, $weathers, $temps, $refuges, $user, $game)
     	{
@@ -718,9 +718,7 @@
         
     }
 
-    if ($_SESSION['user'] && $_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
-        $GameActions = new GameActions($pdo, $game_items, $game_locs, $game_action_times, $game_crafts, $game_weathers, $game_temps, $game_refuges, $Sys->get_user(), $Sys->get_game());
-        $GameActions->main();
-    } else {
-        exit( json_encode( ['page' => 'auth'] ) );
+    if ($Utils::checkSession()) {
+        $All_actions = new All_actions($Pdo, $game_items, $game_locs, $game_action_times, $game_crafts, $game_weathers, $game_temps, $game_refuges, $Sys->get_user(), $Sys->get_game());
+        $All_actions->main();
     }

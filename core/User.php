@@ -1,8 +1,8 @@
 <?php
     require 'db.php';
-    require 'utils.php';
+    require 'Utils.php';
 
-    Class Sys {
+    Class User {
         private $pdo;
 
         private $message;
@@ -15,20 +15,9 @@
 
             $this->pdo = $pdo;
 
-            $this->id = htmlspecialchars( intval( $id ) );
-
-        }
-
-        public function user() {
-
-            if (!$this->id) $this->exit('auth');
-
-            $this->user = $this->pdo->fetch('SELECT * FROM `users` WHERE `id` = ?', array( $this->id ));
+            $this->user = $this->pdo->fetch('SELECT * FROM `users` WHERE `id` = ?', array( htmlspecialchars( intval( $id ) ) ));
             $this->game = json_decode( $this->user['game'] );
 
-            $this->ban();
-            $this->costumize();
-            $this->visit();
         }
 
         public function get_user() {
@@ -80,9 +69,6 @@
         public function exit( $move ) {
 
             switch( $move) {
-                case 'auth':
-                    exit( json_encode( ['page' => 'auth'] ) );
-                break;
                 case 'costumize':
                     exit( json_encode( ['page' => 'costumize'] ) );
                 break;
@@ -95,14 +81,14 @@
 
         public function main() {
             
-            $this->user();
+            $this->ban();
+            $this->costumize();
+            $this->visit();
 
         }
     }
 
-    if ($_SESSION['user'] && $_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
-        $Sys = new Sys($pdo, $_SESSION['user']);
-        $Sys->main();
-    } else {
-        exit( json_encode( ['page' => 'auth'] ) );
+    if ($Utils::checkSession()) {
+        $User = new User($Pdo, $_SESSION['user']);
+        $User->main();
     }

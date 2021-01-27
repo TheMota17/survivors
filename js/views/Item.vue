@@ -216,7 +216,7 @@ module.exports = {
 		params.append('id', this.$route.query.id);
     	params.append('token', localStorage.getItem('token'));
 
-		axios.post('/core/ajax/api.php?page=item', params)
+		axios.post('/core/ajax/Api.php?page=item', params)
 		.then((response) => {
 			if (response.data.popup) {
 				this.$root.popup.active = true;

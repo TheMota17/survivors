@@ -12,6 +12,7 @@
     let Invent    = httpVueLoader('./js/views/Invent.vue')
     let Item      = httpVueLoader('./js/views/Item.vue')
     let Craft     = httpVueLoader('./js/views/Craft.vue')
+    let Refuge    = httpVueLoader('./js/views/Refuge.vue')
 
     const routes = [
         {
@@ -45,6 +46,11 @@
             path: '/craft',
             name: 'Craft',
             component: Craft
+        },
+        {
+            path: '/refuge',
+            name: 'Refuge',
+            component: Refuge
         }
     ];
 

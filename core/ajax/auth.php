@@ -1,19 +1,20 @@
 <?php
     require realpath('../db.php');
-    require realpath('../utils.php');
+    require realpath('../Utils.php');
 
     Class Auth {
 
-        public function __construct($pdo) 
+        public function __construct($pdo, $utils)
         {
 
-            $this->pdo = $pdo;
+            $this->pdo   = $pdo;
+            $this->utils = $utils;
 
         }
         
         public function mail_verif() {
 
-            if (verifMail( $this->mail )) {
+            if ($this->utils::verifMail( $this->mail )) {
                 $find_mail = $this->pdo->fetch('SELECT `id` FROM `users` WHERE `mail` = ?', array( $this->mail ));
 
                 if ($find_mail) {
@@ -27,7 +28,7 @@
 
         public function name_verif() {
 
-            if (verifName( $this->name )) {
+            if ($this->utils::verifName( $this->name )) {
                 $find_name = $this->pdo->fetch('SELECT `id` FROM `users` WHERE `login` = ?', array( $this->name ));
 
                 if ( $find_name ) {
@@ -41,7 +42,7 @@
 
         public function pass_verif() {
 
-            if (!verifPass($this->pass)) {
+            if (!$this->utils::verifPass($this->pass)) {
                 $this->message = 'Неправильный формат пароля!';
             }
 
@@ -61,7 +62,7 @@
             $food   = $this->pdo->query('INSERT INTO invent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array(13, 1, 5, $userid));
             $water  = $this->pdo->query('INSERT INTO invent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array(2, 1, 5, $userid));
 
-            $_SESSION['token'] = token();
+            $_SESSION['token'] = $this->utils::token();
             $_SESSION['user']  = $userid;
             
             $this->answer('page', 'costumize');
@@ -79,7 +80,7 @@
                     $this->message = 'Вы заблокированы до - <div class=\'flex j-c mt5 mb5\'>'.$ban_time.'</div>';
                     $this->answer('mess', 0);
                 } else {
-                    $_SESSION['token'] = token();
+                    $_SESSION['token'] = $this->utils::token();
                     $_SESSION['user']  = $find_user[ 'id' ];
                     $this->answer('page', '/');
                 }
@@ -94,10 +95,10 @@
 
             switch( $ans ) {
                 case 'page':
-                    exit( json_encode( ['page' => $page, 'token' => $_SESSION['token']] ) );
+                    exit(json_encode( ['page' => $page, 'token' => $_SESSION['token']] ));
                 break;
                 case 'mess':
-                    exit( json_encode( ['message' => $this->message, 'popup' => true] ) );
+                    exit(json_encode( ['message' => $this->message, 'popup' => true] ));
                 break;
             }
 
@@ -129,5 +130,5 @@
         }
     }
 
-    $Auth = new Auth($pdo);
+    $Auth = new Auth($Pdo, $Utils);
     $Auth->main();

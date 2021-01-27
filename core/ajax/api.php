@@ -1,19 +1,20 @@
 <?php
-	require realpath('../sys.php');
+	require realpath('../User.php');
     require realpath('../gamedata.php');
 
     Class Api {
 
-    	public function __construct($pdo, $items, $locs, $rares, $pred, $crafts, $user, $game)
+    	public function __construct($pdo, $items, $locs, $rares, $pred, $crafts, $refuges, $user, $game)
     	{
             
             $this->pdo = $pdo;
 
-            $this->items  = $items;
-            $this->locs   = $locs;
-            $this->rares  = $rares;
-            $this->pred   = $pred;
-            $this->crafts = $crafts;
+            $this->items   = $items;
+            $this->locs    = $locs;
+            $this->rares   = $rares;
+            $this->pred    = $pred;
+            $this->crafts  = $crafts;
+            $this->refuges = $refuges;
             
             $this->user  = $user;
             $this->game  = $game;
@@ -66,6 +67,17 @@
                         ])
                     );
                     break;
+                case 'refuge':
+                    exit(
+                        json_encode([
+                            'items'   => $this->items,
+                            'rares'   => $this->rares,
+                            'refuges' => $this->refuges,
+                            'refuge'  => $this->refuge,
+                            'user'    => ['in_refuge' => $this->user['in_refuge']]
+                        ])
+                    );
+                    break;
             }
 
         }
@@ -98,15 +110,32 @@
                 case 'craft':
                     $this->answer('craft');
                     break;
+                case 'refuge':
+                    $this->refuge = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
+                    $this->slots  = $this->pdo->fetchAll('SELECT * FROM `slots` WHERE `item` > 0 AND `user_id` = ?', array($this->user['id']));
+                    $this->tools  = array();
+                    $this->prot   = array();
+
+                    foreach($this->slots as $s) {
+                        switch($s['type']) {
+                            case 1:
+                                array_push($this->tools, $s);
+                            break;
+                            case 2:
+                                array_push($this->prot, $s);
+                            break;
+                        }
+                    }
+
+                    $this->answer('refuge');
+                    break;
             }
 
     	}
         
     }
 
-    if ($_SESSION['user'] && $_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
-        $Api = new Api($pdo, $game_items, $game_locs, $game_rares, $items_pred, $game_crafts, $Sys->get_user(), $Sys->get_game());
+    if ($Utils::checkSession()) {
+        $Api = new Api($Pdo, $game_items, $game_locs, $game_rares, $items_pred, $game_crafts, $game_refuges, $User->get_user(), $User->get_game());
         $Api->main();
-    } else {
-        exit( json_encode( ['page' => 'auth'] ) );
     }

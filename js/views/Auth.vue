@@ -81,7 +81,7 @@ module.exports = {
         	params.append('pass', this.regData.pass);
         	params.append('mail', this.regData.mail);
 
-    		axios.post('/core/ajax/auth.php?action=reg', params)
+    		axios.post('/core/ajax/Auth.php?action=reg', params)
     		.then((response) => {
     			if (response.data.popup) {
     				this.$root.popup.active = true;
@@ -100,7 +100,7 @@ module.exports = {
         	params.append('name', this.enterData.name);
         	params.append('pass', this.enterData.pass);
 
-    		axios.post('/core/ajax/auth.php?action=enter', params)
+    		axios.post('/core/ajax/Auth.php?action=enter', params)
     		.then((response) => {
     			if (response.data.popup) {
     				this.$root.popup.active = true;

@@ -161,7 +161,6 @@
                             <img src='/assets/icons/getout.png' />
                         </div>
                         <span id='txt_enterrefuge'>Выйти</span>
-                        <div class='game-btn-bar' id='bar_enterrefuge'></div>
                     </button>
                 <? else : ?>
                     <button class='move-btn refuge-enter relative flex j-s ai-c mt5' id='enterrefuge'>
@@ -169,7 +168,6 @@
                             <img src='/assets/icons/enter.png' />
                         </div>
                         <span id='txt_enterrefuge'>Войти</span>
-                        <div class='game-btn-bar' id='bar_enterrefuge'></div>
                     </button>
                 <? endif; ?>
             </div>

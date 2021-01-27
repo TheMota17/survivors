@@ -1,8 +1,8 @@
 <?php
-	require realpath('../sys.php');
+	require realpath('../User.php');
     require realpath('../gamedata.php');
 
-    Class GameLoad {
+    Class Game_load {
 
     	public function __construct($pdo, $weathers, $temps, $locs, $items, $user, $game)
     	{
@@ -106,9 +106,7 @@
         
     }
 
-    if ($_SESSION['user'] && $_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
-        $GameLoad = new GameLoad($pdo, $game_weathers, $game_temps, $game_locs, $game_items, $Sys->get_user(), $Sys->get_game());
-        $GameLoad->main();
-    } else {
-        exit( json_encode( ['page' => 'auth'] ) );
+    if ($Utils::checkSession()) {
+        $Game_load = new Game_load($Pdo, $game_weathers, $game_temps, $game_locs, $game_items, $User->get_user(), $User->get_game());
+        $Game_load->main();
     }

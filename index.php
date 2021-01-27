@@ -1,7 +1,7 @@
 <?php
     require ''.$_SERVER['DOCUMENT_ROOT'].'/core/db.php';
 
-    $online = $pdo->rows('SELECT * FROM `users` WHERE `lastvisit` > ?', array(time() - 600));
+    $online = $Pdo->rows('SELECT * FROM `users` WHERE `lastvisit` > ?', array(time() - 600));
 ?>
 
 <!DOCTYPE html>

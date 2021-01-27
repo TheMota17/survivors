@@ -64,7 +64,7 @@
 			        	params.append('fatigueTime', Game.player.fatigueTime);
 			        	params.append('token', localStorage.getItem('token'));
 
-			            axios.post('/core/ajax/gameload.php?action=update', params)
+			            axios.post('/core/ajax/Game_load.php?action=update', params)
 			    		.then((response) => {})
 			    		.catch((error) => {
 			    			console.log(error)
@@ -227,7 +227,7 @@
 			        	let params = new FormData();
 			        	params.append('token', localStorage.getItem('token'));
 
-			    		axios.post('/core/ajax/gameload.php?action=load', params)
+			    		axios.post('/core/ajax/Game_load.php?action=load', params)
 			    		.then((response) => {
 			    			Game.data       = response.data;
 			                let all_sprites = [

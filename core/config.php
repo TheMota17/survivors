@@ -3,7 +3,6 @@
 		'db' => [
 			'dbname'     => 'survive',
 			'name'       => 'root',
-			'pass'       => '89626545803',
-			'offEmulate' => true
+			'pass'       => '89626545803'
 		]
 	];

@@ -270,14 +270,19 @@
 module.exports = {
 	name: 'Refuge',
 	data: () => ({
-		api: false
+		api: false,
 
+		items: undefined,
+		rares: undefined,
+		refuges: undefined,
+		refuge: undefined,
+		user: undefined
 	}),
 	beforeMount() {
 		let params = new FormData();
     	params.append('token', localStorage.getItem('token'));
 
-		axios.post('/core/ajax/api.php?page=refuge', params)
+		axios.post('/core/ajax/Api.php?page=refuge', params)
 		.then((response) => {
 			if (response.data.popup) {
 				this.$root.popup.active = true;
@@ -285,6 +290,11 @@ module.exports = {
 			} else if (response.data.page) {
 				this.$router.push(response.data.page)
 			} else {
+				this.items   = response.data.items;
+				this.rares   = response.data.rares;
+				this.refuges = response.data.refuges;
+				this.refuge  = response.data.refuge;
+				this.user    = response.data.user;
 
 				this.api = true;
 			}

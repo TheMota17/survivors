@@ -126,7 +126,7 @@ module.exports = {
         	params.append('fwear', this.fwear);
         	params.append('token', localStorage.getItem('token'));
 
-    		axios.post('/core/ajax/savesett.php', params)
+    		axios.post('/core/ajax/Costumize_save.php', params)
     		.then((response) => {
     			if (response.data.popup) {
     				this.$root.popup.active = true;

@@ -1,7 +1,7 @@
 <?php
     require realpath('../db.php');
 
-    Class Savesett {
+    Class Costumize_save {
 
         public function __construct($pdo, $hair, $beard, $cloth, $pants, $fwear) 
         {
@@ -10,11 +10,11 @@
 
             $this->user = $this->pdo->fetch('SELECT * FROM `users` WHERE `id` = ?', array( $_SESSION['user'] ));
 
-            $this->hair  = htmlspecialchars( trim( $hair ) );
-            $this->beard = htmlspecialchars( trim( $beard ) );
-            $this->cloth = htmlspecialchars( trim( $cloth ) );
-            $this->pants = htmlspecialchars( trim( $pants ) );
-            $this->fwear = htmlspecialchars( trim( $fwear ) );
+            $this->hair  = htmlspecialchars( intval( $hair ) );
+            $this->beard = htmlspecialchars( intval( $beard ) );
+            $this->cloth = htmlspecialchars( intval( $cloth ) );
+            $this->pants = htmlspecialchars( intval( $pants ) );
+            $this->fwear = htmlspecialchars( intval( $fwear ) );
 
         }
         
@@ -50,9 +50,7 @@
         }
     }
 
-    if ($_SESSION['user'] && $_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
-        $Savesett = new Savesett($pdo, $_POST['hair'], $_POST['beard'], $_POST['cloth'], $_POST['pants'], $_POST['fwear']);
-        $Savesett->main();
-    } else {
-        exit( json_encode( ['page' => 'auth'] ) );
+    if ($Utils::checkSession()) {
+        $Costumize_save = new Costumize_save($Pdo, $_POST['hair'], $_POST['beard'], $_POST['cloth'], $_POST['pants'], $_POST['fwear']);
+        $Costumize_save->main();
     }

@@ -87,7 +87,7 @@ $game_locs = [ // Локации
             ['i' => 4, 't' => 1],
             ['i' => 5, 't' => 1]
         ],
-        'img' => [1 => '/assets/locs/wasteland.jpg', 2 => '/assets/locs/wasteland-rain.jpg', 3 => '/assets/locs/wasteland-rain.jpg', 5 => '/assets/locs/wasteland-snow.jpg']
+        'img' => '/assets/locs/wasteland.jpg'
     ],
     2 => [
         'id' => 2,
@@ -101,7 +101,7 @@ $game_locs = [ // Локации
             ['i' => 4, 't' => 1], 
             ['i' => 5, 't' => 1],
         ],
-        'img' => [1 => '/assets/locs/village.jpg', 2 => '/assets/locs/village-rain.jpg', 3 => '/assets/locs/village-rain.jpg', 5 => '/assets/locs/village-snow.jpg']
+        'img' => '/assets/locs/village.jpg'
     ],
     3 => [
         'id' => 3,
@@ -117,7 +117,7 @@ $game_locs = [ // Локации
             ['i' => 7, 't' => 1], 
             ['i' => 10, 't' => 1]
         ],
-        'img' => [1 => '/assets/locs/big_village.jpg', 2 => '/assets/locs/big_village-rain.jpg', 3 => '/assets/locs/big_village-rain.jpg', 5 => '/assets/locs/big_village-snow.jpg']
+        'img' => '/assets/locs/big_village.jpg'
     ]
 ];
 
