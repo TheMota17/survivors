@@ -1,5 +1,6 @@
 <template>
 	<div v-if='api'>
+		<tablo :hp='game.hp' :hung='game.hung' :thirst='game.thirst' :fatigue='game.fatigue'></tablo>
 		<div class='flex j-c ai-c fl-di-co mt5'>
 		    <div class='flex j-c'>
 		        Предмет
@@ -190,6 +191,7 @@
 </template>
 
 <script>
+let Tablo = httpVueLoader('../components/Tablo.vue')
 let Nadet = httpVueLoader('../components/Nadet.vue')
 let Eat   = httpVueLoader('../components/Eat.vue')
 let Drink = httpVueLoader('../components/Drink.vue')
@@ -209,7 +211,7 @@ module.exports = {
 		nElems: undefined
 	}),
 	components: {
-		Nadet, Eat, Drink, Read, Place
+		Tablo, Nadet, Eat, Drink, Read, Place
 	},
 	beforeMount() {
 		let params = new FormData();

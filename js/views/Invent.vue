@@ -1,5 +1,6 @@
 <template>
 	<div v-if='api'>
+		<tablo :hp='game.hp' :hung='game.hung' :thirst='game.thirst' :fatigue='game.fatigue'></tablo>
 		<div class='flex j-c mt10'>
 			<div class='ivent-user backgr2 flex j-c ai-c fl-di-co'>
 				<div class='flex j-c ai-c pt5 pb5'>
@@ -270,6 +271,8 @@
 </template>
 
 <script>
+let Tablo = httpVueLoader('../components/Tablo.vue')
+
 module.exports = {
     name: 'Invent',
     data: () => ({
@@ -288,6 +291,9 @@ module.exports = {
     	sort: false,
     	typeElems: {0: 'Все', 1: 'Разное', 2: 'Шлемы', 3: 'Броня', 4: 'Оружие', 5: 'Убежище'}
     }),
+    components: {
+    	Tablo
+    },
 	beforeMount() {
 		let params = new FormData();
 		params.append('token', localStorage.getItem('token'));

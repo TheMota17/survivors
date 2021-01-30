@@ -1,7 +1,6 @@
 (function() {
 
     let Popup   = httpVueLoader('./js/components/Popup.vue')
-    let Tablo   = httpVueLoader('./js/components/Tablo.vue')
     let Menyoo  = httpVueLoader('./js/components/Menu.vue')
     let PageBar = httpVueLoader('./js/components/PageBar.vue')
 
@@ -62,7 +61,7 @@
     new Vue({
         router,
         components: {
-            Popup, Tablo, Menyoo, PageBar
+            Popup, Menyoo, PageBar
         },
         data: () => ({
             popup: {

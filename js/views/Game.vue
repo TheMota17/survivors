@@ -1,5 +1,6 @@
 <template>
-	<div>
+	<div v-if='api'>
+		<tablo :hp='game.hp' :hung='game.hung' :thirst='game.thirst' :fatigue='game.fatigue'></tablo>
 		<div class='flex j-c mt10'>
 		    <div class='game-meteoсharact backgr2 flex j-sa pt5 pb5'>
 		        <div class='flex j-c ai-c'>
@@ -62,18 +63,15 @@
 	            <div class='flex j-c mt5'>
 	                <div class='loc-whatsrch'>
 	                    <div class='mb5 '>Можно найти:</div>
-	                    <div v-if='api' class='game-avai-items flex'>
-
-	                        <div v-for='item in locs[ gameData.loc ][`srch_items`]' class='item32-1 mr5 mb5 flex j-c ai-c'>
-                                <router-link :to='{ path: `item`, query: {item: item[`i`], type: item[`t`]}}'>
-                                    <img :src='items[ item[`t`] ][ item[`i`] ][`img`]'/>
-                                </router-link>
-                            </div>
-
+	                    <div class='game-avai-items flex'>
+	                        <div v-for='item in locs[ game.loc ][`srch_items`]' class='item32-1 mr5 mb5 flex j-c ai-c'>
+	                            <router-link :to='{ path: `item`, query: {item: item[`i`], type: item[`t`]}}'>
+	                                <img :src='items[ item[`t`] ][ item[`i`] ][`img`]'/>
+	                            </router-link>
+	                        </div>
 	                    </div>
 	                </div>
 	            </div>
-
 		    </div>
 		</div>
 
@@ -86,6 +84,7 @@
 </template>
 
 <script>
+let Tablo = httpVueLoader('../components/Tablo.vue')
 let Sleep = httpVueLoader('../components/Sleep.vue')
 let Surv  = httpVueLoader('../components/Surv.vue')
 
@@ -94,12 +93,12 @@ module.exports = {
 	data: () => ({
 		api: false,
 
-		gameData: undefined,
+		game: undefined,
 		items: undefined,
 		locs: undefined
 	}),
 	components: {
-		Sleep, Surv
+		Sleep, Surv, Tablo
 	},
 	beforeMount() {
 		let params = new FormData();
@@ -113,9 +112,9 @@ module.exports = {
 			} else if (response.data.page) {
 				this.$router.push(response.data.page)
 			} else {
-				this.gameData = response.data.game;
-				this.items    = response.data.items;
-				this.locs     = response.data.locs;
+				this.game  = response.data.game;
+				this.items = response.data.items;
+				this.locs  = response.data.locs;
 
 				this.api = true;
 			}

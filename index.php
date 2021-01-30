@@ -30,7 +30,6 @@
 
 <div id='app'>
     <popup></popup>
-    <tablo></tablo>
     <menyoo></menyoo>
     <page-bar></page-bar>
     <router-view></router-view>

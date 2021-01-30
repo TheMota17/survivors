@@ -1,23 +1,23 @@
 <template>
-	<div class='flex j-c mt10'>
-        <div class='item-moves backgr2 flex j-c pt5 pb5'>
-            <button class='moves-btn' @click='nadet'>
-                <span>Надеть</span>
-            </button>
+	<button class='moves-btn flex j-s ai-c mt5' @click='enter'>
+        <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
+            <img src='/assets/icons/enter.png' />
         </div>
-    </div>
+        <span v-if='userEnter == 0'>Войти</span>
+        <span v-else>Выйти</span>
+    </button>
 </template>
 
 <script>
 module.exports = {
-	name: 'Nadet',
+	name: 'EnterRefuge',
+	props: ['userEnter'],
 	methods: {
-		nadet() {
+		enter() {
 			let params = new FormData();
-			params.append('id_item', this.$route.query.id);
 	    	params.append('token', localStorage.getItem('token'));
 
-			axios.post('/core/ajax/AllActions.php?action=nadet', params)
+			axios.post('/core/ajax/AllActions.php?action=enterrefuge', params)
 			.then((response) => {
 				if (response.data.popup) {
 					this.$root.popup.active = true;

@@ -1,5 +1,6 @@
 <template>
 	<div v-if='api'>
+		<tablo :hp='game.hp' :hung='game.hung' :thirst='game.thirst' :fatigue='game.fatigue'></tablo>
 		<div class='flex j-c ai-c fl-di-co mt5'>
 		    <div class='flex j-c ai-c'>
 		        Доступные предметы
@@ -197,6 +198,8 @@
 </template>
 
 <script>
+let Tablo = httpVueLoader('../components/Tablo.vue')
+
 module.exports = {
 	name: 'Craft',
 	data: () => ({
@@ -212,17 +215,21 @@ module.exports = {
 		crafts: undefined,
 		rares: undefined,
 		user: undefined,
+		game: undefined,
 
 		sort: false,
 		typeElems: {1: 'Разное', 2: 'Шлемы', 3: 'Броня', 4: 'Оружие', 5: 'Убежище'},
 
 		colvo: 1
 	}),
+	components: {
+		Tablo
+	},
 	beforeMount() {
 		let params = new FormData();
     	params.append('token', localStorage.getItem('token'));
 
-		axios.post('/core/ajax/api.php?page=craft', params)
+		axios.post('/core/ajax/Api.php?page=craft', params)
 		.then((response) => {
 			if (response.data.popup) {
 				this.$root.popup.active = true;
@@ -234,6 +241,7 @@ module.exports = {
 				this.crafts = response.data.crafts;
 				this.rares  = response.data.rares;
 				this.user   = response.data.user;
+				this.game   = response.data.game;
 
 				this.api = true;	
 			}

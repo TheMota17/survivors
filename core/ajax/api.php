@@ -53,7 +53,8 @@
                             'pred'   => $this->pred,
                             'rares'  => $this->rares,
                             'nadeto' => $this->nadeto,
-                            'nElems' => [2 => 'helm', 3 => 'arm', 4 => 'weap']
+                            'nElems' => [2 => 'helm', 3 => 'arm', 4 => 'weap'],
+                            'game'   => $this->game
                         ])
                     );
                     break;
@@ -63,7 +64,8 @@
                             'items'  => $this->items,
                             'crafts' => $this->crafts,
                             'rares'  => $this->rares,
-                            'user'   => ['craft_lvl' => $this->user['craft_lvl']]
+                            'user'   => ['craft_lvl' => $this->user['craft_lvl']],
+                            'game'   => $this->game
                         ])
                     );
                     break;
@@ -74,7 +76,11 @@
                             'rares'   => $this->rares,
                             'refuges' => $this->refuges,
                             'refuge'  => $this->refuge,
-                            'user'    => ['in_refuge' => $this->user['in_refuge']]
+                            'locs'    => $this->locs,
+                            'user'    => ['in_refuge' => $this->user['in_refuge']],
+                            'tools'   => $this->tools,
+                            'prots'   => $this->prots,
+                            'game'    => $this->game
                         ])
                     );
                     break;
@@ -114,7 +120,7 @@
                     $this->refuge = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
                     $this->slots  = $this->pdo->fetchAll('SELECT * FROM `slots` WHERE `item` > 0 AND `user_id` = ?', array($this->user['id']));
                     $this->tools  = array();
-                    $this->prot   = array();
+                    $this->prots  = array();
 
                     foreach($this->slots as $s) {
                         switch($s['type']) {
@@ -122,7 +128,7 @@
                                 array_push($this->tools, $s);
                             break;
                             case 2:
-                                array_push($this->prot, $s);
+                                array_push($this->prots, $s);
                             break;
                         }
                     }

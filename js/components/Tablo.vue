@@ -1,25 +1,25 @@
 <template>
-	<div v-if='this.$route.path !== "/auth" && this.$route.path !== "/costumize"' class='hght25'>
+	<div class='hght25'>
 	    <div class='info-table backgr2 flex j-c ai-c'>
 	        
 	        <div class='info-hp fl1 flex j-c ai-c'>
 	            <img src='/assets/icons/hp.png' class='item14-1' alt='Жизнь' />
-	            <span class='ml5 fnt14' id='hp'></span>
+	            <span class='ml5 fnt14' id='hp'>{{ hp }}</span>
 	        </div>
 	        
 	        <div class='info-hung fl1 flex j-c ai-c'>
 	            <img src='/assets/icons/hung.png' class='item14-1' alt='Голод' />
-	            <span class='ml5 fnt14' id='hung'></span>
+	            <span class='ml5 fnt14' id='hung'>{{ hung }}</span>
 	        </div>
 	        
 	        <div class='info-thirst fl1 flex j-c ai-c'>
 	            <img src='/assets/icons/thirst.png' class='item14-1' alt='Жажда' />
-	            <span class='ml5 fnt14' id='thirst'></span>
+	            <span class='ml5 fnt14' id='thirst'>{{ thirst }}</span>
 	        </div>
 	        
 	        <div class='info-fatigue fl1 flex j-c ai-c'>
 	            <img src='/assets/icons/sleep.png' class='item14-1' alt='Истощение' />
-	            <span class='ml5 fnt14' id='fatigue'></span>
+	            <span class='ml5 fnt14' id='fatigue'>{{ fatigue }}</span>
 	        </div>
 	        
 	    </div>
@@ -28,6 +28,7 @@
 
 <script>
 module.exports = {
-	name: 'Tablo'
+	name: 'Tablo',
+	props: ['hp', 'hung', 'thirst', 'fatigue']
 }
 </script>

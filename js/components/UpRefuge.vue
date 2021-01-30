@@ -1,23 +1,23 @@
 <template>
-	<div class='flex j-c mt10'>
-        <div class='item-moves backgr2 flex j-c pt5 pb5'>
-            <button class='moves-btn' @click='nadet'>
-                <span>Надеть</span>
-            </button>
+	<button class='moves-btn flex j-s ai-c' @click='up'>
+        <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
+            <img src='/assets/icons/lvl.png' class='item14-1' />
         </div>
-    </div>
+        <span v-if='move == 1'>Улучшить</span>
+        <span v-else>Построить</span>
+    </button>
 </template>
 
 <script>
 module.exports = {
-	name: 'Nadet',
+	name: 'UpRefuge',
+	props: ['move'],
 	methods: {
-		nadet() {
+		up() {
 			let params = new FormData();
-			params.append('id_item', this.$route.query.id);
 	    	params.append('token', localStorage.getItem('token'));
 
-			axios.post('/core/ajax/AllActions.php?action=nadet', params)
+			axios.post('/core/ajax/AllActions.php?action=uprefuge', params)
 			.then((response) => {
 				if (response.data.popup) {
 					this.$root.popup.active = true;

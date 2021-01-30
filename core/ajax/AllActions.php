@@ -2,7 +2,7 @@
 	require realpath('../User.php');
     require realpath('../gamedata.php');
 
-    Class All_actions {
+    Class AllActions {
 
     	public function __construct($pdo, $items, $locs, $action_times, $crafts, $weathers, $temps, $refuges, $user, $game)
     	{
@@ -71,8 +71,8 @@
                 $this->pdo->query('UPDATE users SET `live` = ?, `hp` = ?, `hung` = ?, `thirst` = ?, `fatigue` = ?, `user_time` = ?, `user_weather` = ?, `user_temp` = ?, `loc` = ?, `loc_explored` = ?',
                 array(3, 100, 0, 0, 0, 35600, 1, 1, 1, 0));
 
-                $ivent_items = $this->pdo->fetchAll('SELECT * FROM `invent` WHERE `user_id` = ? AND `colvo` > 0', array($this->user['id']));
-                foreach($ivent_items as $iv) {
+                $invent_items = $this->pdo->fetchAll('SELECT * FROM `invent` WHERE `user_id` = ? AND `colvo` > 0', array($this->user['id']));
+                foreach($invent_items as $iv) {
                     $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `user_id` = ?', array(0, $this->user['id']));
                 }
 
@@ -279,11 +279,11 @@
 
         public function srch_lut() {
 
-            $ivent_cells = $this->pdo->rows('SELECT * FROM `invent` WHERE `colvo` > 0 AND `user_id` = ?', array($this->user['id']));
+            $invent_cells = $this->pdo->rows('SELECT * FROM `invent` WHERE `colvo` > 0 AND `user_id` = ?', array($this->user['id']));
             if ($this->user['in_refuge'] > 0) {
                 $this->message = 'Вы в убежище';
                 $this->answer('mess', 0);
-            } else if ($ivent_cells >= 50) {
+            } else if ($invent_cells >= 50) {
                 $this->message = 'Инвентарь полон';
                 $this->answer('mess', 0);
             } else if ($this->user['fatigue'] >= 100) {
@@ -318,9 +318,9 @@
                 }
 
                 for($i = 0; $i < count($items); $i++) {
-                    $item_in_ivent = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array($items[ $i ]['i'], $items[ $i ]['t'], $this->user['id']));
-                    if ($item_in_ivent) {
-                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ? AND `user_id` = ?', array(($item_in_ivent['colvo'] + $rand_colvo[ $i ]), $item_in_ivent['id'], $this->user['id']));
+                    $item_in_invent = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array($items[ $i ]['i'], $items[ $i ]['t'], $this->user['id']));
+                    if ($item_in_invent) {
+                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ? AND `user_id` = ?', array(($item_in_invent['colvo'] + $rand_colvo[ $i ]), $item_in_invent['id'], $this->user['id']));
                     } else {
                         $this->pdo->query('INSERT INTO invent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array($items[ $i ]['i'], $items[ $i ]['t'], $rand_colvo[ $i ], $this->user['id']));
                     }
@@ -397,34 +397,34 @@
             
             if ($this->id_item) {
                 // Надеваемый предмет из инвентаря
-                $ivent_item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
+                $invent_item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
                 // Все надетые предметы игрока
                 $nadeto_items = $this->pdo->fetch('SELECT * FROM `nadeto` WHERE `user_id` = ?', array($this->user['id']));
 
-                if ($ivent_item['item'] == $nadeto_items[ $this->type($ivent_item['type']) ]) {
+                if ($invent_item['item'] == $nadeto_items[ $this->type($invent_item['type']) ]) {
                     $this->message = 'На вас уже надет данный предмет';
                     $this->answer('mess', 0);
                 } else {
                     // Было ли надето на игрока вообще что то
-                    if ($nadeto_items[ $this->type($ivent_item['type']) ] > 0) {
+                    if ($nadeto_items[ $this->type($invent_item['type']) ] > 0) {
                         // Ищем в инвентаре снимаемый предмет с игрока
-                        $nadeto_item_ivent = $this->pdo->fetch('SELECT * FROM `invent` WHERE `type` = ? AND `item` = ? AND `user_id` = ?',array($ivent_item['type'], $nadeto_items[ $this->type($ivent_item['type']) ], $this->user['id']));
-                        if ($nadeto_item_ivent) {
+                        $nadeto_item_invent = $this->pdo->fetch('SELECT * FROM `invent` WHERE `type` = ? AND `item` = ? AND `user_id` = ?',array($invent_item['type'], $nadeto_items[ $this->type($invent_item['type']) ], $this->user['id']));
+                        if ($nadeto_item_invent) {
                             // Если предмет найден, то просто увеличиваем на единицу
-                            $this->pdo->query('UPDATE `invent` SET `colvo` = ? WHERE `id` = ?', array(($nadeto_item_ivent['colvo'] + 1), $nadeto_item_ivent['id']));
+                            $this->pdo->query('UPDATE `invent` SET `colvo` = ? WHERE `id` = ?', array(($nadeto_item_invent['colvo'] + 1), $nadeto_item_invent['id']));
                         } else {
                             // Если нет, то создаем новую запись для предмета
-                            $this->pdo->query('INSERT INTO invent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array($nadeto_items[ $this->type($ivent_item['type']) ], $ivent_item['type'], 1, $this->user['id']));
+                            $this->pdo->query('INSERT INTO invent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array($nadeto_items[ $this->type($invent_item['type']) ], $invent_item['type'], 1, $this->user['id']));
                         }
                     }
 
                     // надеваем предмет на игрока
-                    $this->pdo->query('UPDATE `nadeto` SET `'.$this->type($ivent_item['type']).'` = ? WHERE `user_id` = ?', array($ivent_item['item'], $this->user['id']));
+                    $this->pdo->query('UPDATE `nadeto` SET `'.$this->type($invent_item['type']).'` = ? WHERE `user_id` = ?', array($invent_item['item'], $this->user['id']));
                     // надеваемый предмет вычитаем из инвентаря
-                    $this->pdo->query('UPDATE `invent` SET `colvo` = ? WHERE `id` = ?', array(($ivent_item['colvo'] - 1), $ivent_item['id']));
+                    $this->pdo->query('UPDATE `invent` SET `colvo` = ? WHERE `id` = ?', array(($invent_item['colvo'] - 1), $invent_item['id']));
                 }
 
-                if ($ivent_item['colvo'] == 1) {
+                if ($invent_item['colvo'] == 1) {
                     $this->answer('page', 'invent');
                 } else $this->answer('reload', 0);
             }
@@ -502,9 +502,9 @@
 
             if ($this->id_item) {
 
-                $item_ivent = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
-                if ($item_ivent) {
-                    $item = $this->items[ $item_ivent['type'] ][ $item_ivent['item'] ];
+                $item_invent = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
+                if ($item_invent) {
+                    $item = $this->items[ $item_invent['type'] ][ $item_invent['item'] ];
                     if ($item['craft_lvl'] < $this->user['craft_lvl']) {
                         $this->message = 'Вы уже открыли данный уровень!';
                         $this->answer('mess', 0);
@@ -512,10 +512,10 @@
                         $this->message = 'Откройте предыдущий ур. крафта';
                         $this->answer('mess', 0);
                     } else {
-                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ?', array(($item_ivent['colvo'] - 1), $item_ivent['id']));
+                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ?', array(($item_invent['colvo'] - 1), $item_invent['id']));
                         $this->pdo->query('UPDATE users SET `craft_lvl` = ? WHERE `id` = ?', array($item['craft_lvl'], $this->user['id']));
 
-                        if ($item_ivent['colvo'] == 1) {
+                        if ($item_invent['colvo'] == 1) {
                             $this->answer('page', 'invent');
                         } else $this->answer('reload', 0);
                     }
@@ -586,8 +586,8 @@
         public function place() {
 
             if ($this->id_item) {
-                $ivent_item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
-                $item       = $this->items[ $ivent_item['type'] ][ $ivent_item['item'] ];
+                $invent_item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
+                $item       = $this->items[ $invent_item['type'] ][ $invent_item['item'] ];
                 $refuge     = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
 
                 $slots       = $this->pdo->fetchAll('SELECT * FROM `slots` WHERE `item` > 0 AND `user_id` = ?', array($this->user['id']));
@@ -611,7 +611,7 @@
                         if ($item['reftype'] == 1) {
                             // Проверяем, есть ли такой предмет уже в слотах или нет
                             foreach($slots_elems[ $type_name ] as $se) {
-                                if ($se['item'] == $ivent_item['item']) {
+                                if ($se['item'] == $invent_item['item']) {
                                     $this->message = 'Данный предмет уже помещен';
                                     $this->answer('mess', 0);
                                 }
@@ -621,15 +621,15 @@
                         // Помещаем предмет в слот
                         $find_slot = $this->pdo->fetch('SELECT * FROM `slots` WHERE `item` = 0 AND `type` = ? AND `user_id` = ?', array($item['reftype'], $this->user['id']));
                         if ($find_slot) {
-                            $this->pdo->query('UPDATE slots SET `item` = ? WHERE `id` = ? AND `user_id` = ?', array($ivent_item['item'], $find_slot['id'], $this->user['id']));
+                            $this->pdo->query('UPDATE slots SET `item` = ? WHERE `id` = ? AND `user_id` = ?', array($invent_item['item'], $find_slot['id'], $this->user['id']));
                         } else {
-                            $this->pdo->query('INSERT INTO slots (item, type, user_id) VALUES (?, ?, ?)', array($ivent_item['item'], $item['reftype'], $this->user['id']));
+                            $this->pdo->query('INSERT INTO slots (item, type, user_id) VALUES (?, ?, ?)', array($invent_item['item'], $item['reftype'], $this->user['id']));
                         }
 
                         // Вычитаем помещаемый предмет из инвентаря
-                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ? AND `user_id` = ?', array(($ivent_item['colvo'] - 1), $ivent_item['id'], $this->user['id']));
+                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ? AND `user_id` = ?', array(($invent_item['colvo'] - 1), $invent_item['id'], $this->user['id']));
 
-                        if ($ivent_item['colvo'] == 1) {
+                        if ($invent_item['colvo'] == 1) {
                             $this->answer('page', 'invent');
                         } else $this->answer('reload', 0);
                     } else {
@@ -719,6 +719,6 @@
     }
 
     if ($Utils::checkSession()) {
-        $All_actions = new All_actions($Pdo, $game_items, $game_locs, $game_action_times, $game_crafts, $game_weathers, $game_temps, $game_refuges, $Sys->get_user(), $Sys->get_game());
-        $All_actions->main();
+        $AllActions = new AllActions($Pdo, $game_items, $game_locs, $game_action_times, $game_crafts, $game_weathers, $game_temps, $game_refuges, $User->get_user(), $User->get_game());
+        $AllActions->main();
     }
