@@ -1,19 +1,19 @@
 <template>
-	<button class='moves-btn' @click='read'>
-        <span>Читать</span>
+	<button class='moves-btn mt5' @click='place'>
+        <span>Поместить в сундук</span>
     </button>
 </template>
 
 <script>
 module.exports = {
-	name: 'Read',
+	name: 'PlaceToChest',
 	methods: {
-		read() {
+		place() {
 			let params = new FormData();
 			params.append('id_item', this.$route.query.id);
 	    	params.append('token', localStorage.getItem('token'));
 
-			axios.post('/core/ajax/AllActions.php?action=read', params)
+			axios.post('/core/ajax/AllActions.php?action=placetochest', params)
 			.then((response) => {
 				if (response.data.popup) {
 					this.$root.popup.active = true;

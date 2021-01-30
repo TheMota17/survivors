@@ -61,12 +61,13 @@
 	                        <div class='ml5'>
 	                            <img src='/assets/icons/abs.png' class='item14-1' /> Подавление урона: {{ items[ item[`type`] ][ item[`item`] ][`dmgabs`] }}
 	                        </div>
-                            <div v-if='$route.query.id' class='ml5'>
+                            <div v-if='$route.query.id && nadeto[ nElems[ item[`type`] ] ]' class='ml5'>
                                 <img v-if='items[ item[`type`] ][ item[`item`] ][`dmgabs`] > items[ item[`type`] ][ nadeto[ nElems[ item[`type`] ] ] ][`dmgabs`]' src='/assets/icons/better.png' class='item14-1 mr5' />
                               	<img v-else-if='items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`dmgabs`] == items[ item[`type`] ][ item[`item`] ][`dmgabs`]' src='/assets/icons/equally.png' class='item14-1 mr5' />
                                 <img v-else src='/assets/icons/worse.png' class='item14-1 mr5' />
                             </div>
 	                    </div>
+
 	                    <div v-else-if='items[ item[`type`] ][ item[`item`] ][`dmgmin`]' class='iteminfo-div flex j-sb mt5'>
 	                        <div class='ml5'>
 	                            <img src='/assets/icons/dmg.png' class='item14-1' /> Урон:
@@ -74,7 +75,7 @@
 	                            -
 	                            {{ items[ item[`type`] ][ item[`item`] ][`dmgmax`] }}
 	                        </div>
-	                        <div v-if='$route.query.id' class='ml5'>
+	                        <div v-if='$route.query.id && nadeto[ nElems[ item[`type`] ] ]' class='ml5'>
                                 <img v-if='items[ item[`type`] ][ item[`item`] ][`dmgmin`] > items[ item[`type`] ][ nadeto[ nElems[ item[`type`] ] ] ][`dmgmin`]' src='/assets/icons/better.png' class='item14-1 mr5' />
                               	<img v-else-if='items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`dmgmin`] == items[ item[`type`] ][ item[`item`] ][`dmgmin`]' src='/assets/icons/equally.png' class='item14-1 mr5' />
                                 <img v-else src='/assets/icons/worse.png' class='item14-1 mr5' />
@@ -85,7 +86,7 @@
 	                        <div class='ml5'>
 	                            <img src='/assets/icons/power.png' class='item14-1' /> Бонус к мощи: {{ items[ item[`type`] ][ item[`item`] ][`power`] }}
 	                        </div>
-	                        <div v-if='$route.query.id' class='ml5'>
+	                        <div v-if='$route.query.id && nadeto[ nElems[ item[`type`] ] ]' class='ml5'>
                                 <img v-if='items[ item[`type`] ][ item[`item`] ][`power`] > items[ item[`type`] ][ nadeto[ nElems[ item[`type`] ] ] ][`power`]' src='/assets/icons/better.png' class='item14-1 mr5' />
                               	<img v-else-if='items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`power`] == items[ item[`type`] ][ item[`item`] ][`power`]' src='/assets/icons/equally.png' class='item14-1 mr5' />
                                 <img v-else src='/assets/icons/worse.png' class='item14-1 mr5' />
@@ -120,12 +121,15 @@
 		    </div>
 		</div>
 
-		<div v-if='$route.query.id'>
-			<nadet v-if='items[ item[`type`] ][ item[`item`] ][`move`] == `nadet`'></nadet>
-			<eat v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `eat`'></eat>
-			<drink v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `drink`'></drink>
-			<read v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `read`'></read>
-			<place v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `place`'></place>
+		<div v-if='$route.query.id' class='flex j-c mt10'>
+			<div class='item-moves backgr2 flex j-c ai-c fl-di-co pt5 pb5'>
+				<nadet v-if='items[ item[`type`] ][ item[`item`] ][`move`] == `nadet`'></nadet>
+				<eat v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `eat`'></eat>
+				<drink v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `drink`'></drink>
+				<read v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `read`'></read>
+				<place v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `place`'></place>
+				<place-to-chest v-if='chest'></place-to-chest>
+			</div>
 		</div>
 
         <div v-if='item[`type`] !== 1 && item[`type`] !== 5 && $route.query.id && nadeto[ nElems[item[`type`]] ] > 0' class='flex j-c ai-c fl-di-co mt10'>
@@ -136,7 +140,6 @@
                 <div class='flex ml5'>
                     <div class='iteminfo-img flex j-s'>
                         <div class='item32-1 flex j-c ai-c ml5'>
-                        	<?=$game_rares[ $game_items[ $item['type'] ][ $nadeto[$nadeto_elems[$item['type']]] ][ 'rare' ] ]['border']?>
                             <div class='flex j-c ai-c' :class='rares[ items[ item[`type`] ][ nadeto[nElems[item[`type`]]] ][`rare`] ][`border`]'>
                                 <img :src='items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`img`]' />
                             </div>
@@ -197,6 +200,7 @@ let Eat   = httpVueLoader('../components/Eat.vue')
 let Drink = httpVueLoader('../components/Drink.vue')
 let Read  = httpVueLoader('../components/Read.vue')
 let Place = httpVueLoader('../components/Place.vue')
+let PlaceToChest = httpVueLoader('../components/PlaceToChest.vue')
 
 module.exports = {
 	name: 'Item',
@@ -208,10 +212,13 @@ module.exports = {
 		pred: undefined,
 		rares: undefined,
 		nadeto: undefined,
-		nElems: undefined
+		nElems: undefined,
+
+		chest: undefined,
+		game: undefined
 	}),
 	components: {
-		Tablo, Nadet, Eat, Drink, Read, Place
+		Tablo, Nadet, Eat, Drink, Read, Place, PlaceToChest
 	},
 	beforeMount() {
 		let params = new FormData();
@@ -231,7 +238,9 @@ module.exports = {
 				this.rares  = response.data.rares;
 				this.nadeto = response.data.nadeto;
 				this.nElems = response.data.nElems;
-			
+				this.game   = response.data.game;
+				this.chest  = response.data.chest;
+
 				if (!response.data.item) {
 					if (this.$route.query.type && this.$route.query.item) {
 						this.item = {type: Math.floor(this.$route.query.type), item: Math.floor(this.$route.query.item)};

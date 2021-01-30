@@ -1,4 +1,5 @@
 (function() {
+    'use strict';
 
     let Popup   = httpVueLoader('./js/components/Popup.vue')
     let Menyoo  = httpVueLoader('./js/components/Menu.vue')

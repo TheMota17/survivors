@@ -249,7 +249,7 @@
 
         }
 
-        public function srch_loc() {
+        public function srchLoc() {
             
             if ($this->user['in_refuge'] > 0) {
                 $this->message = 'Вы в убежище';
@@ -277,7 +277,7 @@
 
         }
 
-        public function srch_lut() {
+        public function srchLut() {
 
             $invent_cells = $this->pdo->rows('SELECT * FROM `invent` WHERE `colvo` > 0 AND `user_id` = ?', array($this->user['id']));
             if ($this->user['in_refuge'] > 0) {
@@ -541,7 +541,7 @@
 
         }
 
-        public function up_refuge() {
+        public function upRefuge() {
 
             $refuge = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
 
@@ -587,8 +587,8 @@
 
             if ($this->id_item) {
                 $invent_item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
-                $item       = $this->items[ $invent_item['type'] ][ $invent_item['item'] ];
-                $refuge     = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
+                $item        = $this->items[ $invent_item['type'] ][ $invent_item['item'] ];
+                $refuge      = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
 
                 $slots       = $this->pdo->fetchAll('SELECT * FROM `slots` WHERE `item` > 0 AND `user_id` = ?', array($this->user['id']));
                 $slots_elems = ['tools' => array(), 'prot' => array()];
@@ -644,6 +644,22 @@
 
         }
 
+        public function placeToChest() {
+
+            if ($this->id_item) {
+                $invent_item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
+                $chest_full  = $this->pdo->rows('SELECT * FROM `invent` WHERE `colvo` > 0 AND `in_chest` > 0 AND `user_id` = ?', array($this->user['id']));
+                $chest       = $this->pdo->fetch('SELECT * FROM `slots` WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(1, 1, $this->user['id']));
+
+                if ($chest_full < 50 && $chest) {
+                    $this->pdo->query('UPDATE invent SET `in_chest` = ? WHERE `id` = ?', array(1, $invent_item['id']));
+
+                    $this->answer('page', 'invent');
+                }
+            }
+
+        }
+
         public function formation_answer() {
 
             if ($this->weather_mess) $this->message .= $this->weather_mess;
@@ -674,10 +690,10 @@
 
             switch($_GET['action']) {
                 case 'srchloc': 
-                    $this->srch_loc();
+                    $this->srchLoc();
                     break;
                 case 'srchlut':
-                    $this->srch_lut();
+                    $this->srchLut();
                 break;
                 case 'eat':
                     $this->id_item = htmlspecialchars( intval( $_POST['id_item'] ) );
@@ -706,11 +722,15 @@
                     $this->enter();
                     break;
                 case 'uprefuge':
-                    $this->up_refuge();
+                    $this->upRefuge();
                     break;
                 case 'place':
                     $this->id_item = htmlspecialchars( intval( $_POST['id_item'] ) );
                     $this->place();
+                    break;
+                case 'placetochest':
+                    $this->id_item = htmlspecialchars( intval( $_POST['id_item'] ) );
+                    $this->placeToChest();
                     break;
             }
 

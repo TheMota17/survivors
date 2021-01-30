@@ -1,11 +1,7 @@
 <template>
-	<div class='flex j-c mt10'>
-        <div class='item-moves backgr2 flex j-c pt5 pb5'>
-            <button class='moves-btn' @click='place'>
-                <span>Поместить</span>
-            </button>
-        </div>
-    </div>
+	<button class='moves-btn' @click='place'>
+        <span>Поместить</span>
+    </button>
 </template>
 
 <script>

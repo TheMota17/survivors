@@ -119,9 +119,7 @@
                             </div>
                             <div class='flex j-c fl-di-co fl1'>
                                 <div class='flex j-e ai-c'>
-                                	<router-link :to='{path: `invent`}' class='refuge-slot-plus flex j-c ai-c'>
-                                		+
-                               	 	</router-link>
+                                	<!-- plus -->
                                 </div>
                             </div>
                         </div>
@@ -161,10 +159,13 @@
                                 </div>
                             </div>
                             <div class='flex j-c fl-di-co fl1'>
-                                <div class='flex j-e ai-c'>
-                                	<router-link :to='{path: `invent`}' class='refuge-slot-plus flex j-c ai-c'>
-                                		+
-                               	 	</router-link>
+                                <div v-if='tool[`item`] == 1' class='flex j-e ai-c'>
+                                	<div v-if='chest'>
+                                		{{ chest }} / 50
+                                	</div>
+                                	<div v-else>
+                                		0 / 50
+                                	</div>
                                 </div>
                             </div>
                         </div>
@@ -197,7 +198,8 @@ module.exports = {
 		user: undefined,
 		game: undefined,
 		tools: undefined,
-		prots: undefined
+		prots: undefined,
+		chest: undefined
 	}),
 	components: {
 		Tablo, EnterRefuge, UpRefuge
@@ -224,6 +226,7 @@ module.exports = {
 				this.game    = response.data.game;
 				this.tools   = response.data.tools;
 				this.prots   = response.data.prots;
+				this.chest   = response.data.chest;
 
 				this.api = true;
 			}

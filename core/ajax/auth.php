@@ -77,7 +77,7 @@
                 if ($find_user['ban'] > time()) {
                     $ban_time = date('d.m.Y H:i:s', $find_user['ban']);
 
-                    $this->message = 'Вы заблокированы до - <div class=\'flex j-c mt5 mb5\'>'.$ban_time.'</div>';
+                    $this->message = 'Вы заблокированы до - '.$ban_time.'';
                     $this->answer('mess', 0);
                 } else {
                     $_SESSION['token'] = $this->utils::token();

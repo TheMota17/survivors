@@ -41,7 +41,7 @@
                             'user'   => ['login' => $this->user['login'], 'live' => $this->user['live']],
                             'game'   => $this->game,
                             'items'  => $this->items,
-                            'rares'  => $this->rares
+                            'rares'  => $this->rares,
                         ])
                     );
                     break;
@@ -52,9 +52,14 @@
                             'items'  => $this->items,
                             'pred'   => $this->pred,
                             'rares'  => $this->rares,
-                            'nadeto' => $this->nadeto,
+                            'nadeto' => [
+                                'helm' => ($this->nadeto['helm']) ? $this->nadeto['helm'] : false,
+                                'arm'  => ($this->nadeto['arm']) ? $this->nadeto['arm'] : false,
+                                'weap' => ($this->nadeto['weap']) ? $this->nadeto['weap'] : false
+                            ],
                             'nElems' => [2 => 'helm', 3 => 'arm', 4 => 'weap'],
-                            'game'   => $this->game
+                            'game'   => $this->game,
+                            'chest'  => ($this->chest) ? true : false
                         ])
                     );
                     break;
@@ -80,7 +85,8 @@
                             'user'    => ['in_refuge' => $this->user['in_refuge']],
                             'tools'   => $this->tools,
                             'prots'   => $this->prots,
-                            'game'    => $this->game
+                            'game'    => $this->game,
+                            'chest'   => ($this->chest) ? $this->chest : false
                         ])
                     );
                     break;
@@ -99,16 +105,17 @@
                     break;
                 case 'invent':
                     $this->nadeto = $this->pdo->fetch('SELECT * FROM `nadeto` WHERE `user_id` = ?', array($this->user[ 'id' ]));
-                    $this->invent = $this->pdo->fetchAll('SELECT * FROM `invent` WHERE `colvo` > 0 AND `user_id` = ?', array($this->user[ 'id' ]));
+                    $this->invent = $this->pdo->fetchAll('SELECT * FROM `invent` WHERE `colvo` > 0 AND `in_chest` = 0 AND `user_id` = ?', array($this->user[ 'id' ]));
 
                     $this->answer('invent');
                     break;
                 case 'item':
                     $this->id = htmlspecialchars( intval( $_POST['id'] ) );
                     if ($this->id) {
-                        $this->item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `colvo` > 0 AND `user_id` = ?', array($this->id, $this->user['id']));
+                        $this->item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `colvo` > 0 AND `in_chest` = 0 AND `user_id` = ?', array($this->id, $this->user['id']));
                     } else $this->item = false;
 
+                    $this->chest  = $this->pdo->fetch('SELECT * FROM `slots` WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(1, 1, $this->user['id']));
                     $this->nadeto = $this->pdo->fetch('SELECT * FROM `nadeto` WHERE `user_id` = ?', array($this->user[ 'id' ]));
 
                     $this->answer('item');
@@ -119,6 +126,7 @@
                 case 'refuge':
                     $this->refuge = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
                     $this->slots  = $this->pdo->fetchAll('SELECT * FROM `slots` WHERE `item` > 0 AND `user_id` = ?', array($this->user['id']));
+                    $this->chest  = $this->pdo->rows('SELECT `id` FROM `invent` WHERE `in_chest` > 0 AND `colvo` > 0 AND `user_id` = ?', array($this->user['id']));
                     $this->tools  = array();
                     $this->prots  = array();
 
@@ -126,10 +134,10 @@
                         switch($s['type']) {
                             case 1:
                                 array_push($this->tools, $s);
-                            break;
+                                break;
                             case 2:
                                 array_push($this->prots, $s);
-                            break;
+                                break;
                         }
                     }
 
