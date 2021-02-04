@@ -1,12 +1,9 @@
 class GameWorld {
-	constructor(sprites, loc, loc_explored, temp)
+	constructor(sprites, loc, loc_explored)
 	{
 		this.sprites      = sprites;
 		this.loc          = loc;
 		this.loc_explored = loc_explored;
-		this.objs         = [
-			{x: 200, y: 200, item: 1},
-		];
 	}
 
 	render(ctx, camera)
