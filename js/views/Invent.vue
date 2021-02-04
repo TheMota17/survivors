@@ -1,5 +1,5 @@
-<template v-if='api'>
-	<div>
+<template>
+	<div v-if='api'>
 		<tablo :hp='game.hp' :hung='game.hung' :thirst='game.thirst' :fatigue='game.fatigue'></tablo>
 		<div class='flex j-c mt10'>
 			<div class='ivent-user backgr2 flex j-c ai-c fl-di-co'>
@@ -217,8 +217,12 @@
 		<div class='flex j-c ai-c fl-di-co mt10'>
 			<div class='flex j-c ai-c'>
 				<button class='sort-btn flex j-c ai-c mr5' @click='sortFrom'>
-		        	<span v-if='!from'>Инвентарь {{ inventLength }} / 50</span>
-		        	<span v-else>Сундук {{ chestLength }} / 50</span>
+		        	<span class='flex j-c ai-c' v-if='!from'> 
+		        		<img src='/assets/icons/menu/ivent.png' class='item14-1 mr5' /> Инвентарь {{ inventLength }} / 50
+		        	</span>
+		        	<span class='flex j-c ai-c' v-else>
+		        		<img src='/assets/items/refuge/chest.png' class='item14-1 mr5' /> Сундук {{ chestLength }} / 50
+		        	</span>
 		        </button>
 
 		        <button class='sort-btn flex j-c ai-c ml5' @click='sortMenu'>

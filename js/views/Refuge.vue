@@ -1,5 +1,5 @@
-<template v-if='api'>
-	<div>
+<template>
+	<div v-if='api'>
 		<tablo :hp='game.hp' :hung='game.hung' :thirst='game.thirst' :fatigue='game.fatigue'></tablo>
 	    <div v-if='refuge[`lvl`] == 0' class='flex j-c ai-c mt10'>
 	        <div class='refuge-no backgr2 flex j-c ai-c fl-di-co pb5'>

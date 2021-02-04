@@ -1,10 +1,17 @@
 <template>
 	<button class='moves-btn flex j-s ai-c mt5' @click='enter'>
-        <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
-            <img src='/assets/icons/enter.png' />
-        </div>
-        <span v-if='userEnter == 0'>Войти</span>
-        <span v-else>Выйти</span>
+        <span class='flex j-c ai-c' v-if='userEnter == 0'>
+        	<div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
+        		<img src='/assets/icons/enter.png' />
+        	</div>
+        	Войти
+ 		</span>
+        <span class='flex j-c ai-c' v-else>
+        	<div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
+        		<img src='/assets/icons/getout.png' />
+        	</div>
+        	Выйти
+    	</span>
     </button>
 </template>
 
