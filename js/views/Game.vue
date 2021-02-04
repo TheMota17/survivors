@@ -1,5 +1,5 @@
-<template>
-	<div v-if='api'>
+<template v-if='api'>
+	<div>
 		<tablo :hp='game.hp' :hung='game.hung' :thirst='game.thirst' :fatigue='game.fatigue'></tablo>
 		<div class='flex j-c mt10'>
 		    <div class='game-meteoсharact backgr2 flex j-sa pt5 pb5'>

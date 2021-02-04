@@ -1,5 +1,5 @@
-<template>
-	<div v-if='api'>
+<template v-if='api'>
+	<div>
 		<tablo :hp='game.hp' :hung='game.hung' :thirst='game.thirst' :fatigue='game.fatigue'></tablo>
 		<div class='flex j-c ai-c fl-di-co mt5'>
 		    <div class='flex j-c'>
@@ -128,7 +128,8 @@
 				<drink v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `drink`'></drink>
 				<read v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `read`'></read>
 				<place v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `place`'></place>
-				<place-to-chest v-if='chest'></place-to-chest>
+				<get-from-chest v-if='item[`in_chest`] == 1'></get-from-chest>
+				<place-to-chest v-else-if='chest'></place-to-chest>
 			</div>
 		</div>
 
@@ -201,6 +202,7 @@ let Drink = httpVueLoader('../components/Drink.vue')
 let Read  = httpVueLoader('../components/Read.vue')
 let Place = httpVueLoader('../components/Place.vue')
 let PlaceToChest = httpVueLoader('../components/PlaceToChest.vue')
+let GetFromChest = httpVueLoader('../components/GetFromChest.vue')
 
 module.exports = {
 	name: 'Item',
@@ -218,7 +220,7 @@ module.exports = {
 		game: undefined
 	}),
 	components: {
-		Tablo, Nadet, Eat, Drink, Read, Place, PlaceToChest
+		Tablo, Nadet, Eat, Drink, Read, Place, PlaceToChest, GetFromChest
 	},
 	beforeMount() {
 		let params = new FormData();

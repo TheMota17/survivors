@@ -105,14 +105,14 @@
                     break;
                 case 'invent':
                     $this->nadeto = $this->pdo->fetch('SELECT * FROM `nadeto` WHERE `user_id` = ?', array($this->user[ 'id' ]));
-                    $this->invent = $this->pdo->fetchAll('SELECT * FROM `invent` WHERE `colvo` > 0 AND `in_chest` = 0 AND `user_id` = ?', array($this->user[ 'id' ]));
+                    $this->invent = $this->pdo->fetchAll('SELECT * FROM `invent` WHERE `colvo` > 0 AND `user_id` = ?', array($this->user[ 'id' ]));
 
                     $this->answer('invent');
                     break;
                 case 'item':
                     $this->id = htmlspecialchars( intval( $_POST['id'] ) );
                     if ($this->id) {
-                        $this->item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `colvo` > 0 AND `in_chest` = 0 AND `user_id` = ?', array($this->id, $this->user['id']));
+                        $this->item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `colvo` > 0 AND `user_id` = ?', array($this->id, $this->user['id']));
                     } else $this->item = false;
 
                     $this->chest  = $this->pdo->fetch('SELECT * FROM `slots` WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(1, 1, $this->user['id']));

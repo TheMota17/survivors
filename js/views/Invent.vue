@@ -1,5 +1,5 @@
-<template>
-	<div v-if='api'>
+<template v-if='api'>
+	<div>
 		<tablo :hp='game.hp' :hung='game.hung' :thirst='game.thirst' :fatigue='game.fatigue'></tablo>
 		<div class='flex j-c mt10'>
 			<div class='ivent-user backgr2 flex j-c ai-c fl-di-co'>
@@ -216,10 +216,13 @@
 
 		<div class='flex j-c ai-c fl-di-co mt10'>
 			<div class='flex j-c ai-c'>
-				<span class='mr5'>Инвентарь</span>
-		        <span>{{ invent.length }}</span> / 50
+				<button class='sort-btn flex j-c ai-c mr5' @click='sortFrom'>
+		        	<span v-if='!from'>Инвентарь {{ inventLength }} / 50</span>
+		        	<span v-else>Сундук {{ chestLength }} / 50</span>
+		        </button>
+
 		        <button class='sort-btn flex j-c ai-c ml5' @click='sortMenu'>
-		            <img src='/assets/icons/sort.png' class='mr5' /> {{ typeElems[ type ] }}
+		            <img src='/assets/icons/sort.png' class='item14-1 mr5' /> {{ typeElems[ type ] }}
 		        </button>
 		    </div>
 		    <div v-if='sort' class='sort-menu flex j-s ai-c mt5'>
@@ -230,8 +233,8 @@
 		        <button @click='changeType(5)' class='flex j-c ai-c mr5'>Убежище</button>
 		        <button @click='changeType(1)' class='flex j-c ai-c'>Разное</button>
 			</div>
-			<div v-if='invent.length > 0' class='ivent-items backgr2 flex j-c ai-c fl-di-co mt5'>
-				<router-link v-if='item.type == type || type == 0' v-for='item in paginatedData' :to='{ path: `item`, query: {id: item.id}}' class='item-div backgr1 flex j-sb mt5 mb5 pt5 pb5'>
+			<div v-if='inventNotEmpty' class='ivent-items backgr2 flex j-c ai-c fl-di-co mt5'>
+				<router-link v-for='item in paginatedData' v-if='item.type == type || type == 0 && item.in_chest == from' :to='{ path: `item`, query: {id: item.id}}' class='item-div backgr1 flex j-sb mt5 mb5 pt5 pb5'>
 	                <div class='fl1 flex j-s ai-c'>
 	                    <div class='item32-2 flex j-c ai-c'>
 	                        <div class='flex j-c ai-c' :class='rares[ items[ item[`type`] ][ item[`item`] ][`rare`] ][`border`]'>
@@ -251,7 +254,7 @@
 
 	                <div class='fl1 flex j-e'>
 	                    <div class='item-colvo backgr2 flex j-c ai-c'>
-	                    {{ item[`colvo`] }}
+	                    	{{ item[`colvo`] }}
 	                    </div>
 	                </div>
 	        	</router-link>
@@ -289,7 +292,8 @@ module.exports = {
     	page: 1,
     	type: 0,
     	sort: false,
-    	typeElems: {0: 'Все', 1: 'Разное', 2: 'Шлемы', 3: 'Броня', 4: 'Оружие', 5: 'Убежище'}
+    	typeElems: {0: 'Все', 1: 'Разное', 2: 'Шлемы', 3: 'Броня', 4: 'Оружие', 5: 'Убежище'},
+    	from: 0
     }),
     components: {
     	Tablo
@@ -332,9 +336,39 @@ module.exports = {
 		},
 		sortMenu() {
 			this.sort = !this.sort;
+		},
+		sortFrom() {
+			if (this.from == 0) {
+				this.from = 1;
+			} else {
+				this.from = 0;
+			}
 		}
 	},
 	computed: {
+		inventNotEmpty() {
+			if (this.invent.length) {
+				if (this.from == 1) {
+					let length = 0;
+		    		for(let i = 0; i < this.invent.length; i++) {
+		    			if (this.invent[i].in_chest == 1) {
+		    				length++;
+		    			}
+		    		}
+
+		    		if (length > 0) return true;
+				} else {
+					let length = 0;
+		    		for(let i = 0; i < this.invent.length; i++) {
+		    			if (this.invent[i].in_chest == 0) {
+		    				length++;
+		    			}
+		    		}
+
+		    		if (length > 0) return true;
+				}
+			}
+		},
 		pageCount() {
 	        let l = this.invent.length, s = this.max;
 	        return Math.ceil(l/s);
@@ -342,6 +376,24 @@ module.exports = {
     	paginatedData() {
     		const start = (this.page - 1) * this.max, end = start + this.max;
      		return this.invent.slice(start, end);
+    	},
+    	inventLength() {
+    		let length = 0;
+    		for(let i = 0; i < this.invent.length; i++) {
+    			if (this.invent[i].in_chest == 0) {
+    				length++;
+    			}
+    		}
+    		return length;
+    	},
+    	chestLength() {
+    		let length = 0;
+    		for(let i = 0; i < this.invent.length; i++) {
+    			if (this.invent[i].in_chest == 1) {
+    				length++;
+    			}
+    		}
+    		return length;
     	}
 	}
 }

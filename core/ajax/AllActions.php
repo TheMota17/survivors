@@ -264,12 +264,12 @@
 
                     $this->pdo->query('UPDATE `users` SET `loc` = ?, `loc_explored` = ? WHERE `id` = ?', array($this->locs[ $rand ][ 'id' ], 0, $this->user['id']));
                     $this->message = 'Вы нашли - '.$this->locs[ $rand ]['nm'].'';
-                    if ($this->formation_answer()) $this->answer('mess', 0);
+                    $this->answer('mess', 0);
                 } else {
 
                     $this->pdo->query('UPDATE `users` SET `loc` = ?, `loc_explored` = ? WHERE `id` = ?', array(1, 0, $this->user['id']));
                     $this->message = 'Вы ничего не нашли';
-                    if ($this->formation_answer()) $this->answer('mess', 0);
+                    $this->answer('mess', 0);
                 }
 
                 $this->action_times('srchloc', 0);
@@ -330,7 +330,7 @@
                 if ($this->user['loc'] !== 1) $this->change_explored();
 
                 $this->message .= '</div>';
-                if ($this->formation_answer()) $this->answer('mess', 0);
+                $this->answer('mess', 0);
             }
 
         }
@@ -647,12 +647,24 @@
         public function placeToChest() {
 
             if ($this->id_item) {
-                $invent_item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
-                $chest_full  = $this->pdo->rows('SELECT * FROM `invent` WHERE `colvo` > 0 AND `in_chest` > 0 AND `user_id` = ?', array($this->user['id']));
-                $chest       = $this->pdo->fetch('SELECT * FROM `slots` WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(1, 1, $this->user['id']));
+                // Ищем помещаемый в сундук предмет в инвентаре
+                $invent_item   = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
+                // Ищем все слоты из сундука
+                $chest_full    = $this->pdo->rows('SELECT * FROM `invent` WHERE `colvo` > 0 AND `in_chest` > 0 AND `user_id` = ?', array($this->user['id']));
+                // Ищем сундук в слотах убежища чтобы проверить есть ли вообще сундук у игрока
+                $chest         = $this->pdo->fetch('SELECT * FROM `slots` WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(1, 1, $this->user['id']));
+                // Ищем такой же предмет чтобы просто добавить к нему кол-во
+                $item_in_chest = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `in_chest` > 0 AND `user_id` = ?', array($invent_item['item'], $invent_item['type'], $this->user['id']));
 
                 if ($chest_full < 50 && $chest) {
-                    $this->pdo->query('UPDATE invent SET `in_chest` = ? WHERE `id` = ?', array(1, $invent_item['id']));
+                    if ($item_in_chest) {
+                        // Изменяем кол-во помещаемого предмета на ноль
+                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ?', array(0, $invent_item['id']));
+                        // Изменяем кол-во предмета в сундуке (прибавляем из инвентаря)
+                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ?', array(($invent_item['colvo'] + $item_in_chest['colvo']), $item_in_chest['id']));
+                    } else {
+                        $this->pdo->query('UPDATE invent SET `in_chest` = ? WHERE `id` = ?', array(1, $invent_item['id']));
+                    }
 
                     $this->answer('page', 'invent');
                 }
@@ -660,13 +672,32 @@
 
         }
 
-        public function formation_answer() {
+        public function getFromChest() {
 
-            if ($this->weather_mess) $this->message .= $this->weather_mess;
-            if ($this->temp_mess) $this->message .= $this->temp_mess;
-            if ($this->hp_mess) $this->message .= $this->hp_mess;
+            if ($this->id_item) {
+                // Ищем помещаемый в инвентарь предмет в инвентаре
+                $invent_item    = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
+                // Ищем все слоты из инвентаря
+                $invent_full    = $this->pdo->rows('SELECT * FROM `invent` WHERE `colvo` > 0 AND `in_chest` = 0 AND `user_id` = ?', array($this->user['id']));
+                // Ищем такой же предмет чтобы просто добавить к нему кол-во
+                $item_in_invent = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `in_chest` = 0 AND `user_id` = ?', array($invent_item['item'], $invent_item['type'], $this->user['id']));
 
-            return true;
+                if ($invent_full < 50) {
+                    if ($item_in_invent) {
+                        // Изменяем кол-во помещаемого предмета на ноль
+                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ?', array(0, $invent_item['id']));
+                        // Изменяем кол-во предмета в инвентаре (прибавляем из сундука)
+                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ?', array(($invent_item['colvo'] + $item_in_invent['colvo']), $item_in_invent['id']));
+                    } else {
+                        $this->pdo->query('UPDATE invent SET `in_chest` = 0 WHERE `id` = ?', array($invent_item['id']));
+                    }
+
+                    $this->answer('page', 'invent');
+                } else {
+                    $this->message = 'Инвентарь полон';
+                    $this->answer('mess', 0);
+                }
+            }
 
         }
 
@@ -731,6 +762,10 @@
                 case 'placetochest':
                     $this->id_item = htmlspecialchars( intval( $_POST['id_item'] ) );
                     $this->placeToChest();
+                    break;
+                case 'getfromchest':
+                    $this->id_item = htmlspecialchars( intval( $_POST['id_item'] ) );
+                    $this->getFromChest();
                     break;
             }
 

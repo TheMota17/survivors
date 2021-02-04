@@ -40,7 +40,7 @@
         <?=date('H:i:s')?> | В игре: <?=$online?>
     </div>
     <div class='flex j-c ai-c mt5'>
-        <img class='item14-1 mr5' src='/assets/favicon.png' /> Mota © 2020-2021, 18+
+        <img class='item14-1 mr5' src='/assets/favicon.png' /> © by <a class='ml5 mr5' href='https://vk.com/mota17'>Mota</a> 2020-2021, 18+
     </div>
 </div>
 
