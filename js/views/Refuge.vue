@@ -91,6 +91,13 @@
 		            <div class='wdth96 flex j-c'>
 		                <hr class='hr-style mr5'> Защита <hr class='hr-style ml5'>
 		            </div>
+
+		            <div v-if='refuges[ refuge[`lvl`] ][`prot`]' class='wdth96 flex j-c ai-c'>
+		            	<div class='wdth96'>
+		            		{{ prots.length }} / {{ refuges[ refuge[`lvl`] ][`prot`] }}
+		            	</div>
+		            </div>
+
 		            <div class='wdth96 flex j-c ai-c fl-di-co'>
 	                    <div v-if='refuges[ refuge[`lvl`] ][`prot`] == 0' class='protection-slot backgr1 flex j-c mt5'>
 	                        Улучшите убежище
@@ -130,6 +137,12 @@
 
 		            <div class='wdth96 flex j-c mt5'>
 		                <hr class='hr-style mr5'> Инструменты <hr class='hr-style ml5'>
+		            </div>
+
+		            <div v-if='refuges[ refuge[`lvl`] ][`tools`]' class='wdth96 flex j-c ai-c'>
+		            	<div class='wdth96'>
+		            		{{ tools.length }} / {{ refuges[ refuge[`lvl`] ][`tools`] }}
+		            	</div>
 		            </div>
 
 		            <div class='wdth96 flex j-c ai-c fl-di-co'>

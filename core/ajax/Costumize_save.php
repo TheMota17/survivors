@@ -1,5 +1,6 @@
 <?php
     require realpath('../db.php');
+    require realpath('../Utils.php');
 
     Class Costumize_save {
 

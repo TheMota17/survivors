@@ -277,7 +277,7 @@ module.exports = {
 			params.append('colvo', this.colvo);
 	    	params.append('token', localStorage.getItem('token'));
 
-			axios.post('/core/ajax/All_actions.php?action=craft', params)
+			axios.post('/core/ajax/AllActions.php?action=craft', params)
 			.then((response) => {
 				if (response.data.popup) {
 					this.$root.popup.active = true;

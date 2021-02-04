@@ -397,7 +397,7 @@
             
             if ($this->id_item) {
                 // Надеваемый предмет из инвентаря
-                $invent_item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
+                $invent_item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `in_chest` = 0 AND `user_id` = ?', array($this->id_item, $this->user['id']));
                 // Все надетые предметы игрока
                 $nadeto_items = $this->pdo->fetch('SELECT * FROM `nadeto` WHERE `user_id` = ?', array($this->user['id']));
 
@@ -414,13 +414,13 @@
                             $this->pdo->query('UPDATE `invent` SET `colvo` = ? WHERE `id` = ?', array(($nadeto_item_invent['colvo'] + 1), $nadeto_item_invent['id']));
                         } else {
                             // Если нет, то создаем новую запись для предмета
-                            $this->pdo->query('INSERT INTO invent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array($nadeto_items[ $this->type($invent_item['type']) ], $invent_item['type'], 1, $this->user['id']));
+                            $this->pdo->query('INSERT INTO invent (item, type, colvo, in_chest, user_id) VALUES (?, ?, ?, ?, ?)', array($nadeto_items[ $this->type($invent_item['type']) ], $invent_item['type'], 1, 0, $this->user['id']));
                         }
                     }
 
-                    // надеваем предмет на игрока
+                    // Надеваем предмет на игрока
                     $this->pdo->query('UPDATE `nadeto` SET `'.$this->type($invent_item['type']).'` = ? WHERE `user_id` = ?', array($invent_item['item'], $this->user['id']));
-                    // надеваемый предмет вычитаем из инвентаря
+                    // Надеваемый предмет вычитаем из инвентаря
                     $this->pdo->query('UPDATE `invent` SET `colvo` = ? WHERE `id` = ?', array(($invent_item['colvo'] - 1), $invent_item['id']));
                 }
 

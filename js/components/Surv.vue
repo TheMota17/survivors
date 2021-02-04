@@ -8,8 +8,11 @@
 		import {Camera} from '../js/game/Camera.js';
 		import {GameWorld} from '../js/game/GameWorld.js';
 		import {Player} from '../js/game/Player.js';
+		import {Bullet} from '../js/game/Bullet.js'; 
+		import {BulletEmitter} from '../js/game/BulletEmitter.js';
 
-		(function() {
+		(function()
+		{
 		    'use strict';
 
 		    let Game = {
@@ -30,6 +33,7 @@
 		        {
 		            this.gameLive.update(dt, this.canv);
 		            this.player.update(dt, this.loc.width, this.loc.height);
+		            this.bulletEmitter.update(dt);
 		            this.camera.update(dt, this.player.x, this.player.y, this.loc.width, this.loc.height);
 		            
 		            Updater.pagedate(dt, this, Utils);
@@ -43,6 +47,7 @@
 
 		                    this.world.render(this.ctx, this.camera);
 		                    this.player.render(this.ctx);
+		                    this.bulletEmitter.render(this.ctx);
 
 		            this.ctx.restore();
 
@@ -87,6 +92,12 @@
 		                this.data.game.fatigueTime,
 		                this.sprites['pl']
 		            );
+		            let bullets = [];
+		            for(let i = 0; i <= 100; i++) 
+		            {
+		            	bullets.push(new Bullet());
+		            }
+		            this.bulletEmitter = new BulletEmitter(bullets, this.player, this.canv, this.camera);
 
 		            this.weathers = this.data.sys.weathers;
 		            this.temps    = this.data.sys.temps;

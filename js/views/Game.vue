@@ -33,7 +33,7 @@
 		                </div>
 		            </div>
 		            <div class='game-canvas-fps'>
-		                <div class='flex j-s ai-c ml10'>
+		                <div class='fps-body flex j-s ai-c'>
 		                    <div class='flex'>
 		                        FPS: <span class='ml5' id='fps'>0</span>
 		                    </div>
