@@ -1,14 +1,16 @@
 class GameWorld {
-	constructor(sprites, loc, loc_explored)
-	{
+	constructor(ctx, sprites, loc, loc_explored)
+	{	
+		this.ctx          = ctx;
+
 		this.sprites      = sprites;
 		this.loc          = loc;
 		this.loc_explored = loc_explored;
 	}
 
-	render(ctx, camera)
+	render()
 	{
-		ctx.drawImage(
+		this.ctx.drawImage(
 			this.sprites['loc_' + this.loc],
 			0,
 			0,

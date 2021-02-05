@@ -8,7 +8,9 @@
 		import {Camera} from '../js/game/Camera.js';
 		import {GameWorld} from '../js/game/GameWorld.js';
 		import {Player} from '../js/game/Player.js';
-		import {Bullet} from '../js/game/Bullet.js'; 
+		import {Enemy} from '../js/game/Enemy.js';
+		import {EnemyEmitter} from '../js/game/EnemyEmitter.js';
+		import {Bullet} from '../js/game/Bullet.js';
 		import {BulletEmitter} from '../js/game/BulletEmitter.js';
 
 		(function()
@@ -22,7 +24,7 @@
 		            let dt = (Date.now() - Game.lastDt) / 1000;
 
 		            Game.update( dt );
-		            Game.render( dt );
+		            Game.render();
 
 		            Game.lastDt = Date.now();
 
@@ -31,10 +33,11 @@
 
 		        update: function(dt)
 		        {
-		            this.gameLive.update(dt, this.canv);
-		            this.player.update(dt, this.loc.width, this.loc.height);
+		            this.gameLive.update(dt);
+		            this.enemyEmitter.update(dt);
+		            this.player.update(dt);
 		            this.bulletEmitter.update(dt);
-		            this.camera.update(dt, this.player.x, this.player.y, this.loc.width, this.loc.height);
+		            this.camera.update(dt);
 		            
 		            Updater.pagedate(dt, this, Utils);
 		        },
@@ -45,13 +48,14 @@
 		            this.ctx.save();
 		            this.ctx.translate(-this.camera.x, -this.camera.y);
 
-		                    this.world.render(this.ctx, this.camera);
-		                    this.player.render(this.ctx);
-		                    this.bulletEmitter.render(this.ctx);
+		                    this.world.render();
+		                    this.enemyEmitter.render();
+		                    this.player.render();
+		                    this.bulletEmitter.render();
 
 		            this.ctx.restore();
 
-		            this.gameLive.render(this.ctx, this.canv);
+		            this.gameLive.render();
 		        },
 
 		        start()
@@ -75,10 +79,9 @@
 		            this.pause  = false;
 
 		            // Game
-		            this.gameLive = new GameLive(this.data.game.time, this.data.game.weather, this.data.game.temp, this.data.game.weatherTime);
-		            this.camera   = new Camera(0, 0, this.canv.width, this.canv.height);
-		            this.world    = new GameWorld(this.sprites, this.data.game.loc, this.data.game.loc_explored);
+		            this.gameLive = new GameLive(this.ctx, this.canv, this.data.game.time, this.data.game.weather, this.data.game.temp, this.data.game.weatherTime);
 		            this.player   = new Player(
+		            	this.ctx, 
 		                this.data.game.x,
 		                this.data.game.y,
 		                this.data.game.s,
@@ -90,20 +93,29 @@
 		                this.data.game.hungTime,
 		                this.data.game.thirstTime,
 		                this.data.game.fatigueTime,
-		                this.sprites['pl']
+		                this.sprites['pl'],
+		                {width: 1024, height: 1024}
 		            );
-		            let bullets = [];
+		            this.camera   = new Camera(this.canv, 0, 0, {width: 1024, height: 1024}, this.player);
+		            this.world    = new GameWorld(this.ctx, this.sprites, this.data.game.loc, this.data.game.loc_explored);
+
+		            this.enemys = [];
+		            for(let i = 0; i < 1; i++)
+		            {
+		            	this.enemys.push(new Enemy({x: 100, y: 100, dx: 0, dy: 0, nm: 'HasM', s: 100, hp: 100, die: false, img: this.sprites['pl']}));
+		            }
+		            this.enemyEmitter = new EnemyEmitter(this.ctx, this.enemys);
+
+		            this.bullets = [];
 		            for(let i = 0; i <= 100; i++) 
 		            {
-		            	bullets.push(new Bullet());
+		            	this.bullets.push(new Bullet());
 		            }
-		            this.bulletEmitter = new BulletEmitter(bullets, this.player, this.canv, this.camera);
+		            this.bulletEmitter = new BulletEmitter(this.ctx, this.canv, this.player, this.camera, this.enemys, this.bullets);
 
 		            this.weathers = this.data.sys.weathers;
 		            this.temps    = this.data.sys.temps;
 		            this.locs     = this.data.sys.locs;
-
-		            this.loc      = {width: 1024, height: 1024};
 
 		            /* this.timer    = setInterval(() => {
 			            Updater.update(Game);

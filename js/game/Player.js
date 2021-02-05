@@ -1,6 +1,8 @@
 class Player {
-	constructor(x, y, s, hp, hung, thirst, fatigue, hpTime, hungTime, thirstTime, fatigueTime, img) 
-	{
+	constructor(ctx, x, y, s, hp, hung, thirst, fatigue, hpTime, hungTime, thirstTime, fatigueTime, img, loc)
+	{	
+		this.ctx     = ctx;
+
 		this.x       = x;
 		this.y       = y;
 		this.s       = s; // speed
@@ -18,6 +20,8 @@ class Player {
 		this.width   = img.width;
 		this.height  = img.height;
 
+		this.loc = loc;
+
 		this.left  = false;
 		this.right = false;
 		this.up    = false;
@@ -29,7 +33,7 @@ class Player {
 		window.addEventListener('touchend', this.input.bind(this));
 	}
 
-	input(e, camera)
+	input(e)
 	{
 		switch(e.type[0]) {
 			case 't':
@@ -122,13 +126,13 @@ class Player {
 		}
 	}
 
-	update(dt, worldWidth, worldHeight) 
-	{
+	update(dt) 
+	{	
 		if (this.left && 0 < (this.x - this.width/2))
 		{
 			this.x += -1 * (this.s * dt);
 		} 
-		if (this.right && (this.x + this.width/2) < worldWidth) 
+		if (this.right && (this.x + this.width/2) < this.loc.width) 
 		{
 			this.x += 1 * (this.s * dt);
 		} 
@@ -136,7 +140,7 @@ class Player {
 		{
 			this.y += -1 * (this.s * dt);
 		} 
-		if (this.down && (this.y + this.height/2) < worldHeight)
+		if (this.down && (this.y + this.height/2) < this.loc.height)
 		{
 			this.y += 1 * (this.s * dt);
 		}
@@ -144,11 +148,17 @@ class Player {
 		this.changeAllCharacts(dt);
 	}
 
-	render(ctx)
+	render()
 	{
-		ctx.fillStyle = '#dac09c';
-		ctx.fillText('Вы', (this.x - ctx.measureText('Вы').width/2), this.y - 12);
-		ctx.drawImage(this.img, 0, 0, this.width, this.height, this.x - this.width/2, this.y - this.height/2, this.width, this.height);
+		this.ctx.fillStyle = '#dac09c';
+		this.ctx.fillText('Вы', (this.x - this.ctx.measureText('Вы').width/2), this.y - 16);
+
+		this.ctx.fillStyle = 'black';
+		this.ctx.fillRect((this.x - this.width/2) - 12, this.y - 14, 43, 3);
+		this.ctx.fillStyle = 'green';
+		this.ctx.fillRect((this.x - this.width/2) - 10, this.y - 14, this.hpPercent(), 1);
+
+		this.ctx.drawImage(this.img, 0, 0, this.width, this.height, this.x - this.width/2, this.y - this.height/2, this.width, this.height);
 	}
 
 	changeAllCharacts(dt)
@@ -208,10 +218,10 @@ class Player {
 		} else this.hpTime += 10 * dt;
 	}
 
-	distance(p1, p2)
+	hpPercent() 
 	{
-    	return Math.sqrt(((p2.x - p1.x) ** 2) + ((p2.y - p1.y) ** 2));
- 	}
+		return 40 * (this.hp / 100);
+	}
 }
 
 export {Player};
