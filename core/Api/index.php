@@ -4,10 +4,11 @@
 
     Class Api {
 
-    	public function __construct($pdo, $items, $locs, $rares, $pred, $crafts, $refuges, $user, $game)
+    	public function __construct($pdo, $Utils, $items, $locs, $rares, $pred, $crafts, $refuges, $user, $game)
     	{
             
-            $this->pdo = $pdo;
+            $this->pdo   = $pdo;
+            $this->utils = $Utils;
 
             $this->items   = $items;
             $this->locs    = $locs;
@@ -24,6 +25,15 @@
         public function answer($type) {
 
             switch($type) {
+                case 'auth':
+                    $_SESSION['authToken'] = $this->utils::authToken();
+
+                    exit(
+                        json_encode([
+                            'authToken' => $_SESSION['authToken']
+                        ])
+                    );
+                break;
                 case 'game':
                     exit(
                         json_encode([
@@ -107,6 +117,9 @@
                 case '404':
                     exit();
                 break;
+                case 'auth':
+                    $this->answer('auth');
+                break;
                 case 'game':
                     $this->answer('game');
                     break;
@@ -157,6 +170,6 @@
     }
 
     if ($Utils::checkSession()) {
-        $Api = new Api($Pdo, $game_items, $game_locs, $game_rares, $items_pred, $game_crafts, $game_refuges, $User->get_user(), $User->get_game());
+        $Api = new Api($Pdo, $Utils, $game_items, $game_locs, $game_rares, $items_pred, $game_crafts, $game_refuges, $User->get_user(), $User->get_game());
         $Api->main();
     }

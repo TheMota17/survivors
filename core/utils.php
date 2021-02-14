@@ -68,6 +68,21 @@
 
         }
 
+        public static function authToken() {
+
+            $alphabet    = 'abcdefghijklmnopqrstuvwxyz';
+            $token       = array();
+            $alphaLength = strlen($alphabet) - 1;
+
+            for($i = 0; $i < 4; $i++) {
+                $n       = rand(0, $alphaLength);
+                $token[] = $alphabet[$n];
+            }
+
+            return implode($token);
+
+        }
+
         public static function checkSession() {
 
             if ($_SESSION['user'] && $_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {

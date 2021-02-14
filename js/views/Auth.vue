@@ -1,5 +1,5 @@
 <template>
-	<div class='flex j-c ai-c fl-di-co'>
+	<div v-if='api' class='flex j-c ai-c fl-di-co'>
 	    <div class='auth-logo'>
 	        <img src='/assets/auth.png' class='logo'>
 	        <div class='auth-info wdth100 flex j-c ai-e mt5 bolder'>
@@ -12,22 +12,30 @@
 	        </div>
 	        <div class='auth-reg-form flex ai-c fl-di-co mt10'>
 	            <div class='relative'>
-	            <div class='error-star' v-if='!regData.name'>*</div>
-	            <input type='text' placeholder='Придумайте ник' class='input' v-model='regData.name' required>
+	                <div class='error-star' v-if='!regData.name'>*</div>
+	                <input type='text' placeholder='Придумайте ник' class='input' v-model='regData.name' required>
 	            </div>
 
 	    	    <div class='relative mt10'>
-	            <div class='error-star' v-if='!regData.pass'>*</div>
-	    		<input type='password' placeholder='Придумайте пароль' class='input' v-model='regData.pass' required>
+	                <div class='error-star' v-if='!regData.pass'>*</div>
+	    		    <input type='password' placeholder='Придумайте пароль' class='input' v-model='regData.pass' required>
 	    	    </div>
 
 	            <div class='relative mt10'>
-	            <div class='error-star' v-if='!regData.mail'>*</div>
-	            <input type='mail' placeholder='Ваша почта' class='input' v-model='regData.mail' required>
+	                <div class='error-star' v-if='!regData.mail'>*</div>
+	                <input type='mail' placeholder='Ваша почта' class='input' v-model='regData.mail' required>
 	            </div>
 
+                <div class='bolder mt5'>
+                    {{ authToken }}
+                </div>
+                <div class='relative mt5'>
+                    <div class='error-star' v-if='!regData.authToken'>*</div>
+                    <input type='text' placeholder='Проверочный код' class='input' v-model='regData.authToken' required>
+                </div>
+
 	            <div class='mt10'>
-	            <button type='submit' class='input button' @click='reg'>Далее</button>
+	                <button type='submit' class='input button' @click='reg'>Далее</button>
 	            </div>
 	        </div>
 	    </div>
@@ -61,22 +69,48 @@
 module.exports = {
     name: 'Auth',
     data: () => ({
+        api: false,
+
+        authToken: undefined,
     	regData: {
     		name: undefined,
     		pass: undefined,
-    		mail: undefined
+    		mail: undefined,
+            authToken: undefined
     	},
     	enterData: {
     		name: undefined,
     		pass: undefined
     	}
     }),
+    beforeMount() {
+        let params = new FormData();
+        params.append('token', localStorage.getItem('token'));
+
+        axios.post('/core/Api/?page=auth', params)
+        .then((response) => {
+            if (response.data.popup) {
+                this.$root.popup.active = true;
+                this.$root.popup.text   = response.data.message;
+            } else if (response.data.page) {
+                this.$router.push(response.data.page)
+            } else {
+                this.authToken = response.data.authToken;
+
+                this.api = true;
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    },
     methods: {
     	reg() {
     		let params = new FormData();
         	params.append('name', this.regData.name);
         	params.append('pass', this.regData.pass);
         	params.append('mail', this.regData.mail);
+            params.append('authToken', this.regData.authToken);
 
     		axios.post('/core/Auth/?action=reg', params)
     		.then((response) => {

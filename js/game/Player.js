@@ -14,7 +14,6 @@ class Player {
 		this.maxTimeToFire = game.data.game.maxTimeToFire;
 		this.timeToFire    = this.maxTimeToFire;
 
-		this.hpTime      = game.data.game.hpTime;
 		this.hungTime    = game.data.game.hungTime;
 		this.thirstTime  = game.data.game.thirstTime;
 		this.fatigueTime = game.data.game.fatigueTime;
@@ -206,33 +205,6 @@ class Player {
 				this.fatigueTime = 0;
 			}
 		} else this.fatigueTime += 10 * dt;
-
-		if (this.hpTime >= 600)
-		{
-			if (this.hp > 0)
-			{
-				let dmgForHp  = (this.hung >= 100)    ? 1 : 0;
-					dmgForHp += (this.thirst >= 100)  ? 1 : 0;
-					dmgForHp += (this.fatigue >= 100) ? 1 : 0;
-
-				if (dmgForHp == 0) 
-				{
-					if (this.hp < 100)
-					{
-						this.hp++;
-					}
-				} else {
-					if ((this.hp - dmgForHp) < 0)
-					{
-						this.hp = 0;
-					} else {
-						this.hp -= dmgForHp;
-					}
-				}
-
-				this.hpTime = 0;
-			}
-		} else this.hpTime += 10 * dt;
 	}
 
 	takeDmg(dmg)

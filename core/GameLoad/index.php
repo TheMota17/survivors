@@ -39,7 +39,6 @@
                         'fatigue' => $this->fatigue,
 
                         'weatherTime' => $this->weatherTime,
-                        'hpTime' => $this->hpTime,
                         'hungTime' => $this->hungTime, 
                         'thirstTime' => $this->thirstTime, 
                         'fatigueTime' => $this->fatigueTime
@@ -60,7 +59,6 @@
                 'thirst' => $this->thirst,
                 'fatigue' => $this->fatigue,
                 'weatherTime' => $this->weatherTime,
-                'hpTime' => $this->hpTime,
                 'hungTime' => $this->hungTime,
                 'thirstTime' => $this->thirstTime,
                 'fatigueTime' => $this->fatigueTime
@@ -85,7 +83,6 @@
                         'thirst' => $this->game->thirst,
                         'fatigue' => $this->game->fatigue,
                         'weatherTime' => $this->game->weatherTime,
-                        'hpTime' => $this->game->hpTime,
                         'hungTime' => $this->game->hungTime,
                         'thirstTime' => $this->game->thirstTime,
                         'fatigueTime' => $this->game->fatigueTime
@@ -138,8 +135,9 @@
             if ($this->weather < 0 || $this->weather > $this->config['game']['max']['weather'] || $this->temp < 0 || $this->temp > $this->config['game']['max']['weather'])
                 { exit('wt'); }
 
-            //
-            
+            // 
+            if ($this->hpTime < 0 || $this->hungTime < 0 || $this->thirstTime < 0 || $this->fatigueTime < 0)
+                { exit('htime'); }
 
         }
 
@@ -161,7 +159,6 @@
 
                     $this->weatherTime  = intval( htmlspecialchars( $_POST['weatherTime'] ) );
                     $this->hp           = intval( htmlspecialchars( $_POST['hp'] ) );
-                    $this->hpTime       = intval( htmlspecialchars( $_POST['hpTime'] ) );
                     $this->hung         = intval( htmlspecialchars( $_POST['hung'] ) );
                     $this->hungTime     = intval( htmlspecialchars( $_POST['hungTime'] ) );
                     $this->thirst       = intval( htmlspecialchars( $_POST['thirst'] ) );
