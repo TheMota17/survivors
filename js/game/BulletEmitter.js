@@ -8,8 +8,6 @@ class BulletEmitter {
 		this.enemys  = enemys;
 
 		this.bullets = bullets;
-
-		window.addEventListener('keydown', this.input.bind(this));
 	}
 
 	update(dt)
@@ -18,14 +16,39 @@ class BulletEmitter {
 		{
 			if (this.bullets[i].active)
 			{
-				this.enemys.forEach((enemy) => {
-					if (this.bullets[i].x < enemy.x + enemy.img.width/2 &&
-						this.bullets[i].x + this.bullets[i].w/2 > enemy.x &&
-						this.bullets[i].y < enemy.y + enemy.img.height/2 &&
-						this.bullets[i].y + this.bullets[i].h/2 > enemy.y) 
+				if (this.bullets[i].from == 1)
+				{
+					this.enemys.forEach((enemy) => 
+					{
+						if (this.bullets[i].x < enemy.x + enemy.img.width/2 &&
+							this.bullets[i].x + this.bullets[i].w/2 > enemy.x &&
+							this.bullets[i].y < enemy.y + enemy.img.height/2 &&
+							this.bullets[i].y + this.bullets[i].h/2 > enemy.y) 
+						{
+							this.bullets[i].active = false;
+							enemy.takeDmg(this.bullets[i].dmg);
+							return;
+						} else if ((this.bullets[i].x >= this.camera.x + this.camera.viewWidth || this.bullets[i].x <= this.camera.x) ||
+								   (this.bullets[i].y >= this.camera.y + this.camera.viewHeight || this.bullets.y <= this.camera.y))
+						{
+							this.bullets[i].active = false;
+							return;
+						} else
+						{
+							this.bullets[i].x += this.bullets[i].dx * (this.bullets[i].s * dt);
+							this.bullets[i].y += this.bullets[i].dy * (this.bullets[i].s * dt);
+							return;
+						}
+					});
+				} else if (this.bullets[i].from == 0)
+				{
+					if (this.bullets[i].x < this.player.x + this.player.width/2 &&
+						this.bullets[i].x + this.bullets[i].w/2 > this.player.x &&
+						this.bullets[i].y < this.player.y + this.player.height/2 &&
+						this.bullets[i].y + this.bullets[i].h/2 > this.player.y) 
 					{
 						this.bullets[i].active = false;
-						enemy.takeDmg();
+						this.player.takeDmg(this.bullets[i].dmg);
 						return;
 					} else if ((this.bullets[i].x >= this.camera.x + this.camera.viewWidth || this.bullets[i].x <= this.camera.x) ||
 							   (this.bullets[i].y >= this.camera.y + this.camera.viewHeight || this.bullets.y <= this.camera.y))
@@ -38,7 +61,7 @@ class BulletEmitter {
 						this.bullets[i].y += this.bullets[i].dy * (this.bullets[i].s * dt);
 						return;
 					}
-				});
+				}
 			}
 		}
 	}
@@ -47,51 +70,70 @@ class BulletEmitter {
 	{
 		for(let i = 0; i < this.bullets.length; i++) 
 		{
-			if (this.bullets[i].active)
-			{
-				this.ctx.fillStyle = 'red';
-				this.ctx.fillRect(this.bullets[i].x, this.bullets[i].y, this.bullets[i].w, this.bullets[i].h);
-			}
+			this.bullets[i].render(this.ctx);
 		}
 	}
 
-	activate(x, y, dx, dy)
+	activate(x, y, from)
 	{
-		for(let i = 0; i < this.enemys.length; i++)
+		if (from == 'player')
 		{
-			if (!this.enemys[i].die) 
+			for(let i = 0; i < this.enemys.length; i++)
 			{
-				let distX = Math.floor(this.enemys[i].x - this.player.x);
-				let distY = Math.floor(this.enemys[i].y - this.player.y);
-
-				let len   = Math.sqrt(distX * distX + distY * distY);
-				let dist  = Math.abs(distX + distY);
-
-				if (dist <= 300)
+				if (!this.enemys[i].die)
 				{
-					for(let i = 0; i < this.bullets.length; i++) // ищем свободный патрон в массиве
+					let distX = Math.floor(this.enemys[i].x - x);
+					let distY = Math.floor(this.enemys[i].y - y);
+
+					let len   = Math.sqrt(distX * distX + distY * distY);
+					let dist  = Math.abs(distX + distY);
+
+					if (dist <= 300)
 					{
-						if (!this.bullets[i].active) // Если нашли то активируем
+						for(let i = 0; i < this.bullets.length; i++) // ищем свободный патрон в массиве
 						{
-							this.bullets[i].active = true;
-							this.bullets[i].x      = x;
-							this.bullets[i].y      = y;
-							this.bullets[i].dx     = distX/len;
-							this.bullets[i].dy     = distY/len;
-							return;
+							if (!this.bullets[i].active) // Если нашли то активируем
+							{
+								this.bullets[i].active = true;
+								this.bullets[i].x      = x;
+								this.bullets[i].y      = y;
+								this.bullets[i].dx     = distX/len;
+								this.bullets[i].dy     = distY/len;
+								this.bullets[i].dmg    = 10;
+								this.bullets[i].from   = this.bullets[i].froms[ from ];
+								return;
+							}
 						}
+						return;
 					}
-					return;
 				}
 			}
-		}
-	}
-
-	input(e) 
-	{
-		if (e.keyCode == 32) 
+		} else 
 		{
-			this.activate((this.player.x + 5), this.player.y, 1, 0);
+			let distX = Math.floor(this.player.x - x);
+			let distY = Math.floor(this.player.y - y);
+
+			let len   = Math.sqrt(distX * distX + distY * distY);
+			let dist  = Math.abs(distX + distY);
+
+			if (dist <= 300)
+			{
+				for(let i = 0; i < this.bullets.length; i++) // ищем свободный патрон в массиве
+				{
+					if (!this.bullets[i].active) // Если нашли то активируем
+					{
+						this.bullets[i].active = true;
+						this.bullets[i].x      = x;
+						this.bullets[i].y      = y;
+						this.bullets[i].dx     = distX/len;
+						this.bullets[i].dy     = distY/len;
+						this.bullets[i].dmg    = 10;
+						this.bullets[i].from   = this.bullets[i][ from ];
+						return;
+					}
+				}
+				return;
+			}
 		}
 	}
 }

@@ -1,11 +1,11 @@
 let Utils = {
-    rand: function(min, max) 
+    rand(min, max) 
     {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
     },
-    convertTime: function( time ) 
+    convertTime( time ) 
     {
         let minutes = Math.floor(time / 60);
         let hours   = Math.floor(minutes / 60);

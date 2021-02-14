@@ -1,26 +1,29 @@
 class Player {
-	constructor(ctx, x, y, s, hp, hung, thirst, fatigue, hpTime, hungTime, thirstTime, fatigueTime, img, loc)
+	constructor(game, img)
 	{	
-		this.ctx     = ctx;
+		this.game          = game;
+		this.ctx           = game.ctx;
 
-		this.x       = x;
-		this.y       = y;
-		this.s       = s; // speed
-		this.hp      = hp;
-		this.hung    = hung;
-		this.thirst  = thirst;
-		this.fatigue = fatigue;
+		this.x             = game.data.game.x;
+		this.y             = game.data.game.y;
+		this.s             = 100; // speed
+		this.hp            = game.data.game.hp;
+		this.hung          = game.data.game.hung;
+		this.thirst        = game.data.game.thirst;
+		this.fatigue       = game.data.game.fatigue;
+		this.maxTimeToFire = game.data.game.maxTimeToFire;
+		this.timeToFire    = this.maxTimeToFire;
 
-		this.hpTime      = hpTime;
-		this.hungTime    = hungTime;
-		this.thirstTime  = thirstTime;
-		this.fatigueTime = fatigueTime;
+		this.hpTime      = game.data.game.hpTime;
+		this.hungTime    = game.data.game.hungTime;
+		this.thirstTime  = game.data.game.thirstTime;
+		this.fatigueTime = game.data.game.fatigueTime;
 
 		this.img     = img;
 		this.width   = img.width;
 		this.height  = img.height;
 
-		this.loc = loc;
+		this.loc = game.loc;
 
 		this.left  = false;
 		this.right = false;
@@ -35,99 +38,113 @@ class Player {
 
 	input(e)
 	{
-		switch(e.type[0]) {
-			case 't':
-				switch(e.target.id) {
-					case 'up_l':
-						if (e.type == 'touchstart') {
-							this.left = true;
-							this.up = true;
-						} else {
-							this.left = false;
-							this.up = false;
-						}
-					break;
-					case 'up_r':
-						if (e.type == 'touchstart')
-						{
-							this.right = true;
-							this.up = true;
-						} else {
-							this.right = false;
-							this.up = false;
-						}
-					break;
-					case 'down_l':
-						if (e.type == 'touchstart') {
-							this.left = true;
-							this.down = true;
-						} else {
-							this.left = false;
-							this.down = false;
-						}
-					break;
-					case 'down_r':
-						if (e.type == 'touchstart') {
-							this.right = true;
-							this.down = true;
-						} else {
-							this.right = false;
-							this.down = false;
-						}
-					break;
-					case 'left':
-						if (e.type == 'touchstart') {
+		if (e.keyCode == 32) 
+		{
+			if (e.type == 'keydown')
+			{
+				this.game.bulletEmitter.activate((this.x + 5), this.y, 'player');
+			}
+		} else 
+		{
+			switch(e.type[0]) {
+				case 't':
+					switch(e.target.id) {
+						case 'up_l':
+							if (e.type == 'touchstart') {
+								this.left = true;
+								this.up = true;
+							} else {
+								this.left = false;
+								this.up = false;
+							}
+						break;
+						case 'up_r':
+							if (e.type == 'touchstart')
+							{
+								this.right = true;
+								this.up = true;
+							} else {
+								this.right = false;
+								this.up = false;
+							}
+						break;
+						case 'down_l':
+							if (e.type == 'touchstart') {
+								this.left = true;
+								this.down = true;
+							} else {
+								this.left = false;
+								this.down = false;
+							}
+						break;
+						case 'down_r':
+							if (e.type == 'touchstart') {
+								this.right = true;
+								this.down = true;
+							} else {
+								this.right = false;
+								this.down = false;
+							}
+						break;
+						case 'left':
+							if (e.type == 'touchstart') {
+								this.left = true;
+							} else this.left = false;
+							break;
+						case 'up':
+							if (e.type == 'touchstart') {
+								this.up = true;
+							} else this.up = false;
+							break;
+						case 'right':
+							if (e.type == 'touchstart') {
+								this.right = true;
+							} else this.right = false;
+							break;
+						case 'down':
+							if (e.type == 'touchstart') {
+								this.down = true;
+							} else this.down = false;
+							break;
+					}
+				break;
+				case 'k':
+					if (e.keyCode == 37) 
+					{	
+						if (e.type == 'keydown') {
 							this.left = true;
 						} else this.left = false;
-						break;
-					case 'up':
-						if (e.type == 'touchstart') {
+					}
+					if (e.keyCode == 38) 
+					{
+						if (e.type == 'keydown') {
 							this.up = true;
 						} else this.up = false;
-						break;
-					case 'right':
-						if (e.type == 'touchstart') {
+					}
+					if (e.keyCode == 39)
+					{
+						if (e.type == 'keydown') {
 							this.right = true;
 						} else this.right = false;
-						break;
-					case 'down':
-						if (e.type == 'touchstart') {
+					}
+					if (e.keyCode == 40)
+					{
+						if (e.type == 'keydown') {		
 							this.down = true;
 						} else this.down = false;
-						break;
-				}
-			break;
-			case 'k':
-				if (e.keyCode == 37) 
-				{	
-					if (e.type == 'keydown') {
-						this.left = true;
-					} else this.left = false;
-				}
-				if (e.keyCode == 38) 
-				{
-					if (e.type == 'keydown') {
-						this.up = true;
-					} else this.up = false;
-				}
-				if (e.keyCode == 39)
-				{
-					if (e.type == 'keydown') {
-						this.right = true;
-					} else this.right = false;
-				}
-				if (e.keyCode == 40)
-				{
-					if (e.type == 'keydown') {		
-						this.down = true;
-					} else this.down = false;
-				}
-			break;
+					}
+				break;
+			}
 		}
 	}
 
 	update(dt) 
 	{	
+		if (this.timeToFire < this.maxTimeToFire) 
+		{
+			this.timeToFire += dt;
+		}
+
 		if (this.left && 0 < (this.x - this.width/2))
 		{
 			this.x += -1 * (this.s * dt);
@@ -216,6 +233,11 @@ class Player {
 				this.hpTime = 0;
 			}
 		} else this.hpTime += 10 * dt;
+	}
+
+	takeDmg(dmg)
+	{
+		this.hp -= dmg;
 	}
 
 	hpPercent() 

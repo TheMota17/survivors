@@ -12,8 +12,8 @@
     <link rel='preconnect' href='https://fonts.gstatic.com'>
     <link href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swapp' rel='stylesheet'>
 
-    <link rel='stylesheet' href='/styles/index.css?17'>
-    <link rel='stylesheet' href='/styles/style.css?17'>
+    <link rel='stylesheet' href='/styles/index.css?_=<?=time()?>'>
+    <link rel='stylesheet' href='/styles/style.css?_=<?=time()?>'>
 
     <meta name='keywords' content='survivors, survs, srvs, выжившие, онлайн игра, выживание, браузерная игра, игра'>
     <meta charset='UTF-8'>
@@ -44,7 +44,7 @@
     </div>
 </div>
 
-<script type='module' src='/js/app.js?17'></script>
+<script type='module' src='/js/app.js?_=<?=time()?>'></script>
 
 </body>
 </html>

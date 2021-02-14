@@ -50,10 +50,10 @@
         
         public function reg() {
 
-            $game = json_encode(['x' => 50, 'y' => 50, 's' => 100, 'time' => 36000, 'weather' => 1, 'hp' => 100, 'hung' => 0, 'thirst' => 0, 'fatigue' => 0, 'temp' => 1, 'loc' => 1, 'loc_explored' => 0, 'weatherTime' => 0, 'hpTime' => 0, 'hungTime' => 0, 'thirstTime' => 0, 'fatigueTime' => 0]);
+            $game = json_encode(['x' => 50, 'y' => 50, 'time' => 36000, 'weather' => 1, 'hp' => 100, 'hung' => 0, 'thirst' => 0, 'fatigue' => 0, 'temp' => 1, 'weatherTime' => 0, 'hpTime' => 0, 'hungTime' => 0, 'thirstTime' => 0, 'fatigueTime' => 0]);
 
-            $newuser = $this->pdo->query('INSERT INTO users (login, pass, mail, date, lastvisit, ban, adm, live, costumize, craft_lvl, in_refuge, game) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            array($this->name, password_hash($this->pass, PASSWORD_DEFAULT), password_hash($this->mail, PASSWORD_DEFAULT), time(), 0, 0, 0, 3, 0, 1, 0, $game));
+            $newuser = $this->pdo->query('INSERT INTO users (login, pass, mail, date, lastvisit, ban, adm, live, costumize, craft_lvl, in_refuge, loc, loc_explored, game) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            array($this->name, password_hash($this->pass, PASSWORD_DEFAULT), password_hash($this->mail, PASSWORD_DEFAULT), time(), 0, 0, 0, 3, 0, 1, 0, 0, 0, $game));
             $userid = $this->pdo->last();
 
             $refuge = $this->pdo->query('INSERT INTO refuge (hp, lvl, user_id) VALUES (?, ?, ?)', array(0, 0, $userid));

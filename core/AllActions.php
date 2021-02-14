@@ -727,6 +727,7 @@
                     $this->srchLut();
                 break;
                 case 'eat':
+                echo 1;
                     $this->id_item = htmlspecialchars( intval( $_POST['id_item'] ) );
                     $this->eat();
                     break;

@@ -6,13 +6,10 @@ let Updater = {
         let params = new FormData();
     	params.append('x', data.player.x);
     	params.append('y', data.player.y);
-    	params.append('s', data.player.s);
     	params.append('time', data.gameLive.time);
     	params.append('weather', data.gameLive.weather);
     	params.append('weatherTime', data.gameLive.weatherTime);
     	params.append('temp', data.gameLive.temp);
-    	params.append('loc', data.world.loc);
-    	params.append('loc_explored', data.world.loc_explored);
     	params.append('hp', data.player.hp);
     	params.append('hpTime', data.player.hpTime);
     	params.append('hung', data.player.hung);
@@ -23,11 +20,7 @@ let Updater = {
     	params.append('fatigueTime', data.player.fatigueTime);
     	params.append('token', localStorage.getItem('token'));
 
-        axios.post('/core/ajax/Game_load.php?action=update', params)
-		.then((response) => {})
-		.catch((error) => {
-			console.log(error)
-		})
+        axios.post('/core/GameLoad/?action=update', params)
     },
     pagedate(dt, data, Utils) 
     {

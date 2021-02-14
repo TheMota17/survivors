@@ -27,7 +27,14 @@
                 case 'game':
                     exit(
                         json_encode([
-                            'game' => $this->game,
+                            'game' => [
+                                'hp' => $this->game->hp,
+                                'hung' => $this->game->hung,
+                                'thirst' => $this->game->thirst,
+                                'fatigue' => $this->game->fatigue,
+                                'loc' => $this->user['loc'],
+                                'loc_explored' => $this->user['loc_explored']
+                            ],
                             'items' => $this->items,
                             'locs' => $this->locs
                         ])

@@ -11,7 +11,7 @@ module.exports = {
 		let params = new FormData();
     	params.append('token', localStorage.getItem('token'));
 
-		axios.post('/core/ajax/api.php?page=404', params)
+		axios.post('/core/Api/?page=404', params)
 		.then((response) => {
 			if (response.data.popup) {
 				this.$root.popup.active = true;

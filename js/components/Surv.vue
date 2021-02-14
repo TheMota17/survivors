@@ -74,52 +74,36 @@
 		            this.ctx                       = this.canv.getContext('2d', {alpha: false});
 		            this.ctx.imageSmoothingEnabled = false;
 		            this.ctx.font                  = '13px Montserrat';
-
-		            this.lastDt = Date.now();
-		            this.pause  = false;
+		            this.lastDt                    = Date.now();
+		            this.pause                     = false;
 
 		            // Game
-		            this.gameLive = new GameLive(this.ctx, this.canv, this.data.game.time, this.data.game.weather, this.data.game.temp, this.data.game.weatherTime);
-		            this.player   = new Player(
-		            	this.ctx, 
-		                this.data.game.x,
-		                this.data.game.y,
-		                this.data.game.s,
-		                this.data.game.hp,
-		                this.data.game.hung,
-		                this.data.game.thirst,
-		                this.data.game.fatigue,
-		                this.data.game.hpTime,
-		                this.data.game.hungTime,
-		                this.data.game.thirstTime,
-		                this.data.game.fatigueTime,
-		                this.sprites['pl'],
-		                {width: 1024, height: 1024}
-		            );
+		            this.loc = {width: 1024, height: 1024};
+
+		            this.gameLive = new GameLive(this);
+		            this.player   = new Player(this, this.sprites['pl']);
 		            this.camera   = new Camera(this.canv, 0, 0, {width: 1024, height: 1024}, this.player);
 		            this.world    = new GameWorld(this.ctx, this.sprites, this.data.game.loc, this.data.game.loc_explored);
+
+		            this.bullets = [];
+		            for(let i = 0; i <= 100; i++) 
+		            { this.bullets.push(new Bullet()); }
 
 		            this.enemys = [];
 		            for(let i = 0; i < 1; i++)
 		            {
-		            	this.enemys.push(new Enemy({x: 100, y: 100, dx: 0, dy: 0, nm: 'HasM', s: 100, hp: 100, die: false, img: this.sprites['pl']}));
-		            }
-		            this.enemyEmitter = new EnemyEmitter(this.ctx, this.enemys);
-
-		            this.bullets = [];
-		            for(let i = 0; i <= 100; i++) 
-		            {
-		            	this.bullets.push(new Bullet());
+		            	this.enemys.push(new Enemy({width: 1024, height: 1024}, {x: 100, y: 100, dx: 0, dy: 0, nm: 'HasM', s: 60, hp: 100, die: false, img: this.sprites['pl']}));
 		            }
 		            this.bulletEmitter = new BulletEmitter(this.ctx, this.canv, this.player, this.camera, this.enemys, this.bullets);
+		            this.enemyEmitter  = new EnemyEmitter(this.ctx, this.enemys, this.bulletEmitter);
 
 		            this.weathers = this.data.sys.weathers;
 		            this.temps    = this.data.sys.temps;
 		            this.locs     = this.data.sys.locs;
 
-		            /* this.timer    = setInterval(() => {
+		            this.timer    = setInterval(() => {
 			            Updater.update(Game);
-			        }, 5000); */
+			        }, 5000);
 
 		            this.start();
 		        },
@@ -129,7 +113,7 @@
 		        	let params = new FormData();
 		        	params.append('token', localStorage.getItem('token'));
 
-		    		axios.post('/core/ajax/Game_load.php?action=load', params)
+		    		axios.post('/core/GameLoad/?action=load', params)
 		    		.then((response) => {
 		    			Game.data    = response.data;
 

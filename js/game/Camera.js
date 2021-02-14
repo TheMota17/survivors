@@ -1,15 +1,15 @@
 class Camera {
 	constructor(canv, x, y, loc, player) 
 	{
-		this.x          = x;
-		this.y          = y;
 		this.viewWidth  = canv.width;
 		this.viewHeight = canv.height;
+		this.x          = x;
+		this.y          = y;
 		this.loc        = loc;
 		this.player     = player;
 	}
 
-	update(dt, worldWidth, worldHeight)
+	update(dt)
 	{
 		this.x = this.player.x - this.viewWidth  / 2;
 		this.y = this.player.y - this.viewHeight / 2;

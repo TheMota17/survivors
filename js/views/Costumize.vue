@@ -17,9 +17,9 @@
 
 		<div class='flex j-c mt10'>
 			<div class='pers-maneken backgr2 flex j-c ai-c fl-di-co'>
-				<div class='cost-elem-name flex j-c mt5 none' id='style_elem_name'>
-					<span class='mr5' id='elem_name'>Борода</span>
-					<span id='elem_colvo'>0</span>/<span id='elem_max'>0</span>
+				<div v-if='changed_elem' class='cost-elem-name flex j-c mt5'>
+					<span class='mr5'>{{ elems[ changed_elem ] }}</span>
+					<span>{{ this[changed_elem] }}</span>/<span>{{ this[changed_elem + `_max`] }}</span>
 				</div>
 				<div class='flex j-c ai-c pt5 pb5'>
 					<div class='flex j-c fl-di-co'>
@@ -87,6 +87,9 @@ module.exports = {
     	fwear: 1,
     	fwear_max: 1,
 
+        changed_elem: false,
+        elems: {hair: 'Волосы', beard: 'Борода', cloth: 'Одежда', pants: 'Штаны', fwear: 'Обувь'},
+
     	ready: false
     }),
     methods: {
@@ -103,6 +106,8 @@ module.exports = {
     				}
     				break;
     		}
+
+            this.changed_elem = elem;
     	},
     	confirm(move) {
     		switch(move) {
@@ -126,7 +131,7 @@ module.exports = {
         	params.append('fwear', this.fwear);
         	params.append('token', localStorage.getItem('token'));
 
-    		axios.post('/core/ajax/Costumize_save.php', params)
+    		axios.post('/core/Costumize/', params)
     		.then((response) => {
     			if (response.data.popup) {
     				this.$root.popup.active = true;

@@ -1,7 +1,7 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-  RewriteRule ^index\.php$ - [L]
+  RewriteRule ^u([0-9]+)(/?)+$ index.php?id=profile&id=$1 [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.php [L]
