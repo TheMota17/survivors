@@ -13,7 +13,7 @@ module.exports = {
 			params.append('id_item', this.$route.query.id);
 	    	params.append('token', localStorage.getItem('token'));
 
-			axios.post('/core/ajax/AllActions.php?action=drink', params)
+			axios.post('/core/GameActions/?action=drink', params)
 			.then((response) => {
 				if (response.data.popup) {
 					this.$root.popup.active = true;

@@ -72,6 +72,17 @@
             },
             pageBar: {
                 width: 20
+            },
+            invent: {
+                from: 0,
+                sortType: 0
+            },
+            craft: {
+                id: 0,
+                item: 0,
+                type: 0,
+                selected: false,
+                sortType: 2
             }
         })
     }).$mount('#app')

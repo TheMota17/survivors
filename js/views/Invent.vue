@@ -217,7 +217,7 @@
 		<div class='flex j-c ai-c fl-di-co mt10'>
 			<div class='flex j-c ai-c'>
 				<button class='sort-btn flex j-c ai-c mr5' @click='sortFrom'>
-		        	<span class='flex j-c ai-c' v-if='!from'> 
+		        	<span class='flex j-c ai-c' v-if='!$root.invent.from'> 
 		        		<img src='/assets/icons/menu/ivent.png' class='item14-1 mr5' /> Инвентарь {{ inventLength }} / 50
 		        	</span>
 		        	<span class='flex j-c ai-c' v-else>
@@ -226,7 +226,7 @@
 		        </button>
 
 		        <button class='sort-btn flex j-c ai-c ml5' @click='sortMenu'>
-		            <img src='/assets/icons/sort.png' class='item14-1 mr5' /> {{ typeElems[ type ] }}
+		            <img src='/assets/icons/sort.png' class='item14-1 mr5' /> {{ typeElems[ $root.invent.sortType ] }}
 		        </button>
 		    </div>
 		    <div v-if='sort' class='sort-menu flex j-s ai-c mt5'>
@@ -238,7 +238,7 @@
 		        <button @click='changeType(1)' class='flex j-c ai-c'>Разное</button>
 			</div>
 			<div v-if='inventNotEmpty' class='ivent-items backgr2 flex j-c ai-c fl-di-co mt5'>
-				<router-link v-for='item in paginatedData' v-if='item.type == type || type == 0 && item.in_chest == from' :to='{ path: `item`, query: {id: item.id}}' class='item-div backgr1 flex j-sb mt5 mb5 pt5 pb5'>
+				<router-link v-for='item in paginatedData' v-if='item.type == $root.invent.sortType || $root.invent.sortType == 0 && item.in_chest == $root.invent.from' :to='{ path: `item`, query: {id: item.id}}' class='item-div backgr1 flex j-sb mt5 mb5 pt5 pb5'>
 	                <div class='fl1 flex j-s ai-c'>
 	                    <div class='item32-2 flex j-c ai-c'>
 	                        <div class='flex j-c ai-c' :class='rares[ items[ item[`type`] ][ item[`item`] ][`rare`] ][`border`]'>
@@ -294,10 +294,8 @@ module.exports = {
 
     	max: 5,
     	page: 1,
-    	type: 0,
     	sort: false,
-    	typeElems: {0: 'Все', 1: 'Разное', 2: 'Шлемы', 3: 'Броня', 4: 'Оружие', 5: 'Убежище'},
-    	from: 0
+    	typeElems: {0: 'Все', 1: 'Разное', 2: 'Шлемы', 3: 'Броня', 4: 'Оружие', 5: 'Убежище'}
     }),
     components: {
     	Tablo
@@ -336,23 +334,23 @@ module.exports = {
 			this.page -= 1;
 		},
 		changeType(type) {
-			this.type = type;
+			this.$root.invent.sortType = type;
 		},
 		sortMenu() {
 			this.sort = !this.sort;
 		},
 		sortFrom() {
-			if (this.from == 0) {
-				this.from = 1;
+			if (this.$root.invent.from == 0) {
+				this.$root.invent.from = 1;
 			} else {
-				this.from = 0;
+				this.$root.invent.from = 0;
 			}
 		}
 	},
 	computed: {
 		inventNotEmpty() {
 			if (this.invent.length) {
-				if (this.from == 1) {
+				if (this.$root.invent.from == 1) {
 					let length = 0;
 		    		for(let i = 0; i < this.invent.length; i++) {
 		    			if (this.invent[i].in_chest == 1) {

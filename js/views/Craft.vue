@@ -5,7 +5,7 @@
 		    <div class='flex j-c ai-c'>
 		        Доступные предметы
 		        <button class='sort-btn flex j-c ai-c ml10' @click='sortMenu'>
-                    <img src='/assets/icons/sort.png' class='mr5'/>{{ typeElems[ sortType ] }}
+                    <img src='/assets/icons/sort.png' class='mr5'/>{{ typeElems[ $root.craft.sortType ] }}
                 </button>
 		    </div>
             <div v-if='sort' class='sort-menu flex j-s ai-c mt5'>
@@ -17,18 +17,18 @@
 			</div>
 		    <div class='craft-items backgr2 flex j-c ai-c fl-di-co mt5 pt5 pb5'>
 
-	            <div v-if='selected' class='craft-item backgr1 flex j-c fl-di-co mt5 mb5 pt5 pb5'>
+	            <div v-if='$root.craft.selected' class='craft-item backgr1 flex j-c fl-di-co mt5 mb5 pt5 pb5'>
 	                <div class='craft-first-info flex'>
-	                    <div class='flex j-c ai-c ml5' :class='rares[ items[ type ][ item ][`rare`] ][`border`]'>
-	                        <img :src='items[ type ][ item ][`img`]'>
+	                    <div class='flex j-c ai-c ml5' :class='rares[ items[ $root.craft.type ][ $root.craft.item ][`rare`] ][`border`]'>
+	                        <img :src='items[ $root.craft.type ][ $root.craft.item ][`img`]'>
 	                    </div>
 	                    <div class='flex j-s fl-di-co'>
 	                        <div class='item-name ml5 flex j-s'>
-	                            {{ items[ type ][ item ][`nm`] }}
+	                            {{ items[ $root.craft.type ][ $root.craft.item ][`nm`] }}
 	                        </div>
 	                        <div class='item-rare ml5 flex j-s'>
-	                            <span :class='rares[ items[ type ][ item ][`rare`] ][`class`]'>
-	                                {{ rares[ items[ type ][ item ][`rare`] ][`word`] }}
+	                            <span :class='rares[ items[ $root.craft.type ][ $root.craft.item ][`rare`] ][`class`]'>
+	                                {{ rares[ items[ $root.craft.type ][ $root.craft.item ][`rare`] ][`word`] }}
 	                            </span>
 	                        </div>
 	                    </div>
@@ -41,9 +41,9 @@
 	                    </div>
 	                    <div class='flex j-c ai-c fl-di-co mt5'>
 	                        <div class='iteminfo-div'>
-	                            <span class='ml5'>Тип: {{ items[ type ][ item ][`type`] }}</span>
+	                            <span class='ml5'>Тип: {{ items[ $root.craft.type ][ $root.craft.item ][`type`] }}</span>
 	                        </div>
-	                        <div v-if='items[ type ][ item ][`eff`]' v-for='(eff, key) in items[ type ][ item ][`eff`]' class='wdth100 flex j-c ai-c fl-di-co'>
+	                        <div v-if='items[ $root.craft.type ][ $root.craft.item ][`eff`]' v-for='(eff, key) in items[ $root.craft.type ][ $root.craft.item ][`eff`]' class='wdth100 flex j-c ai-c fl-di-co'>
 		                		<div v-if='key == `hung`' class='iteminfo-div mt5'>
 	                                <span class='ml5'>
 	                                    <img src='/assets/icons/hung.png' class='item14-1' />
@@ -64,23 +64,23 @@
 	                            </div>
 		                	</div>
 
-	                        <div v-if='items[ type ][ item ][`dmgabs`]' class='iteminfo-div flex j-sb mt5'>
+	                        <div v-if='items[ $root.craft.type ][ $root.craft.item ][`dmgabs`]' class='iteminfo-div flex j-sb mt5'>
 		                        <div class='ml5'>
-		                            <img src='/assets/icons/abs.png' class='item14-1' /> Подавление урона: {{ items[ type ][ item ][`dmgabs`] }}
+		                            <img src='/assets/icons/abs.png' class='item14-1' /> Подавление урона: {{ items[ $root.craft.type ][ $root.craft.item ][`dmgabs`] }}
 		                        </div>
 		                    </div>
-		                    <div v-else-if='items[ type ][ item ][`dmgmin`]' class='iteminfo-div flex j-sb mt5'>
+		                    <div v-else-if='items[ $root.craft.type ][ $root.craft.item ][`dmgmin`]' class='iteminfo-div flex j-sb mt5'>
 		                        <div class='ml5'>
 		                            <img src='/assets/icons/dmg.png' class='item14-1' /> Урон:
-		                            {{ items[ type ][ item ][`dmgmin`] }}
+		                            {{ items[ $root.craft.type ][ $root.craft.item ][`dmgmin`] }}
 		                            -
-		                            {{ items[ type ][ item ][`dmgmax`] }}
+		                            {{ items[ $root.craft.type ][ $root.craft.item ][`dmgmax`] }}
 		                        </div>
 		                    </div>
 
-	                        <div v-if='items[ type ][ item ][`power`]' class='iteminfo-div flex j-sb mt5'>
+	                        <div v-if='items[ $root.craft.type ][ $root.craft.item ][`power`]' class='iteminfo-div flex j-sb mt5'>
 		                        <div class='ml5'>
-		                            <img src='/assets/icons/power.png' class='item14-1' /> Бонус к мощи: {{ items[ type ][ item ][`power`] }}
+		                            <img src='/assets/icons/power.png' class='item14-1' /> Бонус к мощи: {{ items[ $root.craft.type ][ $root.craft.item ][`power`] }}
 		                        </div>
 		                    </div>
 	                    </div>
@@ -91,7 +91,7 @@
 	                    </div>
 	                    <div class='flex j-c mt5'>
 	                        <div class='wdth96 flex j-s'>
-	                            <div v-for='(craft_i, idx) in crafts[ id ][`craft_items`]' class='flex j-c ai-c fl-di-co' :class='[(idx !== 0) ? `ml5` : ``]'>
+	                            <div v-for='(craft_i, idx) in crafts[ $root.craft.id ][`craft_items`]' class='flex j-c ai-c fl-di-co' :class='[(idx !== 0) ? `ml5` : ``]'>
                                     <div :class='rares[ items[ craft_i[`type`] ][ craft_i[`item`] ][`rare`] ][`border`]'>
                                         <router-link :to='{path: `item`, query: {item: craft_i[`item`], type: craft_i[`type`]}}'>
                                             <img :src='items[ craft_i[`type`] ][ craft_i[`item`] ][`img`]' />
@@ -103,7 +103,7 @@
                                 </div>
 	                        </div>
 	                    </div>
-	                   	<div v-if='crafts[ id ][`tools`]'>
+	                   	<div v-if='crafts[ $root.craft.id ][`tools`]'>
 	                   		<div class='flex j-c mt10'>
 	                            <div class='wdth96 flex j-с'>
 	                                <hr class='hr-style mr5'> Инструменты <hr class='hr-style ml5'>
@@ -111,7 +111,7 @@
 	                        </div>
 	                        <div class='flex j-c mt5'>
 	                            <div class='wdth96 flex j-s'>
-	                                <div v-for='(tool, idx) in crafts[ id ][`tools`]' class='flex j-c ai-c fl-di-co' :class='[(idx !== 0) ? `ml5` : ``]'>
+	                                <div v-for='(tool, idx) in crafts[ $root.craft.id ][`tools`]' class='flex j-c ai-c fl-di-co' :class='[(idx !== 0) ? `ml5` : ``]'>
 	                                    <div :class='rares[ items[ tool[`type`] ][ tool[`item`] ][`rare`] ][`border`]'>
 	                                        <router-link :to='{path: `item`, query: {item: tool[`item`], type: tool[`type`]}}'>
 	                                            <img :src='items[ tool[`type`] ][ tool[`item`] ][`img`]' />
@@ -121,7 +121,7 @@
 	                            </div>
 	                        </div>
 	                   	</div>
-	                    <div v-if='items[ type ][ item ][`ammu`]'>
+	                    <div v-if='items[ $root.craft.type ][ $root.craft.item ][`ammu`]'>
 				        	<div class='flex j-c mt10'>
 				                <div class='wdth96 flex j-c'>
 				                    <hr class='hr-style mr5'> Боеприпасы <hr class='hr-style ml5'>
@@ -130,7 +130,7 @@
 				            <div class='flex j-c ai-c pt5 pb5'>
 				                <div class='wdth96 flex j-c'>
 				                    <div class='wdth100 flex j-s'>
-				                        <div v-for='(ammu, idx) in items[ type ][ item ][`ammu`]' class='flex j-c ai-c fl-di-co' :class='[(idx !== 0) ? `ml5` : ``]'>
+				                        <div v-for='(ammu, idx) in items[ $root.craft.type ][ $root.craft.item ][`ammu`]' class='flex j-c ai-c fl-di-co' :class='[(idx !== 0) ? `ml5` : ``]'>
 			                                <div :class='rares[ items[ ammu[`t`] ][ ammu[`i`] ][`rare`] ][`border`]'>
 			                                	<router-link :to='{path: `item`, query: {item: ammu[`i`], type: ammu[`t`]}}'>
 			                                		<img :src='items[ ammu[`t`] ][ ammu[`i`] ][`img`]' />
@@ -164,7 +164,7 @@
 	                </div>
 	            </div>
 		        <div v-else class='wdth100 flex j-c ai-c fl-di-co'>
-		            <div v-for='(craft, idx) in crafts' v-if='craft[`craft_lvl`] <= user[`craft_lvl`] && sortType == craft[`type`]' class='craft-item backgr1 flex j-c fl-di-co mt5 mb5 pt5 pb5'>
+		            <div v-for='(craft, idx) in crafts' v-if='craft[`craft_lvl`] <= user[`craft_lvl`] && $root.craft.sortType == craft[`type`]' class='craft-item backgr1 flex j-c fl-di-co mt5 mb5 pt5 pb5'>
 	            		<div class='craft-first-info flex'>
 	                        <div class='flex j-c ai-c ml5' :class='rares[ items[ craft[`type`] ][ craft[`item`] ][`rare`] ][`border`]'>
 	                            <img :src='items[ craft[`type`] ][ craft[`item`] ][`img`]'>
@@ -187,7 +187,7 @@
                     	</div>
 	                </div>
 		        </div>
-		        <div v-if='selected' class='wdth100 flex j-c mt5 mb5'>
+		        <div v-if='$root.craft.selected' class='wdth100 flex j-c mt5 mb5'>
 		        	<div class='wdth96 flex j-e'>
 		        		<button class='craft-back-btn' @click='awayItem'>Назад</button>
 		        	</div>
@@ -204,12 +204,6 @@ module.exports = {
 	name: 'Craft',
 	data: () => ({
 		api: false,
-
-		sortType: 2,
-		id: 0,
-		item: 0,
-		type: 0,
-		selected: false,
 
 		items: undefined,
 		crafts: undefined,
@@ -255,29 +249,29 @@ module.exports = {
 			this.sort = !this.sort;
 		},
 		changeType(type) {
-			this.sortType = type;
+			this.$root.craft.sortType = type;
 		},
 		selectItem(idx, item, type) {
-			this.id       = idx;
-			this.item     = item;
-			this.type     = type;
-			this.selected = true;
+			this.$root.craft.id       = idx;
+			this.$root.craft.item     = item;
+			this.$root.craft.type     = type;
+			this.$root.craft.selected = true;
 		},
 		awayItem() {
-			this.id       = 0;
-			this.item     = 0;
-			this.type     = 0;
-			this.selected = false;
+			this.$root.craft.id       = 0;
+			this.$root.craft.item     = 0;
+			this.$root.craft.type     = 0;
+			this.$root.craft.selected = false;
 		},
 		craft() {
 			let params = new FormData();
-			params.append('id', this.id);
-			params.append('item', this.item);
-			params.append('type', this.type);
+			params.append('id', this.$root.craft.id);
+			params.append('item', this.$root.craft.item);
+			params.append('type', this.$root.craft.type);
 			params.append('colvo', this.colvo);
 	    	params.append('token', localStorage.getItem('token'));
 
-			axios.post('/core/ajax/AllActions.php?action=craft', params)
+			axios.post('/core/GameActions/?action=craft', params)
 			.then((response) => {
 				if (response.data.popup) {
 					this.$root.popup.active = true;

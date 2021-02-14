@@ -24,7 +24,7 @@ module.exports = {
 			let params = new FormData();
 	    	params.append('token', localStorage.getItem('token'));
 
-			axios.post('/core/ajax/AllActions.php?action=enterrefuge', params)
+			axios.post('/core/GameActions/?action=enterrefuge', params)
 			.then((response) => {
 				if (response.data.popup) {
 					this.$root.popup.active = true;
