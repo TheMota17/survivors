@@ -2,7 +2,7 @@
     require realpath('../db.php');
     require realpath('../Utils.php');
 
-    Class Costumize_save {
+    Class Costumize {
 
         public function __construct($pdo, $hair, $beard, $cloth, $pants, $fwear) 
         {
@@ -52,6 +52,6 @@
     }
 
     if ($Utils::checkSession()) {
-        $Costumize_save = new Costumize_save($Pdo, $_POST['hair'], $_POST['beard'], $_POST['cloth'], $_POST['pants'], $_POST['fwear']);
+        $Costumize_save = new Costumize($Pdo, $_POST['hair'], $_POST['beard'], $_POST['cloth'], $_POST['pants'], $_POST['fwear']);
         $Costumize_save->main();
     }

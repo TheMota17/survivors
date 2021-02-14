@@ -2,7 +2,7 @@
 	require realpath('../User.php');
     require realpath('../gamedata.php');
 
-    Class Game_load {
+    Class GameLoad {
 
     	public function __construct($pdo, $config, $weathers, $temps, $locs, $items, $user, $game)
     	{
@@ -180,6 +180,6 @@
     }
 
     if ($Utils::checkSession()) {
-        $Game_load = new Game_load($Pdo, $config, $game_weathers, $game_temps, $game_locs, $game_items, $User->get_user(), $User->get_game());
+        $Game_load = new GameLoad($Pdo, $config, $game_weathers, $game_temps, $game_locs, $game_items, $User->get_user(), $User->get_game());
         $Game_load->main();
     }
