@@ -27,11 +27,11 @@
 	            </div>
 
                 <div class='bolder mt5'>
-                    {{ authToken }}
+                    {{ authCode }}
                 </div>
                 <div class='relative mt5'>
-                    <div class='error-star' v-if='!regData.authToken'>*</div>
-                    <input type='text' placeholder='Проверочный код' class='input' v-model='regData.authToken' required>
+                    <div class='error-star' v-if='!regData.authCode'>*</div>
+                    <input type='text' placeholder='Проверочный код' class='input' v-model='regData.authCode' required>
                 </div>
 
 	            <div class='mt10'>
@@ -71,12 +71,12 @@ module.exports = {
     data: () => ({
         api: false,
 
-        authToken: undefined,
+        authCode: undefined,
     	regData: {
     		name: undefined,
     		pass: undefined,
     		mail: undefined,
-            authToken: undefined
+            authCode: undefined
     	},
     	enterData: {
     		name: undefined,
@@ -87,7 +87,7 @@ module.exports = {
         let params = new FormData();
         params.append('token', localStorage.getItem('token'));
 
-        axios.post('/core/Api/?page=auth', params)
+        axios.post('/core/AuthTokens/?action=get', params)
         .then((response) => {
             if (response.data.popup) {
                 this.$root.popup.active = true;
@@ -95,7 +95,8 @@ module.exports = {
             } else if (response.data.page) {
                 this.$router.push(response.data.page)
             } else {
-                this.authToken = response.data.authToken;
+                localStorage.setItem('token', response.data.sessToken)
+                this.authCode = response.data.authCode;
 
                 this.api = true;
             }
@@ -110,7 +111,8 @@ module.exports = {
         	params.append('name', this.regData.name);
         	params.append('pass', this.regData.pass);
         	params.append('mail', this.regData.mail);
-            params.append('authToken', this.regData.authToken);
+            params.append('authCode', this.regData.authCode);
+            params.append('token', localStorage.getItem('token'));
 
     		axios.post('/core/Auth/?action=reg', params)
     		.then((response) => {
@@ -118,7 +120,6 @@ module.exports = {
     				this.$root.popup.active = true;
     				this.$root.popup.text   = response.data.message;
     			} else if (response.data.page) {
-    				localStorage.setItem('token', response.data.token)
     				this.$router.push(response.data.page)
     			}
     		})
@@ -130,6 +131,7 @@ module.exports = {
     		let params = new FormData();
         	params.append('name', this.enterData.name);
         	params.append('pass', this.enterData.pass);
+            params.append('token', localStorage.getItem('token'));
 
     		axios.post('/core/Auth/?action=enter', params)
     		.then((response) => {
@@ -137,7 +139,6 @@ module.exports = {
     				this.$root.popup.active = true;
     				this.$root.popup.text   = response.data.message;
     			} else if (response.data.page) {
-    				localStorage.setItem('token', response.data.token)
     				this.$router.push(response.data.page)
     			}
     		})

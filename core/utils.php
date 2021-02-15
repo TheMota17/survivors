@@ -53,7 +53,7 @@
 
         }
 
-        public static function token() {
+        public static function sessToken() {
 
             $alphabet    = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
             $token       = array();
@@ -68,24 +68,34 @@
 
         }
 
-        public static function authToken() {
+        public static function authCode() {
 
             $alphabet    = 'abcdefghijklmnopqrstuvwxyz';
-            $token       = array();
+            $code        = array();
             $alphaLength = strlen($alphabet) - 1;
 
             for($i = 0; $i < 4; $i++) {
                 $n       = rand(0, $alphaLength);
-                $token[] = $alphabet[$n];
+                $code[]  = $alphabet[$n];
             }
 
-            return implode($token);
+            return implode($code);
 
         }
 
         public static function checkSession() {
 
-            if ($_SESSION['user'] && $_SESSION['token'] == $_POST['token'] && $_POST['token'] && $_SESSION['token']) {
+            if ($_SESSION['user']) {
+                return true;
+            } else {
+                exit(json_encode( ['page' => 'auth'] ));
+            }
+
+        }
+
+        public static function checkToken() {
+
+            if ($_SESSION['sessToken'] == $_POST['token'] && $_POST['token'] && $_SESSION['sessToken']) {
                 return true;
             } else {
                 exit(json_encode( ['page' => 'auth'] ));

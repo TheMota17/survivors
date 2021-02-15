@@ -25,15 +25,6 @@
         public function answer($type) {
 
             switch($type) {
-                case 'auth':
-                    $_SESSION['authToken'] = $this->utils::authToken();
-
-                    exit(
-                        json_encode([
-                            'authToken' => $_SESSION['authToken']
-                        ])
-                    );
-                break;
                 case 'game':
                     exit(
                         json_encode([
@@ -117,9 +108,6 @@
                 case '404':
                     exit();
                 break;
-                case 'auth':
-                    $this->answer('auth');
-                break;
                 case 'game':
                     $this->answer('game');
                     break;
@@ -169,7 +157,7 @@
         
     }
 
-    if ($Utils::checkSession()) {
+    if ($Utils::checkSession() && $Utils::checkToken()) {
         $Api = new Api($Pdo, $Utils, $game_items, $game_locs, $game_rares, $items_pred, $game_crafts, $game_refuges, $User->get_user(), $User->get_game());
         $Api->main();
     }

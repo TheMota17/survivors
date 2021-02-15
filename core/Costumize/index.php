@@ -51,7 +51,7 @@
         }
     }
 
-    if ($Utils::checkSession()) {
+    if ($Utils::checkSession() && $Utils::checkToken()) {
         $Costumize_save = new Costumize($Pdo, $_POST['hair'], $_POST['beard'], $_POST['cloth'], $_POST['pants'], $_POST['fwear']);
         $Costumize_save->main();
     }

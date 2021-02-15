@@ -88,7 +88,7 @@
         }
     }
 
-    if ($Utils::checkSession()) {
+    if ($Utils::checkSession() && $Utils::checkToken()) {
         $User = new User($Pdo, $_SESSION['user']);
         $User->main();
     }

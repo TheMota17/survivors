@@ -4,11 +4,11 @@
 
     Class Auth {
 
-        public function __construct($pdo, $utils)
+        public function __construct($Pdo, $Utils)
         {
 
-            $this->pdo   = $pdo;
-            $this->utils = $utils;
+            $this->pdo   = $Pdo;
+            $this->utils = $Utils;
 
         }
 
@@ -48,9 +48,9 @@
             
         }
 
-        public function authToken_verif() {
+        public function authCode_verif() {
 
-            if ($_SESSION['authToken'] != $this->authToken) {
+            if ($_SESSION['authCode'] != $this->authCode) {
                 $this->message = 'Код введен не верно!';
             }
 
@@ -70,7 +70,6 @@
             $food   = $this->pdo->query('INSERT INTO invent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array(13, 1, 5, $userid));
             $water  = $this->pdo->query('INSERT INTO invent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array(2, 1, 5, $userid));
 
-            $_SESSION['token'] = $this->utils::token();
             $_SESSION['user']  = $userid;
             
             $this->answer('page', 'costumize');
@@ -88,7 +87,6 @@
                     $this->message = 'Вы заблокированы до - '.$ban_time.'';
                     $this->answer('mess', 0);
                 } else {
-                    $_SESSION['token'] = $this->utils::token();
                     $_SESSION['user']  = $find_user[ 'id' ];
                     $this->answer('page', '/');
                 }
@@ -119,12 +117,12 @@
                     $this->name      = htmlspecialchars( trim( $_POST['name'] ) );
                     $this->pass      = htmlspecialchars( trim( $_POST['pass'] ) );
                     $this->mail      = htmlspecialchars( trim( $_POST['mail'] ) );
-                    $this->authToken = htmlspecialchars( trim( $_POST['authToken'] ) );
+                    $this->authCode  = htmlspecialchars( trim( $_POST['authCode'] ) );
 
                     $this->name_verif();
                     $this->pass_verif();
                     $this->mail_verif();
-                    $this->authToken_verif();
+                    $this->authCode_verif();
 
                     if (empty( $this->message )) $this->reg();
                     else $this->answer('mess', 0);
@@ -140,5 +138,7 @@
         }
     }
 
-    $Auth = new Auth($Pdo, $Utils);
-    $Auth->main();
+    if ($Utils::checkToken()) {
+        $Auth = new Auth($Pdo, $Utils);
+        $Auth->main();
+    }
