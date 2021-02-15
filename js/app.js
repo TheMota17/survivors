@@ -2,18 +2,20 @@
 (function() {
     'use strict';
 
-    let Popup   = httpVueLoader('./js/components/Popup.vue')
-    let Menyoo  = httpVueLoader('./js/components/Menu.vue')
-    let PageBar = httpVueLoader('./js/components/PageBar.vue')
+    let date = Date.now();
 
-    let Notf      = httpVueLoader('./js/views/404.vue')
-    let Game      = httpVueLoader('./js/views/Game.vue')
-    let Auth      = httpVueLoader('./js/views/Auth.vue')
-    let Costumize = httpVueLoader('./js/views/Costumize.vue')
-    let Invent    = httpVueLoader('./js/views/Invent.vue')
-    let Item      = httpVueLoader('./js/views/Item.vue')
-    let Craft     = httpVueLoader('./js/views/Craft.vue')
-    let Refuge    = httpVueLoader('./js/views/Refuge.vue')
+    let Popup   = httpVueLoader('./js/components/Popup.vue?_='+date)
+    let Menyoo  = httpVueLoader('./js/components/Menu.vue?_='+date)
+    let PageBar = httpVueLoader('./js/components/PageBar.vue?_='+date)
+
+    let Notf      = httpVueLoader('./js/views/404.vue?_='+date)
+    let Game      = httpVueLoader('./js/views/Game.vue?_='+date)
+    let Auth      = httpVueLoader('./js/views/Auth.vue?_='+date)
+    let Costumize = httpVueLoader('./js/views/Costumize.vue?_='+date)
+    let Invent    = httpVueLoader('./js/views/Invent.vue?_='+date)
+    let Item      = httpVueLoader('./js/views/Item.vue?_='+date)
+    let Craft     = httpVueLoader('./js/views/Craft.vue?_='+date)
+    let Refuge    = httpVueLoader('./js/views/Refuge.vue?_='+date)
 
     const routes = [
         {

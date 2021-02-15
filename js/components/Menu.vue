@@ -39,7 +39,7 @@
 	            	</span>
 	            </router-link>
 	            <router-link to='/chat' class='menu-a flex j-c ai-c mt10'>
-	            	<span class='menu-a flex j-c ai-c mt10' @click='openclose'>
+	            	<span class='menu-a' @click='openclose'>
 	            		<img src='/assets/icons/menu/chat.png' class='item14-1 ml5 mr5'> Общий чат
 	            	</span>
 	            </router-link>

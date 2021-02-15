@@ -198,7 +198,8 @@
 </template>
 
 <script>
-let Tablo = httpVueLoader('../components/Tablo.vue')
+let date  = Date.now();
+let Tablo = httpVueLoader('../components/Tablo.vue?_='+date)
 
 module.exports = {
 	name: 'Craft',

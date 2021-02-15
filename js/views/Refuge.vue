@@ -193,9 +193,11 @@
 </template>
 
 <script>
-let Tablo       = httpVueLoader('../components/Tablo.vue')
-let EnterRefuge = httpVueLoader('../components/EnterRefuge.vue')
-let UpRefuge    = httpVueLoader('../components/UpRefuge.vue')
+let date = Date.now();
+
+let Tablo       = httpVueLoader('../components/Tablo.vue?_='+date)
+let EnterRefuge = httpVueLoader('../components/EnterRefuge.vue?_='+date)
+let UpRefuge    = httpVueLoader('../components/UpRefuge.vue?_='+date)
 
 module.exports = {
 	name: 'Refuge',

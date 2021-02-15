@@ -123,11 +123,11 @@
 
 		<div v-if='$route.query.id' class='flex j-c mt10'>
 			<div class='item-moves backgr2 flex j-c ai-c fl-di-co pt5 pb5'>
-				<nadet v-if='items[ item[`type`] ][ item[`item`] ][`move`] == `nadet`'></nadet>
-				<eat v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `eat`'></eat>
-				<drink v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `drink`'></drink>
-				<read v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `read`'></read>
-				<place v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `place`'></place>
+				<nadet v-if='items[ item[`type`] ][ item[`item`] ][`move`] == `nadet` && item[`in_chest`] == 0'></nadet>
+				<eat v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `eat` && item[`in_chest`] == 0'></eat>
+				<drink v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `drink` && item[`in_chest`] == 0'></drink>
+				<read v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `read` && item[`in_chest`] == 0'></read>
+				<place v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `place` && item[`in_chest`] == 0'></place>
 				<get-from-chest v-if='item[`in_chest`] == 1'></get-from-chest>
 				<place-to-chest v-else-if='chest'></place-to-chest>
 			</div>
@@ -195,14 +195,16 @@
 </template>
 
 <script>
-let Tablo = httpVueLoader('../components/Tablo.vue')
-let Nadet = httpVueLoader('../components/Nadet.vue')
-let Eat   = httpVueLoader('../components/Eat.vue')
-let Drink = httpVueLoader('../components/Drink.vue')
-let Read  = httpVueLoader('../components/Read.vue')
-let Place = httpVueLoader('../components/Place.vue')
-let PlaceToChest = httpVueLoader('../components/PlaceToChest.vue')
-let GetFromChest = httpVueLoader('../components/GetFromChest.vue')
+let date = Date.now();
+
+let Tablo = httpVueLoader('../components/Tablo.vue?_='+date)
+let Nadet = httpVueLoader('../components/Nadet.vue?_='+date)
+let Eat   = httpVueLoader('../components/Eat.vue?_='+date)
+let Drink = httpVueLoader('../components/Drink.vue?_='+date)
+let Read  = httpVueLoader('../components/Read.vue?_='+date)
+let Place = httpVueLoader('../components/Place.vue?_='+date)
+let PlaceToChest = httpVueLoader('../components/PlaceToChest.vue?_='+date)
+let GetFromChest = httpVueLoader('../components/GetFromChest.vue?_='+date)
 
 module.exports = {
 	name: 'Item',

@@ -84,9 +84,11 @@
 </template>
 
 <script>
-let Tablo = httpVueLoader('../components/Tablo.vue')
-let Sleep = httpVueLoader('../components/Sleep.vue')
-let Surv  = httpVueLoader('../components/Surv.vue')
+let date = Date.now();
+
+let Tablo = httpVueLoader('../components/Tablo.vue?_='+date)
+let Sleep = httpVueLoader('../components/Sleep.vue?_='+date)
+let Surv  = httpVueLoader('../components/Surv.vue?_='+date)
 
 module.exports = {
 	name: 'Game',
