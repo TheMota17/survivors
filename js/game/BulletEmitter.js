@@ -20,10 +20,10 @@ class BulletEmitter {
 				{
 					this.enemys.forEach((enemy) => 
 					{
-						if (this.bullets[i].x < enemy.x + enemy.img.width/2 &&
-							this.bullets[i].x + this.bullets[i].w/2 > enemy.x &&
-							this.bullets[i].y < enemy.y + enemy.img.height/2 &&
-							this.bullets[i].y + this.bullets[i].h/2 > enemy.y) 
+						if (this.bullets[i].x < enemy.x - enemy.img.width/2 &&
+							this.bullets[i].x - this.bullets[i].w/2 > enemy.x &&
+							this.bullets[i].y < enemy.y - enemy.img.height/2 &&
+							this.bullets[i].y - this.bullets[i].h/2 > enemy.y) 
 						{
 							this.bullets[i].active = false;
 							enemy.takeDmg(this.bullets[i].dmg);
@@ -42,10 +42,10 @@ class BulletEmitter {
 					});
 				} else if (this.bullets[i].from == 0)
 				{
-					if (this.bullets[i].x < this.player.x + this.player.width/2 &&
-						this.bullets[i].x + this.bullets[i].w/2 > this.player.x &&
-						this.bullets[i].y < this.player.y + this.player.height/2 &&
-						this.bullets[i].y + this.bullets[i].h/2 > this.player.y) 
+					if (this.bullets[i].x < this.player.x - this.player.width/2 &&
+						this.bullets[i].x - this.bullets[i].w/2 > this.player.x &&
+						this.bullets[i].y < this.player.y - this.player.height/2 &&
+						this.bullets[i].y - this.bullets[i].h/2 > this.player.y) 
 					{
 						this.bullets[i].active = false;
 						this.player.takeDmg(this.bullets[i].dmg);

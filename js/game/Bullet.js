@@ -7,8 +7,8 @@ class Bullet {
 		this.dy     = 0;
 		this.s      = 1000;
 		this.dmg    = 0;
-		this.w      = 3;
-		this.h      = 3;
+		this.w      = 4;
+		this.h      = 4;
 		this.active = false;
 		this.froms  = {enemy: 0, player: 1}
 		this.from   = undefined;
@@ -19,7 +19,7 @@ class Bullet {
 		if (this.active)
 		{
 			ctx.fillStyle = 'red';
-			ctx.fillRect(this.x, this.y, this.w, this.h);
+			ctx.fillRect(this.x - this.w/2, this.y - this.h/2, this.w, this.h);
 		}
 	}
 }

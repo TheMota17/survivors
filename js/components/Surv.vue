@@ -114,24 +114,25 @@
 		        	params.append('token', localStorage.getItem('token'));
 
 		    		axios.post('/core/GameLoad/?action=load', params)
-		    		.then((response) => {
+		    		.then((response) => 
+		    		{
 		    			Game.data    = response.data;
 
-		                let sprites  = [
+		                let sprites  = 
+		                [
 		                    {nm: 'pl', path: '/assets/game/'}, 
 		                    {nm: 'loc_' + Game.data.game.loc, path: '/assets/game/'}
 		                ];
 		                Game.sprites = Resources.loadSprites(sprites);
 
-		                let check = setInterval(() => {
-		                	if (Resources.checkLoad()) { 
+		                let check = setInterval(() => 
+		                {
+		                	if (Resources.checkLoad()) 
+		                	{ 
 		                		Game.create();
 		                		clearInterval(check);
 		                	}
 		                }, 1);
-		    		})
-		    		.catch((error) => {
-		    			console.log(error)
 		    		})
 		        }
 		    }; // end of game
