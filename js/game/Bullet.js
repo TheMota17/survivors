@@ -10,7 +10,6 @@ class Bullet {
 		this.w      = 4;
 		this.h      = 4;
 		this.active = false;
-		this.froms  = {enemy: 0, player: 1}
 		this.from   = undefined;
 	}
 

@@ -13,11 +13,15 @@ class Enemy {
 		this.die   = data.die;
 		this.img   = data.img;
 		this.timer = 3;
+
+		this.a = false;
 	}
 
 	update(dt, bulletEmitter)
 	{
-		if (this.hp <= 0) 
+		if (!this.a)  { this.a = true; bulletEmitter.activate(this.x, this.y, 'enemy'); }
+
+		if (this.hp <= 0)
 		{
 			this.die = true;
 		} else 

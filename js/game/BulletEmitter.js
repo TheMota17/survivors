@@ -16,7 +16,7 @@ class BulletEmitter {
 		{
 			if (this.bullets[i].active)
 			{
-				if (this.bullets[i].from == 1)
+				if (this.bullets[i].from == 'player')
 				{
 					this.enemys.forEach((enemy) => 
 					{
@@ -27,20 +27,18 @@ class BulletEmitter {
 						{
 							this.bullets[i].active = false;
 							enemy.takeDmg(this.bullets[i].dmg);
-							return;
 						} else if ((this.bullets[i].x >= this.camera.x + this.camera.viewWidth || this.bullets[i].x <= this.camera.x) ||
 								   (this.bullets[i].y >= this.camera.y + this.camera.viewHeight || this.bullets.y <= this.camera.y))
 						{
 							this.bullets[i].active = false;
-							return;
 						} else
 						{
 							this.bullets[i].x += this.bullets[i].dx * (this.bullets[i].s * dt);
 							this.bullets[i].y += this.bullets[i].dy * (this.bullets[i].s * dt);
-							return;
 						}
+						return;
 					});
-				} else if (this.bullets[i].from == 0)
+				} else if (this.bullets[i].from == 'enemy')
 				{
 					if (this.bullets[i].x < this.player.x - this.player.width/2 &&
 						this.bullets[i].x - this.bullets[i].w/2 > this.player.x &&
@@ -49,18 +47,17 @@ class BulletEmitter {
 					{
 						this.bullets[i].active = false;
 						this.player.takeDmg(this.bullets[i].dmg);
-						return;
 					} else if ((this.bullets[i].x >= this.camera.x + this.camera.viewWidth || this.bullets[i].x <= this.camera.x) ||
 							   (this.bullets[i].y >= this.camera.y + this.camera.viewHeight || this.bullets.y <= this.camera.y))
 					{
 						this.bullets[i].active = false;
-						return;
 					} else
 					{
 						this.bullets[i].x += this.bullets[i].dx * (this.bullets[i].s * dt);
 						this.bullets[i].y += this.bullets[i].dy * (this.bullets[i].s * dt);
-						return;
+						
 					}
+					return;
 				}
 			}
 		}
@@ -100,7 +97,7 @@ class BulletEmitter {
 								this.bullets[i].dx     = distX/len;
 								this.bullets[i].dy     = distY/len;
 								this.bullets[i].dmg    = 10;
-								this.bullets[i].from   = this.bullets[i].froms[ from ];
+								this.bullets[i].from   = from;
 								return;
 							}
 						}
@@ -108,7 +105,7 @@ class BulletEmitter {
 					}
 				}
 			}
-		} else 
+		} else if (from == 'enemy')
 		{
 			let distX = Math.floor(this.player.x - x);
 			let distY = Math.floor(this.player.y - y);
@@ -128,7 +125,7 @@ class BulletEmitter {
 						this.bullets[i].dx     = distX/len;
 						this.bullets[i].dy     = distY/len;
 						this.bullets[i].dmg    = 10;
-						this.bullets[i].from   = this.bullets[i][ from ];
+						this.bullets[i].from   = from;
 						return;
 					}
 				}

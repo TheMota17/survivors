@@ -85,16 +85,13 @@
 
 <script>
 let date = Date.now();
-
 let Tablo = httpVueLoader('../components/Tablo.vue?_='+date)
 let Sleep = httpVueLoader('../components/Sleep.vue?_='+date)
 let Surv  = httpVueLoader('../components/Surv.vue?_='+date)
-
 module.exports = {
 	name: 'Game',
 	data: () => ({
 		api: false,
-
 		game: undefined,
 		items: undefined,
 		locs: undefined
@@ -105,7 +102,6 @@ module.exports = {
 	beforeMount() {
 		let params = new FormData();
     	params.append('token', localStorage.getItem('token'));
-
 		axios.post('/core/Api/?page=game', params)
 		.then((response) => {
 			if (response.data.popup) {
@@ -117,7 +113,6 @@ module.exports = {
 				this.game  = response.data.game;
 				this.items = response.data.items;
 				this.locs  = response.data.locs;
-
 				this.api = true;
 			}
 		})

@@ -1,13 +1,13 @@
 class GameLive {
-	constructor(game)
+	constructor(ctx, canv, data)
 	{
-		this.ctx         = game.ctx;
-		this.canv        = game.canv;
+		this.ctx         = ctx;
+		this.canv        = canv;
 
-		this.time        = game.data.game.time;
-		this.weather     = game.data.game.weather;
-		this.temp        = game.data.game.temp;
-		this.weatherTime = game.data.game.weatherTime;
+		this.time        = data.game.time;
+		this.weather     = data.game.weather;
+		this.temp        = data.game.temp;
+		this.weatherTime = data.game.weatherTime;
 
 		this.rain = [];
 		this.snow = [];

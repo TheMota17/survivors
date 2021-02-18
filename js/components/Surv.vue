@@ -80,10 +80,10 @@
 		            // Game
 		            this.loc = {width: 1024, height: 1024};
 
-		            this.gameLive = new GameLive(this);
-		            this.player   = new Player(this, this.sprites['pl']);
-		            this.camera   = new Camera(this.canv, 0, 0, {width: 1024, height: 1024}, this.player);
-		            this.world    = new GameWorld(this.ctx, this.sprites, this.data.game.loc, this.data.game.loc_explored);
+		            this.gameLive = new GameLive(this.ctx, this.canv, this.data);
+		            this.player   = new Player(this, this.ctx, this.data, this.loc, this.sprites['pl']);
+		            this.camera   = new Camera(this.canv, 0, 0, this.loc, this.player);
+		            this.world    = new GameWorld(this.ctx, this.sprites, this.data);
 
 		            this.bullets = [];
 		            for(let i = 0; i <= 100; i++) 
@@ -101,9 +101,7 @@
 		            this.temps    = this.data.sys.temps;
 		            this.locs     = this.data.sys.locs;
 
-		            this.timer    = setInterval(() => {
-			            Updater.update(Game);
-			        }, 5000);
+		            this.timer    = setInterval(() => Updater.update(Game), 5000);
 
 		            this.start();
 		        },

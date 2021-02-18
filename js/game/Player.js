@@ -1,28 +1,28 @@
 class Player {
-	constructor(game, img)
+	constructor(game, ctx, data, loc, img)
 	{	
 		this.game          = game;
-		this.ctx           = game.ctx;
+		this.ctx           = ctx;
 
-		this.x             = game.data.game.x;
-		this.y             = game.data.game.y;
+		this.x             = data.game.x;
+		this.y             = data.game.y;
 		this.s             = 100; // speed
-		this.hp            = game.data.game.hp;
-		this.hung          = game.data.game.hung;
-		this.thirst        = game.data.game.thirst;
-		this.fatigue       = game.data.game.fatigue;
-		this.maxTimeToFire = game.data.game.maxTimeToFire;
+		this.hp            = data.game.hp;
+		this.hung          = data.game.hung;
+		this.thirst        = data.game.thirst;
+		this.fatigue       = data.game.fatigue;
+		this.maxTimeToFire = data.game.maxTimeToFire;
 		this.timeToFire    = this.maxTimeToFire;
 
-		this.hungTime    = game.data.game.hungTime;
-		this.thirstTime  = game.data.game.thirstTime;
-		this.fatigueTime = game.data.game.fatigueTime;
+		this.hungTime    = data.game.hungTime;
+		this.thirstTime  = data.game.thirstTime;
+		this.fatigueTime = data.game.fatigueTime;
 
 		this.img     = img;
 		this.width   = img.width;
 		this.height  = img.height;
 
-		this.loc = game.loc;
+		this.loc = loc;
 
 		this.left  = false;
 		this.right = false;

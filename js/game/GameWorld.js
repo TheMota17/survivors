@@ -1,11 +1,11 @@
 class GameWorld {
-	constructor(ctx, sprites, loc, loc_explored)
+	constructor(ctx, sprites, data)
 	{	
 		this.ctx          = ctx;
 
 		this.sprites      = sprites;
-		this.loc          = loc;
-		this.loc_explored = loc_explored;
+		this.loc          = data.game.loc;
+		this.loc_explored = data.game.loc_explored;
 	}
 
 	render()

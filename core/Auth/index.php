@@ -124,8 +124,11 @@
                     $this->mail_verif();
                     $this->authCode_verif();
 
-                    if (empty( $this->message )) $this->reg();
-                    else $this->answer('mess', 0);
+                    if (empty( $this->message )) {
+                        $this->reg();
+                    } else {
+                        $this->answer('mess', 0);
+                    }
                 break;
                 case 'enter':
                     $this->name = htmlspecialchars( trim( $_POST['name'] ) );
