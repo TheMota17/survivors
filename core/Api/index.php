@@ -4,11 +4,12 @@
 
     Class Api {
 
-    	public function __construct($pdo, $Utils, $items, $locs, $rares, $pred, $crafts, $refuges, $user, $game)
+    	public function __construct($pdo, $Utils, $config, $items, $locs, $rares, $pred, $crafts, $refuges, $user, $game)
     	{
             
-            $this->pdo   = $pdo;
-            $this->utils = $Utils;
+            $this->pdo    = $pdo;
+            $this->utils  = $Utils;
+            $this->config = $config;
 
             $this->items   = $items;
             $this->locs    = $locs;
@@ -98,6 +99,14 @@
                         ])
                     );
                     break;
+                case 'chat':
+                    exit(
+                        json_encode([
+                            'game' => $this->game,
+                            'messages' => $this->messages
+                        ])
+                    );
+                    break;
             }
 
         }
@@ -151,6 +160,11 @@
 
                     $this->answer('refuge');
                     break;
+                case 'chat':
+                    $this->messages = $this->pdo->fetchAll('SELECT * FROM `chat` WHERE `time` >= ? ORDER BY `time` DESC', array(time() - $this->config['chat']['maxtime']));
+
+                    $this->answer('chat');
+                    break;
             }
 
     	}
@@ -158,6 +172,6 @@
     }
 
     if ($Utils::checkSession() && $Utils::checkToken()) {
-        $Api = new Api($Pdo, $Utils, $game_items, $game_locs, $game_rares, $items_pred, $game_crafts, $game_refuges, $User->get_user(), $User->get_game());
+        $Api = new Api($Pdo, $Utils, $config, $game_items, $game_locs, $game_rares, $items_pred, $game_crafts, $game_refuges, $User->getUser(), $User->getGame());
         $Api->main();
     }

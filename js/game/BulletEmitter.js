@@ -1,65 +1,16 @@
 class BulletEmitter {
-	constructor(ctx, canv, player, camera, enemys, bullets)
+	constructor(game, bullets)
 	{
-		this.ctx     = ctx;
-		this.canv    = canv;
-		this.player  = player;
-		this.camera  = camera;
-		this.enemys  = enemys;
+		this.game = game;
 
 		this.bullets = bullets;
 	}
 
 	update(dt)
 	{
-		for(let i = 0; i < this.bullets.length; i++) 
+		for(let i = 0; i < this.bullets.length; i++)
 		{
-			if (this.bullets[i].active)
-			{
-				if (this.bullets[i].from == 'player')
-				{
-					this.enemys.forEach((enemy) => 
-					{
-						if (this.bullets[i].x < enemy.x - enemy.img.width/2 &&
-							this.bullets[i].x - this.bullets[i].w/2 > enemy.x &&
-							this.bullets[i].y < enemy.y - enemy.img.height/2 &&
-							this.bullets[i].y - this.bullets[i].h/2 > enemy.y) 
-						{
-							this.bullets[i].active = false;
-							enemy.takeDmg(this.bullets[i].dmg);
-						} else if ((this.bullets[i].x >= this.camera.x + this.camera.viewWidth || this.bullets[i].x <= this.camera.x) ||
-								   (this.bullets[i].y >= this.camera.y + this.camera.viewHeight || this.bullets.y <= this.camera.y))
-						{
-							this.bullets[i].active = false;
-						} else
-						{
-							this.bullets[i].x += this.bullets[i].dx * (this.bullets[i].s * dt);
-							this.bullets[i].y += this.bullets[i].dy * (this.bullets[i].s * dt);
-						}
-						return;
-					});
-				} else if (this.bullets[i].from == 'enemy')
-				{
-					if (this.bullets[i].x < this.player.x - this.player.width/2 &&
-						this.bullets[i].x - this.bullets[i].w/2 > this.player.x &&
-						this.bullets[i].y < this.player.y - this.player.height/2 &&
-						this.bullets[i].y - this.bullets[i].h/2 > this.player.y) 
-					{
-						this.bullets[i].active = false;
-						this.player.takeDmg(this.bullets[i].dmg);
-					} else if ((this.bullets[i].x >= this.camera.x + this.camera.viewWidth || this.bullets[i].x <= this.camera.x) ||
-							   (this.bullets[i].y >= this.camera.y + this.camera.viewHeight || this.bullets.y <= this.camera.y))
-					{
-						this.bullets[i].active = false;
-					} else
-					{
-						this.bullets[i].x += this.bullets[i].dx * (this.bullets[i].s * dt);
-						this.bullets[i].y += this.bullets[i].dy * (this.bullets[i].s * dt);
-						
-					}
-					return;
-				}
-			}
+			this.bullets[i].update(dt, this.game);
 		}
 	}
 
@@ -67,7 +18,7 @@ class BulletEmitter {
 	{
 		for(let i = 0; i < this.bullets.length; i++) 
 		{
-			this.bullets[i].render(this.ctx);
+			this.bullets[i].render(this.game);
 		}
 	}
 
@@ -75,29 +26,29 @@ class BulletEmitter {
 	{
 		if (from == 'player')
 		{
-			for(let i = 0; i < this.enemys.length; i++)
+			for(let enemy of this.game.getEnemyEmitter().getEnemys()) 
 			{
-				if (!this.enemys[i].die)
+				if (!enemy.die)
 				{
-					let distX = Math.floor(this.enemys[i].x - x);
-					let distY = Math.floor(this.enemys[i].y - y);
+					let distX = Math.floor(enemy.x - x);
+					let distY = Math.floor(enemy.y - y);
 
 					let len   = Math.sqrt(distX * distX + distY * distY);
 					let dist  = Math.abs(distX + distY);
 
 					if (dist <= 300)
 					{
-						for(let i = 0; i < this.bullets.length; i++) // ищем свободный патрон в массиве
+						for(let bullet of this.bullets) 
 						{
-							if (!this.bullets[i].active) // Если нашли то активируем
+							if (!bullet.active) // Если нашли то активируем
 							{
-								this.bullets[i].active = true;
-								this.bullets[i].x      = x;
-								this.bullets[i].y      = y;
-								this.bullets[i].dx     = distX/len;
-								this.bullets[i].dy     = distY/len;
-								this.bullets[i].dmg    = 10;
-								this.bullets[i].from   = from;
+								bullet.active = true;
+								bullet.x      = x;
+								bullet.y      = y;
+								bullet.dx     = distX/len;
+								bullet.dy     = distY/len;
+								bullet.dmg    = 10;
+								bullet.from   = from;
 								return;
 							}
 						}
@@ -107,25 +58,25 @@ class BulletEmitter {
 			}
 		} else if (from == 'enemy')
 		{
-			let distX = Math.floor(this.player.x - x);
-			let distY = Math.floor(this.player.y - y);
+			let distX = Math.floor(this.game.getPlayer().x - x);
+			let distY = Math.floor(this.game.getPlayer().y - y);
 
 			let len   = Math.sqrt(distX * distX + distY * distY);
 			let dist  = Math.abs(distX + distY);
 
 			if (dist <= 300)
 			{
-				for(let i = 0; i < this.bullets.length; i++) // ищем свободный патрон в массиве
+				for(let bullet of this.bullets) 
 				{
-					if (!this.bullets[i].active) // Если нашли то активируем
+					if (!bullet.active) // Если нашли то активируем
 					{
-						this.bullets[i].active = true;
-						this.bullets[i].x      = x;
-						this.bullets[i].y      = y;
-						this.bullets[i].dx     = distX/len;
-						this.bullets[i].dy     = distY/len;
-						this.bullets[i].dmg    = 10;
-						this.bullets[i].from   = from;
+						bullet.active = true;
+						bullet.x      = x;
+						bullet.y      = y;
+						bullet.dx     = distX/len;
+						bullet.dy     = distY/len;
+						bullet.dmg    = 10;
+						bullet.from   = from;
 						return;
 					}
 				}

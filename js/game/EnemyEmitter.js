@@ -1,10 +1,9 @@
 class EnemyEmitter {
-	constructor(ctx, enemys, bulletEmitter) 
+	constructor(game, enemys) 
 	{
-		this.ctx = ctx;
+		this.game = game;
 
-		this.enemys        = enemys;
-		this.bulletEmitter = bulletEmitter;
+		this.enemys = enemys;
 	}
 
 	update(dt)
@@ -13,7 +12,7 @@ class EnemyEmitter {
 		{
 			if (!this.enemys[i].die)
 			{
-				this.enemys[i].update(dt, this.bulletEmitter);
+				this.enemys[i].update(dt);
 			}
 		}
 	}
@@ -24,9 +23,14 @@ class EnemyEmitter {
 		{
 			if (!this.enemys[i].die)
 			{
-				this.enemys[i].render(this.ctx);
+				this.enemys[i].render();
 			}
 		}
+	}
+
+	getEnemys()
+	{
+		return this.enemys;
 	}
 }
 

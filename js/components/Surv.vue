@@ -30,40 +30,36 @@
 
 		            if (window.location.pathname == '/') window.requestAnimationFrame(Game.loop);
 		        },
-
 		        update: function(dt)
 		        {
-		            this.gameLive.update(dt);
-		            this.enemyEmitter.update(dt);
-		            this.player.update(dt);
-		            this.bulletEmitter.update(dt);
-		            this.camera.update(dt);
+		            this.GameLive.update(dt);
+		            this.EnemyEmitter.update(dt);
+		            this.Player.update(dt);
+		            this.BulletEmitter.update(dt);
+		            this.Camera.update(dt);
 		            
 		            Updater.pagedate(dt, this, Utils);
 		        },
-
 		        render()
 		        {
 		            // Game
 		            this.ctx.save();
-		            this.ctx.translate(-this.camera.x, -this.camera.y);
+		            this.ctx.translate(-this.Camera.x, -this.Camera.y);
 
-		                    this.world.render();
-		                    this.enemyEmitter.render();
-		                    this.player.render();
-		                    this.bulletEmitter.render();
+		                    this.World.render();
+		                    this.EnemyEmitter.render();
+		                    this.Player.render();
+		                    this.BulletEmitter.render();
 
 		            this.ctx.restore();
 
-		            this.gameLive.render();
+		            this.GameLive.render();
 		        },
-
 		        start()
 		        {
 		            Game.loop();
 		            document.getElementById('game_canv_loader').style.display = 'none'; // Загрузка...
 		        },
-
 		        create()
 		        {
 		            // Sys
@@ -80,32 +76,31 @@
 		            // Game
 		            this.loc = {width: 1024, height: 1024};
 
-		            this.gameLive = new GameLive(this.ctx, this.canv, this.data);
-		            this.player   = new Player(this, this.ctx, this.data, this.loc, this.sprites['pl']);
-		            this.camera   = new Camera(this.canv, 0, 0, this.loc, this.player);
-		            this.world    = new GameWorld(this.ctx, this.sprites, this.data);
+		            this.GameLive = new GameLive(this);
+		            this.Player   = new Player(this, this.sprites['pl']);
+		            this.Camera   = new Camera(this);
+		            this.World    = new GameWorld(this, this.sprites);
 
-		            this.bullets = [];
+		            let bullets = [];
 		            for(let i = 0; i <= 100; i++) 
-		            { this.bullets.push(new Bullet()); }
+		            { bullets.push(new Bullet()); }
 
-		            this.enemys = [];
-		            for(let i = 0; i < 1; i++)
+		            let enemys = [];
+		            for(let i = 0; i < 2; i++)
 		            {
-		            	this.enemys.push(new Enemy({width: 1024, height: 1024}, {x: 100, y: 100, dx: 0, dy: 0, nm: 'HasM', s: 60, hp: 100, die: false, img: this.sprites['pl']}));
+		            	enemys.push(new Enemy(this, {x: 100, y: 100, dx: 0, dy: 0, nm: 'HasM', s: 60, hp: 100, die: false, img: this.sprites['pl']}));
 		            }
-		            this.bulletEmitter = new BulletEmitter(this.ctx, this.canv, this.player, this.camera, this.enemys, this.bullets);
-		            this.enemyEmitter  = new EnemyEmitter(this.ctx, this.enemys, this.bulletEmitter);
+		            this.BulletEmitter = new BulletEmitter(this, bullets);
+		            this.EnemyEmitter  = new EnemyEmitter(this, enemys);
 
-		            this.weathers = this.data.sys.weathers;
-		            this.temps    = this.data.sys.temps;
-		            this.locs     = this.data.sys.locs;
+		            this.weathers = this.AjaxData.sys.weathers;
+		            this.temps    = this.AjaxData.sys.temps;
+		            this.locs     = this.AjaxData.sys.locs;
 
 		            this.timer    = setInterval(() => Updater.update(Game), 5000);
 
 		            this.start();
 		        },
-
 		        load()
 		        {
 		        	let params = new FormData();
@@ -114,14 +109,13 @@
 		    		axios.post('/core/GameLoad/?action=load', params)
 		    		.then((response) => 
 		    		{
-		    			Game.data    = response.data;
-
-		                let sprites  = 
+		                let sprites = 
 		                [
-		                    {nm: 'pl', path: '/assets/game/'}, 
-		                    {nm: 'loc_' + Game.data.game.loc, path: '/assets/game/'}
+		                    {nm: 'pl', path: '/assets/game/'},
+		                    {nm: 'loc_' + response.data.game.loc, path: '/assets/game/'}
 		                ];
-		                Game.sprites = Resources.loadSprites(sprites);
+		                Game.AjaxData = response.data;
+		                Game.sprites  = Resources.loadSprites(sprites);
 
 		                let check = setInterval(() => 
 		                {
@@ -132,7 +126,18 @@
 		                	}
 		                }, 1);
 		    		})
-		        }
+		        },
+		        getCanv() { return this.canv },
+		        getCtx() { return this.ctx },
+		        getPlayer() { return this.Player },
+		        getGameLive() { return this.GameLive },
+		        getCamera() { return this.Camera },
+		        getWorld() { return this.World },
+		        getAjaxData() { return this.AjaxData },
+		        getLoc() { return this.loc },
+		        getBulletEmitter() { return this.BulletEmitter },
+		        getEnemyEmitter() { return this.EnemyEmitter }
+
 		    }; // end of game
 
 		    Updater.start();

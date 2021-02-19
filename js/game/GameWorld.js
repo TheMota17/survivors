@@ -1,25 +1,22 @@
 class GameWorld {
-	constructor(ctx, sprites, data)
+	constructor(game, sprites)
 	{	
-		this.ctx          = ctx;
-
-		this.sprites      = sprites;
-		this.loc          = data.game.loc;
-		this.loc_explored = data.game.loc_explored;
+		this.game    = game;
+		this.sprites = sprites;
 	}
 
 	render()
 	{
-		this.ctx.drawImage(
-			this.sprites['loc_' + this.loc],
+		this.game.getCtx().drawImage(
+			this.sprites['loc_' + this.game.getAjaxData().game.loc],
 			0,
 			0,
-			this.sprites['loc_' + this.loc].width,
-			this.sprites['loc_' + this.loc].height,
+			this.sprites['loc_' + this.game.getAjaxData().game.loc].width,
+			this.sprites['loc_' + this.game.getAjaxData().game.loc].height,
 			0,
 			0,
-			this.sprites['loc_' + this.loc].width,
-			this.sprites['loc_' + this.loc].height
+			this.sprites['loc_' + this.game.getAjaxData().game.loc].width,
+			this.sprites['loc_' + this.game.getAjaxData().game.loc].height
 		);
 	}
 }

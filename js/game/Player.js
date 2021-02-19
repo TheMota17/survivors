@@ -1,28 +1,25 @@
 class Player {
-	constructor(game, ctx, data, loc, img)
+	constructor(game, img)
 	{	
 		this.game          = game;
-		this.ctx           = ctx;
 
-		this.x             = data.game.x;
-		this.y             = data.game.y;
+		this.x             = this.game.getAjaxData().game.x;
+		this.y             = this.game.getAjaxData().game.y;
 		this.s             = 100; // speed
-		this.hp            = data.game.hp;
-		this.hung          = data.game.hung;
-		this.thirst        = data.game.thirst;
-		this.fatigue       = data.game.fatigue;
-		this.maxTimeToFire = data.game.maxTimeToFire;
+		this.hp            = this.game.getAjaxData().game.hp;
+		this.hung          = this.game.getAjaxData().game.hung;
+		this.thirst        = this.game.getAjaxData().game.thirst;
+		this.fatigue       = this.game.getAjaxData().game.fatigue;
+		this.maxTimeToFire = this.game.getAjaxData().game.maxTimeToFire;
 		this.timeToFire    = this.maxTimeToFire;
 
-		this.hungTime    = data.game.hungTime;
-		this.thirstTime  = data.game.thirstTime;
-		this.fatigueTime = data.game.fatigueTime;
+		this.hungTime    = this.game.getAjaxData().game.hungTime;
+		this.thirstTime  = this.game.getAjaxData().game.thirstTime;
+		this.fatigueTime = this.game.getAjaxData().game.fatigueTime;
 
 		this.img     = img;
 		this.width   = img.width;
 		this.height  = img.height;
-
-		this.loc = loc;
 
 		this.left  = false;
 		this.right = false;
@@ -41,7 +38,7 @@ class Player {
 		{
 			if (e.type == 'keydown')
 			{
-				this.game.bulletEmitter.activate((this.x + 5), this.y, 'player');
+				this.game.getBulletEmitter().activate(this.x, this.y, 'player');
 			}
 		} else 
 		{
@@ -148,7 +145,7 @@ class Player {
 		{
 			this.x += -1 * (this.s * dt);
 		} 
-		if (this.right && (this.x + this.width/2) < this.loc.width) 
+		if (this.right && (this.x + this.width/2) < this.game.getLoc().width) 
 		{
 			this.x += 1 * (this.s * dt);
 		} 
@@ -156,7 +153,7 @@ class Player {
 		{
 			this.y += -1 * (this.s * dt);
 		} 
-		if (this.down && (this.y + this.height/2) < this.loc.height)
+		if (this.down && (this.y + this.height/2) < this.game.getLoc().height)
 		{
 			this.y += 1 * (this.s * dt);
 		}
@@ -166,15 +163,15 @@ class Player {
 
 	render()
 	{
-		this.ctx.fillStyle = '#dac09c';
-		this.ctx.fillText('Вы', (this.x - this.ctx.measureText('Вы').width/2), this.y - 16);
+		this.game.getCtx().fillStyle = '#dac09c';
+		this.game.getCtx().fillText('Вы', (this.x - this.game.getCtx().measureText('Вы').width/2), this.y - 16);
 
-		this.ctx.fillStyle = 'black';
-		this.ctx.fillRect((this.x - this.width/2) - 12, this.y - 14, 43, 3);
-		this.ctx.fillStyle = 'green';
-		this.ctx.fillRect((this.x - this.width/2) - 10, this.y - 14, this.hpPercent(), 1);
+		this.game.getCtx().fillStyle = 'black';
+		this.game.getCtx().fillRect((this.x - this.width/2) - 12, this.y - 14, 43, 3);
+		this.game.getCtx().fillStyle = 'green';
+		this.game.getCtx().fillRect((this.x - this.width/2) - 10, this.y - 14, this.hpPercent(), 1);
 
-		this.ctx.drawImage(this.img, 0, 0, this.width, this.height, this.x - this.width/2, this.y - this.height/2, this.width, this.height);
+		this.game.getCtx().drawImage(this.img, 0, 0, this.width, this.height, this.x - this.width/2, this.y - this.height/2, this.width, this.height);
 	}
 
 	changeAllCharacts(dt)

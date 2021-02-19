@@ -20,19 +20,19 @@
 
         }
 
-        public function get_user() {
+        public function getUser() {
 
             return $this->user;
 
         }
 
-        public function get_game() {
+        public function getGame() {
 
             return $this->game;
 
         }
 
-        public function user_info($type, $data) {
+        public function userInfo($type, $data) {
 
             switch($type) {
                 case 'userinfo':

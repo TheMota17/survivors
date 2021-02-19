@@ -177,6 +177,6 @@
     }
 
     if ($Utils::checkSession() && $Utils::checkToken()) {
-        $Game_load = new GameLoad($Pdo, $config, $game_weathers, $game_temps, $game_locs, $game_items, $User->get_user(), $User->get_game());
-        $Game_load->main();
+        $GameLoad = new GameLoad($Pdo, $config, $game_weathers, $game_temps, $game_locs, $game_items, $User->getUser(), $User->getGame());
+        $GameLoad->main();
     }

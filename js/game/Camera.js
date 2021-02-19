@@ -1,23 +1,23 @@
 class Camera {
-	constructor(canv, x, y, loc, player) 
+	constructor(game) 
 	{
-		this.viewWidth  = canv.width;
-		this.viewHeight = canv.height;
-		this.x          = x;
-		this.y          = y;
-		this.loc        = loc;
-		this.player     = player;
+		this.game = game;
+
+		this.viewWidth  = this.game.getCanv().width;
+		this.viewHeight = this.game.getCanv().height;
+		this.x          = 0;
+		this.y          = 0;
 	}
 
 	update(dt)
 	{
-		this.x = this.player.x - this.viewWidth  / 2;
-		this.y = this.player.y - this.viewHeight / 2;
+		this.x = this.game.getPlayer().x - this.viewWidth  / 2;
+		this.y = this.game.getPlayer().y - this.viewHeight / 2;
 
 		if (this.x <= 0) this.x = 0;
-		if (this.x + this.viewWidth >= this.loc.width) this.x = this.loc.width - this.viewWidth;
+		if (this.x + this.viewWidth >= this.game.getLoc().width) this.x = this.game.getLoc().width - this.viewWidth;
 		if (this.y <= 0) this.y = 0;
-		if (this.y + this.viewHeight >= this.loc.height) this.y = this.loc.height - this.viewHeight;
+		if (this.y + this.viewHeight >= this.game.getLoc().height) this.y = this.game.getLoc().height - this.viewHeight;
 	}
 }
 

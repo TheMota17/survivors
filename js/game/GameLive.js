@@ -1,13 +1,12 @@
 class GameLive {
-	constructor(ctx, canv, data)
+	constructor(game)
 	{
-		this.ctx         = ctx;
-		this.canv        = canv;
+		this.game = game;
 
-		this.time        = data.game.time;
-		this.weather     = data.game.weather;
-		this.temp        = data.game.temp;
-		this.weatherTime = data.game.weatherTime;
+		this.time        = this.game.getAjaxData().game.time;
+		this.weather     = this.game.getAjaxData().game.weather;
+		this.temp        = this.game.getAjaxData().game.temp;
+		this.weatherTime = this.game.getAjaxData().game.weatherTime;
 
 		this.rain = [];
 		this.snow = [];
@@ -69,15 +68,15 @@ class GameLive {
 			case 3:
 				for(let i = 0; i < this.rain.length; i++)
 				{
-					this.ctx.fillStyle = 'white';
-					this.ctx.fillRect(this.rain[i].x, this.rain[i].y, 1, 1);
+					this.game.getCtx().fillStyle = 'white';
+					this.game.getCtx().fillRect(this.rain[i].x, this.rain[i].y, 1, 1);
 				}
 			break;
 			case 5:
 				for(let i = 0; i < this.snow.length; i++)
 				{
-					this.ctx.fillStyle = 'white';
-					this.ctx.fillRect(this.snow[i].x, this.snow[i].y, 2, 2);
+					this.game.getCtx().fillStyle = 'white';
+					this.game.getCtx().fillRect(this.snow[i].x, this.snow[i].y, 2, 2);
 				}
 			break;
 		}
@@ -86,12 +85,12 @@ class GameLive {
 		{
 			if (this.time < 14400 || this.time > 72000) 
 			{
-				this.ctx.fillStyle = 'rgba(30, 29, 29, 0.6)';
+				this.game.getCtx().fillStyle = 'rgba(30, 29, 29, 0.6)';
     		} else 
     		{
-    			this.ctx.fillStyle = 'rgba(30, 29, 29, 0.3)';
+    			this.game.getCtx().fillStyle = 'rgba(30, 29, 29, 0.3)';
     		}
-    		this.ctx.fillRect(0, 0, this.canv.width, this.canv.height);
+    		this.game.getCtx().fillRect(0, 0, this.game.getCanv().width, this.game.getCanv().height);
 		}
 	}
 

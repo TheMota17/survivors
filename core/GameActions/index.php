@@ -22,7 +22,7 @@
             
     	}
 
-        public function item_substr($id_item, $colvo) {
+        public function itemSubstr($id_item, $colvo) {
 
             $substr = $this->pdo->query('UPDATE `invent` SET `colvo` = ? WHERE `id` = ?', array(($colvo - 1), $id_item));
 
@@ -337,7 +337,7 @@
 
         public function eat() {
 
-            if ($this->id_item) $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
+            if ($this->id_item) $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `in_chest` = 0 AND `user_id` = ?', array($this->id_item, $this->user['id']));
 
             if ($item && $item['colvo'] > 0) {
                 if ($this->game->hung < $this->items[ 1 ][ $item['item'] ]['eff']['hung']) {
@@ -350,7 +350,7 @@
 
                     $eat = $this->pdo->query('UPDATE `users` SET `game` = ? WHERE `id` = ?', array(json_encode($this->game), $this->user['id']));
 
-                    $this->item_substr($item['id'], $item['colvo']);
+                    $this->itemSubstr($item['id'], $item['colvo']);
 
                     if ($item['colvo'] == 1) {
                         $this->answer('page', 'invent');
@@ -365,7 +365,7 @@
 
         public function drink() {
 
-            if ($this->id_item) $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
+            if ($this->id_item) $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `in_chest` = 0 AND `user_id` = ?', array($this->id_item, $this->user['id']));
 
             if ($item && $item['colvo'] > 0) {
                 if ($this->game->thirst < $this->items[ 1 ][ $item['item'] ]['eff']['thirst']) {
@@ -381,7 +381,7 @@
 
                     $drink = $this->pdo->query('UPDATE `users` SET `game` = ? WHERE `id` = ?', array(json_encode($this->game), $this->user['id']));
 
-                    $this->item_substr($item['id'], $item['colvo']);
+                    $this->itemSubstr($item['id'], $item['colvo']);
                     if ($item['colvo'] == 1) {
                         $this->answer('page', 'invent');
                     } else $this->answer('reload', false);
@@ -476,10 +476,10 @@
                     if ($all_items == $all_exist) {
                         for($i = 0; $i < count( $items ); $i++) {
                             // Убераем из инвентаря необходимые вещи для крафта
-                            $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(($items[$i]['colvo'] - $items_colvo[ $i ]), $items[$i]['item'], $items[$i]['type'], $this->user['id']));
+                            $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `in_chest` = 0 AND `user_id` = ?', array(($items[$i]['colvo'] - $items_colvo[ $i ]), $items[$i]['item'], $items[$i]['type'], $this->user['id']));
                         }
                         // Добавляем создаваемый предмет в инвентарь
-                        $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array($this->item, $this->type, $this->user['id']));
+                        $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `in_chest` = 0 AND `user_id` = ?', array($this->item, $this->type, $this->user['id']));
                         if ($item) {
                             $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(($item['colvo'] + $this->colvo), $this->item, $this->type, $this->user['id']));
                         } else {
@@ -502,7 +502,7 @@
 
             if ($this->id_item) {
 
-                $item_invent = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->id_item, $this->user['id']));
+                $item_invent = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `in_chest` = 0 AND `user_id` = ?', array($this->id_item, $this->user['id']));
                 if ($item_invent) {
                     $item = $this->items[ $item_invent['type'] ][ $item_invent['item'] ];
                     if ($item['craft_lvl'] < $this->user['craft_lvl']) {
@@ -553,7 +553,7 @@
 
                 // Проверка на соответсвие предметов
                 foreach ($this->refuges[ $refuge['lvl'] + 1 ]['craft_items'] as $ci) {
-                    $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `colvo` >= ? AND `user_id` = ?', array($ci['item'], $ci['type'], $ci['colvo'], $this->user['id']));
+                    $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `in_chest` = 0 AND `colvo` >= ? AND `user_id` = ?', array($ci['item'], $ci['type'], $ci['colvo'], $this->user['id']));
                     if ($item) {
                         array_push($items, $item);
                         array_push($items_colvo, $ci['colvo']);
@@ -564,7 +564,7 @@
                 if ($all_items == $all_exist) {
                     for($i = 0; $i < count( $items ); $i++) {
                         // Убераем из инвентаря необходимые вещи для крафта
-                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(($items[$i]['colvo'] - $items_colvo[ $i ]), $items[$i]['item'], $items[$i]['type'], $this->user['id']));
+                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `in_chest` = 0 AND `user_id` = ?', array(($items[$i]['colvo'] - $items_colvo[ $i ]), $items[$i]['item'], $items[$i]['type'], $this->user['id']));
                     }
                     
                     // Повышаем уровень убежища
@@ -727,7 +727,6 @@
                     $this->srchLut();
                 break;
                 case 'eat':
-                echo 1;
                     $this->id_item = htmlspecialchars( intval( $_POST['id_item'] ) );
                     $this->eat();
                     break;
@@ -775,6 +774,6 @@
     }
 
     if ($Utils::checkSession() && $Utils::checkToken()) {
-        $AllActions = new GameActions($Pdo, $game_items, $game_locs, $game_action_times, $game_crafts, $game_weathers, $game_temps, $game_refuges, $User->get_user(), $User->get_game());
-        $AllActions->main();
+        $GameActions = new GameActions($Pdo, $game_items, $game_locs, $game_action_times, $game_crafts, $game_weathers, $game_temps, $game_refuges, $User->getUser(), $User->getGame());
+        $GameActions->main();
     }

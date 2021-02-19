@@ -16,6 +16,7 @@
     let Item      = httpVueLoader('./js/views/Item.vue?_='+date)
     let Craft     = httpVueLoader('./js/views/Craft.vue?_='+date)
     let Refuge    = httpVueLoader('./js/views/Refuge.vue?_='+date)
+    let Chat      = httpVueLoader('./js/views/Chat.vue?_='+date)
 
     const routes = [
         {
@@ -54,6 +55,11 @@
             path: '/refuge',
             name: 'Refuge',
             component: Refuge
+        },
+        {
+            path: '/chat',
+            name: 'Chat',
+            component: Chat
         }
     ];
 
