@@ -28,7 +28,7 @@
 		        <div class='flex j-c mt5'>
 		            <div class='wdth96 flex j-c'>
 		                <hr class='hr-style mr5'> Инфо <hr class='hr-style ml5'>
-		            </div>      
+		            </div>
 		        </div>
 		        <div class='flex j-c ai-c mt5'>
 		            <div class='wdth96 flex j-c ai-c fl-di-co'>
@@ -92,7 +92,7 @@
                                 <img v-else src='/assets/icons/worse.png' class='item14-1 mr5' />
                             </div>
 	                    </div>
-		                    
+
 	                    <div v-if='$route.query.id' class='iteminfo-div flex ai-c mt5'>
 	                        <img src='/assets/icons/colvo.png' class='ml5 mr5 item14-1' /> Количество: {{ item[`colvo`] }}
 	                    </div>
@@ -102,7 +102,7 @@
 		        	<div class='flex j-c mt10'>
 		                <div class='wdth96 flex j-c'>
 		                    <hr class='hr-style mr5'> Боеприпасы <hr class='hr-style ml5'>
-		                </div>      
+		                </div>
 		            </div>
 		            <div class='flex j-c ai-c pt5 pb5'>
 		                <div class='wdth96 flex j-c'>
@@ -160,12 +160,12 @@
                 <div class='flex j-c mt10'>
                     <div class='wdth96 flex j-c'>
                         <hr class='hr-style mr5'> Инфо <hr class='hr-style ml5'>
-                    </div>      
+                    </div>
                 </div>
                 <div class='flex fl-di-co j-c ai-c mt5'>
                     <div class='iteminfo-div'>
                         <span class='ml5'>
-                            Тип: 
+                            Тип:
                             {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`type`] }}
                         </span>
                     </div>
@@ -196,7 +196,6 @@
 
 <script>
 let date = Date.now();
-
 let Tablo = httpVueLoader('../components/Tablo.vue?_='+date)
 let Nadet = httpVueLoader('../components/Nadet.vue?_='+date)
 let Eat   = httpVueLoader('../components/Eat.vue?_='+date)
@@ -221,20 +220,24 @@ module.exports = {
 		chest: undefined,
 		game: undefined
 	}),
-	components: {
+	components:
+	{
 		Tablo, Nadet, Eat, Drink, Read, Place, PlaceToChest, GetFromChest
 	},
-	beforeMount() {
+	beforeMount()
+	{
 		let params = new FormData();
 		params.append('id', this.$route.query.id);
     	params.append('token', localStorage.getItem('token'));
 
 		axios.post('/core/Api/?page=item', params)
 		.then((response) => {
-			if (response.data.popup) {
+			if (response.data.popup)
+			{
 				this.$root.popup.active = true;
 				this.$root.popup.text   = response.data.message;
-			} else if (response.data.page) {
+			} else if (response.data.page)
+			{
 				this.$router.push(response.data.page)
 			} else {
 				this.items  = response.data.items;
@@ -245,15 +248,19 @@ module.exports = {
 				this.game   = response.data.game;
 				this.chest  = response.data.chest;
 
-				if (!response.data.item) {
-					if (this.$route.query.type && this.$route.query.item) {
+				if (!response.data.item)
+				{
+					if (this.$route.query.type && this.$route.query.item)
+					{
 						this.item = {type: Math.floor(this.$route.query.type), item: Math.floor(this.$route.query.item)};
 
 						this.api = true;
-					} else {
+					} else
+					{
 						this.$router.push('/')
 					}
-				} else {
+				} else
+				{
 					this.item = response.data.item;
 					this.api  = true;
 				}

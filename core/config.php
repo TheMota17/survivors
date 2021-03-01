@@ -1,9 +1,10 @@
 <?php
-	$config = [
+	$config =
+	[
 		'db' => [
-			'dbname' => 'survive',
-			'name'   => 'root',
-			'pass'   => '89626545803'
+			'dbname' => 'survivors',
+			'name'   => 'mysql',
+			'pass'   => 'mysql'
 		],
 		'game' => [
 			'update_time' => 5, //Sec

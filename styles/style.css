@@ -1,15 +1,16 @@
 body {color: var(--main-3-color); background: var(--main-1-color); max-width: 500px; min-width: 240px; margin: 0 auto; font-family: 'Montserrat', 'Courier new'; font-size: 13px; overflow-x: hidden;}
+body {background-image: url('/assets/bg.png'); background-position: center bottom; background-attachment: fixed;}
 a {color: var(--main-3-color); cursor: pointer;}
 a:hover {text-decoration: underline;}
 button {cursor: pointer;}
 input::placeholder {padding: 8px; color: var(--main-2-color);}
 
 :root {
-    --main-1-color: rgb(24, 23, 23); 
+    --main-1-color: rgb(24, 23, 23);
     --main-2-color: rgb(52, 49, 42);
     --main-2-back: url('/assets/textures/2-color.png');
-    --main-3-color: rgb(127, 105, 85); 
-    --main-4-color: #dac09c; 
+    --main-3-color: rgb(127, 105, 85);
+    --main-4-color: #dac09c;
     --main-red-color: #B22222;
     --main-red2-color: #b45252;
     --main-mess-color: #d3a068;
@@ -51,7 +52,7 @@ input::placeholder {padding: 8px; color: var(--main-2-color);}
 .close-btn {width: 90px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: box-shadow 0.2s; border-radius: 5px; margin-top: 15px;}
 .close-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
-.menu {position: fixed; top: 0; right: 0; width: 200px; height: 100vh; margin-top: 25px; background: var(--main-2-back); display: flex; align-items: center; justify-content: center; transition: 0.2s linear; transform: translateX(100%); border-left: 1px solid var(--main-3-color); z-index: 9999;}
+.menu {position: fixed; top: 0; right: 0; width: 200px; height: 100vh; margin-top: 25px; background: var(--main-2-back); display: flex; align-items: center; justify-content: center; transition: 0.2s linear; transform: translateX(100%);  box-shadow: inset 2px 0px 5px var(--main-1-color); z-index: 9999;}
 .menu-list {width: 100%; height: 100%; overflow-y: auto;}
 .menu-zag {background: var(--main-1-color); border-radius: 3px; padding-top: 2px; padding-bottom: 2px;}
 .menu-a {width: 100%; height: 30px; display: flex; justify-content: flex-start; align-items: center; border-radius: 3px; transition: .2s;}
@@ -61,7 +62,7 @@ input::placeholder {padding: 8px; color: var(--main-2-color);}
 .menu-target {width: 100%; height: 100vh; background: var(--main-1-color); opacity: .7; position: fixed; top: 0; left: 0; z-index: 8888; transform: translateX(100%);}
 .menu_target_active {transform: translateX(0%);}
 
-.info-table {width: 100%; height: 25px; position: fixed; top: 0; left: 0; z-index: 9999; border-bottom: 1px solid var(--main-3-color);}
+.info-table {width: 100%; height: 25px; position: fixed; top: 0; left: 0; z-index: 9999; box-shadow: 0px 2px 5px var(--main-1-color);}
 
 .hr-style {width: 100%; height: 1px; background: var(--main-1-color); margin-top: 8px; border: 0; clear: both; display: block;}
 
@@ -75,7 +76,7 @@ input::placeholder {padding: 8px; color: var(--main-2-color);}
 .epic_border {width: 32px; height: 32px; background: url('/assets/icons/ivent-epic-border.png') top/cover no-repeat;}
 .legend_border {width: 32px; height: 32px; background: url('/assets/icons/ivent-legend-border.png') top/cover no-repeat;}
 
-.sort-menu {width: 96%; height: 50px; background: var(--main-2-back); border-radius: 3px; border: 1px solid var(--main-3-color); padding: 5px; overflow: auto;}
+.sort-menu {width: 96%; height: 50px; background: var(--main-2-back); border-radius: 3px; border: 2px solid var(--main-1-color); padding: 5px; overflow: auto;}
 .sort-menu button {width: 100px; height: 25px; color: var(--main-3-color); background: var(--main-1-color); padding: 4px; border-radius: 3px;}
 .sort-btn {color: var(--main-3-color); background: var(--main-2-back); border: 1px solid var(--main-3-color); padding: 1px 5px; border-radius: 2px;}
 
@@ -91,39 +92,39 @@ input::placeholder {padding: 8px; color: var(--main-2-color);}
 .logo {width: 100%; border-radius: 5px;}
 .auth-info {text-align: center; font-size: 15px; transform: translateY(-20px); text-shadow: 0 0 1px var(--main-mess-color);}
 
-.input {min-width: 150px; height: 25px; border-radius: 5px; outline: none; background: var(--main-1-color); color: var(--main-3-color); text-align: center;}
+.input {min-width: 150px; height: 25px; border-radius: 5px; outline: none; background: var(--main-2-back); color: var(--main-1-color); text-align: center;}
 
-.auth-reg {width: 90%; background: var(--main-2-back); border-radius: 5px 5px 0 0; box-shadow: 0px 0px 10px var(--main-2-color);}
+.auth-reg {width: 90%; border-radius: 5px 5px 0px 0px;}
 .auth-reg-zag {width: 96%; height: 26px; background: var(--main-1-color); color: var(--main-mess-color); border-radius: 5px;}
-.auth-reg-form button {width: 90px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
+.auth-reg-form button {width: 90px; height: 25px; outline: none; border: none; background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
 .auth-reg-form button:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
-.auth-enter {width: 90%; background: var(--main-2-back); border-radius: 0 0 5px 5px; box-shadow: 0px 0px 20px var(--main-2-color);}
+.auth-enter {width: 90%; border-radius: 0px 0px 5px 5px;}
 .auth-enter-zag {width: 96%; height: 26px; background: var(--main-1-color); border-radius: 5px;}
-.auth-enter-form {width: 100%; background: var(--main-2-back); border-radius: 0px 0px 5px 5px;}
-.auth-enter-form button {width: 90px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
+.auth-enter-form {width: 100%; border-radius: 0px 0px 5px 5px;}
+.auth-enter-form button {width: 90px; height: 25px; outline: none; border: none; background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
 .auth-enter-form button:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
 /* РЕДАКТИРОВАНИЕ ПЕРСОНАЖА */
-.pers-maneken {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
+.pers-maneken {width: 96%; border-radius: 5px; border: 1px solid var(--main-1-color);}
 .maneken {width: 90px; height: 154px; background: url('/assets/decor/maneken-back.png') no-repeat top/cover;}
 .man {position: absolute; z-index: 1;}
 
-.cost-zag {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
-.cost-message {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color); color: var(--main-mess-color);}
+.cost-zag {width: 96%; border-radius: 5px; border: 1px solid var(--main-1-color);}
+.cost-message {width: 96%; border-radius: 5px; border: 1px solid var(--main-1-color); color: var(--main-mess-color);}
 .cost-elem-name {width: 96%; background: var(--main-1-color); border-radius: 3px; padding-top: 3px; padding-bottom: 3px;}
 .cost-prevnext-btn {min-width: 30px; height: 22px; display: flex; justify-content: center; align-items: center; border-radius: 5px; background: var(--main-3-color); color: var(--main-1-color); padding-left: 5px; padding-right: 5px;}
 .cost-ready-btn {width: 80px; height: 30px; outline: none; border-radius: 5px; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color);}
 .cost-ready-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
-.cost-desicions {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color); padding: 5px 0;}
+.cost-desicions {width: 96%; border-radius: 5px; border: 1px solid var(--main-1-color); padding: 5px 0;}
 .cost-confirm-btn {width: 50px; height: 25px; outline: none; border-radius: 5px; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color);}
 .cost-confirm-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
 /* ИГРА */
-.game-meteoсharact {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
-.game-location {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
-.game-canvas {width: 96%; border-radius: 2px; background-color: var(--main-1-color);}
+.game-meteoсharact {width: 96%; border-radius: 5px; border: 2px solid var(--main-1-color);}
+.game-location {width: 96%; border-radius: 5px; border: 2px solid var(--main-1-color);}
+.game-canvas {width: 96%; background-color: var(--main-1-color);}
 .game-canvas-loader {width: 100%; height: 100%; position: absolute; top: 0; left: 0;}
 .game-canvas-fps {width: 100%; height: 100%; position: absolute; top: 0; left: 0; color: var(--main-4-color);}
 .fps-body {margin-left: 20px; margin-top: 5px;}
@@ -134,14 +135,14 @@ input::placeholder {padding: 8px; color: var(--main-2-color);}
 .game-avai-items {overflow-x: auto;}
 .loc-whatsrch {width: 96%;}
 
-.game-srch {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
+.game-srch {width: 96%; border: 2px solid var(--main-1-color);}
 
-.game-actions {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
+.game-actions {width: 96%; border-radius: 5px; border: 2px solid var(--main-1-color);}
 
 .game-sleep-btn {width: 100%; height: 30px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
 .game-sleep-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
-.sleep-range {border-radius: 5px; background: var(--main-1-color);}
-.sleep-range-input {width: 96%; appearance: none; height: 10px; outline: none; background: var(--main-2-back); border-radius: 5px;}
+.sleep-range {background: var(--main-1-color);}
+.sleep-range-input {width: 96%; appearance: none; height: 10px; outline: none; background: var(--main-2-back);}
 .sleep-range-input::-webkit-slider-thumb {appearance: none; width: 20px; height: 20px; background: var(--main-3-color); border-radius: 10px;}
 
 .game-btn-icon {width: 22px; height: 22px; background: var(--main-2-back); border-radius: 3px;}
@@ -149,7 +150,7 @@ input::placeholder {padding: 8px; color: var(--main-2-color);}
 .game-item-colvo {min-width: 22px; height: 22px; color: var(--main-3-color); background: var(--main-2-back); border-radius: 3px; padding: 0 2px;}
 
 /* ИНВЕНТАРЬ */
-.ivent-user {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
+.ivent-user {width: 96%; border-radius: 5px; border: 1px solid var(--main-1-color);}
 .pers-ivent-img {width: 63px; height: 126px;}
 
 .user-abs {background: var(--main-1-color); border-radius: 3px;}
@@ -169,26 +170,26 @@ input::placeholder {padding: 8px; color: var(--main-2-color);}
 .nadeto-arm {width: 96%; border-radius: 3px; padding: 5px;}
 .nadeto-weap {width: 96%; border-radius: 3px; padding: 5px;}
 
-.ivent-items {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
+.ivent-items {width: 96%; border-radius: 5px; border: 1px solid var(--main-1-color);}
 .item-div {width: 96%; border-radius: 5px; padding: 5px;}
 .item-div:hover {text-decoration: none;}
 .ivent-item-name {white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 .item-colvo {min-width: 32px; height: 32px; border-radius: 5px; padding: 0 3px;}
 .item-colvo-min {height: 15px; border-radius: 50%; padding: 0 5px; color: var(--main-1-color); background: var(--main-3-color); position: absolute; top: -5px; left: 20px;}
 
-.ivent-nav {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
+.ivent-nav {width: 96%; border-radius: 5px; border: 1px solid var(--main-1-color);}
 .nav-btn {width: 25px; height: 25px; background: var(--main-1-color); color: var(--main-3-color); display: flex; justify-content: center; align-items: center; border-radius: 3px; margin-left: 5px; margin-right: 5px;}
 
 /* ПРОСМОТР ПРЕДМЕТА */
-.item-iteminfo {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
+.item-iteminfo {width: 96%; border-radius: 5px; border: 1px solid var(--main-1-color);}
 .iteminfo-div {width: 96%; padding-top: 4px; padding-bottom: 4px; background: var(--main-1-color);}
 
-.item-moves {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
+.item-moves {width: 96%; border-radius: 5px; border: 1px solid var(--main-1-color);}
 .moves-btn {width: 86%; height: 30px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
 .moves-btn:focus {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
 /* КРАФТ */
-.craft-items {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
+.craft-items {width: 96%; border-radius: 5px; border: 2px solid var(--main-1-color);}
 .craft-item {width: 96%; border-radius: 5px;}
 .craft-item-info {width: 32px; height: 32px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
 .craft-item-info:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
@@ -201,11 +202,11 @@ input::placeholder {padding: 8px; color: var(--main-2-color);}
 .craft-back-btn:focus {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
 /* УБЕЖИЩЕ */
-.refuge-no {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
+.refuge-no {width: 96%; border-radius: 5px; border: 2px solid var(--main-1-color);}
 .refuge-no-mess {border-radius: 3px; padding: 10px 12px; box-shadow: 0px 0px 10px var(--main-1-color);}
-.refuge-back {width: 100%; height: 180px; border-radius: 5px;}
+.refuge-back {width: 100%; height: 180px;}
 .refuge-resource {border-radius: 3px;}
-.refuge-info {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
+.refuge-info {width: 96%; border-radius: 5px; border: 2px solid var(--main-1-color);}
 .refuge-hp-wrapper {width: 100%; height: 3px; background: var(--main-1-color); position: absolute; top: 0;}
 .refuge-hp-colvo {position: absolute; top: 0; border-radius: 0px 0px 3px 3px; box-shadow: 0 2px 7px var(--main-1-color);}
 .refuge-hp-bar {width: 100%; height: inherit; background: #b45252; border-radius: inherit; box-shadow: 0 2px 5px #b45252; transition: width .5s;}
@@ -216,7 +217,7 @@ input::placeholder {padding: 8px; color: var(--main-2-color);}
 .refuge-enter {width: 85%; height: 30px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
 .refuge-enter:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
-.refuge-protection-slots {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
+.refuge-protection-slots {width: 96%; border-radius: 5px; border: 2px solid var(--main-1-color);}
 .protection-slot {width: 96%; border-radius: 3px; padding: 5px;}
 
 /* ЧАТ */

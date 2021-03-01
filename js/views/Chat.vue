@@ -18,7 +18,7 @@
                     <div class='ml5'>
                         <span class='mess'>{{ mess.login }}: </span>
                         <span>{{ mess.mess }}</span>
-                        <span class='mess-time ml5'>{{ mess.convertTime }}</span>
+                        <span class='mess-time ml5'>{{ Math.floor(Date.now() / 1000) - mess.time }}</span>
                     </div>
                 </div>
             </div>
@@ -51,21 +51,26 @@ module.exports = {
 
         game: undefined,
     }),
-    components: {
+    components:
+    {
         Tablo
     },
-    beforeMount() {
+    beforeMount()
+    {
         let params = new FormData();
         params.append('token', localStorage.getItem('token'));
 
         axios.post('/core/Api/?page=chat', params)
         .then((response) => {
-            if (response.data.popup) {
+            if (response.data.popup)
+            {
                 this.$root.popup.active = true;
                 this.$root.popup.text   = response.data.message;
-            } else if (response.data.page) {
+            } else if (response.data.page)
+            {
                 this.$router.push(response.data.page)
-            } else {
+            } else
+            {
                 this.game     = response.data.game;
                 this.messages = response.data.messages;
 
@@ -76,14 +81,18 @@ module.exports = {
             console.log(error)
         })
     },
-    methods: {
-        nextPage() {
+    methods:
+    {
+        nextPage()
+        {
             this.page += 1;
         },
-        prevPage() {
+        prevPage()
+        {
             this.page -= 1;
         },
-        sendMessage() {
+        sendMessage()
+        {
             this.messages.push({
                 nick: 'Admin',
                 time: '5 сек',
@@ -91,17 +100,17 @@ module.exports = {
             })
         }
     },
-    computed: {
-        pageCount() {
+    computed:
+    {
+        pageCount()
+        {
             let l = this.messages.length, s = this.maxmess;
             return Math.ceil(l/s);
         },
-        paginatedData() {
+        paginatedData()
+        {
             const start = (this.page - 1) * this.maxmess, end = start + this.maxmess;
             return this.messages.slice(start, end);
-        },
-        convertTime() {
-
         }
     }
 }

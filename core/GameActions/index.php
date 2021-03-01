@@ -6,7 +6,7 @@
 
     	public function __construct($pdo, $items, $locs, $action_times, $crafts, $weathers, $temps, $refuges, $user, $game)
     	{
-            
+
             $this->pdo = $pdo;
 
             $this->items        = $items;
@@ -19,7 +19,7 @@
 
     		$this->user = $user;
             $this->game = $game;
-            
+
     	}
 
         public function itemSubstr($id_item, $colvo) {
@@ -102,7 +102,7 @@
                     case 3: $temp_hp = intval($time / 900); break;
                     case 4: $temp_hp = intval($time / 600); break;
                 }
-            } 
+            }
 
             $total = $hung_hp + $thirst_hp + $fatigue_hp + $temp_hp;
 
@@ -250,7 +250,7 @@
         }
 
         public function srchLoc() {
-            
+
             if ($this->user['in_refuge'] > 0) {
                 $this->message = 'Вы в убежище';
                 $this->answer('mess', 0);
@@ -394,7 +394,7 @@
         }
 
         public function nadet() {
-            
+
             if ($this->id_item) {
                 // Надеваемый предмет из инвентаря
                 $invent_item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `in_chest` = 0 AND `user_id` = ?', array($this->id_item, $this->user['id']));
@@ -457,7 +457,7 @@
                             $this->message = 'Не хватает инструментов';
                             $this->answer('mess', 0);
                         }
-                    } 
+                    }
 
                     $all_items   = count( $this->crafts[ $this->id ]['craft_items'] );
                     $all_exist   = 0;
@@ -566,7 +566,7 @@
                         // Убераем из инвентаря необходимые вещи для крафта
                         $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `in_chest` = 0 AND `user_id` = ?', array(($items[$i]['colvo'] - $items_colvo[ $i ]), $items[$i]['item'], $items[$i]['type'], $this->user['id']));
                     }
-                    
+
                     // Повышаем уровень убежища
                     $this->pdo->query('UPDATE refuge SET `lvl` = ?, `hp` = ? WHERE `user_id` = ?', array($refuge['lvl'] + 1, $this->refuges[ $refuge['lvl'] + 1 ]['maxhp'], $this->user['id']));
 
@@ -606,7 +606,7 @@
 
                 if ($this->refuges[ $refuge['lvl'] ][ $type_name ] > 0) {
                     if (count($slots_elems[ $type_name ]) < $this->refuges[ $refuge['lvl'] ][ $type_name ]) {
-                        
+
                         // Если тип надеваемого предмета Инструменты
                         if ($item['reftype'] == 1) {
                             // Проверяем, есть ли такой предмет уже в слотах или нет
@@ -720,7 +720,7 @@
     	public function main() {
 
             switch($_GET['action']) {
-                case 'srchloc': 
+                case 'srchloc':
                     $this->srchLoc();
                     break;
                 case 'srchlut':
@@ -770,10 +770,11 @@
             }
 
     	}
-        
+
     }
 
-    if ($Utils::checkSession() && $Utils::checkToken()) {
+    if ($Utils::checkSession() && $Utils::checkToken())
+    {
         $GameActions = new GameActions($Pdo, $game_items, $game_locs, $game_action_times, $game_crafts, $game_weathers, $game_temps, $game_refuges, $User->getUser(), $User->getGame());
         $GameActions->main();
     }

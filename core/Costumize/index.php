@@ -4,54 +4,63 @@
 
     Class Costumize {
 
-        public function __construct($pdo, $hair, $beard, $cloth, $pants, $fwear) 
+        public function __construct($Pdo)
         {
 
-            $this->pdo = $pdo;
-
-            $this->user = $this->pdo->fetch('SELECT * FROM `users` WHERE `id` = ?', array( $_SESSION['user'] ));
-
-            $this->hair  = htmlspecialchars( intval( $hair ) );
-            $this->beard = htmlspecialchars( intval( $beard ) );
-            $this->cloth = htmlspecialchars( intval( $cloth ) );
-            $this->pants = htmlspecialchars( intval( $pants ) );
-            $this->fwear = htmlspecialchars( intval( $fwear ) );
+            $this->pdo = $Pdo;
 
         }
-        
-        public function save() {
 
-            if ($this->user[ 'costumize' ] == 0) {
-                $this->pdo->query('UPDATE `nadeto` SET `hair` = ?, `beard` = ?, `cloth` = ?, `pants` = ?, `fwear` = ? WHERE `user_id` = ?', 
-                array($this->hair, $this->beard, $this->cloth, $this->pants, $this->fwear, $this->user['id']));
-                
-                $this->pdo->query('UPDATE `users` SET `costumize` = ? WHERE `id` = ?', array(1, $this->user['id']));
-            }
-            $this->answer('page', '/');
-            
+        public function userNotCostumized($user)
+        {
+            if ($user['costumize'] == 0) return true;
         }
 
-        public function answer($ans, $page) {
+        public function costumizeUser($user, $hair, $beard, $cloth, $pants, $fwear)
+        {
+            $this->pdo->query('UPDATE `nadeto` SET `hair` = ?, `beard` = ?, `cloth` = ?, `pants` = ?, `fwear` = ? WHERE `user_id` = ?',array(
+                $hair, $beard, $cloth, $pants, $fwear, $user['id']
+            ));
 
-            switch( $ans ) {
-                case 'page':
-                    exit( json_encode( ['page' => $page] ) );
-                break;
+            $this->pdo->query('UPDATE `users` SET `costumize` = ? WHERE `id` = ?', array(1, $user['id']));
+        }
+
+        public function locateUserToPage($page)
+        {
+            exit(json_encode(['page' => $page, 'token' => isset($_SESSION['token']) ]));
+        }
+
+        public function answer($type, $message)
+        {
+            switch($type)
+            {
                 case 'mess':
-                    exit( json_encode( ['message' => $this->message, 'popup' => true] ) );
+                    exit(json_encode( ['message' => $message, 'popup' => true] ));
                 break;
             }
-
         }
 
-        public function main() {
+        public function main()
+        {
+            $hair  = htmlspecialchars( intval( $_POST['hair'] ) );
+            $beard = htmlspecialchars( intval( $_POST['beard'] ) );
+            $cloth = htmlspecialchars( intval( $_POST['cloth'] ) );
+            $pants = htmlspecialchars( intval( $_POST['pants'] ) );
+            $fwear = htmlspecialchars( intval( $_POST['fwear'] ) );
 
-            $this->save();
+            $user = $this->pdo->fetch('SELECT * FROM `users` WHERE `id` = ?', array($_SESSION['user']));
 
+            if ($this->userNotCostumized($user))
+            {
+                $this->costumizeUser($user, $hair, $beard, $cloth, $pants, $fwear);
+            }
+
+            $this->answer('page', '/');
         }
     }
 
-    if ($Utils::checkSession() && $Utils::checkToken()) {
-        $Costumize = new Costumize($Pdo, $_POST['hair'], $_POST['beard'], $_POST['cloth'], $_POST['pants'], $_POST['fwear']);
+    if ($Utils::checkSession() && $Utils::checkToken())
+    {
+        $Costumize = new Costumize($Pdo);
         $Costumize->main();
     }

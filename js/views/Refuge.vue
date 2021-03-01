@@ -1,7 +1,7 @@
 <template>
 	<div v-if='api'>
 		<tablo :hp='game.hp' :hung='game.hung' :thirst='game.thirst' :fatigue='game.fatigue'></tablo>
-	    <div v-if='refuge[`lvl`] == 0' class='flex j-c ai-c mt10'>
+	    <div v-if='refuge[`lvl`] == 0' class='flex j-c ai-c mt5'>
 	        <div class='refuge-no backgr2 flex j-c ai-c fl-di-co pb5'>
 	            <div class='refuge-back flex j-c ai-c' :style='{background: "url(" + locs[ 1 ][`img`] + ") no-repeat top/cover"}'>
 	                <div class='refuge-no-mess backgr1 flex j-c ai-c'>
@@ -30,7 +30,7 @@
 	        </div>
 	    </div>
 	    <div v-else>
-		    <div class='flex j-c ai-c mt10'>
+		    <div class='flex j-c ai-c mt5'>
 		        <div class='refuge-info backgr2 flex j-c ai-c fl-di-co pt5 pb5'>
 		            <div class='wdth96 flex j-c'>
 		                <hr class='hr-style mr5'> Убежище <hr class='hr-style ml5'>
@@ -86,7 +86,7 @@
 		        </div>
 		    </div>
 
-		    <div class='flex j-c ai-c fl-di-co mt10'>
+		    <div class='flex j-c ai-c fl-di-co mt5'>
 		        <div class='refuge-protection-slots backgr2 flex j-c ai-c fl-di-co mt5 pt5 pb5'>
 		            <div class='wdth96 flex j-c'>
 		                <hr class='hr-style mr5'> Защита <hr class='hr-style ml5'>
@@ -147,7 +147,7 @@
 
 		            <div class='wdth96 flex j-c ai-c fl-di-co'>
 	                    <div v-if='refuges[ refuge[`lvl`] ][`tools`] == 0' class='protection-slot backgr1 flex j-c mt5'>
-	                        Улучшите убежище       
+	                        Улучшите убежище
 	                    </div>
                     	<div v-else-if='tools.length' v-for='tool in tools' class='protection-slot backgr1 flex j-c mt5'>
                             <div class='flex j-c ai-c'>
@@ -194,7 +194,6 @@
 
 <script>
 let date = Date.now();
-
 let Tablo       = httpVueLoader('../components/Tablo.vue?_='+date)
 let EnterRefuge = httpVueLoader('../components/EnterRefuge.vue?_='+date)
 let UpRefuge    = httpVueLoader('../components/UpRefuge.vue?_='+date)
@@ -216,27 +215,32 @@ module.exports = {
 		prots: undefined,
 		chest: undefined
 	}),
-	components: {
+	components:
+	{
 		Tablo, EnterRefuge, UpRefuge
 	},
-	beforeMount() {
+	beforeMount()
+	{
 		let params = new FormData();
     	params.append('token', localStorage.getItem('token'));
 
 		axios.post('/core/Api/?page=refuge', params)
 		.then((response) => {
-			if (response.data.popup) {
+			if (response.data.popup)
+			{
 				this.$root.popup.active = true;
 				this.$root.popup.text   = response.data.message;
-			} else if (response.data.page) {
+			} else if (response.data.page)
+			{
 				this.$router.push(response.data.page)
-			} else {
+			} else
+			{
 				this.items   = response.data.items;
 				this.rares   = response.data.rares;
 				this.refuges = response.data.refuges;
 				this.refuge  = response.data.refuge;
 				this.locs    = response.data.locs;
-				
+
 				this.user    = response.data.user;
 				this.game    = response.data.game;
 				this.tools   = response.data.tools;
@@ -250,8 +254,10 @@ module.exports = {
 			console.log(error)
 		})
 	},
-	computed: {
-		hpPercent() {
+	computed:
+	{
+		hpPercent()
+		{
 			return (this.refuge[`hp`] / this.refuges[ this.refuge[`lvl`] ][`maxhp`]) * 100;
 		}
 	}

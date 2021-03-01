@@ -8,10 +8,6 @@
 		import {Camera} from '../js/game/Camera.js';
 		import {GameWorld} from '../js/game/GameWorld.js';
 		import {Player} from '../js/game/Player.js';
-		import {Enemy} from '../js/game/Enemy.js';
-		import {EnemyEmitter} from '../js/game/EnemyEmitter.js';
-		import {Bullet} from '../js/game/Bullet.js';
-		import {BulletEmitter} from '../js/game/BulletEmitter.js';
 
 		(function()
 		{
@@ -33,9 +29,7 @@
 		        update: function(dt)
 		        {
 		            this.GameLive.update(dt);
-		            this.EnemyEmitter.update(dt);
 		            this.Player.update(dt);
-		            this.BulletEmitter.update(dt);
 		            this.Camera.update(dt);
 		            
 		            Updater.pagedate(dt, this, Utils);
@@ -47,9 +41,7 @@
 		            this.ctx.translate(-this.Camera.x, -this.Camera.y);
 
 		                    this.World.render();
-		                    this.EnemyEmitter.render();
 		                    this.Player.render();
-		                    this.BulletEmitter.render();
 
 		            this.ctx.restore();
 
@@ -80,18 +72,6 @@
 		            this.Player   = new Player(this, this.sprites['pl']);
 		            this.Camera   = new Camera(this);
 		            this.World    = new GameWorld(this, this.sprites);
-
-		            let bullets = [];
-		            for(let i = 0; i <= 100; i++) 
-		            { bullets.push(new Bullet()); }
-
-		            let enemys = [];
-		            for(let i = 0; i < 2; i++)
-		            {
-		            	enemys.push(new Enemy(this, {x: 100, y: 100, dx: 0, dy: 0, nm: 'HasM', s: 60, hp: 100, die: false, img: this.sprites['pl']}));
-		            }
-		            this.BulletEmitter = new BulletEmitter(this, bullets);
-		            this.EnemyEmitter  = new EnemyEmitter(this, enemys);
 
 		            this.weathers = this.AjaxData.sys.weathers;
 		            this.temps    = this.AjaxData.sys.temps;

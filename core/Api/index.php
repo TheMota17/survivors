@@ -6,7 +6,7 @@
 
     	public function __construct($pdo, $Utils, $config, $items, $locs, $rares, $pred, $crafts, $refuges, $user, $game)
     	{
-            
+
             $this->pdo    = $pdo;
             $this->utils  = $Utils;
             $this->config = $config;
@@ -17,15 +17,16 @@
             $this->pred    = $pred;
             $this->crafts  = $crafts;
             $this->refuges = $refuges;
-            
+
             $this->user  = $user;
             $this->game  = $game;
 
     	}
 
-        public function answer($type) {
-
-            switch($type) {
+        public function answer($type)
+        {
+            switch($type)
+            {
                 case 'game':
                     exit(
                         json_encode([
@@ -108,12 +109,12 @@
                     );
                     break;
             }
-
         }
 
-    	public function main() {
-            
-            switch($_GET['page']) {
+    	public function main()
+        {
+            switch($_GET['page'])
+            {
                 case '404':
                     exit();
                 break;
@@ -166,12 +167,12 @@
                     $this->answer('chat');
                     break;
             }
-
     	}
-        
+
     }
 
-    if ($Utils::checkSession() && $Utils::checkToken()) {
+    if ($Utils::checkSession() && $Utils::checkToken())
+    {
         $Api = new Api($Pdo, $Utils, $config, $game_items, $game_locs, $game_rares, $items_pred, $game_crafts, $game_refuges, $User->getUser(), $User->getGame());
         $Api->main();
     }

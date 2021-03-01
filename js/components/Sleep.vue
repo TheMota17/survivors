@@ -31,14 +31,18 @@ module.exports = {
         active: true,
         hours: 1
     }),
-    methods: {
-        activate() {
+    methods:
+    {
+        activate()
+        {
             this.active = true
         },
-        deactive() {
+        deactive()
+        {
             this.active = false
         },
-        sleep() {
+        sleep()
+        {
             console.log('sleep')
         }
     }

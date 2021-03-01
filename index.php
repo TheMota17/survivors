@@ -35,7 +35,7 @@
     <router-view></router-view>
 </div>
 
-<div class='flex j-c fl-di-co ai-c mt10 op5 pb5'>
+<div class='flex j-c fl-di-co ai-c mt5 op5 pb5'>
     <div class='flex j-c ai-c'>
         <?=date('H:i:s')?> | В игре: <?=$online?>
     </div>

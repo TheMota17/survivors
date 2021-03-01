@@ -12,136 +12,156 @@
 
         }
 
-        public function name_verif() {
-
-            if ($this->utils::verifName( $this->name )) {
-                $find_name = $this->pdo->fetch('SELECT `id` FROM `users` WHERE `login` = ?', array( $this->name ));
-
-                if ( $find_name ) {
-                    $this->message = 'Данный ник уже занят!';
-                }
-            } else {
-                $this->message = 'Неправильный формат ника!';
-            }
-
+        public function nameVerified($name)
+        {
+            if ($this->utils::verifName($name)) return true;
         }
 
-        public function pass_verif() {
-
-            if (!$this->utils::verifPass($this->pass)) {
-                $this->message = 'Неправильный формат пароля!';
-            }
-
+        public function findUserByName($name)
+        {
+            // Если имя в бд найдено
+            return $this->pdo->fetch('SELECT * FROM `users` WHERE `login` = ?', array($name));
         }
 
-        public function mail_verif() {
-
-            if ($this->utils::verifMail( $this->mail )) {
-                $find_mail = $this->pdo->fetch('SELECT `id` FROM `users` WHERE `mail` = ?', array( $this->mail ));
-
-                if ($find_mail) {
-                    $this->message = 'Данный email уже занят!';
-                }
-            } else {
-                $this->message = 'Неправильный формат email!';
-            }
-            
+        public function passVerified($pass)
+        {
+            if ($this->utils::verifPass($pass)) return true;
         }
 
-        public function authCode_verif() {
-
-            if ($_SESSION['authCode'] != $this->authCode) {
-                $this->message = 'Код введен не верно!';
-            }
-
+        public function mailVerified($mail)
+        {
+            if ($this->utils::verifMail( $mail )) return true;
         }
-        
-        public function reg() {
 
+        public function mailOcuppied($mail)
+        {
+            // Если майл в бд найден
+            if ($this->pdo->fetch('SELECT `id` FROM `users` WHERE `mail` = ?', array($mail))) return true;
+        }
+
+        public function authCodeVerified($authCode)
+        {
+            if ($_SESSION['authCode'] == $authCode) return true;
+        }
+
+        public function registrateUser($name, $pass, $mail)
+        {
             $game = json_encode(['x' => 50, 'y' => 50, 'time' => 36000, 'weather' => 1, 'hp' => 100, 'hung' => 0, 'thirst' => 0, 'fatigue' => 0, 'temp' => 1, 'weatherTime' => 0, 'hungTime' => 0, 'thirstTime' => 0, 'fatigueTime' => 0]);
 
-            $newuser = $this->pdo->query('INSERT INTO users (login, pass, mail, date, lastvisit, ban, adm, live, costumize, craft_lvl, in_refuge, loc, loc_explored, game) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            array($this->name, password_hash($this->pass, PASSWORD_DEFAULT), password_hash($this->mail, PASSWORD_DEFAULT), time(), 0, 0, 0, 3, 0, 1, 0, 1, 0, $game));
-            $userid = $this->pdo->last();
+            $newuser = $this->pdo->query('INSERT INTO users (login, pass, mail, date, lastvisit, ban, adm, live, costumize, craft_lvl, in_refuge, loc, loc_explored, game) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',array(
+                $name, password_hash($pass, PASSWORD_DEFAULT), password_hash($mail, PASSWORD_DEFAULT), time(), 0, 0, 0, 3, 0, 1, 0, 1, 0, $game
+            ));
+            $userId = $this->pdo->last();
 
-            $refuge = $this->pdo->query('INSERT INTO refuge (hp, lvl, user_id) VALUES (?, ?, ?)', array(0, 0, $userid));
-            $nadeto = $this->pdo->query('INSERT INTO nadeto (helm, arm, weap, hair, beard, cloth, pants, fwear, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', array(0, 0, 0, 1, 1, 1, 1, 1, $userid));
+            $refuge = $this->pdo->query('INSERT INTO refuge (hp, lvl, user_id) VALUES (?, ?, ?)', array(0, 0, $userId));
+            $nadeto = $this->pdo->query('INSERT INTO nadeto (helm, arm, weap, hair, beard, cloth, pants, fwear, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', array(0, 0, 0, 1, 1, 1, 1, 1, $userId));
 
-            $food   = $this->pdo->query('INSERT INTO invent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array(13, 1, 5, $userid));
-            $water  = $this->pdo->query('INSERT INTO invent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array(2, 1, 5, $userid));
+            $food   = $this->pdo->query('INSERT INTO invent (item, type, colvo, in_chest, user_id) VALUES (?, ?, ?, ?, ?)', array(13, 1, 5, 0, $userId));
+            $water  = $this->pdo->query('INSERT INTO invent (item, type, colvo, in_chest, user_id) VALUES (?, ?, ?, ?, ?)', array(2, 1, 5, 0, $userId));
 
-            $_SESSION['user']  = $userid;
-            
-            $this->answer('page', 'costumize');
-            
-        }
-        
-        public function enter() {
-
-            $find_user = $this->pdo->fetch('SELECT * FROM `users` WHERE `login` = ?', array($this->name));
-
-            if ($find_user && password_verify($this->pass, $find_user['pass'])) {
-                if ($find_user['ban'] > time()) {
-                    $ban_time = date('d.m.Y H:i:s', $find_user['ban']);
-
-                    $this->message = 'Вы заблокированы до - '.$ban_time.'';
-                    $this->answer('mess', 0);
-                } else {
-                    $_SESSION['user']  = $find_user[ 'id' ];
-                    $this->answer('page', '/');
-                }
-            } else {
-                $this->message = 'Нeверный ник или пароль!';
-                $this->answer('mess', 0);
-            }
-
+            $_SESSION['user'] = $userId;
         }
 
-        public function answer($ans, $page) {
+        public function locateUserToPage($page)
+        {
+            exit(json_encode(['page' => $page, 'token' => isset($_SESSION['token']) ]));
+        }
 
-            switch( $ans ) {
-                case 'page':
-                    exit(json_encode( ['page' => $page, 'token' => $_SESSION['token']] ));
-                break;
+        public function answer($type, $message)
+        {
+            switch($type)
+            {
                 case 'mess':
-                    exit(json_encode( ['message' => $this->message, 'popup' => true] ));
+                    exit(json_encode( ['message' => $message, 'popup' => true] ));
                 break;
             }
-
         }
 
-        public function main() {
-
-            switch($_GET['action']) {
+        public function main()
+        {
+            switch($_GET['action'])
+            {
                 case 'reg':
-                    $this->name      = htmlspecialchars( trim( $_POST['name'] ) );
-                    $this->pass      = htmlspecialchars( trim( $_POST['pass'] ) );
-                    $this->mail      = htmlspecialchars( trim( $_POST['mail'] ) );
-                    $this->authCode  = htmlspecialchars( trim( $_POST['authCode'] ) );
+                    $name      = htmlspecialchars( trim( $_POST['name'] ) );
+                    $pass      = htmlspecialchars( trim( $_POST['pass'] ) );
+                    $mail      = htmlspecialchars( trim( $_POST['mail'] ) );
+                    $authCode  = htmlspecialchars( trim( $_POST['authCode'] ) );
 
-                    $this->name_verif();
-                    $this->pass_verif();
-                    $this->mail_verif();
-                    $this->authCode_verif();
-
-                    if (empty( $this->message )) {
-                        $this->reg();
-                    } else {
-                        $this->answer('mess', 0);
+                    if ($this->authCodeVerified($authCode))
+                    {
+                        if ($this->nameVerified($name))
+                        {
+                            if (!$this->findUserByName($name))
+                            {
+                                if ($this->passVerified($pass))
+                                {
+                                    if ($this->mailVerified($mail))
+                                    {
+                                        if (!$this->mailOcuppied($mail))
+                                        {
+                                            $this->registrateUser($name, $pass, $mail);
+                                            $this->locateUserToPage('/costumize');
+                                        } else
+                                        {
+                                            $this->answer('mess', 'Почта уже занята!');
+                                        }
+                                    } else
+                                    {
+                                        $this->answer('mess', 'Введите правильную почту!');
+                                    }
+                                } else
+                                {
+                                    $this->answer('mess', 'Пароль введен не верно!');
+                                }
+                            } else
+                            {
+                                $this->answer('mess', 'Ник уже занят!');
+                            }
+                        } else
+                        {
+                            $this->answer('mess', 'Ник введен не верно!');
+                        }
+                    } else
+                    {
+                        $this->answer('mess', 'Код введен не верно!');
                     }
                 break;
                 case 'enter':
-                    $this->name = htmlspecialchars( trim( $_POST['name'] ) );
-                    $this->pass = htmlspecialchars( trim( $_POST['pass'] ) );
+                    $name = htmlspecialchars( trim( $_POST['name'] ) );
+                    $pass = htmlspecialchars( trim( $_POST['pass'] ) );
+
+                    $user = $this->findUserByName($name);
+
+                    if ($user)
+                    {
+                        if (password_verify($pass, $user['pass']))
+                        {
+                            if ($user['ban'] > time())
+                            {
+                                $banTime = date('d.m.Y H:i:s', $user['ban']);
+                                $this->answer('mess', 'Вы заблокированы до - '.$banTime.'!');
+                            } else
+                            {
+                                $_SESSION['user'] = $user['id'];
+                                $this->locateUserToPage('/');
+                            }
+                        } else
+                        {
+                            $this->answer('mess', 'Неверный ник или пароль!');
+                        }
+                    } else
+                    {
+                        $this->answer('mess', 'Неверный ник или пароль!');
+                    }
 
                     $this->enter();
                 break;
             }
-
         }
     }
 
-    if ($Utils::checkToken()) {
+    if ($Utils::checkToken())
+    {
         $Auth = new Auth($Pdo, $Utils);
         $Auth->main();
     }

@@ -12,19 +12,24 @@
 module.exports = {
 	name: 'UpRefuge',
 	props: ['move'],
-	methods: {
-		up() {
+	methods:
+	{
+		up()
+		{
 			let params = new FormData();
 	    	params.append('token', localStorage.getItem('token'));
 
 			axios.post('/core/GameActions/?action=uprefuge', params)
 			.then((response) => {
-				if (response.data.popup) {
+				if (response.data.popup)
+				{
 					this.$root.popup.active = true;
 					this.$root.popup.text   = response.data.message;
-				} else if (response.data.page) {
+				} else if (response.data.page)
+				{
 					this.$router.push(response.data.page)
-				} else if (response.data.reload) {
+				} else if (response.data.reload)
+				{
 					this.$router.go()
 				}
 			})

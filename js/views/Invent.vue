@@ -1,9 +1,9 @@
 <template>
 	<div v-if='api'>
 		<tablo :hp='game.hp' :hung='game.hung' :thirst='game.thirst' :fatigue='game.fatigue'></tablo>
-		<div class='flex j-c mt10'>
+		<div class='flex j-c mt5'>
 			<div class='ivent-user backgr2 flex j-c ai-c fl-di-co'>
-				<div class='flex j-c ai-c pt5 pb5'>
+				<div class='flex j-c ai-c mt5'>
 					<div class='maneken relative flex j-c ai-c'>
 			            <div v-if='nadeto[`helm`] > 0' :class='items[ 2 ][ nadeto[`helm`] ][`class`]'></div>
 			            <div v-if='nadeto[`arm`]  > 0' :class='items[ 3 ][ nadeto[`arm`] ][`class`]'></div>
@@ -27,9 +27,9 @@
 						<div class='user-abs flex j-s ai-c mt5'>
 							<img src='/assets/icons/abs.png' class='item14-1 ml5 mr5' />
 							<span>
-								{{ 
+								{{
 									((nadeto[`helm`] == 0) ? 0 : items[ 2 ][ nadeto[`helm`] ][`dmgabs`])
-									+ 
+									+
 									((nadeto[`arm`] == 0) ? 0 : items[ 3 ][ nadeto[`arm`] ][`dmgabs`])
 								}}
 							</span>
@@ -40,8 +40,8 @@
 			                <div v-if='nadeto[`weap`] > 0' class='flex j-s ai-c'>
 			                	<span id='user_dmg_min'>
 			                		{{ items[ 4 ][ nadeto[`weap`] ][`dmgmin`] }}
-			    				</span> 
-			    				- 
+			    				</span>
+			    				-
 			    				<span id='user_dmg_max'>
 			    					{{ items[ 4 ][ nadeto[`weap`] ][`dmgmax`] }}
 			    				</span>
@@ -55,9 +55,9 @@
 							<span id='user_power'>
 							{{
 								((nadeto[`helm`] == 0) ? 0 : items[ 2 ][ nadeto[`helm`] ][`power`])
-								+ 
+								+
 								((nadeto[`arm`] == 0) ? 0 : items[ 3 ][ nadeto[`arm`] ][`power`])
-								+ 
+								+
 								((nadeto[`weap`] == 0) ? 0 : items[ 4 ][ nadeto[`weap`] ][`power`])
 							}}
 							</span>
@@ -214,10 +214,10 @@
 			</div>
 		</div>
 
-		<div class='flex j-c ai-c fl-di-co mt10'>
+		<div class='flex j-c ai-c fl-di-co mt5'>
 			<div class='flex j-c ai-c'>
 				<button class='sort-btn flex j-c ai-c mr5' @click='sortFrom'>
-		        	<span class='flex j-c ai-c' v-if='!$root.invent.from'> 
+		        	<span class='flex j-c ai-c' v-if='!$root.invent.from'>
 		        		<img src='/assets/icons/menu/ivent.png' class='item14-1 mr5' /> Инвентарь {{ inventLength }} / 50
 		        	</span>
 		        	<span class='flex j-c ai-c' v-else>
@@ -266,7 +266,7 @@
 			<div v-else class='ivent-items backgr2 flex j-c pt5 pb5 mt5'>
 				Пусто
 			</div>
-			<div class='ivent-nav backgr2 flex j-c mt5 pt5 pb5'>
+			<div class='ivent-nav backgr2 flex j-c pt5 pb5'>
 				<div class='wdth96 flex j-sb'>
 					<button :disabled='page == 1' class='nav-btn ml5' @click='prevPage'>◄</button>
 					<span class='nav-btn'>{{ page }}</span>
@@ -279,7 +279,6 @@
 
 <script>
 let date = Date.now();
-
 let Tablo = httpVueLoader('../components/Tablo.vue?_='+date)
 
 module.exports = {
@@ -299,21 +298,26 @@ module.exports = {
     	sort: false,
     	typeElems: {0: 'Все', 1: 'Разное', 2: 'Шлемы', 3: 'Броня', 4: 'Оружие', 5: 'Убежище'}
     }),
-    components: {
+    components:
+    {
     	Tablo
     },
-	beforeMount() {
+	beforeMount()
+	{
 		let params = new FormData();
 		params.append('token', localStorage.getItem('token'));
 
 		axios.post('/core/Api/?page=invent', params)
 		.then((response) => {
-			if (response.data.popup) {
+			if (response.data.popup)
+			{
 				this.$root.popup.active = true;
 				this.$root.popup.text   = response.data.message;
-			} else if (response.data.page) {
+			} else if (response.data.page)
+			{
 				this.$router.push(response.data.page)
-			} else {
+			} else
+			{
 				this.nadeto = response.data.nadeto;
 				this.invent = response.data.invent;
 				this.user   = response.data.user;
@@ -327,44 +331,61 @@ module.exports = {
 		.catch((error) => {
 			console.log(error)
 		})
-	}, 
-	methods: {
-		nextPage() {
+	},
+	methods:
+	{
+		nextPage()
+		{
 			this.page += 1;
 		},
-		prevPage() {
+		prevPage()
+		{
 			this.page -= 1;
 		},
-		changeType(type) {
+		changeType(type)
+		{
 			this.$root.invent.sortType = type;
 		},
-		sortMenu() {
+		sortMenu()
+		{
 			this.sort = !this.sort;
 		},
-		sortFrom() {
-			if (this.$root.invent.from == 0) {
+		sortFrom()
+		{
+			if (this.$root.invent.from == 0)
+			{
 				this.$root.invent.from = 1;
-			} else {
+			} else
+			{
 				this.$root.invent.from = 0;
 			}
 		}
 	},
-	computed: {
-		inventNotEmpty() {
-			if (this.invent.length) {
-				if (this.$root.invent.from == 1) {
+	computed:
+	{
+		inventNotEmpty()
+		{
+			if (this.invent.length)
+			{
+				if (this.$root.invent.from == 1)
+				{
 					let length = 0;
-		    		for(let i = 0; i < this.invent.length; i++) {
-		    			if (this.invent[i].in_chest == 1) {
+		    		for(let i = 0; i < this.invent.length; i++)
+		    		{
+		    			if (this.invent[i].in_chest == 1)
+		    			{
 		    				length++;
 		    			}
 		    		}
 
 		    		if (length > 0) return true;
-				} else {
+				} else
+				{
 					let length = 0;
-		    		for(let i = 0; i < this.invent.length; i++) {
-		    			if (this.invent[i].in_chest == 0) {
+		    		for(let i = 0; i < this.invent.length; i++)
+		    		{
+		    			if (this.invent[i].in_chest == 0)
+		    			{
 		    				length++;
 		    			}
 		    		}
@@ -373,27 +394,34 @@ module.exports = {
 				}
 			}
 		},
-		pageCount() {
+		pageCount()
+		{
 	        let l = this.invent.length, s = this.max;
 	        return Math.ceil(l/s);
     	},
-    	paginatedData() {
+    	paginatedData()
+    	{
     		const start = (this.page - 1) * this.max, end = start + this.max;
      		return this.invent.slice(start, end);
     	},
-    	inventLength() {
+    	inventLength()
+    	{
     		let length = 0;
-    		for(let i = 0; i < this.invent.length; i++) {
+    		for(let i = 0; i < this.invent.length; i++)
+    		{
     			if (this.invent[i].in_chest == 0) {
     				length++;
     			}
     		}
     		return length;
     	},
-    	chestLength() {
+    	chestLength()
+    	{
     		let length = 0;
-    		for(let i = 0; i < this.invent.length; i++) {
-    			if (this.invent[i].in_chest == 1) {
+    		for(let i = 0; i < this.invent.length; i++)
+    		{
+    			if (this.invent[i].in_chest == 1)
+    			{
     				length++;
     			}
     		}

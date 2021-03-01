@@ -125,7 +125,7 @@
 				        	<div class='flex j-c mt10'>
 				                <div class='wdth96 flex j-c'>
 				                    <hr class='hr-style mr5'> Боеприпасы <hr class='hr-style ml5'>
-				                </div>    
+				                </div>
 				            </div>
 				            <div class='flex j-c ai-c pt5 pb5'>
 				                <div class='wdth96 flex j-c'>
@@ -217,28 +217,33 @@ module.exports = {
 
 		colvo: 1
 	}),
-	components: {
+	components:
+	{
 		Tablo
 	},
-	beforeMount() {
+	beforeMount()
+	{
 		let params = new FormData();
     	params.append('token', localStorage.getItem('token'));
 
 		axios.post('/core/Api/?page=craft', params)
 		.then((response) => {
-			if (response.data.popup) {
+			if (response.data.popup)
+			{
 				this.$root.popup.active = true;
 				this.$root.popup.text   = response.data.message;
-			} else if (response.data.page) {
+			} else if (response.data.page)
+			{
 				this.$router.push(response.data.page)
-			} else {
+			} else
+			{
 				this.items  = response.data.items;
 				this.crafts = response.data.crafts;
 				this.rares  = response.data.rares;
 				this.user   = response.data.user;
 				this.game   = response.data.game;
 
-				this.api = true;	
+				this.api = true;
 			}
 		})
 		.catch((error) => {
@@ -246,25 +251,30 @@ module.exports = {
 		})
 	},
 	methods: {
-		sortMenu() {
+		sortMenu()
+		{
 			this.sort = !this.sort;
 		},
-		changeType(type) {
+		changeType(type)
+		{
 			this.$root.craft.sortType = type;
 		},
-		selectItem(idx, item, type) {
+		selectItem(idx, item, type)
+		{
 			this.$root.craft.id       = idx;
 			this.$root.craft.item     = item;
 			this.$root.craft.type     = type;
 			this.$root.craft.selected = true;
 		},
-		awayItem() {
+		awayItem()
+		{
 			this.$root.craft.id       = 0;
 			this.$root.craft.item     = 0;
 			this.$root.craft.type     = 0;
 			this.$root.craft.selected = false;
 		},
-		craft() {
+		craft()
+		{
 			let params = new FormData();
 			params.append('id', this.$root.craft.id);
 			params.append('item', this.$root.craft.item);
@@ -274,10 +284,12 @@ module.exports = {
 
 			axios.post('/core/GameActions/?action=craft', params)
 			.then((response) => {
-				if (response.data.popup) {
+				if (response.data.popup)
+				{
 					this.$root.popup.active = true;
 					this.$root.popup.text   = response.data.message;
-				} else if (response.data.page) {
+				} else if (response.data.page)
+				{
 					this.$router.push(response.data.page)
 				}
 			})

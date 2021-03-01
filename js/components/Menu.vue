@@ -60,8 +60,10 @@ module.exports = {
 	data: () => ({
 		active: false
 	}),
-	methods: {
-		openclose() {
+	methods:
+	{
+		openclose()
+		{
 			this.active = !this.active
 		}
 	}

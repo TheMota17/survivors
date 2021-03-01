@@ -7,16 +7,19 @@
 <script>
 module.exports = {
 	name: '404',
-	beforeMount() {
+	beforeMount()
+	{
 		let params = new FormData();
     	params.append('token', localStorage.getItem('token'));
 
 		axios.post('/core/Api/?page=404', params)
 		.then((response) => {
-			if (response.data.popup) {
+			if (response.data.popup)
+			{
 				this.$root.popup.active = true;
 				this.$root.popup.text   = response.data.message;
-			} else if (response.data.page) {
+			} else if (response.data.page)
+			{
 				this.$router.push(response.data.page)
 			}
 		})

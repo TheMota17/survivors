@@ -1,22 +1,17 @@
 <template>
 	<div>
-		<div class='flex j-c mt10'>
-			<div class='cost-zag backgr2 flex j-c pt5 pb5'>
-				Настройте своего персонажа
-			</div>
-		</div>
+        <div class='flex j-c mt5'>
+            <div class='cost-message backgr2 flex j-c ai-c pt5 pb5'>
+                <div class='wdth90 flex j-c ai-c'>
+                    <img src='/assets/icons/mess.png' class='mr5'>
+                    <span class='mess'>След. настройка будет доступна за игровую валюту</span>
+                </div>
+            </div>
+        </div>
 
-		<div class='flex j-c mt10'>
-			<div class='cost-message backgr2 flex j-c ai-c pt5 pb5'>
-				<div class='wdth90 flex j-c ai-c'>
-					<img src='/assets/icons/mess.png' class='mr5'>
-					<span class='mess'>След. настройка будет доступна за игровую валюту</span>
-				</div>
-			</div>
-		</div>
-
-		<div class='flex j-c mt10'>
+		<div class='flex j-c mt5'>
 			<div class='pers-maneken backgr2 flex j-c ai-c fl-di-co'>
+                <div class='fnt14'>Настройте своего персонажа</div>
 				<div v-if='changed_elem' class='cost-elem-name flex j-c mt5'>
 					<span class='mr5'>{{ elems[ changed_elem ] }}</span>
 					<span>{{ this[changed_elem] }}</span>/<span>{{ this[changed_elem + `_max`] }}</span>
@@ -44,26 +39,26 @@
 
 					<div class='flex j-c fl-di-co'>
 						<button class='cost-prevnext-btn ml5' @click='elemStyle("hair", "next")'> ► </button>
-						<button class='cost-prevnext-btn mt10 ml5' @click='elemStyle("beard", "next")'> ► </button> 
-						<button class='cost-prevnext-btn mt10 ml5' @click='elemStyle("cloth", "next")'> ► </button> 
-						<button class='cost-prevnext-btn mt10 ml5' @click='elemStyle("pants", "next")'> ► </button> 
-						<button class='cost-prevnext-btn mt10 ml5' @click='elemStyle("fwear", "next")'> ► </button> 
+						<button class='cost-prevnext-btn mt10 ml5' @click='elemStyle("beard", "next")'> ► </button>
+						<button class='cost-prevnext-btn mt10 ml5' @click='elemStyle("cloth", "next")'> ► </button>
+						<button class='cost-prevnext-btn mt10 ml5' @click='elemStyle("pants", "next")'> ► </button>
+						<button class='cost-prevnext-btn mt10 ml5' @click='elemStyle("fwear", "next")'> ► </button>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class='flex j-c mt10'>
+		<div class='flex j-c mt5'>
 			<div class='cost-desicions backgr2 flex j-c pt5 pb5'>
 				<div class='flex j-c fl-di-co'>
 					<button v-if='!ready' class='cost-ready-btn' @click='confirm("btns")'>Готово</button>
 				</div>
 				<div v-if='ready' class='flex j-c fl-di-co' id='confirm-hide'>
-					<div class='flex j-c'>
+					<div class='flex j-c fnt15'>
 						Вы уверены?
 					</div>
 					<div class='flex j-c mt5'>
-						<button class='cost-confirm-btn mr10' @click='confirm("no")'>Нет</button> 
+						<button class='cost-confirm-btn mr10' @click='confirm("no")'>Нет</button>
 					    <button class='cost-confirm-btn' @click='confirm("yes")'>Да</button>
 					</div>
  				</div>
@@ -92,16 +87,21 @@ module.exports = {
 
     	ready: false
     }),
-    methods: {
-    	elemStyle(elem, move) {
-    		switch(move) {
+    methods:
+    {
+    	elemStyle(elem, move)
+        {
+    		switch(move)
+            {
     			case 'next':
-    				if (this[ elem ] + 1 <= this[ elem + '_max' ]) {
+    				if (this[ elem ] + 1 <= this[ elem + '_max' ])
+                    {
     					this[ elem ] += 1
     				}
     				break;
     			case 'prev':
-    				if (this[ elem ] !== 1) {
+    				if (this[ elem ] !== 1)
+                    {
     					this[ elem ] -= 1
     				}
     				break;
@@ -109,8 +109,10 @@ module.exports = {
 
             this.changed_elem = elem;
     	},
-    	confirm(move) {
-    		switch(move) {
+    	confirm(move)
+        {
+    		switch(move)
+            {
     			case 'btns':
     				this.ready = true
     				break;
@@ -122,7 +124,8 @@ module.exports = {
     				break;
     		}
     	},
-    	costumize() {
+    	costumize()
+        {
     		let params = new FormData();
         	params.append('hair', this.hair);
         	params.append('beard', this.beard);
@@ -133,10 +136,12 @@ module.exports = {
 
     		axios.post('/core/Costumize/', params)
     		.then((response) => {
-    			if (response.data.popup) {
+    			if (response.data.popup)
+                {
     				this.$root.popup.active = true;
     				this.$root.popup.text   = response.data.message;
-    			} else if (response.data.page) {
+    			} else if (response.data.page)
+                {
     				this.$router.push(response.data.page)
     			}
     		})

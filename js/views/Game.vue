@@ -1,7 +1,7 @@
 <template>
 	<div v-if='api'>
 		<tablo :hp='game.hp' :hung='game.hung' :thirst='game.thirst' :fatigue='game.fatigue'></tablo>
-		<div class='flex j-c mt10'>
+		<div class='flex j-c mt5'>
 		    <div class='game-meteoсharact backgr2 flex j-sa pt5 pb5'>
 		        <div class='flex j-c ai-c'>
 		            <img class='item14-1 mr5' src='/assets/icons/time.png'><span id='time'>0</span>
@@ -16,7 +16,7 @@
 		    </div>
 		</div>
 
-		<div class='flex j-c mt10'>
+		<div class='flex j-c mt5'>
 		    <div class='game-location backgr2 pb5'>
 		        <div class='flex j-c ai-c pt5 pb5 fnt15'>
 		            <img src='/assets/icons/loc.png' class='item14-1 mr5' />
@@ -75,7 +75,7 @@
 		    </div>
 		</div>
 
-		<div class='flex j-c mt10'>
+		<div class='flex j-c mt5'>
 		    <sleep></sleep>
 		</div>
 
@@ -88,6 +88,7 @@ let date = Date.now();
 let Tablo = httpVueLoader('../components/Tablo.vue?_='+date)
 let Sleep = httpVueLoader('../components/Sleep.vue?_='+date)
 let Surv  = httpVueLoader('../components/Surv.vue?_='+date)
+
 module.exports = {
 	name: 'Game',
 	data: () => ({
@@ -96,20 +97,26 @@ module.exports = {
 		items: undefined,
 		locs: undefined
 	}),
-	components: {
+	components:
+	{
 		Sleep, Surv, Tablo
 	},
-	beforeMount() {
+	beforeMount()
+	{
 		let params = new FormData();
     	params.append('token', localStorage.getItem('token'));
+
 		axios.post('/core/Api/?page=game', params)
 		.then((response) => {
-			if (response.data.popup) {
+			if (response.data.popup)
+			{
 				this.$root.popup.active = true;
 				this.$root.popup.text   = response.data.message;
-			} else if (response.data.page) {
+			} else if (response.data.page)
+			{
 				this.$router.push(response.data.page)
-			} else {
+			} else
+			{
 				this.game  = response.data.game;
 				this.items = response.data.items;
 				this.locs  = response.data.locs;

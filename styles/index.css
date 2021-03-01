@@ -22,8 +22,8 @@ img 	{vertical-align: middle;}
 .ai-e       {align-items: flex-end;}
 .ai-s       {align-items: flex-start;}
 .fl-di-co   {flex-direction: column;}
-.txt_center {text-align: center;}
-.bottom_line {text-decoration: underline;}
+.txt-center {text-align: center;}
+.bottom-line {text-decoration: underline;}
 
 .lh5  {line-height: 5px;}
 .lh10 {line-height: 10px;}

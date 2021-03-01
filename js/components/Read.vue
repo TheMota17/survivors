@@ -7,20 +7,25 @@
 <script>
 module.exports = {
 	name: 'Read',
-	methods: {
-		read() {
+	methods:
+	{
+		read()
+		{
 			let params = new FormData();
 			params.append('id_item', this.$route.query.id);
 	    	params.append('token', localStorage.getItem('token'));
 
 			axios.post('/core/GameActions/?action=read', params)
 			.then((response) => {
-				if (response.data.popup) {
+				if (response.data.popup)
+				{
 					this.$root.popup.active = true;
 					this.$root.popup.text   = response.data.message;
-				} else if (response.data.page) {
+				} else if (response.data.page)
+				{
 					this.$router.push(response.data.page)
-				} else if (response.data.reload) {
+				} else if (response.data.reload)
+				{
 					this.$router.go()
 				}
 			})

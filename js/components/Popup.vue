@@ -14,8 +14,10 @@
 <script>
 module.exports = {
 	name: 'Popup',
-	methods: {
-		close() {
+	methods:
+	{
+		close()
+		{
 			this.$root.popup.active = false
 		}
 	}

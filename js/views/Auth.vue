@@ -56,7 +56,7 @@
                 <div class='mt10'>
                 <button name='enter' class='input button' @click='enter'>Войти</button>
                 </div>
-                
+
                 <div class='mt5'>
                 <a href='#' class='bottom-line fnt12'>Забыли пароль?</a>
                 </div>
@@ -82,17 +82,21 @@ module.exports = {
             pass: undefined
         }
     }),
-    beforeMount() {
+    beforeMount()
+    {
         let params = new FormData();
         params.append('token', localStorage.getItem('token'));
         axios.post('/core/AuthTokens/?action=get', params)
         .then((response) => {
-            if (response.data.popup) {
+            if (response.data.popup)
+            {
                 this.$root.popup.active = true;
                 this.$root.popup.text   = response.data.message;
-            } else if (response.data.page) {
+            } else if (response.data.page)
+            {
                 this.$router.push(response.data.page)
-            } else {
+            } else
+            {
                 localStorage.setItem('token', response.data.sessToken)
                 this.authCode = response.data.authCode;
                 this.api = true;
@@ -103,19 +107,23 @@ module.exports = {
         })
     },
     methods: {
-        reg() {
+        reg()
+        {
             let params = new FormData();
             params.append('name', this.regData.name);
             params.append('pass', this.regData.pass);
             params.append('mail', this.regData.mail);
             params.append('authCode', this.regData.authCode);
             params.append('token', localStorage.getItem('token'));
+
             axios.post('/core/Auth/?action=reg', params)
             .then((response) => {
-                if (response.data.popup) {
+                if (response.data.popup)
+                {
                     this.$root.popup.active = true;
                     this.$root.popup.text   = response.data.message;
-                } else if (response.data.page) {
+                } else if (response.data.page)
+                {
                     this.$router.push(response.data.page)
                 }
             })
@@ -123,17 +131,21 @@ module.exports = {
                 console.log(error)
             })
         },
-        enter() {
+        enter()
+        {
             let params = new FormData();
             params.append('name', this.enterData.name);
             params.append('pass', this.enterData.pass);
             params.append('token', localStorage.getItem('token'));
+
             axios.post('/core/Auth/?action=enter', params)
             .then((response) => {
-                if (response.data.popup) {
+                if (response.data.popup)
+                {
                     this.$root.popup.active = true;
                     this.$root.popup.text   = response.data.message;
-                } else if (response.data.page) {
+                } else if (response.data.page)
+                {
                     this.$router.push(response.data.page)
                 }
             })

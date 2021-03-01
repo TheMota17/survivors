@@ -6,14 +6,15 @@
 
     	public function __construct($Utils)
     	{
-            
+
             $this->utils = $Utils;
 
     	}
 
-    	public function main() {
-            
-            switch($_GET['action']) {
+    	public function main()
+        {
+            switch($_GET['action'])
+            {
             	case 'get':
                     $_SESSION['sessToken'] = $this->utils::sessToken();
                     $_SESSION['authCode']  = $this->utils::authCode();
@@ -26,9 +27,8 @@
 	                );
             		break;
             }
-
     	}
-        
+
     }
 
     $AuthTokens = new AuthTokens($Utils);

@@ -1,5 +1,6 @@
 
-(function() {
+(function()
+{
     'use strict';
 
     let date = Date.now();
@@ -25,11 +26,11 @@
             component: Game
         }, {
             path: '/404',
-            name: '404', 
+            name: '404',
             component: Notf,
         }, {
             path: '*',
-            redirect: '/404' 
+            redirect: '/404'
         }, {
             path: '/auth',
             name: 'Auth',
@@ -70,22 +71,27 @@
 
     new Vue({
         router,
-        components: {
+        components:
+        {
             Popup, Menyoo, PageBar
         },
         data: () => ({
-            popup: {
+            popup:
+            {
                 text: 'Ошибка',
                 active: false
             },
-            pageBar: {
+            pageBar:
+            {
                 width: 20
             },
-            invent: {
+            invent:
+            {
                 from: 0,
                 sortType: 0
             },
-            craft: {
+            craft:
+            {
                 id: 0,
                 item: 0,
                 type: 0,
