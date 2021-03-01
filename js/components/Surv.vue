@@ -2,7 +2,6 @@
 	<script type='module'>
 		import {Utils} from '../js/game/Utils.js';
 		import {Resources} from '../js/game/Resources.js';
-		import {Updater} from '../js/game/Updater.js';
 
 		import {GameLive} from '../js/game/GameLive.js';
 		import {Camera} from '../js/game/Camera.js';
@@ -14,7 +13,7 @@
 		    'use strict';
 
 		    let Game = {
-		        loop() 
+		        loop()
 		        {
 		            // Sys
 		            let dt = (Date.now() - Game.lastDt) / 1000;
@@ -31,8 +30,6 @@
 		            this.GameLive.update(dt);
 		            this.Player.update(dt);
 		            this.Camera.update(dt);
-		            
-		            Updater.pagedate(dt, this, Utils);
 		        },
 		        render()
 		        {
@@ -52,7 +49,7 @@
 		            Game.loop();
 		            document.getElementById('game_canv_loader').style.display = 'none'; // Загрузка...
 		        },
-		        create()
+		        create(ajaxData)
 		        {
 		            // Sys
 		            this.canv                      = document.getElementById('game_canv');
@@ -73,11 +70,9 @@
 		            this.Camera   = new Camera(this);
 		            this.World    = new GameWorld(this, this.sprites);
 
-		            this.weathers = this.AjaxData.sys.weathers;
-		            this.temps    = this.AjaxData.sys.temps;
-		            this.locs     = this.AjaxData.sys.locs;
-
-		            this.timer    = setInterval(() => Updater.update(Game), 5000);
+		            this.weathers = ajaxData.sys.weathers;
+		            this.temps    = ajaxData.sys.temps;
+		            this.locs     = ajaxData.sys.locs;
 
 		            this.start();
 		        },
@@ -87,21 +82,20 @@
 		        	params.append('token', localStorage.getItem('token'));
 
 		    		axios.post('/core/GameLoad/?action=load', params)
-		    		.then((response) => 
+		    		.then((response) =>
 		    		{
-		                let sprites = 
+		                let sprites =
 		                [
 		                    {nm: 'pl', path: '/assets/game/'},
 		                    {nm: 'loc_' + response.data.game.loc, path: '/assets/game/'}
 		                ];
-		                Game.AjaxData = response.data;
 		                Game.sprites  = Resources.loadSprites(sprites);
 
-		                let check = setInterval(() => 
+		                let check = setInterval(() =>
 		                {
-		                	if (Resources.checkLoad()) 
-		                	{ 
-		                		Game.create();
+		                	if (Resources.checkLoad())
+		                	{
+		                		Game.create(response.data);
 		                		clearInterval(check);
 		                	}
 		                }, 1);
@@ -114,14 +108,11 @@
 		        getCamera() { return this.Camera },
 		        getWorld() { return this.World },
 		        getAjaxData() { return this.AjaxData },
-		        getLoc() { return this.loc },
-		        getBulletEmitter() { return this.BulletEmitter },
-		        getEnemyEmitter() { return this.EnemyEmitter }
-
+		        getLoc() { return this.loc }
 		    }; // end of game
 
-		    Updater.start();
 		    Game.load();
+
 		})();
 	</script>
 </template>
