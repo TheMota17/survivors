@@ -45,49 +45,51 @@
 	                        </div>
 	                    </div>
 	                    <div class='flex j-c ai-c fl-di-co mt5'>
-	                        <div class='iteminfo-div'>
-	                            <span class='ml5'>Тип: {{ items[ $root.craft.type ][ $root.craft.item ][`type`] }}</span>
-	                        </div>
-	                        <div v-if='items[ $root.craft.type ][ $root.craft.item ][`eff`]' v-for='(eff, key) in items[ $root.craft.type ][ $root.craft.item ][`eff`]' class='wdth100 flex j-c ai-c fl-di-co'>
-		                		<div v-if='key == `hung`' class='iteminfo-div mt5'>
-	                                <span class='ml5'>
-	                                    <img src='/assets/icons/hung.png' class='item14-1' />
-	                                    Голод: -{{ eff }}
-	                                </span>
-	                            </div>
-	                            <div v-else-if='key == `thirst`' class='iteminfo-div mt5'>
-	                                <span class='ml5'>
-	                                    <img src='/assets/icons/thirst.png' class='item14-1' />
-	                                    Жажда: -{{ eff }}
-	                                </span>
-	                            </div>
-	                            <div v-else-if='key == `hp`' class='iteminfo-div mt5'>
-	                                <span class='ml5'>
-	                                    <img src='/assets/icons/hp.png' class='item14-1' />
-	                                    Здоровье: +{{ eff }}
-	                                </span>
-	                            </div>
-		                	</div>
+	                    	<div class='wdth96 flex j-c ai-c fl-di-co'>
+	                    		<div class='iteminfo-div'>
+		                            <span class='ml5'>Тип: {{ items[ $root.craft.type ][ $root.craft.item ][`type`] }}</span>
+		                        </div>
+		                        <div v-if='items[ $root.craft.type ][ $root.craft.item ][`eff`]' v-for='(eff, key) in items[ $root.craft.type ][ $root.craft.item ][`eff`]' class='wdth100 flex j-c ai-c fl-di-co'>
+			                		<div v-if='key == `hung`' class='iteminfo-div mt5'>
+		                                <span class='ml5'>
+		                                    <img src='/assets/icons/hung.png' class='item14-1' />
+		                                    Голод: -{{ eff }}
+		                                </span>
+		                            </div>
+		                            <div v-else-if='key == `thirst`' class='iteminfo-div mt5'>
+		                                <span class='ml5'>
+		                                    <img src='/assets/icons/thirst.png' class='item14-1' />
+		                                    Жажда: -{{ eff }}
+		                                </span>
+		                            </div>
+		                            <div v-else-if='key == `hp`' class='iteminfo-div mt5'>
+		                                <span class='ml5'>
+		                                    <img src='/assets/icons/hp.png' class='item14-1' />
+		                                    Здоровье: +{{ eff }}
+		                                </span>
+		                            </div>
+			                	</div>
 
-	                        <div v-if='items[ $root.craft.type ][ $root.craft.item ][`dmgabs`]' class='iteminfo-div flex j-sb mt5'>
-		                        <div class='ml5'>
-		                            <img src='/assets/icons/abs.png' class='item14-1' /> Подавление урона: {{ items[ $root.craft.type ][ $root.craft.item ][`dmgabs`] }}
-		                        </div>
-		                    </div>
-		                    <div v-else-if='items[ $root.craft.type ][ $root.craft.item ][`dmgmin`]' class='iteminfo-div flex j-sb mt5'>
-		                        <div class='ml5'>
-		                            <img src='/assets/icons/dmg.png' class='item14-1' /> Урон:
-		                            {{ items[ $root.craft.type ][ $root.craft.item ][`dmgmin`] }}
-		                            -
-		                            {{ items[ $root.craft.type ][ $root.craft.item ][`dmgmax`] }}
-		                        </div>
-		                    </div>
+		                        <div v-if='items[ $root.craft.type ][ $root.craft.item ][`dmgabs`]' class='iteminfo-div flex j-sb mt5'>
+			                        <div class='ml5'>
+			                            <img src='/assets/icons/abs.png' class='item14-1' /> Подавление урона: {{ items[ $root.craft.type ][ $root.craft.item ][`dmgabs`] }}
+			                        </div>
+			                    </div>
+			                    <div v-else-if='items[ $root.craft.type ][ $root.craft.item ][`dmgmin`]' class='iteminfo-div flex j-sb mt5'>
+			                        <div class='ml5'>
+			                            <img src='/assets/icons/dmg.png' class='item14-1' /> Урон:
+			                            {{ items[ $root.craft.type ][ $root.craft.item ][`dmgmin`] }}
+			                            -
+			                            {{ items[ $root.craft.type ][ $root.craft.item ][`dmgmax`] }}
+			                        </div>
+			                    </div>
 
-	                        <div v-if='items[ $root.craft.type ][ $root.craft.item ][`power`]' class='iteminfo-div flex j-sb mt5'>
-		                        <div class='ml5'>
-		                            <img src='/assets/icons/power.png' class='item14-1' /> Бонус к мощи: {{ items[ $root.craft.type ][ $root.craft.item ][`power`] }}
-		                        </div>
-		                    </div>
+		                        <div v-if='items[ $root.craft.type ][ $root.craft.item ][`power`]' class='iteminfo-div flex j-sb mt5'>
+			                        <div class='ml5'>
+			                            <img src='/assets/icons/power.png' class='item14-1' /> Бонус к мощи: {{ items[ $root.craft.type ][ $root.craft.item ][`power`] }}
+			                        </div>
+			                    </div>
+	                    	</div>
 	                    </div>
 	                    <div class='flex j-c mt10'>
 	                        <div class='wdth96 flex j-с'>
@@ -273,8 +275,6 @@ module.exports = {
 		{
 			let params = new FormData();
 			params.append('id', this.$root.craft.id);
-			params.append('item', this.$root.craft.item);
-			params.append('type', this.$root.craft.type);
 			params.append('colvo', this.colvo);
 	    	params.append('token', localStorage.getItem('token'));
 

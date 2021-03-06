@@ -178,68 +178,108 @@
             $this->toInventOrReload($inventItem['colvo']);
         }
 
+        public function srchItemInCrafts($id)
+        {
+            if ($this->crafts[ $id ]['item']) return true;
+        }
+
+        public function getUserTools()
+        {
+            return $this->pdo->fetchAll('SELECT * FROM `slots` WHERE `item` > 0 AND `type` = 1 AND `user_id` = ?', array($this->user['id']));
+        }
+
+        public function userCraftToolsExist($tools, $userTools)
+        {
+            $toolsColvo = count($tools);
+            $toolsExist = 0;
+
+            foreach($userTools as $tool)
+            {
+                for($i = 0; $i < $toolsColvo; $i++)
+                {
+                    if ($tool['item'] == $tools[ $i ]['item'])
+                    {
+                        $toolsExist += 1;
+                    }
+                }
+            }
+
+            if ($toolsExits >= $toolsColvo) return true;
+        }
+
+        public function userCraftItemsExist($items)
+        {
+            $itemsColvo = count($items);
+            $itemsExist = 0;
+
+            foreach($items as $item)
+            {
+                if ($itemInInvent = $this->srchItemInInventWithoutId($item['type'], $item['item']))
+                {
+                    if ($itemInInvent['colvo'] >= ($item['colvo'] * $this->colvo))
+                    {
+                        $itemsExist += 1;
+                    }
+                }
+            }
+
+            if ($itemsExist >= $itemsColvo) return true;
+        }
+
+        public function getAllItemsFromInvent()
+        {
+            return $this->pdo->fetchAll('SELECT * FROM `invent` WHERE `in_chest` = 0 AND `colvo` > 0 AND `user_id` = ?', array($this->user['id']));
+        }
+
         public function craft()
         {
-            // Проверка соответсвия
-            if ($this->crafts[ $this->id ]['item'] == $this->item && $this->crafts[ $this->id ]['type'] == $this->type) {
-                if ($this->crafts[ $this->id ]['craft_lvl'] <= $this->user['craft_lvl']) {
+            if ($this->srchItemInCrafts($this->id)) // Если в массиве с крафтами есть такой предмет
+            {
+                if ($this->crafts[ $this->id ]['craft_lvl'] <= $this->user['craft_lvl']) // Если уровень крафта соответсвует уровню крафта игрока
+                {
+                    if (isset($this->crafts[ $this->id ]['tools'])) // Если для крафта необходимы инструменты убежища
+                    {
+                        if ( !$this->userCraftToolsExist($this->crafts[ $this->id ]['tools'], $this->getUserTools()) )
+                        {
+                            $this->answer('mess', 'Не хватает инструментов!');
+                        }
+                    }
 
-                    // Проверка на соответсвие инструментов
-                    if ($this->crafts[ $this->id ]['tools']) {
-                        $tools_colvo = count($this->crafts[ $this->id ]['tools']);
-                        $tools_exist = 0;
-                        $tools       = $this->pdo->fetchAll('SELECT * FROM `slots` WHERE `item` > 0 AND `type` = 1 AND `user_id` = ?', array($this->user['id']));
+                    if ($this->userCraftItemsExist($this->crafts[ $this->id ]['craft_items']))
+                    {
+                        $allItemsFromInvent = $this->getAllItemsFromInvent();
 
-                        // Проверяем все слоты инструментов игрока
-                        foreach($tools as $t) {
-                            for($i = 0; $i < $tools_colvo; $i++) {
-                                if ($t['item'] == $this->crafts[ $this->id ]['tools'][ $i ]['item']) {
-                                    $tools_exist += 1;
+                        foreach($allItemsFromInvent as $itemFromInvent)
+                        {
+                            $substrColvo = 0;
+
+                            foreach($this->crafts[ $this->id ]['craft_items'] as $craftItem)
+                            {
+                                if ($craftItem['item'] == $itemFromInvent['item'] && $craftItem['type'] == $itemFromInvent['type'])
+                                {
+                                    $substrColvo = $craftItem['colvo'];
+                                    break;
                                 }
                             }
+
+                            $this->itemSubstr($itemFromInvent['id'], $itemFromInvent['colvo'], $substrColvo);
                         }
 
-                        // Если у игрока нет требуемых инструментов
-                        if ($tools_colvo !== $tools_exist) {
-                            $this->message = 'Не хватает инструментов';
-                            $this->answer('mess', 0);
+                        $createdItemInInvent = $this->srchItemInInventWithoutId($this->crafts[ $this->id ]['type'], $this->crafts[ $this->id ]['item']);
+
+                        if ($createdItemInInvent)
+                        {
+                            $this->itemAddMore($createdItemInInvent['id'], $createdItemInInvent['colvo'], $this->colvo);
+                        } else
+                        {
+                            $this->createItem($this->crafts[ $this->id ]['item'], $this->crafts[ $this->id ]['type'], $this->colvo, 0);
                         }
+
+                        $this->answer('mess', 'Предмет успешно создан!');
+                    } else
+                    {
+                        $this->answer('mess', 'Недостаточно ресурсов!');
                     }
-
-                    $all_items   = count( $this->crafts[ $this->id ]['craft_items'] );
-                    $all_exist   = 0;
-                    $items       = array();
-                    $items_colvo = array();
-                    // Проверка на соответсвие предметов для крафта
-                    foreach ($this->crafts[ $this->id ]['craft_items'] as $ci) {
-                        $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `colvo` >= ? AND `user_id` = ?', array($ci['item'], $ci['type'], ($ci['colvo'] * $this->colvo), $this->user['id']));
-                        if ($item) {
-                            array_push($items, $item);
-                            array_push($items_colvo, ($ci['colvo'] * $this->colvo));
-                            $all_exist += 1;
-                        }
-                    }
-                    // Если общее кол-во нужных предметов совпадет с проверенными
-                    if ($all_items == $all_exist) {
-                        for($i = 0; $i < count( $items ); $i++) {
-                            // Убераем из инвентаря необходимые вещи для крафта
-                            $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `in_chest` = 0 AND `user_id` = ?', array(($items[$i]['colvo'] - $items_colvo[ $i ]), $items[$i]['item'], $items[$i]['type'], $this->user['id']));
-                        }
-                        // Добавляем создаваемый предмет в инвентарь
-                        $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `in_chest` = 0 AND `user_id` = ?', array($this->item, $this->type, $this->user['id']));
-                        if ($item) {
-                            $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(($item['colvo'] + $this->colvo), $this->item, $this->type, $this->user['id']));
-                        } else {
-                            $this->pdo->query('INSERT INTO invent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array($this->item, $this->type, $this->colvo, $this->user['id']));
-                        }
-
-                        $this->message = 'Предмет успешно создан!';
-                        $this->answer('mess', 0);
-                    } else {
-                        $this->message = 'Недостаточно ресурсов';
-                        $this->answer('mess', 0);
-                    }
-
                 }
             }
         }
@@ -487,8 +527,6 @@
                     break;
                 case 'craft':
                     $this->id    = intval( $_POST['id'] );
-                    $this->item  = intval( $_POST['item'] );
-                    $this->type  = intval( $_POST['type'] );
                     $this->colvo = intval( $_POST['colvo'] );
 
                     $this->craft();

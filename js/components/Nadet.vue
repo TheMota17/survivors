@@ -26,7 +26,7 @@ module.exports = {
 					this.$router.push(response.data.page)
 				} else if (response.data.reload)
 				{
-					this.$router.go()
+					this.$router.go();
 				}
 			})
 			.catch((error) => {
