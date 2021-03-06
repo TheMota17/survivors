@@ -1,5 +1,9 @@
 <template>
 	<div>
+        <div class='zag-style flex j-c mt5'>
+            <div class='fnt14 mt5'>Настройте персонажа</div>
+        </div>
+
         <div class='flex j-c mt5'>
             <div class='cost-message backgr2 flex j-c ai-c pt5 pb5'>
                 <div class='wdth90 flex j-c ai-c'>
@@ -11,7 +15,6 @@
 
 		<div class='flex j-c mt5'>
 			<div class='pers-maneken backgr2 flex j-c ai-c fl-di-co'>
-                <div class='fnt14'>Настройте своего персонажа</div>
 				<div v-if='changed_elem' class='cost-elem-name flex j-c mt5'>
 					<span class='mr5'>{{ elems[ changed_elem ] }}</span>
 					<span>{{ this[changed_elem] }}</span>/<span>{{ this[changed_elem + `_max`] }}</span>
@@ -45,23 +48,16 @@
 						<button class='cost-prevnext-btn mt10 ml5' @click='elemStyle("fwear", "next")'> ► </button>
 					</div>
 				</div>
-			</div>
-		</div>
-
-		<div class='flex j-c mt5'>
-			<div class='cost-desicions backgr2 flex j-c pt5 pb5'>
-				<div class='flex j-c fl-di-co'>
-					<button v-if='!ready' class='cost-ready-btn' @click='confirm("btns")'>Готово</button>
-				</div>
-				<div v-if='ready' class='flex j-c fl-di-co' id='confirm-hide'>
-					<div class='flex j-c fnt15'>
-						Вы уверены?
-					</div>
-					<div class='flex j-c mt5'>
-						<button class='cost-confirm-btn mr10' @click='confirm("no")'>Нет</button>
-					    <button class='cost-confirm-btn' @click='confirm("yes")'>Да</button>
-					</div>
- 				</div>
+                <div class='flex j-c fl-di-co mt5 pb5'>
+                    <button v-if='!ready' class='cost-ready-btn' @click='confirm("btns")'>Готово</button>
+                    <div v-if='ready' class='flex j-c ai-c fnt15 mb5'>
+                        Вы уверены?
+                    </div>
+                    <div v-if='ready' class='flex j-c'>
+                        <button class='cost-confirm-btn mr10' @click='confirm("no")'>Нет</button>
+                        <button class='cost-confirm-btn' @click='confirm("yes")'>Да</button>
+                    </div>
+                </div>
 			</div>
 		</div>
 	</div>

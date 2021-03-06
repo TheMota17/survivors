@@ -1,12 +1,11 @@
 <template>
 	<div v-if='api'>
-		<tablo :hp='game.hp' :hung='game.hung' :thirst='game.thirst' :fatigue='game.fatigue'></tablo>
-		<div class='flex j-c ai-c fl-di-co mt5'>
-		    <div class='flex j-c'>
-		        Предмет
-		    </div>
+		<div class='flex j-c ai-c fl-di-co'>
 		    <div class='item-iteminfo backgr2 pt5 pb5 mt5'>
-		        <div class='flex ml5'>
+		    	<div class='zag-style flex j-c ai-c'>
+			        Предмет
+			    </div>
+		        <div class='flex ml5 mt5'>
 		            <div class='iteminfo-img flex j-s'>
 		                <div class='item32-1 flex j-c ai-c ml5'>
 		                    <div class='flex j-c ai-c' :class='rares[ items[ item[`type`] ][ item[`item`] ][`rare`] ][`border`]'>
@@ -121,15 +120,15 @@
 		    </div>
 		</div>
 
-		<div v-if='$route.query.id' class='flex j-c mt10'>
-			<div class='item-moves backgr2 flex j-c ai-c fl-di-co pt5 pb5'>
+		<div v-if='$route.query.id' class='flex j-c'>
+			<div class='item-moves backgr2 flex j-c ai-c fl-di-co pb5'>
 				<nadet v-if='items[ item[`type`] ][ item[`item`] ][`move`] == `nadet` && item[`in_chest`] == 0'></nadet>
-				<eat v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `eat` && item[`in_chest`] == 0'></eat>
-				<drink v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `drink` && item[`in_chest`] == 0'></drink>
-				<read v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `read` && item[`in_chest`] == 0'></read>
-				<place v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `place` && item[`in_chest`] == 0'></place>
-				<get-from-chest v-if='item[`in_chest`] == 1'></get-from-chest>
-				<place-to-chest v-else-if='chest'></place-to-chest>
+				<eat v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `eat` && item[`in_chest`] == 0' class='mt5'></eat>
+				<drink v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `drink` && item[`in_chest`] == 0' class='mt5'></drink>
+				<read v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `read` && item[`in_chest`] == 0' class='mt5'></read>
+				<place v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `place` && item[`in_chest`] == 0' class='mt5'></place>
+				<get-from-chest v-if='item[`in_chest`] == 1' class='mt5'></get-from-chest>
+				<place-to-chest v-else-if='chest' class='mt5'></place-to-chest>
 			</div>
 		</div>
 
@@ -162,32 +161,34 @@
                         <hr class='hr-style mr5'> Инфо <hr class='hr-style ml5'>
                     </div>
                 </div>
-                <div class='flex fl-di-co j-c ai-c mt5'>
-                    <div class='iteminfo-div'>
-                        <span class='ml5'>
-                            Тип:
-                            {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`type`] }}
-                        </span>
-                    </div>
-                    <div v-if='items[ item[`type`] ][ item[`item`] ][`dmgabs`]' class='iteminfo-div mt5'>
-                        <span class='ml5'>
-                            <img src='/assets/icons/abs.png' class='item14-1' />
-                            Подавление урона: {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`dmgabs`] }}
-                        </span>
-                    </div>
-                    <div v-else class='iteminfo-div mt5'>
-                        <span class='ml5'>
-                            <img src='/assets/icons/dmg.png' class='item14-1' /> Урон:
-                            {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`dmgmin`] }}
-                            -
-                            {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`dmgmax`] }}
-                        </span>
-                    </div>
-                    <div class='iteminfo-div mt5'>
-                        <span class='ml5'>
-                            <img src='/assets/icons/power.png' class='item14-1' /> Бонус к мощи: {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`power`] }}
-                        </span>
-                    </div>
+                <div class='wdth100 flex j-c mt5'>
+                	<div class='wdth96 flex j-c ai-c fl-di-co'>
+                		<div class='iteminfo-div'>
+	                        <span class='ml5'>
+	                            Тип:
+	                            {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`type`] }}
+	                        </span>
+	                    </div>
+	                    <div v-if='items[ item[`type`] ][ item[`item`] ][`dmgabs`]' class='iteminfo-div mt5'>
+	                        <span class='ml5'>
+	                            <img src='/assets/icons/abs.png' class='item14-1' />
+	                            Подавление урона: {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`dmgabs`] }}
+	                        </span>
+	                    </div>
+	                    <div v-else class='iteminfo-div mt5'>
+	                        <span class='ml5'>
+	                            <img src='/assets/icons/dmg.png' class='item14-1' /> Урон:
+	                            {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`dmgmin`] }}
+	                            -
+	                            {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`dmgmax`] }}
+	                        </span>
+	                    </div>
+	                    <div class='iteminfo-div mt5'>
+	                        <span class='ml5'>
+	                            <img src='/assets/icons/power.png' class='item14-1' /> Бонус к мощи: {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`power`] }}
+	                        </span>
+	                    </div>
+                	</div>
                 </div>
             </div>
         </div>
@@ -196,7 +197,6 @@
 
 <script>
 let date = Date.now();
-let Tablo = httpVueLoader('../components/Tablo.vue?_='+date)
 let Nadet = httpVueLoader('../components/Nadet.vue?_='+date)
 let Eat   = httpVueLoader('../components/Eat.vue?_='+date)
 let Drink = httpVueLoader('../components/Drink.vue?_='+date)
@@ -212,7 +212,6 @@ module.exports = {
 
 		item: undefined,
 		items: undefined,
-		pred: undefined,
 		rares: undefined,
 		nadeto: undefined,
 		nElems: undefined,
@@ -222,7 +221,7 @@ module.exports = {
 	}),
 	components:
 	{
-		Tablo, Nadet, Eat, Drink, Read, Place, PlaceToChest, GetFromChest
+		Nadet, Eat, Drink, Read, Place, PlaceToChest, GetFromChest
 	},
 	beforeMount()
 	{
@@ -241,12 +240,16 @@ module.exports = {
 				this.$router.push(response.data.page)
 			} else {
 				this.items  = response.data.items;
-				this.pred   = response.data.pred;
 				this.rares  = response.data.rares;
 				this.nadeto = response.data.nadeto;
 				this.nElems = response.data.nElems;
 				this.game   = response.data.game;
 				this.chest  = response.data.chest;
+
+				this.$root.tablo.hp = this.game.hp;
+                this.$root.tablo.hung = this.game.hung;
+                this.$root.tablo.thirst = this.game.thirst;
+                this.$root.tablo.fatigue = this.game.fatigue;
 
 				if (!response.data.item)
 				{

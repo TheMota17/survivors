@@ -1,5 +1,5 @@
 <template>
-	<button class='moves-btn flex j-s ai-c mt5' @click='enter'>
+	<button class='moves-btn flex j-s ai-c' @click='enter'>
         <span class='flex j-c ai-c' v-if='userEnter == 0'>
         	<div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
         		<img src='/assets/icons/enter.png' />

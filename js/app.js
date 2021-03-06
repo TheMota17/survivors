@@ -7,6 +7,7 @@
 
     let Popup   = httpVueLoader('./js/components/Popup.vue?_='+date)
     let Menyoo  = httpVueLoader('./js/components/Menu.vue?_='+date)
+    let Tablo   = httpVueLoader('./js/components/Tablo.vue?_='+date)
     let PageBar = httpVueLoader('./js/components/PageBar.vue?_='+date)
 
     let Notf      = httpVueLoader('./js/views/404.vue?_='+date)
@@ -73,13 +74,20 @@
         router,
         components:
         {
-            Popup, Menyoo, PageBar
+            Popup, Menyoo, Tablo, PageBar
         },
         data: () => ({
             popup:
             {
                 text: 'Ошибка',
                 active: false
+            },
+            tablo:
+            {
+                hp: 0,
+                hung: 0,
+                thirst: 0,
+                fatigue: 0
             },
             pageBar:
             {

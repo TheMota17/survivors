@@ -4,22 +4,21 @@
 
     Class Api {
 
-    	public function __construct($pdo, $Utils, $config, $items, $locs, $rares, $pred, $crafts, $refuges, $user, $game)
+    	public function __construct($Pdo, $Utils, $config, $items, $locs, $rares, $crafts, $refuges, $user, $game)
     	{
 
-            $this->pdo    = $pdo;
+            $this->pdo    = $Pdo;
             $this->utils  = $Utils;
             $this->config = $config;
 
             $this->items   = $items;
             $this->locs    = $locs;
             $this->rares   = $rares;
-            $this->pred    = $pred;
             $this->crafts  = $crafts;
             $this->refuges = $refuges;
 
-            $this->user  = $user;
-            $this->game  = $game;
+            $this->user = $user;
+            $this->game = $game;
 
     	}
 
@@ -30,14 +29,7 @@
                 case 'game':
                     exit(
                         json_encode([
-                            'game' => [
-                                'hp' => $this->game->hp,
-                                'hung' => $this->game->hung,
-                                'thirst' => $this->game->thirst,
-                                'fatigue' => $this->game->fatigue,
-                                'loc' => $this->user['loc'],
-                                'loc_explored' => $this->user['loc_explored']
-                            ],
+                            'game' => $this->game,
                             'items' => $this->items,
                             'locs' => $this->locs
                         ])
@@ -48,7 +40,7 @@
                         json_encode([
                             'nadeto' => $this->nadeto,
                             'invent' => $this->invent,
-                            'user'   => ['login' => $this->user['login'], 'live' => $this->user['live']],
+                            'user'   => ['login' => $this->user['login']],
                             'game'   => $this->game,
                             'items'  => $this->items,
                             'rares'  => $this->rares,
@@ -60,7 +52,6 @@
                         json_encode([
                             'item'   => $this->item,
                             'items'  => $this->items,
-                            'pred'   => $this->pred,
                             'rares'  => $this->rares,
                             'nadeto' => [
                                 'helm' => ($this->nadeto['helm']) ? $this->nadeto['helm'] : false,
@@ -173,6 +164,6 @@
 
     if ($Utils::checkSession() && $Utils::checkToken())
     {
-        $Api = new Api($Pdo, $Utils, $config, $game_items, $game_locs, $game_rares, $items_pred, $game_crafts, $game_refuges, $User->getUser(), $User->getGame());
+        $Api = new Api($Pdo, $Utils, $config, $game_items, $game_locs, $game_rares, $game_crafts, $game_refuges, $User->getUser(), $User->getGame());
         $Api->main();
     }

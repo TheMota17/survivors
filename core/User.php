@@ -15,8 +15,7 @@
 
             $this->pdo = $pdo;
 
-            $this->user = $this->pdo->fetch('SELECT * FROM `users` WHERE `id` = ?', array( htmlspecialchars( intval( $id ) ) ));
-            $this->game = json_decode( $this->user['game'] );
+            $this->user = $this->pdo->fetch('SELECT * FROM `users` WHERE `id` = ?', array( intval( htmlspecialchars( $id ) ) ));
 
         }
 
@@ -27,7 +26,20 @@
 
         public function getGame()
         {
-            return $this->game;
+            return [
+                'loc' => $this->user['loc'],
+                'loc_explored' => $this->user['loc_explored'],
+                'x' => $this->user['x'],
+                'y' => $this->user['y'],
+                'hp' => $this->user['hp'],
+                'hung' => $this->user['hung'],
+                'thirst' => $this->user['thirst'],
+                'fatigue' => $this->user['fatigue'],
+                'speed' => $this->user['speed'],
+                'time' => $this->user['time'],
+                'weather' => $this->user['weather'],
+                'temp' => $this->user['temp']
+            ];
         }
 
         public function userInfo($type, $data)
@@ -45,17 +57,19 @@
             if ($this->user['ban'] > time())
             {
                 $this->message = date('d.m.Y H:i:s', $this->user['ban']);
-                $this->exit( 'ban' );
+                $this->answer('ban');
             } else
             {
                 return true;
             }
         }
 
-        public function costumize()
+        public function userCostumized()
         {
-            if ($this->user['costumize'] > 0) return true;
-            else $this->exit('costumize');
+            if ($this->user['costumize'] == 0)
+            {
+                $this->locateUserToPage('/costumize');
+            }
         }
 
         public function visit()
@@ -63,7 +77,12 @@
             $this->pdo->query('UPDATE users SET `lastvisit` = ? WHERE `id` = ?', array(time(), $this->user['id']));
         }
 
-        public function exit( $move )
+        public function locateUserToPage($page)
+        {
+            exit(json_encode(['page' => $page, 'token' => isset($_SESSION['token']) ]));
+        }
+
+        public function answer( $move )
         {
             switch( $move)
             {
@@ -78,9 +97,15 @@
 
         public function main()
         {
-            $this->ban();
-            $this->costumize();
-            $this->visit();
+            if (!$this->user)
+            {
+                $this->locateUserToPage('/auth');
+            } else
+            {
+                $this->ban();
+                $this->userCostumized();
+                $this->visit();
+            }
         }
     }
 

@@ -1,5 +1,5 @@
 <template>
-	<button class='moves-btn mt5' @click='place'>
+	<button class='moves-btn' @click='place'>
         <span>Поместить в сундук</span>
     </button>
 </template>

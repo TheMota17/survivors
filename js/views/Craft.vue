@@ -1,23 +1,28 @@
 <template>
 	<div v-if='api'>
-		<tablo :hp='game.hp' :hung='game.hung' :thirst='game.thirst' :fatigue='game.fatigue'></tablo>
 		<div class='flex j-c ai-c fl-di-co mt5'>
-		    <div class='flex j-c ai-c'>
-		        Доступные предметы
-		        <button class='sort-btn flex j-c ai-c ml10' @click='sortMenu'>
-                    <img src='/assets/icons/sort.png' class='mr5'/>{{ typeElems[ $root.craft.sortType ] }}
-                </button>
-		    </div>
-            <div v-if='sort' class='sort-menu flex j-s ai-c mt5'>
-		        <button @click='changeType(2)' class='flex j-c ai-c mr5'>Шлемы</button>
-		        <button @click='changeType(3)' class='flex j-c ai-c mr5'>Броня</button>
-		        <button @click='changeType(4)' class='flex j-c ai-c mr5'>Оружие</button>
-		        <button @click='changeType(5)' class='flex j-c ai-c mr5'>Убежище</button>
-		        <button @click='changeType(1)' class='flex j-c ai-c'>Разное</button>
-			</div>
-		    <div class='craft-items backgr2 flex j-c ai-c fl-di-co mt5 pt5 pb5'>
-
-	            <div v-if='$root.craft.selected' class='craft-item backgr1 flex j-c fl-di-co mt5 mb5 pt5 pb5'>
+		    <div class='craft-items backgr2 flex j-c ai-c fl-di-co'>
+		    	<div class='zag-style flex j-c ai-c mt5 mb5'>
+			        Крафт
+			    </div>
+	            <div class='sort-menu flex j-s ai-c'>
+			        <button @click='changeType(2)' class='flex j-c ai-c mr5'>
+			        	<img class='item14-1' src='/assets/items/helms/wood-helm.png' />
+			    	</button>
+			        <button @click='changeType(3)' class='flex j-c ai-c mr5'>
+			        	<img class='item14-1' src='/assets/icons/abs.png' />
+			    	</button>
+			        <button @click='changeType(4)' class='flex j-c ai-c mr5'>
+			        	<img class='item14-1' src='/assets/icons/dmg.png' />
+			    	</button>
+			        <button @click='changeType(5)' class='flex j-c ai-c mr5'>
+			        	<img class='item14-1' src='/assets/icons/menu/refuge.png' />
+			        </button>
+			        <button @click='changeType(1)' class='flex j-c ai-c'>
+			        	<img class='item14-1' src='/assets/icons/diff.png' />
+			    	</button>
+				</div>
+	            <div v-if='$root.craft.selected' class='craft-item backgr1 flex j-c fl-di-co mb5 pt5 pb5'>
 	                <div class='craft-first-info flex'>
 	                    <div class='flex j-c ai-c ml5' :class='rares[ items[ $root.craft.type ][ $root.craft.item ][`rare`] ][`border`]'>
 	                        <img :src='items[ $root.craft.type ][ $root.craft.item ][`img`]'>
@@ -198,9 +203,6 @@
 </template>
 
 <script>
-let date  = Date.now();
-let Tablo = httpVueLoader('../components/Tablo.vue?_='+date)
-
 module.exports = {
 	name: 'Craft',
 	data: () => ({
@@ -212,15 +214,8 @@ module.exports = {
 		user: undefined,
 		game: undefined,
 
-		sort: false,
-		typeElems: {1: 'Разное', 2: 'Шлемы', 3: 'Броня', 4: 'Оружие', 5: 'Убежище'},
-
 		colvo: 1
 	}),
-	components:
-	{
-		Tablo
-	},
 	beforeMount()
 	{
 		let params = new FormData();
@@ -243,6 +238,11 @@ module.exports = {
 				this.user   = response.data.user;
 				this.game   = response.data.game;
 
+				this.$root.tablo.hp = this.game.hp;
+                this.$root.tablo.hung = this.game.hung;
+                this.$root.tablo.thirst = this.game.thirst;
+                this.$root.tablo.fatigue = this.game.fatigue;
+
 				this.api = true;
 			}
 		})
@@ -251,10 +251,6 @@ module.exports = {
 		})
 	},
 	methods: {
-		sortMenu()
-		{
-			this.sort = !this.sort;
-		},
 		changeType(type)
 		{
 			this.$root.craft.sortType = type;

@@ -28,7 +28,10 @@
 		        update: function(dt)
 		        {
 		            this.GameLive.update(dt);
-		            this.Player.update(dt);
+		            for(let i = 0; i < this.Players.length; i++)
+		            {
+		            	this.Players[i].update(dt);
+		            }
 		            this.Camera.update(dt);
 		        },
 		        render()
@@ -38,7 +41,10 @@
 		            this.ctx.translate(-this.Camera.x, -this.Camera.y);
 
 		                    this.World.render();
-		                    this.Player.render();
+		                    for(let i = 0; i < this.Players.length; i++)
+				            {
+				            	this.Players[i].render(dt);
+				            }
 
 		            this.ctx.restore();
 
@@ -66,7 +72,12 @@
 		            this.loc = {width: 1024, height: 1024};
 
 		            this.GameLive = new GameLive(this);
-		            this.Player   = new Player(this, this.sprites['pl']);
+
+		            for (let i = 0; i < ajaxData.players.length; i++)
+		            {
+		            	this.Players.push(new Player(this, this.sprites['pl'], ajaxData.players[i]));
+		            }
+
 		            this.Camera   = new Camera(this);
 		            this.World    = new GameWorld(this, this.sprites);
 
@@ -81,15 +92,16 @@
 		        	let params = new FormData();
 		        	params.append('token', localStorage.getItem('token'));
 
-		    		axios.post('/core/GameLoad/?action=load', params)
+		    		axios.post('/core/Game/?action=getData', params)
 		    		.then((response) =>
 		    		{
-		                let sprites =
-		                [
+		                let sprites = [
 		                    {nm: 'pl', path: '/assets/game/'},
 		                    {nm: 'loc_' + response.data.game.loc, path: '/assets/game/'}
 		                ];
+
 		                Game.sprites  = Resources.loadSprites(sprites);
+		                Game.ajaxData = response.data;
 
 		                let check = setInterval(() =>
 		                {
@@ -101,13 +113,21 @@
 		                }, 1);
 		    		})
 		        },
+
 		        getCanv() { return this.canv },
+
 		        getCtx() { return this.ctx },
+
 		        getPlayer() { return this.Player },
+
 		        getGameLive() { return this.GameLive },
+
 		        getCamera() { return this.Camera },
+
 		        getWorld() { return this.World },
-		        getAjaxData() { return this.AjaxData },
+
+		        getAjaxData() { return this.ajaxData },
+
 		        getLoc() { return this.loc }
 		    }; // end of game
 

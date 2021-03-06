@@ -1,19 +1,20 @@
 <template>
 	<div v-if='api'>
-	    <tablo :hp='game.hp' :hung='game.hung' :thirst='game.thirst' :fatigue='game.fatigue'></tablo>
         <div class='flex j-c mt5'>
-            Общий чат
-        </div>
-        <div class='flex j-c mt5'>
-            <div class='chat-form wdth96 flex j-c pt5 pb5'>
-                <input type='text' class='chat-input' placeholder='Ваше сообщение' v-model='inputText' cols='10'>
-                <button class='chat-btn ml5' @click='sendMessage'>
-                    <img src='/assets/icons/send.png' />
-                </button>
+            <div class='chat-form flex j-c ai-c fl-di-co pt5 pb5'>
+                <div class='zag-style flex j-c ai-c'>
+                    Общий чат
+                </div>
+                <div class='flex j-c mt10'>
+                    <input type='text' class='chat-input' placeholder='Ваше сообщение' v-model='inputText' cols='10'>
+                    <button class='chat-btn ml5' @click='sendMessage'>
+                        <img src='/assets/icons/send.png' />
+                    </button>
+                </div>
             </div>
         </div>
         <div class='flex j-c mt5'>
-            <div class='chat-body wdth96 flex j-s fl-di-co ai-c pb5'>
+            <div class='chat-body flex j-s fl-di-co ai-c pb5'>
                 <div v-for='mess in paginatedData' class='chat-item mt5'>
                     <div class='ml5'>
                         <span class='mess'>{{ mess.login }}: </span>
@@ -23,8 +24,8 @@
                 </div>
             </div>
         </div>
-        <div class='flex j-c mt5'>
-            <div class='chat-nav backgr2 flex j-c mt5 pt5 pb5'>
+        <div class='flex j-c'>
+            <div class='chat-nav backgr2 flex j-c pt5 pb5'>
                 <div class='wdth96 flex j-sb'>
                     <button :disabled='page == 1' @click='prevPage' class='nav-btn ml5'>◄</button>
                     <span class='nav-btn'>{{ page }}</span>
@@ -36,9 +37,6 @@
 </template>
 
 <script>
-let date  = Date.now();
-let Tablo = httpVueLoader('../components/Tablo.vue?_='+date)
-
 module.exports = {
     name: 'Chat',
     data: () => ({
@@ -47,14 +45,10 @@ module.exports = {
         messages: [],
         inputText: '',
         page: 1,
-        maxmess: 10,
+        maxmess: 8,
 
         game: undefined,
     }),
-    components:
-    {
-        Tablo
-    },
     beforeMount()
     {
         let params = new FormData();
@@ -73,6 +67,11 @@ module.exports = {
             {
                 this.game     = response.data.game;
                 this.messages = response.data.messages;
+
+                this.$root.tablo.hp = this.game.hp;
+                this.$root.tablo.hung = this.game.hung;
+                this.$root.tablo.thirst = this.game.thirst;
+                this.$root.tablo.fatigue = this.game.fatigue;
 
                 this.api = true;
             }

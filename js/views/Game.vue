@@ -1,6 +1,5 @@
 <template>
 	<div v-if='api'>
-		<tablo :hp='game.hp' :hung='game.hung' :thirst='game.thirst' :fatigue='game.fatigue'></tablo>
 		<div class='flex j-c mt5'>
 		    <div class='game-meteoсharact backgr2 flex j-sa pt5 pb5'>
 		        <div class='flex j-c ai-c'>
@@ -16,7 +15,7 @@
 		    </div>
 		</div>
 
-		<div class='flex j-c mt5'>
+		<div class='flex j-c'>
 		    <div class='game-location backgr2 pb5'>
 		        <div class='flex j-c ai-c pt5 pb5 fnt15'>
 		            <img src='/assets/icons/loc.png' class='item14-1 mr5' />
@@ -75,7 +74,7 @@
 		    </div>
 		</div>
 
-		<div class='flex j-c mt5'>
+		<div class='flex j-c'>
 		    <sleep></sleep>
 		</div>
 
@@ -85,7 +84,6 @@
 
 <script>
 let date = Date.now();
-let Tablo = httpVueLoader('../components/Tablo.vue?_='+date)
 let Sleep = httpVueLoader('../components/Sleep.vue?_='+date)
 let Surv  = httpVueLoader('../components/Surv.vue?_='+date)
 
@@ -99,7 +97,7 @@ module.exports = {
 	}),
 	components:
 	{
-		Sleep, Surv, Tablo
+		Sleep, Surv
 	},
 	beforeMount()
 	{
@@ -120,6 +118,12 @@ module.exports = {
 				this.game  = response.data.game;
 				this.items = response.data.items;
 				this.locs  = response.data.locs;
+
+				this.$root.tablo.hp = this.game.hp;
+                this.$root.tablo.hung = this.game.hung;
+                this.$root.tablo.thirst = this.game.thirst;
+                this.$root.tablo.fatigue = this.game.fatigue;
+
 				this.api = true;
 			}
 		})

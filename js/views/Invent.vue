@@ -1,6 +1,5 @@
 <template>
 	<div v-if='api'>
-		<tablo :hp='game.hp' :hung='game.hung' :thirst='game.thirst' :fatigue='game.fatigue'></tablo>
 		<div class='flex j-c mt5'>
 			<div class='ivent-user backgr2 flex j-c ai-c fl-di-co'>
 				<div class='flex j-c ai-c mt5'>
@@ -21,7 +20,6 @@
 					<div class='user-info ml10'>
 						<div class='user-name flex j-c ai-c'>
 							<span class='user-name' id='user_name'>{{ user['login'] }}</span>
-			                <img src='/assets/icons/hp.png' class='item14-1 ml5' /> {{ user['live'] }}
 						</div>
 
 						<div class='user-abs flex j-s ai-c mt5'>
@@ -64,19 +62,19 @@
 						</div>
 
 						<div class='user-hp-info flex j-c ai-c mt5'>
-							<img src='/assets/icons/hung.png' class='mr5' />
+							<img class='item14-1 mr5' src='/assets/icons/hung.png' class='mr5' />
 			                <div class='ivent-hung-bar'>
 			                    <div class='hung-bar' :style='`width:` + game.hung + `%`'></div>
 			                </div>
 						</div>
 						<div class='user-hung-info flex j-c ai-c mt5'>
-							<img src='/assets/icons/thirst.png' class='mr5' />
+							<img class='item14-1 mr5' src='/assets/icons/thirst.png' class='mr5' />
 			                <div class='ivent-thirst-bar'>
 			                    <div class='thirst-bar' :style='`width:` + game.thirst + `%`'></div>
 			                </div>
 						</div>
 						<div class='user-fatigue-info flex j-c ai-c mt5'>
-							<img src='/assets/icons/sleep.png' class='mr5' />
+							<img class='item14-1 mr5' src='/assets/icons/sleep.png' class='mr5' />
 							<div class='ivent-fatigue-bar'>
 								<div class='fatigue-bar' :style='`width:` + game.fatigue + `%`'></div>
 							</div>
@@ -215,30 +213,36 @@
 		</div>
 
 		<div class='flex j-c ai-c fl-di-co mt5'>
-			<div class='flex j-c ai-c'>
-				<button class='sort-btn flex j-c ai-c mr5' @click='sortFrom'>
-		        	<span class='flex j-c ai-c' v-if='!$root.invent.from'>
-		        		<img src='/assets/icons/menu/ivent.png' class='item14-1 mr5' /> Инвентарь {{ inventLength }} / 50
-		        	</span>
-		        	<span class='flex j-c ai-c' v-else>
-		        		<img src='/assets/items/refuge/chest.png' class='item14-1 mr5' /> Сундук {{ chestLength }} / 50
-		        	</span>
-		        </button>
+			<div class='ivent-items backgr2 flex j-c ai-c fl-di-co'>
+				<div class='flex j-c ai-c mt5'>
+					<button class='sort-btn flex j-c ai-c mr5' @click='sortFrom'>
+			        	<span class='flex j-c ai-c' v-if='!$root.invent.from'>
+			        		<img src='/assets/icons/menu/ivent.png' class='item14-1 mr5' /> Инвентарь {{ inventLength }} / 50
+			        	</span>
+			        	<span class='flex j-c ai-c' v-else>
+			        		<img src='/assets/items/refuge/chest.png' class='item14-1 mr5' /> Сундук {{ chestLength }} / 50
+			        	</span>
+			        </button>
 
-		        <button class='sort-btn flex j-c ai-c ml5' @click='sortMenu'>
-		            <img src='/assets/icons/sort.png' class='item14-1 mr5' /> {{ typeElems[ $root.invent.sortType ] }}
-		        </button>
-		    </div>
-		    <div v-if='sort' class='sort-menu flex j-s ai-c mt5'>
-		        <button @click='changeType(0)' class='flex j-c ai-c mr5'>Все</button>
-		        <button @click='changeType(2)' class='flex j-c ai-c mr5'>Шлемы</button>
-		        <button @click='changeType(3)' class='flex j-c ai-c mr5'>Броня</button>
-		        <button @click='changeType(4)' class='flex j-c ai-c mr5'>Оружие</button>
-		        <button @click='changeType(5)' class='flex j-c ai-c mr5'>Убежище</button>
-		        <button @click='changeType(1)' class='flex j-c ai-c'>Разное</button>
-			</div>
-			<div v-if='inventNotEmpty' class='ivent-items backgr2 flex j-c ai-c fl-di-co mt5'>
-				<router-link v-for='item in paginatedData' v-if='item.type == $root.invent.sortType || $root.invent.sortType == 0 && item.in_chest == $root.invent.from' :to='{ path: `item`, query: {id: item.id}}' class='item-div backgr1 flex j-sb mt5 mb5 pt5 pb5'>
+			        <div class='sort-menu flex j-s ai-c'>
+				        <button @click='changeType(2)' class='flex j-c ai-c mr5'>
+				        	<img class='item14-1' src='/assets/items/helms/wood-helm.png' />
+				    	</button>
+				        <button @click='changeType(3)' class='flex j-c ai-c mr5'>
+				        	<img class='item14-1' src='/assets/icons/abs.png' />
+				    	</button>
+				        <button @click='changeType(4)' class='flex j-c ai-c mr5'>
+				        	<img class='item14-1' src='/assets/icons/dmg.png' />
+				    	</button>
+				        <button @click='changeType(5)' class='flex j-c ai-c mr5'>
+				        	<img class='item14-1' src='/assets/icons/menu/refuge.png' />
+				        </button>
+				        <button @click='changeType(1)' class='flex j-c ai-c'>
+				        	<img class='item14-1' src='/assets/icons/diff.png' />
+				    	</button>
+					</div>
+			    </div>
+				<router-link v-for='item in paginatedData' v-if='inventNotEmpty && item.type == $root.invent.sortType || $root.invent.sortType == 0 && item.in_chest == $root.invent.from' :to='{ path: `item`, query: {id: item.id}}' class='item-div backgr1 flex j-sb mt5 mb5 pt5 pb5'>
 	                <div class='fl1 flex j-s ai-c'>
 	                    <div class='item32-2 flex j-c ai-c'>
 	                        <div class='flex j-c ai-c' :class='rares[ items[ item[`type`] ][ item[`item`] ][`rare`] ][`border`]'>
@@ -263,9 +267,6 @@
 	                </div>
 	        	</router-link>
 			</div>
-			<div v-else class='ivent-items backgr2 flex j-c pt5 pb5 mt5'>
-				Пусто
-			</div>
 			<div class='ivent-nav backgr2 flex j-c pt5 pb5'>
 				<div class='wdth96 flex j-sb'>
 					<button :disabled='page == 1' class='nav-btn ml5' @click='prevPage'>◄</button>
@@ -278,9 +279,6 @@
 </template>
 
 <script>
-let date = Date.now();
-let Tablo = httpVueLoader('../components/Tablo.vue?_='+date)
-
 module.exports = {
     name: 'Invent',
     data: () => ({
@@ -294,14 +292,8 @@ module.exports = {
     	rares: undefined,
 
     	max: 5,
-    	page: 1,
-    	sort: false,
-    	typeElems: {0: 'Все', 1: 'Разное', 2: 'Шлемы', 3: 'Броня', 4: 'Оружие', 5: 'Убежище'}
+    	page: 1
     }),
-    components:
-    {
-    	Tablo
-    },
 	beforeMount()
 	{
 		let params = new FormData();
@@ -325,6 +317,11 @@ module.exports = {
 				this.items  = response.data.items;
 				this.rares  = response.data.rares;
 
+				this.$root.tablo.hp = this.game.hp;
+                this.$root.tablo.hung = this.game.hung;
+                this.$root.tablo.thirst = this.game.thirst;
+                this.$root.tablo.fatigue = this.game.fatigue;
+
 				this.api = true;
 			}
 		})
@@ -345,10 +342,6 @@ module.exports = {
 		changeType(type)
 		{
 			this.$root.invent.sortType = type;
-		},
-		sortMenu()
-		{
-			this.sort = !this.sort;
 		},
 		sortFrom()
 		{

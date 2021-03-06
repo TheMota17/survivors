@@ -1,9 +1,11 @@
 <template>
 	<div v-if='api'>
-		<tablo :hp='game.hp' :hung='game.hung' :thirst='game.thirst' :fatigue='game.fatigue'></tablo>
 	    <div v-if='refuge[`lvl`] == 0' class='flex j-c ai-c mt5'>
 	        <div class='refuge-no backgr2 flex j-c ai-c fl-di-co pb5'>
-	            <div class='refuge-back flex j-c ai-c' :style='{background: "url(" + locs[ 1 ][`img`] + ") no-repeat top/cover"}'>
+	        	<div class='zag-style flex j-c ai-c mt5'>
+	                Убежище
+	            </div>
+	            <div class='refuge-back flex j-c ai-c mt5' :style='{background: "url(" + locs[ 1 ][`img`] + ") no-repeat top/cover"}'>
 	                <div class='refuge-no-mess backgr1 flex j-c ai-c'>
 	                    <img src='/assets/icons/mess.png' class='mr5' />
 	                    <span class='mess'>У вас нету убежища</span>
@@ -32,10 +34,10 @@
 	    <div v-else>
 		    <div class='flex j-c ai-c mt5'>
 		        <div class='refuge-info backgr2 flex j-c ai-c fl-di-co pt5 pb5'>
-		            <div class='wdth96 flex j-c'>
-		                <hr class='hr-style mr5'> Убежище <hr class='hr-style ml5'>
+		            <div class='zag-style flex j-c ai-c'>
+		                Убежище
 		            </div>
-		            <div class='wdth96 flex j-c ai-c fl-di-co'>
+		            <div class='wdth86 flex j-c ai-c fl-di-co'>
 		                <div class='iteminfo-div mt5'>
 		                    <span class='ml5'><img src='/assets/icons/info.png' />{{ refuges[ refuge[`lvl`] ][`nm`] }}</span>
 		                </div>
@@ -81,13 +83,13 @@
 
 		            <div class='refuge-moves flex j-c ai-c fl-di-co'>
 		            	<up-refuge v-if='refuges[ Math.floor(refuge[`lvl`]) + 1 ]' :move='1'></up-refuge>
-	                    <enter-refuge :user-enter='user[`in_refuge`]'></enter-refuge>
+	                    <enter-refuge :user-enter='user[`in_refuge`]' class='mt5'></enter-refuge>
 		            </div>
 		        </div>
 		    </div>
 
 		    <div class='flex j-c ai-c fl-di-co mt5'>
-		        <div class='refuge-protection-slots backgr2 flex j-c ai-c fl-di-co mt5 pt5 pb5'>
+		        <div class='refuge-protection-slots backgr2 flex j-c ai-c fl-di-co pt5 pb5'>
 		            <div class='wdth96 flex j-c'>
 		                <hr class='hr-style mr5'> Защита <hr class='hr-style ml5'>
 		            </div>
@@ -194,7 +196,6 @@
 
 <script>
 let date = Date.now();
-let Tablo       = httpVueLoader('../components/Tablo.vue?_='+date)
 let EnterRefuge = httpVueLoader('../components/EnterRefuge.vue?_='+date)
 let UpRefuge    = httpVueLoader('../components/UpRefuge.vue?_='+date)
 
@@ -217,7 +218,7 @@ module.exports = {
 	}),
 	components:
 	{
-		Tablo, EnterRefuge, UpRefuge
+		EnterRefuge, UpRefuge
 	},
 	beforeMount()
 	{
@@ -246,6 +247,11 @@ module.exports = {
 				this.tools   = response.data.tools;
 				this.prots   = response.data.prots;
 				this.chest   = response.data.chest;
+
+				this.$root.tablo.hp = this.game.hp;
+                this.$root.tablo.hung = this.game.hung;
+                this.$root.tablo.thirst = this.game.thirst;
+                this.$root.tablo.fatigue = this.game.fatigue;
 
 				this.api = true;
 			}

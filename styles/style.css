@@ -42,6 +42,9 @@ input::placeholder {padding: 8px; color: var(--main-3-color);}
 ::-webkit-scrollbar-track {background: var(--main-1-color);}
 ::-webkit-scrollbar-thumb {background: var(--main-2-back);}
 
+.input {width: 100%; height: 25px; padding: 0px 5px; outline: none; background: var(--main-2-back); color: var(--main-3-color); transition: .5s;}
+.input:focus {padding: 0px 15px;}
+
 .page-load-bar {width: 100%; height: 1.5px; position: fixed; top: 0; left: 0; background: var(--main-1-color); z-index: 10000}
 .load-bar {width: 20%; height: inherit; background: var(--main-3-color); transition: width ease-in-out .6s;}
 
@@ -52,7 +55,7 @@ input::placeholder {padding: 8px; color: var(--main-3-color);}
 .close-btn {width: 90px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: box-shadow 0.2s; border-radius: 5px; margin-top: 15px;}
 .close-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
-.menu {position: fixed; top: 0; right: 0; width: 200px; height: 100vh; margin-top: 25px; background: var(--main-2-back); display: flex; align-items: center; justify-content: center; transition: 0.2s linear; transform: translateX(100%);  box-shadow: inset 2px 0px 5px var(--main-1-color); z-index: 9999;}
+.menu {position: fixed; top: 0; right: 0; width: 200px; height: 100vh; margin-top: 25px; background: var(--main-2-back); display: flex; align-items: center; justify-content: center; transition: 0.2s linear; transform: translateX(100%); z-index: 9999;}
 .menu-list {width: 100%; height: 100%; overflow-y: auto;}
 .menu-zag {background: var(--main-1-color); border-radius: 3px; padding-top: 2px; padding-bottom: 2px;}
 .menu-a {width: 100%; height: 30px; display: flex; justify-content: flex-start; align-items: center; border-radius: 3px; transition: .2s;}
@@ -65,6 +68,7 @@ input::placeholder {padding: 8px; color: var(--main-3-color);}
 .info-table {width: 100%; height: 25px; position: fixed; top: 0; left: 0; z-index: 9999; box-shadow: 0px 2px 5px var(--main-1-color);}
 
 .hr-style {width: 100%; height: 1px; background: var(--main-1-color); margin-top: 8px; border: 0; clear: both; display: block;}
+.zag-style {width: 100%; height: 25px; background: var(--main-1-color); clip-path: polygon(13% 0%, 87% 0%, 95% 50%, 87% 100%, 13% 100%, 5% 50%); box-shadow: inset 0px 0px 10px #212121;}
 
 .item14-1 {width: 14px; height: 14px;}
 .item32-1 {width: 32px; height: 32px; border-radius: 3px; background: var(--main-1-color);}
@@ -76,9 +80,9 @@ input::placeholder {padding: 8px; color: var(--main-3-color);}
 .epic_border {width: 32px; height: 32px; background: url('/assets/icons/ivent-epic-border.png') top/cover no-repeat;}
 .legend_border {width: 32px; height: 32px; background: url('/assets/icons/ivent-legend-border.png') top/cover no-repeat;}
 
-.sort-menu {width: 96%; height: 50px; background: var(--main-2-back); border-radius: 3px; border: 2px solid var(--main-1-color); padding: 5px; overflow: auto;}
-.sort-menu button {width: 100px; height: 25px; color: var(--main-3-color); background: var(--main-1-color); padding: 4px; border-radius: 3px;}
-.sort-btn {color: var(--main-3-color); background: var(--main-2-back); border: 1px solid var(--main-3-color); padding: 1px 5px; border-radius: 2px;}
+.sort-menu {background: var(--main-2-back); padding: 3px; overflow: auto;}
+.sort-menu button {height: 25px; color: var(--main-3-color); background: var(--main-1-color); padding: 4px; border-radius: 3px;}
+.sort-btn {height: 25px; color: var(--main-3-color); background: var(--main-1-color); padding: 1px 5px; border-radius: 2px;}
 
 /* Панель */
 .panel-moves {width: 96%; background: var(--main-2-back); border: 1px solid var(--main-3-color); border-radius: 5px;}
@@ -92,39 +96,36 @@ input::placeholder {padding: 8px; color: var(--main-3-color);}
 .logo {width: 100%; border-radius: 5px;}
 .auth-info {text-align: center; font-size: 15px; transform: translateY(-20px); text-shadow: 0 0 1px var(--main-mess-color);}
 
-.input {width: 100%; height: 25px; border-radius: 5px; outline: none; background: var(--main-2-back); color: var(--main-3-color); text-align: center;}
-
 .auth-reg {width: 90%; border-radius: 5px 5px 0px 0px;}
-.auth-reg-zag {width: 96%; height: 26px; background: var(--main-1-color); color: var(--main-mess-color); border-radius: 5px;}
-.auth-reg-form button {width: 90px; height: 25px; outline: none; border: none; background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
-.auth-reg-form button:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
+.auth-reg-zag {width: 100%; height: 26px; background: var(--main-2-back); clip-path: polygon(5% 0%, 85% 0%, 90% 0%, 85% 100%, 15% 100%, 10% 0%);}
+.reg-button {width: 150px; height: 30px; outline: none; border: none; background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
+.reg-button:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
 .auth-enter {width: 90%; border-radius: 0px 0px 5px 5px;}
-.auth-enter-zag {width: 96%; height: 26px; background: var(--main-1-color); border-radius: 5px;}
+.auth-enter-zag {width: 100%; height: 26px; background: var(--main-2-back); clip-path: polygon(15% 0%, 85% 0%, 90% 100%, 85% 100%, 15% 100%, 10% 100%);}
 .auth-enter-form {width: 100%; border-radius: 0px 0px 5px 5px;}
-.auth-enter-form button {width: 90px; height: 25px; outline: none; border: none; background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
-.auth-enter-form button:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
+.enter-button {width: 150px; height: 30px; outline: none; border: none; background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
+.enter-button:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
 /* РЕДАКТИРОВАНИЕ ПЕРСОНАЖА */
-.pers-maneken {width: 96%; border-radius: 5px; border: 1px solid var(--main-1-color);}
+.pers-maneken {width: 96%; border-radius: 5px;}
 .maneken {width: 90px; height: 154px; background: url('/assets/decor/maneken-back.png') no-repeat top/cover;}
 .man {position: absolute; z-index: 1;}
 
-.cost-zag {width: 96%; border-radius: 5px; border: 1px solid var(--main-1-color);}
-.cost-message {width: 96%; border-radius: 5px; border: 1px solid var(--main-1-color); color: var(--main-mess-color);}
-.cost-elem-name {width: 96%; background: var(--main-1-color); border-radius: 3px; padding-top: 3px; padding-bottom: 3px;}
+.cost-zag {width: 96%; border-radius: 5px;}
+.cost-message {width: 96%; border-radius: 5px; color: var(--main-mess-color);}
+.cost-elem-name {width: 160px; background: var(--main-1-color); border-radius: 3px; padding-top: 3px; padding-bottom: 3px;}
 .cost-prevnext-btn {min-width: 30px; height: 22px; display: flex; justify-content: center; align-items: center; border-radius: 5px; background: var(--main-3-color); color: var(--main-1-color); padding-left: 5px; padding-right: 5px;}
-.cost-ready-btn {width: 80px; height: 30px; outline: none; border-radius: 5px; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color);}
+.cost-ready-btn {width: 150px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
 .cost-ready-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
-.cost-desicions {width: 96%; border-radius: 5px; border: 1px solid var(--main-1-color); padding: 5px 0;}
-.cost-confirm-btn {width: 50px; height: 25px; outline: none; border-radius: 5px; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color);}
+.cost-confirm-btn {width: 50px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
 .cost-confirm-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
 /* ИГРА */
-.game-meteoсharact {width: 96%; border-radius: 5px; border: 2px solid var(--main-1-color);}
-.game-location {width: 96%; border-radius: 5px; border: 2px solid var(--main-1-color);}
-.game-canvas {width: 96%; background-color: var(--main-1-color);}
+.game-meteoсharact {width: 100%;}
+.game-location {width: 100%;}
+.game-canvas {width: 100%; background-color: var(--main-1-color);}
 .game-canvas-loader {width: 100%; height: 100%; position: absolute; top: 0; left: 0;}
 .game-canvas-fps {width: 100%; height: 100%; position: absolute; top: 0; left: 0; color: var(--main-4-color);}
 .fps-body {margin-left: 20px; margin-top: 5px;}
@@ -135,9 +136,9 @@ input::placeholder {padding: 8px; color: var(--main-3-color);}
 .game-avai-items {overflow-x: auto;}
 .loc-whatsrch {width: 96%;}
 
-.game-srch {width: 96%; border: 2px solid var(--main-1-color);}
+.game-srch {width: 100%;}
 
-.game-actions {width: 96%; border-radius: 5px; border: 2px solid var(--main-1-color);}
+.game-actions {width: 100%;}
 
 .game-sleep-btn {width: 100%; height: 30px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
 .game-sleep-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
@@ -150,47 +151,47 @@ input::placeholder {padding: 8px; color: var(--main-3-color);}
 .game-item-colvo {min-width: 22px; height: 22px; color: var(--main-3-color); background: var(--main-2-back); border-radius: 3px; padding: 0 2px;}
 
 /* ИНВЕНТАРЬ */
-.ivent-user {width: 96%; border-radius: 5px; border: 1px solid var(--main-1-color);}
+.ivent-user {width: 100%;}
 .pers-ivent-img {width: 63px; height: 126px;}
 
 .user-abs {background: var(--main-1-color); border-radius: 3px;}
 .user-dmg {background: var(--main-1-color); border-radius: 3px;}
 .user-power {background: var(--main-1-color); border-radius: 3px;}
 
-.ivent-hp-bar {width: 100px; height: 16px; background: var(--main-1-color); border-radius: 3px;}
+.ivent-hp-bar {width: 100px; height: 14px; background: var(--main-1-color); border-radius: 3px;}
 .hp-bar {width: 0%; height: inherit; background: #b45252; border-radius: inherit; transition: width .5s;}
-.ivent-hung-bar {width: 100px; height: 16px; background: var(--main-1-color); border-radius: 3px;}
+.ivent-hung-bar {width: 100px; height: 14px; background: var(--main-1-color); border-radius: 3px;}
 .hung-bar {width: 0%; height: inherit; background: #80493a; border-radius: inherit; transition: width .5s;}
-.ivent-thirst-bar {width: 100px; height: 16px; background: var(--main-1-color); border-radius: 3px;}
+.ivent-thirst-bar {width: 100px; height: 14px; background: var(--main-1-color); border-radius: 3px;}
 .thirst-bar {width: 0%; height: inherit; background: #4b80ca; border-radius: inherit; transition: width .5s;}
-.ivent-fatigue-bar {width: 100px; height: 16px; background: var(--main-1-color); border-radius: 3px;}
+.ivent-fatigue-bar {width: 100px; height: 14px; background: var(--main-1-color); border-radius: 3px;}
 .fatigue-bar {width: 0%; height: inherit; background: #868188; border-radius: inherit; transition: width .5s;}
 
 .nadeto-helm {width: 96%; border-radius: 3px; padding: 5px;}
 .nadeto-arm {width: 96%; border-radius: 3px; padding: 5px;}
 .nadeto-weap {width: 96%; border-radius: 3px; padding: 5px;}
 
-.ivent-items {width: 96%; border-radius: 5px; border: 1px solid var(--main-1-color);}
+.ivent-items {width: 100%;}
 .item-div {width: 96%; border-radius: 5px; padding: 5px;}
 .item-div:hover {text-decoration: none;}
 .ivent-item-name {white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 .item-colvo {min-width: 32px; height: 32px; border-radius: 5px; padding: 0 3px;}
 .item-colvo-min {height: 15px; border-radius: 50%; padding: 0 5px; color: var(--main-1-color); background: var(--main-3-color); position: absolute; top: -5px; left: 20px;}
 
-.ivent-nav {width: 96%; border-radius: 5px; border: 1px solid var(--main-1-color);}
+.ivent-nav {width: 100%;}
 .nav-btn {width: 25px; height: 25px; background: var(--main-1-color); color: var(--main-3-color); display: flex; justify-content: center; align-items: center; border-radius: 3px; margin-left: 5px; margin-right: 5px;}
 
 /* ПРОСМОТР ПРЕДМЕТА */
-.item-iteminfo {width: 96%; border-radius: 5px; border: 1px solid var(--main-1-color);}
-.iteminfo-div {width: 96%; padding-top: 4px; padding-bottom: 4px; background: var(--main-1-color);}
+.item-iteminfo {width: 100%;}
+.iteminfo-div {width: 100%; padding-top: 4px; padding-bottom: 4px; background: var(--main-1-color);}
 
-.item-moves {width: 96%; border-radius: 5px; border: 1px solid var(--main-1-color);}
+.item-moves {width: 100%;}
 .moves-btn {width: 86%; height: 30px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
 .moves-btn:focus {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
 /* КРАФТ */
-.craft-items {width: 96%; border-radius: 5px; border: 2px solid var(--main-1-color);}
-.craft-item {width: 96%; border-radius: 5px;}
+.craft-items {width: 100%;}
+.craft-item {width: 96%;}
 .craft-item-info {width: 32px; height: 32px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
 .craft-item-info:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
@@ -198,15 +199,15 @@ input::placeholder {padding: 8px; color: var(--main-3-color);}
 .colvo-range-input {width: 86%; appearance: none; height: 10px; outline: none; background: var(--main-1-color); border-radius: 5px;}
 .colvo-range-input::-webkit-slider-thumb {appearance: none; width: 20px; height: 20px; background: var(--main-3-color); border-radius: 10px;}
 
-.craft-back-btn {width: 100px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
+.craft-back-btn {width: 100px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
 .craft-back-btn:focus {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
 /* УБЕЖИЩЕ */
-.refuge-no {width: 96%; border-radius: 5px; border: 2px solid var(--main-1-color);}
+.refuge-no {width: 100%;}
 .refuge-no-mess {border-radius: 3px; padding: 10px 12px; box-shadow: 0px 0px 10px var(--main-1-color);}
 .refuge-back {width: 100%; height: 180px;}
 .refuge-resource {border-radius: 3px;}
-.refuge-info {width: 96%; border-radius: 5px; border: 2px solid var(--main-1-color);}
+.refuge-info {width: 100%;}
 .refuge-hp-wrapper {width: 100%; height: 3px; background: var(--main-1-color); position: absolute; top: 0;}
 .refuge-hp-colvo {position: absolute; top: 0; border-radius: 0px 0px 3px 3px; box-shadow: 0 2px 7px var(--main-1-color);}
 .refuge-hp-bar {width: 100%; height: inherit; background: #b45252; border-radius: inherit; box-shadow: 0 2px 5px #b45252; transition: width .5s;}
@@ -217,15 +218,15 @@ input::placeholder {padding: 8px; color: var(--main-3-color);}
 .refuge-enter {width: 85%; height: 30px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
 .refuge-enter:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 
-.refuge-protection-slots {width: 96%; border-radius: 5px; border: 2px solid var(--main-1-color);}
-.protection-slot {width: 96%; border-radius: 3px; padding: 5px;}
+.refuge-protection-slots {width: 100%;}
+.protection-slot {width: 96%; padding: 5px;}
 
 /* ЧАТ */
-.chat-body {height: auto; min-height: 250px; background: var(--main-2-back); border-radius: 5px; border: 1px solid var(--main-3-color);}
+.chat-body {width: 100%; height: auto; min-height: 250px; background: var(--main-2-back);}
 .chat-item {width: 96%; word-wrap: break-word; overflow-x: auto; background: var(--main-1-color); font-size: 12px; padding: 5px 0;}
 .mess-time {font-size: 11px; opacity: .7;}
 
-.chat-form {background: var(--main-2-back); border-radius: 5px; border: 1px solid var(--main-3-color);}
-.chat-input {width: 200px; height: 25px; border-radius: 5px; outline: none; background: var(--main-1-color); color: var(--main-3-color); text-align: center;}
-.chat-btn {width: 50px; height: 25px; border-radius: 3px; background: var(--main-1-color);}
-.chat-nav {width: 96%; border-radius: 5px; border: 1px solid var(--main-3-color);}
+.chat-form {width: 100%; background: var(--main-2-back);}
+.chat-input {width: 200px; height: 25px; outline: none; background: var(--main-1-color); color: var(--main-3-color); text-align: center;}
+.chat-btn {width: 50px; height: 25px; background: var(--main-1-color);}
+.chat-nav {width: 100%;}

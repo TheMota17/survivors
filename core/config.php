@@ -1,6 +1,6 @@
 <?php
-	$config =
-	[
+
+	$config = [
 		'db' => [
 			'dbname' => 'survivors',
 			'name'   => 'mysql',
