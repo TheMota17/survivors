@@ -19,7 +19,7 @@
 
 					<div class='user-info ml10'>
 						<div class='user-name flex j-c ai-c'>
-							<span class='user-name' id='user_name'>{{ user['login'] }}</span>
+							<span class='user-name bolder'>{{ user['login'] }}</span>
 						</div>
 
 						<div class='user-abs flex j-s ai-c mt5'>
@@ -245,7 +245,7 @@
 				<router-link v-for='item in paginatedData' v-if='inventNotEmpty && item.type == $root.invent.sortType || $root.invent.sortType == 0 && item.in_chest == $root.invent.from' :to='{ path: `item`, query: {id: item.id}}' class='item-div backgr1 flex j-sb mt5 mb5 pt5 pb5'>
 	                <div class='fl1 flex j-s ai-c'>
 	                    <div class='item32-2 flex j-c ai-c'>
-	                        <div class='flex j-c ai-c' :class='rares[ items[ item[`type`] ][ item[`item`] ][`rare`] ][`border`]'>
+	                        <div class='item-link' :class='rares[ items[ item[`type`] ][ item[`item`] ][`rare`] ][`border`]'>
 	                            <img :src='items[ item[`type`] ][ item[`item`] ][`img`]' />
 	                        </div>
 	                    </div>

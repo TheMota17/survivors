@@ -284,38 +284,55 @@
             }
         }
 
+        public function srchItemInItems($type, $item)
+        {
+            return $this->items[ $type ][ $item ];
+        }
+
+        public function upUserCraftLvl($craftLvl)
+        {
+            $this->pdo->query('UPDATE users SET `craft_lvl` = ? WHERE `id` = ?', array($craftLvl, $this->user['id']));
+        }
+
         public function read()
         {
-            if ($this->idItem) {
-                $item_invent = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `in_chest` = 0 AND `user_id` = ?', array($this->idItem, $this->user['id']));
-                if ($item_invent) {
-                    $item = $this->items[ $item_invent['type'] ][ $item_invent['item'] ];
-                    if ($item['craft_lvl'] < $this->user['craft_lvl']) {
-                        $this->message = 'Вы уже открыли данный уровень!';
-                        $this->answer('mess', 0);
-                    } else if ($item['craft_lvl'] !== ($this->user['craft_lvl'] + 1) && $item['craft_lvl'] !== $this->user['craft_lvl']) {
-                        $this->message = 'Откройте предыдущий ур. крафта';
-                        $this->answer('mess', 0);
-                    } else {
-                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ?', array(($item_invent['colvo'] - 1), $item_invent['id']));
-                        $this->pdo->query('UPDATE users SET `craft_lvl` = ? WHERE `id` = ?', array($item['craft_lvl'], $this->user['id']));
+            $inventItem = $this->srchItemInInvent($this->idItem);
 
-                        if ($item_invent['colvo'] == 1) {
-                            $this->locateUserToPage('page', 'invent');
-                        } else $this->answer('reload', 0);
-                    }
+            if ($inventItem)
+            {
+                $item = $this->srchItemInItems($inventItem['type'], $inventItem['item']);
+
+                if ($item['craft_lvl'] < $this->user['craft_lvl'])
+                {
+                    $this->answer('mess', 'Вы уже открыли данный уровень!');
+                } else if ($item['craft_lvl'] !== ($this->user['craft_lvl'] + 1) && $item['craft_lvl'] !== $this->user['craft_lvl'])
+                {
+                    $this->answer('mess', 'Откройте предыдущий ур. крафта');
+                } else
+                {
+                    $this->itemSubstr($inventItem['id'], $inventItem['colvo'], 1);
+                    $this->upUserCraftLvl($item['craft_lvl']);
+                    $this->toInventOrReload($inventItem['colvo']);
                 }
             }
         }
 
+        public function getUserRefuge()
+        {
+            return $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
+        }
+
         public function enter()
         {
-            $refuge = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
+            $refuge = $this->getUserRefuge();
 
-            if ($refuge['lvl'] > 0) {
-                if ($this->user['in_refuge']) {
+            if ($refuge['lvl'] > 0)
+            {
+                if ($this->user['in_refuge'])
+                {
                     $this->pdo->query('UPDATE users SET `in_refuge` = ? WHERE `id` = ?', array(0, $this->user['id']));
-                } else {
+                } else
+                {
                     $this->pdo->query('UPDATE users SET `in_refuge` = ? WHERE `id` = ?', array(1, $this->user['id']));
                 }
 
@@ -325,9 +342,10 @@
 
         public function upRefuge()
         {
-            $refuge = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
+            $refuge = $this->getUserRefuge();
 
-            if ($this->refuges[ $refuge['lvl'] + 1 ]) {
+            if ($this->refuges[ $refuge['lvl'] + 1 ])
+            {
                 $all_items = count($this->refuges[ $refuge['lvl'] + 1 ]['craft_items']);
                 $all_exist = 0;
                 $items       = array();
@@ -343,8 +361,10 @@
                     }
                 }
                 // Если общее кол-во нужных предметов совпадет с проверенными
-                if ($all_items == $all_exist) {
-                    for($i = 0; $i < count( $items ); $i++) {
+                if ($all_items == $all_exist)
+                {
+                    for($i = 0; $i < count( $items ); $i++)
+                    {
                         // Убераем из инвентаря необходимые вещи для крафта
                         $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `in_chest` = 0 AND `user_id` = ?', array(($items[$i]['colvo'] - $items_colvo[ $i ]), $items[$i]['item'], $items[$i]['type'], $this->user['id']));
                     }
@@ -354,13 +374,14 @@
 
                     $this->message = 'Успешно!';
                     $this->answer('mess', 0);
-                } else {
+                } else
+                {
                     $this->message = 'Недостаточно ресурсов';
                     $this->answer('mess', 0);
                 }
-            } else {
-                $this->message = 'Максимальный уровень';
-                $this->answer('mess', 0);
+            } else
+            {
+                $this->answer('mess', 'Максимальный уровень');
             }
         }
 

@@ -64,7 +64,7 @@
 	                    <div class='mb5 '>Можно найти:</div>
 	                    <div class='game-avai-items flex'>
 	                        <div v-for='item in locs[ game.loc ][`srch_items`]' class='item32-1 mr5 mb5 flex j-c ai-c'>
-	                            <router-link :to='{ path: `item`, query: {item: item[`i`], type: item[`t`]}}'>
+	                            <router-link :to='{ path: `item`, query: {item: item[`i`], type: item[`t`]}}' class='item-link'>
 	                                <img :src='items[ item[`t`] ][ item[`i`] ][`img`]'/>
 	                            </router-link>
 	                        </div>

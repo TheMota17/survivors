@@ -24,7 +24,7 @@
     <script src='/js/libs/vue-router.js' defer></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js' defer></script>
 
-    <title>Survivors | Выжившие</title>
+    <title>The Survivors | Выжившие</title>
 </head>
 <body>
 

@@ -17,8 +17,8 @@
 	            <div class='refuge-resource wdth86 backgr1 flex j-s ai-c mt5 mb5 pt5 pb5'>
 	                <div class='flex j-c ai-c ml5'>
 	                    <div v-for='(craft_i, idx) in refuges[ 1 ][`craft_items`]' class='flex j-c ai-c fl-di-co' :class='[(idx !== 0) ? `ml5` : ``]'>
-                            <div :class='rares[ items[ craft_i[`type`] ][ craft_i[`item`] ][`rare`] ][`border`]'>
-                                <router-link :to='{path: `item`, query: {item: craft_i[`item`], type: craft_i[`type`]}}'>
+                            <div :class='rares[ items[ craft_i[`type`] ][ craft_i[`item`] ][`rare`] ][`border`]' class='flex j-c ai-c fl-di-co'>
+                                <router-link class='item-link' :to='{path: `item`, query: {item: craft_i[`item`], type: craft_i[`type`]}}'>
                                     <img :src='items[ craft_i[`type`] ][ craft_i[`item`] ][`img`]' />
                                 </router-link>
                             </div>
@@ -66,8 +66,8 @@
 		            <div class='refuge-resource wdth86 backgr1 flex j-c ai-c mt5 mb5 pt5 pb5'>
 	                    <div v-if='refuges[ Math.floor(refuge[`lvl`]) + 1 ]' class='wdth100 flex j-s ai-c ml5'>
 	                        <div v-for='(craft_i, idx) in refuges[ Math.floor(refuge[`lvl`]) + 1 ][`craft_items`]' class='flex j-c ai-c fl-di-co' :class='[(idx !== 0) ? `ml5` : ``]'>
-	                            <div :class='rares[ items[ craft_i[`type`] ][ craft_i[`item`] ][`rare`] ][`border`]'>
-	                                <router-link :to='{path: `item`, query: {item: craft_i[`item`], type: craft_i[`type`]}}'>
+	                            <div :class='rares[ items[ craft_i[`type`] ][ craft_i[`item`] ][`rare`] ][`border`]' class='flex j-c ai-c'>
+	                                <router-link  class='item-link' :to='{path: `item`, query: {item: craft_i[`item`], type: craft_i[`type`]}}'>
 	                                    <img :src='items[ craft_i[`type`] ][ craft_i[`item`] ][`img`]' />
 	                                </router-link>
 	                            </div>
