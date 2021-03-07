@@ -23,12 +23,7 @@
 
         public function srchItemInInvent($idItem)
         {
-            return $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `in_chest` = 0 AND `colvo` > 0 AND `user_id` = ?', array($idItem, $this->user['id']));
-        }
-
-        public function srchItemInChest($idItem)
-        {
-            return $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `in_chest` = 1 AND `colvo` > 0 AND `user_id` = ?', array($idItem, $this->user['id']));
+            return $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `colvo` > 0 AND `user_id` = ?', array($idItem, $this->user['id']));
         }
 
         public function srchItemInInventWithoutId($type, $item)
@@ -136,10 +131,10 @@
             return $this->itemTyps[ $itemType ];
         }
 
-        public function createItem($item, $type, $colvo, $inChest)
+        public function createItem($item, $type, $colvo)
         {
-            $this->pdo->query('INSERT INTO invent (item, type, colvo, in_chest, user_id) VALUES (?, ?, ?, ?, ?)', array(
-                $item, $type, $colvo, $inChest, $this->user['id']
+            $this->pdo->query('INSERT INTO invent (item, type, colvo, user_id) VALUES (?, ?, ?, ?)', array(
+                $item, $type, $colvo, $this->user['id']
             ));
         }
 
@@ -207,7 +202,7 @@
             if ($toolsExits >= $toolsColvo) return true;
         }
 
-        public function userCraftItemsExist($items)
+        public function userItemsExist($items, $colvo)
         {
             $itemsColvo = count($items);
             $itemsExist = 0;
@@ -216,7 +211,7 @@
             {
                 if ($itemInInvent = $this->srchItemInInventWithoutId($item['type'], $item['item']))
                 {
-                    if ($itemInInvent['colvo'] >= ($item['colvo'] * $this->colvo))
+                    if ($itemInInvent['colvo'] >= ($item['colvo'] * $colvo))
                     {
                         $itemsExist += 1;
                     }
@@ -228,7 +223,7 @@
 
         public function getAllItemsFromInvent()
         {
-            return $this->pdo->fetchAll('SELECT * FROM `invent` WHERE `in_chest` = 0 AND `colvo` > 0 AND `user_id` = ?', array($this->user['id']));
+            return $this->pdo->fetchAll('SELECT * FROM `invent` WHERE `colvo` > 0 AND `user_id` = ?', array($this->user['id']));
         }
 
         public function craft()
@@ -245,7 +240,7 @@
                         }
                     }
 
-                    if ($this->userCraftItemsExist($this->crafts[ $this->id ]['craft_items']))
+                    if ($this->userItemsExist($this->crafts[ $this->id ]['craft_items'], $this->colvo))
                     {
                         $allItemsFromInvent = $this->getAllItemsFromInvent();
 
@@ -346,38 +341,32 @@
 
             if ($this->refuges[ $refuge['lvl'] + 1 ])
             {
-                $all_items = count($this->refuges[ $refuge['lvl'] + 1 ]['craft_items']);
-                $all_exist = 0;
-                $items       = array();
-                $items_colvo = array();
-
-                // Проверка на соответсвие предметов
-                foreach ($this->refuges[ $refuge['lvl'] + 1 ]['craft_items'] as $ci) {
-                    $item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `in_chest` = 0 AND `colvo` >= ? AND `user_id` = ?', array($ci['item'], $ci['type'], $ci['colvo'], $this->user['id']));
-                    if ($item) {
-                        array_push($items, $item);
-                        array_push($items_colvo, $ci['colvo']);
-                        $all_exist += 1;
-                    }
-                }
-                // Если общее кол-во нужных предметов совпадет с проверенными
-                if ($all_items == $all_exist)
+                if ($this->userItemsExist($this->refuges[ $refuge['lvl'] + 1 ]['craft_items'], 1))
                 {
-                    for($i = 0; $i < count( $items ); $i++)
+                    $allItemsFromInvent = $this->getAllItemsFromInvent();
+
+                    foreach($allItemsFromInvent as $itemFromInvent)
                     {
-                        // Убераем из инвентаря необходимые вещи для крафта
-                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `item` = ? AND `type` = ? AND `in_chest` = 0 AND `user_id` = ?', array(($items[$i]['colvo'] - $items_colvo[ $i ]), $items[$i]['item'], $items[$i]['type'], $this->user['id']));
+                        $substrColvo = 0;
+
+                        foreach($this->refuges[ $refuge['lvl'] + 1 ]['craft_items'] as $craftItem)
+                        {
+                            if ($craftItem['item'] == $itemFromInvent['item'] && $craftItem['type'] == $itemFromInvent['type'])
+                            {
+                                $substrColvo = $craftItem['colvo'];
+                                break;
+                            }
+                        }
+
+                        $this->itemSubstr($itemFromInvent['id'], $itemFromInvent['colvo'], $substrColvo);
                     }
 
-                    // Повышаем уровень убежища
                     $this->pdo->query('UPDATE refuge SET `lvl` = ?, `hp` = ? WHERE `user_id` = ?', array($refuge['lvl'] + 1, $this->refuges[ $refuge['lvl'] + 1 ]['maxhp'], $this->user['id']));
 
-                    $this->message = 'Успешно!';
-                    $this->answer('mess', 0);
+                    $this->answer('mess', 'Успешно!');
                 } else
                 {
-                    $this->message = 'Недостаточно ресурсов';
-                    $this->answer('mess', 0);
+                    $this->answer('mess', 'Недостаточно ресурсов!');
                 }
             } else
             {
@@ -448,63 +437,6 @@
             }
         }
 
-        public function placeToChest()
-        {
-            if ($this->idItem)
-            {
-                // Ищем помещаемый в сундук предмет в инвентаре
-                $invent_item   = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->idItem, $this->user['id']));
-                // Ищем все слоты из сундука
-                $chest_full    = $this->pdo->rows('SELECT * FROM `invent` WHERE `colvo` > 0 AND `in_chest` > 0 AND `user_id` = ?', array($this->user['id']));
-                // Ищем сундук в слотах убежища чтобы проверить есть ли вообще сундук у игрока
-                $chest         = $this->pdo->fetch('SELECT * FROM `slots` WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(1, 1, $this->user['id']));
-                // Ищем такой же предмет чтобы просто добавить к нему кол-во
-                $item_in_chest = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `in_chest` > 0 AND `user_id` = ?', array($invent_item['item'], $invent_item['type'], $this->user['id']));
-
-                if ($chest_full < 50 && $chest) {
-                    if ($item_in_chest) {
-                        // Изменяем кол-во помещаемого предмета на ноль
-                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ?', array(0, $invent_item['id']));
-                        // Изменяем кол-во предмета в сундуке (прибавляем из инвентаря)
-                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ?', array(($invent_item['colvo'] + $item_in_chest['colvo']), $item_in_chest['id']));
-                    } else {
-                        $this->pdo->query('UPDATE invent SET `in_chest` = ? WHERE `id` = ?', array(1, $invent_item['id']));
-                    }
-
-                    $this->locateUserToPage('page', 'invent');
-                }
-            }
-        }
-
-        public function getFromChest()
-        {
-            if ($this->idItem)
-            {
-                // Ищем помещаемый в инвентарь предмет в инвентаре
-                $invent_item    = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->idItem, $this->user['id']));
-                // Ищем все слоты из инвентаря
-                $invent_full    = $this->pdo->rows('SELECT * FROM `invent` WHERE `colvo` > 0 AND `in_chest` = 0 AND `user_id` = ?', array($this->user['id']));
-                // Ищем такой же предмет чтобы просто добавить к нему кол-во
-                $item_in_invent = $this->pdo->fetch('SELECT * FROM `invent` WHERE `item` = ? AND `type` = ? AND `in_chest` = 0 AND `user_id` = ?', array($invent_item['item'], $invent_item['type'], $this->user['id']));
-
-                if ($invent_full < 50) {
-                    if ($item_in_invent) {
-                        // Изменяем кол-во помещаемого предмета на ноль
-                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ?', array(0, $invent_item['id']));
-                        // Изменяем кол-во предмета в инвентаре (прибавляем из сундука)
-                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ?', array(($invent_item['colvo'] + $item_in_invent['colvo']), $item_in_invent['id']));
-                    } else {
-                        $this->pdo->query('UPDATE invent SET `in_chest` = 0 WHERE `id` = ?', array($invent_item['id']));
-                    }
-
-                    $this->locateUserToPage('page', 'invent');
-                } else {
-                    $this->message = 'Инвентарь полон';
-                    $this->answer('mess', 0);
-                }
-            }
-        }
-
         public function locateUserToPage($page)
         {
             exit(json_encode(['page' => $page]));
@@ -563,12 +495,6 @@
                     break;
                 case 'place':
                     $this->place();
-                    break;
-                case 'placetochest':
-                    $this->placeToChest();
-                    break;
-                case 'getfromchest':
-                    $this->getFromChest();
                     break;
             }
     	}

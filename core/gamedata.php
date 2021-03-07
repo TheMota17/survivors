@@ -37,9 +37,8 @@
             5 => ['nm' => 'Арбалет', 'move' => 'nadet', 'ammu' => [['i' => 9, 't' => 1]], 'power' => 24, 'dmgmin' => 14, 'dmgmax' => 18, 'rare' => 2, 'img' => '/assets/items/weaps/rebalet.png', 'class' => 'item-rebalet', 'type' => 'Оружие']
         ],
         5 => [ // Refuge items
-            1 => ['nm' => 'Сундук', 'move' => 'place', 'rare' => 2, 'img' => '/assets/items/refuge/chest.png', 'type' => 'Убежище', 'reftype' => 1],
-            2 => ['nm' => 'Печка', 'move' => 'place', 'rare' => 2, 'img' => '/assets/items/refuge/pech.png', 'type' => 'Убежище', 'reftype' => 1],
-            3 => ['nm' => 'Верстак', 'move' => 'place', 'rare' => 2, 'img' => '/assets/items/refuge/crafttable.png', 'type' => 'Убежище', 'reftype' => 1]
+            1 => ['nm' => 'Печка', 'move' => 'place', 'rare' => 2, 'img' => '/assets/items/refuge/pech.png', 'type' => 'Убежище', 'reftype' => 1],
+            2 => ['nm' => 'Верстак', 'move' => 'place', 'rare' => 2, 'img' => '/assets/items/refuge/crafttable.png', 'type' => 'Убежище', 'reftype' => 1]
         ]
     ];
 
@@ -56,9 +55,8 @@
         ['item' => 4, 'type' => 4, 'craft_lvl' => 1, 'craft_items' => [ ['item' => 4, 'type' => 1, 'colvo' => 25], ['item' => 8, 'type' => 1, 'colvo' => 10] ]],
         ['item' => 5, 'type' => 4, 'craft_lvl' => 2, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 20], ['item' => 4, 'type' => 1, 'colvo' => 30], ['item' => 8, 'type' => 1, 'colvo' => 20] ]],
 
-        ['item' => 1, 'type' => 5, 'craft_lvl' => 2, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 30], ['item' => 4, 'type' => 1, 'colvo' => 10], ['item' => 8, 'type' => 1, 'colvo' => 5] ]],
-        ['item' => 2, 'type' => 5, 'craft_lvl' => 2, 'craft_items' => [ ['item' => 5, 'type' => 1, 'colvo' => 50] ]],
-        ['item' => 3, 'type' => 5, 'craft_lvl' => 2, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 20], ['item' => 4, 'type' => 1, 'colvo' => 30], ['item' => 8, 'type' => 1, 'colvo' => 20], ['item' => 18, 'type' => 1, 'colvo' => 5] ]],
+        ['item' => 1, 'type' => 5, 'craft_lvl' => 2, 'craft_items' => [ ['item' => 5, 'type' => 1, 'colvo' => 50] ]],
+        ['item' => 2, 'type' => 5, 'craft_lvl' => 2, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 20], ['item' => 4, 'type' => 1, 'colvo' => 30], ['item' => 8, 'type' => 1, 'colvo' => 20], ['item' => 18, 'type' => 1, 'colvo' => 5] ]],
 
         ['item' => 6, 'type' => 1, 'craft_lvl' => 1, 'craft_items' => [ ['item' => 5, 'type' => 1, 'colvo' => 3] ]],
         ['item' => 8, 'type' => 1, 'craft_lvl' => 1, 'craft_items' => [ ['item' => 7, 'type' => 1, 'colvo' => 5] ]],
@@ -141,5 +139,5 @@
         'beard' => ['max' => 5],
         'cloth' => ['max' => 2],
         'pants' => ['max' => 2],
-        'fwear' => ['max' => 1]
+        'fwear' => ['max' => 2]
     ];

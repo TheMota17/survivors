@@ -57,7 +57,7 @@ input::placeholder {padding: 8px; color: var(--main-3-color);}
 
 .menu {position: fixed; top: 0; right: 0; width: 200px; height: 100vh; margin-top: 25px; background: var(--main-2-back); display: flex; align-items: center; justify-content: center; transition: 0.2s linear; transform: translateX(100%); z-index: 9999;}
 .menu-list {width: 100%; height: 100%; overflow-y: auto;}
-.menu-zag {color: var(--main-1-color); font-weight: bold; background: var(--main-3-color); border-radius: 3px; padding-top: 2px; padding-bottom: 2px; box-shadow: 0px 2px 6px black;}
+.menu-zag {color: var(--main-1-color); font-weight: bold; background: var(--main-3-color); border-radius: 3px; padding-top: 2px; padding-bottom: 2px; box-shadow: 0px 2px 4px black;}
 .menu-a {width: 100%; height: 30px; display: flex; justify-content: flex-start; align-items: center; border-radius: 3px; transition: .2s;}
 .menu-a:hover {background: var(--main-1-color); text-decoration: none; box-shadow: 0px 2px 4px black;}
 .menu-btn {width: 10px; height: 25px; background: url('/assets/icons/menu-open.png') no-repeat top/cover; position: fixed; top: 0; right: 1px; z-index: 10000}
@@ -68,7 +68,7 @@ input::placeholder {padding: 8px; color: var(--main-3-color);}
 .info-table {width: 100%; height: 25px; position: fixed; top: 0; left: 0; z-index: 9999; box-shadow: 0px 2px 5px var(--main-1-color);}
 
 .hr-style {width: 100%; height: 1px; background: var(--main-1-color); margin-top: 8px; border: 0; clear: both; display: block;}
-.zag-style {width: 100%; height: 25px; background: var(--main-1-color); clip-path: polygon(13% 0%, 87% 0%, 95% 50%, 87% 100%, 13% 100%, 5% 50%); box-shadow: inset 0px 0px 10px #212121;}
+.zag-style {width: 100%; height: 25px; background: var(--main-1-color); clip-path: polygon(13% 0%, 87% 0%, 95% 50%, 87% 100%, 13% 100%, 5% 50%); box-shadow: 0px 2px 4px red;}
 
 .item14-1 {width: 14px; height: 14px;}
 .item32-1 {width: 32px; height: 32px; border-radius: 3px; background: var(--main-1-color);}
@@ -141,8 +141,6 @@ input::placeholder {padding: 8px; color: var(--main-3-color);}
 
 .game-actions {width: 100%;}
 
-.game-sleep-btn {width: 100%; height: 30px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 5px;}
-.game-sleep-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
 .sleep-range {background: var(--main-1-color);}
 .sleep-range-input {width: 96%; appearance: none; height: 10px; outline: none; background: var(--main-2-back);}
 .sleep-range-input::-webkit-slider-thumb {appearance: none; width: 20px; height: 20px; background: var(--main-3-color); border-radius: 10px;}
@@ -168,9 +166,9 @@ input::placeholder {padding: 8px; color: var(--main-3-color);}
 .ivent-fatigue-bar {width: 100px; height: 14px; background: var(--main-1-color); border-radius: 3px;}
 .fatigue-bar {width: 0%; height: inherit; background: #868188; border-radius: inherit; transition: width .5s;}
 
-.nadeto-helm {width: 96%; border-radius: 3px; padding: 5px;}
-.nadeto-arm {width: 96%; border-radius: 3px; padding: 5px;}
-.nadeto-weap {width: 96%; border-radius: 3px; padding: 5px;}
+.nadeto-helm {width: 96%; border-radius: 3px; padding: 5px; box-shadow: 0px 2px 4px black;}
+.nadeto-arm {width: 96%; border-radius: 3px; padding: 5px; box-shadow: 0px 2px 4px black;}
+.nadeto-weap {width: 96%; border-radius: 3px; padding: 5px; box-shadow: 0px 2px 4px black;}
 
 .ivent-items {width: 100%;}
 .item-div {width: 96%; border-radius: 5px; padding: 5px; box-shadow: 0px 2px 4px black;}

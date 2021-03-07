@@ -122,13 +122,11 @@
 
 		<div v-if='$route.query.id' class='flex j-c'>
 			<div class='item-moves backgr2 flex j-c ai-c fl-di-co pb5'>
-				<nadet v-if='items[ item[`type`] ][ item[`item`] ][`move`] == `nadet` && item[`in_chest`] == 0'></nadet>
-				<eat v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `eat` && item[`in_chest`] == 0' class='mt5'></eat>
-				<drink v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `drink` && item[`in_chest`] == 0' class='mt5'></drink>
-				<read v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `read` && item[`in_chest`] == 0' class='mt5'></read>
-				<place v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `place` && item[`in_chest`] == 0' class='mt5'></place>
-				<get-from-chest v-if='item[`in_chest`] == 1' class='mt5'></get-from-chest>
-				<place-to-chest v-else-if='chest' class='mt5'></place-to-chest>
+				<nadet v-if='items[ item[`type`] ][ item[`item`] ][`move`] == `nadet`'></nadet>
+				<eat v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `eat`' class='mt5'></eat>
+				<drink v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `drink`' class='mt5'></drink>
+				<read v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `read`' class='mt5'></read>
+				<place v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `place`' class='mt5'></place>
 			</div>
 		</div>
 
@@ -202,8 +200,6 @@ let Eat   = httpVueLoader('../components/Eat.vue?_='+date)
 let Drink = httpVueLoader('../components/Drink.vue?_='+date)
 let Read  = httpVueLoader('../components/Read.vue?_='+date)
 let Place = httpVueLoader('../components/Place.vue?_='+date)
-let PlaceToChest = httpVueLoader('../components/PlaceToChest.vue?_='+date)
-let GetFromChest = httpVueLoader('../components/GetFromChest.vue?_='+date)
 
 module.exports = {
 	name: 'Item',
@@ -216,12 +212,11 @@ module.exports = {
 		nadeto: undefined,
 		nElems: undefined,
 
-		chest: undefined,
 		game: undefined
 	}),
 	components:
 	{
-		Nadet, Eat, Drink, Read, Place, PlaceToChest, GetFromChest
+		Nadet, Eat, Drink, Read, Place
 	},
 	beforeMount()
 	{
@@ -244,7 +239,6 @@ module.exports = {
 				this.nadeto = response.data.nadeto;
 				this.nElems = response.data.nElems;
 				this.game   = response.data.game;
-				this.chest  = response.data.chest;
 
 				this.$root.tablo.hp = this.game.hp;
                 this.$root.tablo.hung = this.game.hung;

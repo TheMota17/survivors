@@ -59,8 +59,7 @@
                                 'weap' => ($this->nadeto['weap']) ? $this->nadeto['weap'] : false
                             ],
                             'nElems' => [2 => 'helm', 3 => 'arm', 4 => 'weap'],
-                            'game'   => $this->game,
-                            'chest'  => ($this->chest) ? true : false
+                            'game'   => $this->game
                         ])
                     );
                     break;
@@ -86,8 +85,7 @@
                             'user'    => ['in_refuge' => $this->user['in_refuge']],
                             'tools'   => $this->tools,
                             'prots'   => $this->prots,
-                            'game'    => $this->game,
-                            'chest'   => ($this->chest) ? $this->chest : false
+                            'game'    => $this->game
                         ])
                     );
                     break;
@@ -124,7 +122,6 @@
                         $this->item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `colvo` > 0 AND `user_id` = ?', array($this->id, $this->user['id']));
                     } else $this->item = false;
 
-                    $this->chest  = $this->pdo->fetch('SELECT * FROM `slots` WHERE `item` = ? AND `type` = ? AND `user_id` = ?', array(1, 1, $this->user['id']));
                     $this->nadeto = $this->pdo->fetch('SELECT * FROM `nadeto` WHERE `user_id` = ?', array($this->user[ 'id' ]));
 
                     $this->answer('item');
@@ -135,12 +132,13 @@
                 case 'refuge':
                     $this->refuge = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
                     $this->slots  = $this->pdo->fetchAll('SELECT * FROM `slots` WHERE `item` > 0 AND `user_id` = ?', array($this->user['id']));
-                    $this->chest  = $this->pdo->rows('SELECT `id` FROM `invent` WHERE `in_chest` > 0 AND `colvo` > 0 AND `user_id` = ?', array($this->user['id']));
                     $this->tools  = array();
                     $this->prots  = array();
 
-                    foreach($this->slots as $s) {
-                        switch($s['type']) {
+                    foreach($this->slots as $s)
+                    {
+                        switch($s['type'])
+                        {
                             case 1:
                                 array_push($this->tools, $s);
                                 break;

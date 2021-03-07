@@ -35,11 +35,11 @@ img 	{vertical-align: middle;}
 .op1 {opacity: .1;}
 .op5 {opacity: .5;}
 
-.mt5 {margin-top: 5px;}    .mt10 {margin-top: 10px;}     
+.mt5 {margin-top: 5px;}    .mt10 {margin-top: 10px;}
 .mb5 {margin-bottom: 5px;} .mb10 {margin-bottom: 10px;}
 .ml5 {margin-left: 5px;}   .ml10 {margin-left: 10px;}
 .mr5 {margin-right: 5px;}  .mr10 {margin-right: 10px;}
-.mt15 {margin-top: 15px;}     
+.mt15 {margin-top: 15px;}
 .mb15 {margin-bottom: 15px;}
 .ml15 {margin-left: 15px;}
 .mr15 {margin-right: 15px;}
@@ -88,7 +88,7 @@ img 	{vertical-align: middle;}
 
 	/* ВЕРХ */
 	.cloth1 {width: 80px; height: 52px; background: url('/assets/man/clothes/1.png') no-repeat top/cover; position: absolute; top: 41px; z-index: 5}
-	.cloth2 {width: 80px; height: 56px; background: url('/assets/man/clothes/2.png') no-repeat top/cover; position: absolute; top: 37px; z-index: 5}
+	.cloth2 {width: 80px; height: 52px; background: url('/assets/man/clothes/2.png') no-repeat top/cover; position: absolute; top: 37px; z-index: 5}
 
 	/* НИЗ */
 	.pants1 {width: 40px; height: 40px; background: url('/assets/man/pants/1.png') no-repeat top/cover; position: absolute; top: 93px; z-index: 4}
@@ -96,6 +96,7 @@ img 	{vertical-align: middle;}
 
 	/* ОБУВЬ */
 	.fwear1 {width: 56px; height: 16px; background: url('/assets/man/footwear/1.png') no-repeat top/cover; position: absolute; top: 133px; z-index: 3}
+	.fwear2 {width: 56px; height: 16px; background: url('/assets/man/footwear/2.png') no-repeat top/cover; position: absolute; top: 133px; z-index: 3}
 
 	/* ШЛЕМЫ */
 	.item-wood_cap {width: 40px; height: 20px; background: url('/assets/man/helms/wood-cap.png') no-repeat top/cover; position: absolute; top: 5px; z-index: 8;}

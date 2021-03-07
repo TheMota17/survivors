@@ -76,7 +76,7 @@ module.exports = {
     	pants: 1,
     	pants_max: 2,
     	fwear: 1,
-    	fwear_max: 1,
+    	fwear_max: 2,
 
         changed_elem: false,
         elems: {hair: 'Волосы', beard: 'Борода', cloth: 'Одежда', pants: 'Штаны', fwear: 'Обувь'},

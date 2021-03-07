@@ -214,15 +214,10 @@
 
 		<div class='flex j-c ai-c fl-di-co mt5'>
 			<div class='ivent-items backgr2 flex j-c ai-c fl-di-co'>
-				<div class='flex j-c ai-c mt5'>
-					<button class='sort-btn flex j-c ai-c mr5' @click='sortFrom'>
-			        	<span class='flex j-c ai-c' v-if='!$root.invent.from'>
-			        		<img src='/assets/icons/menu/ivent.png' class='item14-1 mr5' /> Инвентарь {{ inventLength }} / 50
-			        	</span>
-			        	<span class='flex j-c ai-c' v-else>
-			        		<img src='/assets/items/refuge/chest.png' class='item14-1 mr5' /> Сундук {{ chestLength }} / 50
-			        	</span>
-			        </button>
+				<div class='wdth100 flex j-c ai-c fl-di-co mt5'>
+					<div class='zag-style flex j-c ai-c mt5 mb5'>
+				        <img src='/assets/icons/menu/ivent.png' class='item14-1 mr5' /> Инвентарь {{ invent.length }} / 50
+				    </div>
 
 			        <div class='sort-menu flex j-s ai-c'>
 				        <button @click='changeType(2)' class='flex j-c ai-c mr5'>
@@ -242,7 +237,7 @@
 				    	</button>
 					</div>
 			    </div>
-				<router-link v-for='item in paginatedData' v-if='inventNotEmpty && item.type == $root.invent.sortType || $root.invent.sortType == 0 && item.in_chest == $root.invent.from' :to='{ path: `item`, query: {id: item.id}}' class='item-div backgr1 flex j-sb mt5 mb5 pt5 pb5'>
+				<router-link v-for='item in paginatedData' v-if='invent.length && item.type == $root.invent.sortType || $root.invent.sortType == 0' :to='{ path: `item`, query: {id: item.id}}' class='item-div backgr1 flex j-sb mt5 mb5 pt5 pb5'>
 	                <div class='fl1 flex j-s ai-c'>
 	                    <div class='item32-2 flex j-c ai-c'>
 	                        <div class='item-link' :class='rares[ items[ item[`type`] ][ item[`item`] ][`rare`] ][`border`]'>
@@ -342,51 +337,10 @@ module.exports = {
 		changeType(type)
 		{
 			this.$root.invent.sortType = type;
-		},
-		sortFrom()
-		{
-			if (this.$root.invent.from == 0)
-			{
-				this.$root.invent.from = 1;
-			} else
-			{
-				this.$root.invent.from = 0;
-			}
 		}
 	},
 	computed:
 	{
-		inventNotEmpty()
-		{
-			if (this.invent.length)
-			{
-				if (this.$root.invent.from == 1)
-				{
-					let length = 0;
-		    		for(let i = 0; i < this.invent.length; i++)
-		    		{
-		    			if (this.invent[i].in_chest == 1)
-		    			{
-		    				length++;
-		    			}
-		    		}
-
-		    		if (length > 0) return true;
-				} else
-				{
-					let length = 0;
-		    		for(let i = 0; i < this.invent.length; i++)
-		    		{
-		    			if (this.invent[i].in_chest == 0)
-		    			{
-		    				length++;
-		    			}
-		    		}
-
-		    		if (length > 0) return true;
-				}
-			}
-		},
 		pageCount()
 		{
 	        let l = this.invent.length, s = this.max;

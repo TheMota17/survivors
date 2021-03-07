@@ -1,7 +1,7 @@
 <template>
 	<div class='game-actions backgr2 flex j-c ai-c fl-di-co pt5 pb5'>
 		<div v-if='active' class='flex j-c wdth86'>
-            <button class='game-sleep-btn flex j-s ai-c' @click='deactive'>
+            <button class='moves-btn flex j-s ai-c' @click='deactive'>
                 <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
                     <img src='/assets/icons/sleep.png' />
                 </div>

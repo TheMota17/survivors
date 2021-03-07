@@ -22,7 +22,7 @@
 			        	<img class='item14-1' src='/assets/icons/diff.png' />
 			    	</button>
 				</div>
-	            <div v-if='$root.craft.selected' class='craft-item backgr1 flex j-c fl-di-co mb5 pt5 pb5'>
+	            <div v-if='$root.craft.selected' class='craft-item backgr1 flex j-c fl-di-co mt5 mb5 pt5 pb5'>
 	                <div class='craft-first-info flex'>
 	                    <div class='flex j-c ai-c ml5' :class='rares[ items[ $root.craft.type ][ $root.craft.item ][`rare`] ][`border`]'>
 	                        <img :src='items[ $root.craft.type ][ $root.craft.item ][`img`]'>
@@ -170,8 +170,8 @@
 	                    </div>
 	                </div>
 	            </div>
-		        <div v-else class='wdth100 flex j-c ai-c fl-di-co'>
-		            <div v-for='(craft, idx) in crafts' v-if='craft[`craft_lvl`] <= user[`craft_lvl`] && $root.craft.sortType == craft[`type`]' class='craft-item backgr1 flex j-c fl-di-co mt5 mb5 pt5 pb5'>
+		        <div v-else class='wdth100 flex j-c ai-c fl-di-co pb5'>
+		            <div v-for='(craft, idx) in crafts' v-if='craft[`craft_lvl`] <= user[`craft_lvl`] && $root.craft.sortType == craft[`type`]' class='craft-item backgr1 flex j-c fl-di-co mt5 pt5 pb5'>
 	            		<div class='craft-first-info flex'>
 	                        <div class='flex j-c ai-c ml5' :class='rares[ items[ craft[`type`] ][ craft[`item`] ][`rare`] ][`border`]'>
 	                            <img :src='items[ craft[`type`] ][ craft[`item`] ][`img`]'>
