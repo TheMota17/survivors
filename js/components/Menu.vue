@@ -1,7 +1,11 @@
 <template>
 	<div v-if='$route.path !== "/auth" && $route.path !== "/costumize"'>
 		<div class='fl1 flex j-e ai-c mr10'>
-			<a class='menu-btn' @click='openclose'></a>
+			<svg width='30' height='25' @click='openclose' class='menu-btn'>
+                <path d='M5,4.5 25,4.5' stroke='rgb(127, 105, 85)' stroke-width='3' />
+                <path d='M5,13 25,13' stroke='rgb(127, 105, 85)' stroke-width='3' />
+                <path d='M5,21.5 25,21.5' stroke='rgb(127, 105, 85)' stroke-width='3' />
+            </svg>
 	    </div>
 		<div class='menu-target' :class='{menu_target_active: active}' @click='openclose'></div>
 		<div class='menu relative' :class='{menu_active: active}'>
