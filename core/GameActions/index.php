@@ -363,7 +363,7 @@
 
                     $this->pdo->query('UPDATE refuge SET `lvl` = ?, `hp` = ? WHERE `user_id` = ?', array($refuge['lvl'] + 1, $this->refuges[ $refuge['lvl'] + 1 ]['maxhp'], $this->user['id']));
 
-                    $this->answer('mess', 'Успешно!');
+                    $this->answer('reload', 0);
                 } else
                 {
                     $this->answer('mess', 'Недостаточно ресурсов!');
@@ -374,66 +374,97 @@
             }
         }
 
+        public function getUserItemsFromSlots()
+        {
+            return $this->pdo->fetchAll('SELECT * FROM `slots` WHERE `item` > 0 AND `type` > 0 AND `user_id` = ?', array($this->user['id']));
+        }
+
+        public function refugeSlotsNotOcuppied($typeName, $itemsFromSlots, $maxSlots)
+        {
+            $colvo = 0;
+
+            foreach($itemsFromSlots as $itemFromSlots)
+            {
+                switch($typeName)
+                {
+                    case 'tools':
+                        if ($itemFromSlots['type'] == 5)
+                        {
+                            $colvo += 1;
+                        }
+                        break;
+                    case 'prots':
+                        if ($itemFromSlots['type'] == 6)
+                        {
+                            $colvo += 1;
+                        }
+                        break;
+                }
+            }
+
+            if ($colvo < $maxSlots)
+            {
+                return true;
+            }
+        }
+
+        public function toolAlreadyThereInSlots($tool, $itemsFromSlots)
+        {
+            foreach($itemsFromSlots as $itemFromSlots)
+            {
+                if ($itemFromSlots['item'] == $tool['item'] && $itemFromSlots['type'] == $tool['type']) return true;
+            }
+        }
+
+        public function srchEmptySlot()
+        {
+            return $this->pdo->fetch('SELECT * FROM `slots` WHERE `item` = 0 AND `type` = 0 AND `user_id` = ?', array($this->user['id']));
+        }
+
+        public function updateEmptySlot($item, $type, $id)
+        {
+            $this->pdo->query('UPDATE slots SET `item` = ?, `type` = ? WHERE `id` = ?', array($item, $type, $id));
+        }
+
+        public function createSlotWithItem($item, $type)
+        {
+            $this->pdo->query('INSERT INTO slots (item, type, user_id) VALUES (?, ?, ?)', array($item, $type, $this->user['id']));
+        }
+
         public function place()
         {
-            if ($this->idItem)
+            $inventItem = $this->srchItemInInvent($this->idItem);
+            $item       = $this->srchItemInItems($inventItem['type'], $inventItem['item']);
+            $refuge     = $this->getUserRefuge();
+            $itemsFromSlots = $this->getUserItemsFromSlots();
+
+            if ($this->refuges[ $refuge['lvl'] ][ $item['type_nm'] ] > 0) // Если слоты убежища больше нуля
             {
-                $invent_item = $this->pdo->fetch('SELECT * FROM `invent` WHERE `id` = ? AND `user_id` = ?', array($this->idItem, $this->user['id']));
-                $item        = $this->items[ $invent_item['type'] ][ $invent_item['item'] ];
-                $refuge      = $this->pdo->fetch('SELECT * FROM `refuge` WHERE `user_id` = ?', array($this->user['id']));
-
-                $slots       = $this->pdo->fetchAll('SELECT * FROM `slots` WHERE `item` > 0 AND `user_id` = ?', array($this->user['id']));
-                $slots_elems = ['tools' => array(), 'prot' => array()];
-                $type_name   = ($item['reftype'] == 1) ? 'tools' : 'prot';
-                foreach($slots as $s)
+                if ($this->refugeSlotsNotOcuppied( $item['type_nm'], $itemsFromSlots, $this->refuges[ $refuge['lvl'] ][ $item['type_nm'] ] ))
                 {
-                    switch($s['type'])
+                    // Если тип надеваемого предмета Инструменты, и если в слотах уже есть данный предмет
+                    if ($item['type_nm'] == 'tools' && $this->toolAlreadyThereInSlots($inventItem, $itemsFromSlots))
                     {
-                        case 1:
-                        array_push($slots_elems['tools'], $s);
-                            break;
-                        case 2:
-                        array_push($slots_elems['prot'], $s);
-                            break;
+                        $this->answer('mess', 'Данный предмет уже есть!');
                     }
-                }
 
-                if ($this->refuges[ $refuge['lvl'] ][ $type_name ] > 0) {
-                    if (count($slots_elems[ $type_name ]) < $this->refuges[ $refuge['lvl'] ][ $type_name ]) {
-
-                        // Если тип надеваемого предмета Инструменты
-                        if ($item['reftype'] == 1) {
-                            // Проверяем, есть ли такой предмет уже в слотах или нет
-                            foreach($slots_elems[ $type_name ] as $se) {
-                                if ($se['item'] == $invent_item['item']) {
-                                    $this->message = 'Данный предмет уже помещен';
-                                    $this->answer('mess', 0);
-                                }
-                            }
-                        }
-
-                        // Помещаем предмет в слот
-                        $find_slot = $this->pdo->fetch('SELECT * FROM `slots` WHERE `item` = 0 AND `type` = ? AND `user_id` = ?', array($item['reftype'], $this->user['id']));
-                        if ($find_slot) {
-                            $this->pdo->query('UPDATE slots SET `item` = ? WHERE `id` = ? AND `user_id` = ?', array($invent_item['item'], $find_slot['id'], $this->user['id']));
-                        } else {
-                            $this->pdo->query('INSERT INTO slots (item, type, user_id) VALUES (?, ?, ?)', array($invent_item['item'], $item['reftype'], $this->user['id']));
-                        }
-
-                        // Вычитаем помещаемый предмет из инвентаря
-                        $this->pdo->query('UPDATE invent SET `colvo` = ? WHERE `id` = ? AND `user_id` = ?', array(($invent_item['colvo'] - 1), $invent_item['id'], $this->user['id']));
-
-                        if ($invent_item['colvo'] == 1) {
-                            $this->locateUserToPage('page', 'invent');
-                        } else $this->answer('reload', 0);
-                    } else {
-                        $this->message = 'Все слоты заняты';
-                        $this->answer('mess', 0);
+                    if ($emptySlot = $this->srchEmptySlot()) // Помещаем предмет в слот
+                    {
+                        $this->updateEmptySlot($inventItem['item'], $inventItem['type'], $emptySlot['id']);
+                    } else
+                    {
+                        $this->createSlotWithItem($inventItem['item'], $inventItem['type']);
                     }
-                } else {
-                    $this->message = 'Улучшите убежище';
-                    $this->answer('mess', 0);
+
+                    $this->itemSubstr($inventItem['id'], $inventItem['colvo'], 1); // Вычитаем помещаемый предмет из инвентаря
+                    $this->toInventOrReload($inventItem['colvo']);
+                } else
+                {
+                    $this->answer('mess', 'Все слоты заняты');
                 }
+            } else
+            {
+                $this->answer('mess', 'Улучшите убежище');
             }
         }
 

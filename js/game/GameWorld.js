@@ -1,6 +1,6 @@
 class GameWorld {
 	constructor(game, sprites)
-	{	
+	{
 		this.game    = game;
 		this.sprites = sprites;
 	}
@@ -8,15 +8,15 @@ class GameWorld {
 	render()
 	{
 		this.game.getCtx().drawImage(
-			this.sprites['loc_' + this.game.getAjaxData().game.loc],
+			this.sprites['loc_' + this.game.getPlayer().loc],
 			0,
 			0,
-			this.sprites['loc_' + this.game.getAjaxData().game.loc].width,
-			this.sprites['loc_' + this.game.getAjaxData().game.loc].height,
+			this.sprites['loc_' + this.game.getPlayer().loc].width,
+			this.sprites['loc_' + this.game.getPlayer().loc].height,
 			0,
 			0,
-			this.sprites['loc_' + this.game.getAjaxData().game.loc].width,
-			this.sprites['loc_' + this.game.getAjaxData().game.loc].height
+			this.sprites['loc_' + this.game.getPlayer().loc].width,
+			this.sprites['loc_' + this.game.getPlayer().loc].height
 		);
 	}
 }

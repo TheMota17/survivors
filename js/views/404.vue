@@ -1,6 +1,6 @@
 <template>
-	<div class='flex j-c'>
-		<span class='flex mt5'>Страница не найдена</span>
+	<div class='txt-center mt5'>
+		Страница не найдена
 	</div>
 </template>
 

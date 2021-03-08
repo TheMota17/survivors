@@ -1,5 +1,5 @@
 class Camera {
-	constructor(game) 
+	constructor(game)
 	{
 		this.game = game;
 

@@ -1,10 +1,10 @@
 <template>
 	<div v-if='api'>
-		<div class='flex j-c ai-c fl-di-co'>
+		<div class='flex j-c ai-c fl-di-co mt5'>
+			<div class='zag-style flex j-c ai-c'>
+		        Предмет
+		    </div>
 		    <div class='item-iteminfo backgr2 pt5 pb5 mt5'>
-		    	<div class='zag-style flex j-c ai-c'>
-			        Предмет
-			    </div>
 		        <div class='flex ml5 mt5'>
 		            <div class='iteminfo-img flex j-s'>
 		                <div class='item32-1 flex j-c ai-c ml5'>
@@ -31,8 +31,13 @@
 		        </div>
 		        <div class='flex j-c ai-c mt5'>
 		            <div class='wdth96 flex j-c ai-c fl-di-co'>
-		                <div class='iteminfo-div'>
-		                    <span class='ml5'>Тип: {{ items[ item[`type`] ][ item[`item`] ][`type`] }}</span>
+		                <div class='iteminfo-div flex'>
+		                    <div class='ml5'>
+		                    	Тип:
+		                    </div>
+		                    <div class='fl1 flex j-e'>
+		                    	<span class='mr5'>{{ items[ item[`type`] ][ item[`item`] ][`type`] }}</span>
+		                    </div>
 		                </div>
 
 		                <div v-if='items[ item[`type`] ][ item[`item`] ][`eff`]' v-for='(eff, key) in items[ item[`type`] ][ item[`item`] ][`eff`]' class='wdth100 flex j-c ai-c fl-di-co'>
@@ -70,11 +75,15 @@
 	                    <div v-else-if='items[ item[`type`] ][ item[`item`] ][`dmgmin`]' class='iteminfo-div flex j-sb mt5'>
 	                        <div class='ml5'>
 	                            <img src='/assets/icons/dmg.png' class='item14-1' /> Урон:
-	                            {{ items[ item[`type`] ][ item[`item`] ][`dmgmin`] }}
-	                            -
-	                            {{ items[ item[`type`] ][ item[`item`] ][`dmgmax`] }}
 	                        </div>
-	                        <div v-if='$route.query.id && nadeto[ nElems[ item[`type`] ] ]' class='ml5'>
+	                        <div class='fl1 flex j-e'>
+	                        	<span class='mr5'>
+	                        		{{ items[ item[`type`] ][ item[`item`] ][`dmgmin`] }}
+		                            -
+		                            {{ items[ item[`type`] ][ item[`item`] ][`dmgmax`] }}
+	                        	</span>
+	                        </div>
+	                        <div v-if='$route.query.id && nadeto[ nElems[ item[`type`] ] ]' class='flex ai-c'>
                                 <img v-if='items[ item[`type`] ][ item[`item`] ][`dmgmin`] > items[ item[`type`] ][ nadeto[ nElems[ item[`type`] ] ] ][`dmgmin`]' src='/assets/icons/better.png' class='item14-1 mr5' />
                               	<img v-else-if='items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`dmgmin`] == items[ item[`type`] ][ item[`item`] ][`dmgmin`]' src='/assets/icons/equally.png' class='item14-1 mr5' />
                                 <img v-else src='/assets/icons/worse.png' class='item14-1 mr5' />
@@ -83,9 +92,12 @@
 
 	                    <div v-if='items[ item[`type`] ][ item[`item`] ][`power`]' class='iteminfo-div flex j-sb mt5'>
 	                        <div class='ml5'>
-	                            <img src='/assets/icons/power.png' class='item14-1' /> Бонус к мощи: {{ items[ item[`type`] ][ item[`item`] ][`power`] }}
+	                            <img src='/assets/icons/power.png' class='item14-1' /> Бонус к мощи:
 	                        </div>
-	                        <div v-if='$route.query.id && nadeto[ nElems[ item[`type`] ] ]' class='ml5'>
+	                        <div class='fl1 flex j-e'>
+	                        	<span class='mr5'>{{ items[ item[`type`] ][ item[`item`] ][`power`] }}</span>
+	                        </div>
+	                        <div v-if='$route.query.id && nadeto[ nElems[ item[`type`] ] ]' class='flex ai-c'>
                                 <img v-if='items[ item[`type`] ][ item[`item`] ][`power`] > items[ item[`type`] ][ nadeto[ nElems[ item[`type`] ] ] ][`power`]' src='/assets/icons/better.png' class='item14-1 mr5' />
                               	<img v-else-if='items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`power`] == items[ item[`type`] ][ item[`item`] ][`power`]' src='/assets/icons/equally.png' class='item14-1 mr5' />
                                 <img v-else src='/assets/icons/worse.png' class='item14-1 mr5' />
@@ -93,7 +105,12 @@
 	                    </div>
 
 	                    <div v-if='$route.query.id' class='iteminfo-div flex ai-c mt5'>
-	                        <img src='/assets/icons/colvo.png' class='ml5 mr5 item14-1' /> Количество: {{ item[`colvo`] }}
+	                    	<div class='flex ai-c'>
+	                    		<img src='/assets/icons/colvo.png' class='item14-1 ml5 mr5' /> Количество:
+	                    	</div>
+	                    	<div class='fl1 flex j-e'>
+		                    	<span class='mr5'>{{ item[`colvo`] }}</span>
+		                    </div>
 	                    </div>
 		            </div>
 		        </div>
@@ -123,17 +140,14 @@
 		<div v-if='$route.query.id' class='flex j-c'>
 			<div class='item-moves backgr2 flex j-c ai-c fl-di-co pb5'>
 				<nadet v-if='items[ item[`type`] ][ item[`item`] ][`move`] == `nadet`'></nadet>
-				<eat v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `eat`' class='mt5'></eat>
-				<drink v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `drink`' class='mt5'></drink>
-				<read v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `read`' class='mt5'></read>
-				<place v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `place`' class='mt5'></place>
+				<eat v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `eat`'></eat>
+				<drink v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `drink`'></drink>
+				<read v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `read`'></read>
+				<place v-else-if='items[ item[`type`] ][ item[`item`] ][`move`] == `place`'></place>
 			</div>
 		</div>
 
         <div v-if='item[`type`] !== 1 && item[`type`] !== 5 && $route.query.id && nadeto[ nElems[item[`type`]] ] > 0' class='flex j-c ai-c fl-di-co mt10'>
-            <div class='flex j-c'>
-                На вас надето
-            </div>
             <div class='item-iteminfo backgr2 pt5 pb5 mt5'>
                 <div class='flex ml5'>
                     <div class='iteminfo-img flex j-s'>
@@ -145,7 +159,7 @@
                     </div>
                     <div class='flex fl-di-co'>
                         <div class='iteminfo-name ml5'>
-                        	{{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`nm`] }}
+                        	{{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`nm`] }} <span class='bolder'>(На вас надето)</span>
                         </div>
                         <div class='iteminfo-rare ml5'>
                             <span :class='rares[ items[ item[`type`] ][ nadeto[nElems[item[`type`]]] ][`rare`] ][`class`]'>
@@ -161,11 +175,13 @@
                 </div>
                 <div class='wdth100 flex j-c mt5'>
                 	<div class='wdth96 flex j-c ai-c fl-di-co'>
-                		<div class='iteminfo-div'>
-	                        <span class='ml5'>
+                		<div class='iteminfo-div flex'>
+	                        <div class='ml5'>
 	                            Тип:
-	                            {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`type`] }}
-	                        </span>
+	                        </div>
+	                        <div class='fl1 flex j-e'>
+	                        	<span class='mr5'>{{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`type`] }}</span>
+	                        </div>
 	                    </div>
 	                    <div v-if='items[ item[`type`] ][ item[`item`] ][`dmgabs`]' class='iteminfo-div mt5'>
 	                        <span class='ml5'>
@@ -173,18 +189,25 @@
 	                            Подавление урона: {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`dmgabs`] }}
 	                        </span>
 	                    </div>
-	                    <div v-else class='iteminfo-div mt5'>
-	                        <span class='ml5'>
+	                    <div v-else class='iteminfo-div flex mt5'>
+	                        <div class='ml5'>
 	                            <img src='/assets/icons/dmg.png' class='item14-1' /> Урон:
-	                            {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`dmgmin`] }}
-	                            -
-	                            {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`dmgmax`] }}
-	                        </span>
+	                        </div>
+	                        <div class='fl1 flex j-e'>
+	                        	<span class='mr5'>
+		                            {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`dmgmin`] }}
+		                            -
+		                            {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`dmgmax`] }}
+	                        	</span>
+	                        </div>
 	                    </div>
-	                    <div class='iteminfo-div mt5'>
-	                        <span class='ml5'>
-	                            <img src='/assets/icons/power.png' class='item14-1' /> Бонус к мощи: {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`power`] }}
-	                        </span>
+	                    <div class='iteminfo-div flex mt5'>
+	                        <div class='ml5'>
+	                            <img src='/assets/icons/power.png' class='item14-1' /> Бонус к мощи:
+	                        </div>
+	                        <div class='fl1 flex j-e'>
+	                        	<span class='mr5'>{{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`power`] }}</span>
+	                        </div>
 	                    </div>
                 	</div>
                 </div>

@@ -1,10 +1,10 @@
 <template>
 	<div v-if='api'>
 		<div class='flex j-c ai-c fl-di-co mt5'>
+			<div class='zag-style flex j-c ai-c mb5'>
+		        Крафт
+		    </div>
 		    <div class='craft-items backgr2 flex j-c ai-c fl-di-co'>
-		    	<div class='zag-style flex j-c ai-c mt5 mb5'>
-			        Крафт
-			    </div>
 	            <div class='sort-menu flex j-s ai-c'>
 			        <button @click='changeType(2)' class='flex j-c ai-c mr5'>
 			        	<img class='item14-1' src='/assets/items/helms/wood-helm.png' />

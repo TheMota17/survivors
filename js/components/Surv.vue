@@ -19,7 +19,7 @@
 		            let dt = (Date.now() - Game.lastDt) / 1000;
 
 		            Game.update( dt );
-		            Game.render();
+		            Game.render( dt );
 
 		            Game.lastDt = Date.now();
 
@@ -28,23 +28,22 @@
 		        update: function(dt)
 		        {
 		            this.GameLive.update(dt);
+
 		            for(let i = 0; i < this.Players.length; i++)
-		            {
-		            	this.Players[i].update(dt);
-		            }
+		            { this.Players[i].update(dt) }
+
 		            this.Camera.update(dt);
 		        },
-		        render()
+		        render(dt)
 		        {
 		            // Game
 		            this.ctx.save();
 		            this.ctx.translate(-this.Camera.x, -this.Camera.y);
 
 		                    this.World.render();
+
 		                    for(let i = 0; i < this.Players.length; i++)
-				            {
-				            	this.Players[i].render(dt);
-				            }
+				            { this.Players[i].render(dt); }
 
 		            this.ctx.restore();
 
@@ -72,6 +71,7 @@
 		            this.loc = {width: 1024, height: 1024};
 
 		            this.GameLive = new GameLive(this);
+		            this.Players  = [];
 
 		            for (let i = 0; i < ajaxData.players.length; i++)
 		            {
@@ -95,13 +95,14 @@
 		    		axios.post('/core/Game/?action=getData', params)
 		    		.then((response) =>
 		    		{
+		    			Game.Player = Game.getUserFromPlayers(response.data.players);
+
 		                let sprites = [
 		                    {nm: 'pl', path: '/assets/game/'},
-		                    {nm: 'loc_' + response.data.game.loc, path: '/assets/game/'}
+		                    {nm: 'loc_' + Game.Player.loc, path: '/assets/game/'}
 		                ];
 
 		                Game.sprites  = Resources.loadSprites(sprites);
-		                Game.ajaxData = response.data;
 
 		                let check = setInterval(() =>
 		                {
@@ -120,6 +121,8 @@
 
 		        getPlayer() { return this.Player },
 
+		        getPlayers() { return this.Players },
+
 		        getGameLive() { return this.GameLive },
 
 		        getCamera() { return this.Camera },
@@ -128,7 +131,15 @@
 
 		        getAjaxData() { return this.ajaxData },
 
-		        getLoc() { return this.loc }
+		        getLoc() { return this.loc },
+
+		        getUserFromPlayers(Players)
+		        {
+		        	for(let i = 0; i < Players.length; i++)
+		        	{
+		        		if (Players[i].you) return Players[i];
+		        	}
+		        }
 		    }; // end of game
 
 		    Game.load();

@@ -213,12 +213,11 @@
 		</div>
 
 		<div class='flex j-c ai-c fl-di-co mt5'>
+			<div class='zag-style flex j-c ai-c mb5'>
+		        <img src='/assets/icons/menu/ivent.png' class='item14-1 mr5' /> Инвентарь {{ invent.length }} / 50
+		    </div>
 			<div class='ivent-items backgr2 flex j-c ai-c fl-di-co'>
 				<div class='wdth100 flex j-c ai-c fl-di-co mt5'>
-					<div class='zag-style flex j-c ai-c mt5 mb5'>
-				        <img src='/assets/icons/menu/ivent.png' class='item14-1 mr5' /> Инвентарь {{ invent.length }} / 50
-				    </div>
-
 			        <div class='sort-menu flex j-s ai-c'>
 				        <button @click='changeType(2)' class='flex j-c ai-c mr5'>
 				        	<img class='item14-1' src='/assets/items/helms/wood-helm.png' />

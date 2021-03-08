@@ -1,10 +1,10 @@
 <template>
 	<div v-if='api'>
-	    <div v-if='refuge[`lvl`] == 0' class='flex j-c ai-c mt5'>
-	        <div class='refuge-no backgr2 flex j-c ai-c fl-di-co pb5'>
-	        	<div class='zag-style flex j-c ai-c mt5'>
-	                Убежище
-	            </div>
+	    <div v-if='refuge[`lvl`] == 0' class='flex j-c ai-c fl-di-co ai-c mt5'>
+	    	<div class='zag-style flex j-c ai-c mt5'>
+                Убежище
+            </div>
+	        <div class='refuge-no backgr2 flex j-c ai-c fl-di-co mt5 pb5'>
 	            <div class='refuge-back flex j-c ai-c mt5' :style='{background: "url(" + locs[ 1 ][`img`] + ") no-repeat top/cover"}'>
 	                <div class='refuge-no-mess backgr1 flex j-c ai-c'>
 	                    <img src='/assets/icons/mess.png' class='mr5' />
@@ -32,11 +32,11 @@
 	        </div>
 	    </div>
 	    <div v-else>
-		    <div class='flex j-c ai-c mt5'>
-		        <div class='refuge-info backgr2 flex j-c ai-c fl-di-co pt5 pb5'>
-		            <div class='zag-style flex j-c ai-c'>
-		                Убежище
-		            </div>
+		    <div class='flex j-c ai-c fl-di-co mt5'>
+		    	<div class='zag-style flex j-c ai-c'>
+	                Убежище
+	            </div>
+		        <div class='refuge-info backgr2 flex j-c ai-c fl-di-co mt5 pt5 pb5'>
 		            <div class='wdth86 flex j-c ai-c fl-di-co'>
 		                <div class='iteminfo-div mt5'>
 		                    <span class='ml5'><img src='/assets/icons/info.png' />{{ refuges[ refuge[`lvl`] ][`nm`] }}</span>
@@ -94,14 +94,14 @@
 		                <hr class='hr-style mr5'> Защита <hr class='hr-style ml5'>
 		            </div>
 
-		            <div v-if='refuges[ refuge[`lvl`] ][`prot`]' class='wdth96 flex j-c ai-c'>
+		            <div v-if='refuges[ refuge[`lvl`] ][`prots`]' class='wdth96 flex j-c ai-c'>
 		            	<div class='wdth96'>
-		            		{{ prots.length }} / {{ refuges[ refuge[`lvl`] ][`prot`] }}
+		            		{{ prots.length }} / {{ refuges[ refuge[`lvl`] ][`prots`] }}
 		            	</div>
 		            </div>
 
 		            <div class='wdth96 flex j-c ai-c fl-di-co'>
-	                    <div v-if='refuges[ refuge[`lvl`] ][`prot`] == 0' class='protection-slot backgr1 flex j-c mt5'>
+	                    <div v-if='refuges[ refuge[`lvl`] ][`prots`] == 0' class='protection-slot backgr1 flex j-c mt5'>
 	                        Улучшите убежище
 	                    </div>
                         <div v-else-if='prots.length > 0' v-for='prot in prots' class='protection-slot backgr1 flex j-c mt5'>
@@ -123,12 +123,6 @@
                                             </span>
                                         </div>
                                 	</div>
-									<div v-else class='ml5'>Пусто</div>
-                                </div>
-                            </div>
-                            <div class='flex j-c fl-di-co fl1'>
-                                <div class='flex j-e ai-c'>
-                                	<!-- plus -->
                                 </div>
                             </div>
                         </div>
@@ -151,7 +145,7 @@
 	                    <div v-if='refuges[ refuge[`lvl`] ][`tools`] == 0' class='protection-slot backgr1 flex j-c mt5'>
 	                        Улучшите убежище
 	                    </div>
-                    	<div v-else-if='tools.length' v-for='tool in tools' class='protection-slot backgr1 flex j-c mt5'>
+                    	<div v-else-if='tools.length' v-for='tool in tools' class='protection-slot backgr1 flex j-s mt5'>
                             <div class='flex j-c ai-c'>
                                 <div class='item32-1'>
                                     <div v-if='items[ 5 ][ tool[`item`] ]' class='flex j-c ai-c' :class='rares[ items[ 5 ][ tool[`item`] ][`rare`] ][`border`]'>
@@ -169,17 +163,6 @@
                                                 {{ rares[ items[ 5 ][ tool[`item`] ][`rare`] ][`word`] }}
                                             </span>
                                         </div>
-                                	</div>
-									<div v-else class='ml5'>Пусто</div>
-                                </div>
-                            </div>
-                            <div class='flex j-c fl-di-co fl1'>
-                                <div v-if='tool[`item`] == 1' class='flex j-e ai-c'>
-                                	<div v-if='chest'>
-                                		{{ chest }} / 50
-                                	</div>
-                                	<div v-else>
-                                		0 / 50
                                 	</div>
                                 </div>
                             </div>
@@ -213,8 +196,7 @@ module.exports = {
 		user: undefined,
 		game: undefined,
 		tools: undefined,
-		prots: undefined,
-		chest: undefined
+		prots: undefined
 	}),
 	components:
 	{
@@ -246,7 +228,6 @@ module.exports = {
 				this.game    = response.data.game;
 				this.tools   = response.data.tools;
 				this.prots   = response.data.prots;
-				this.chest   = response.data.chest;
 
 				this.$root.tablo.hp = this.game.hp;
                 this.$root.tablo.hung = this.game.hung;

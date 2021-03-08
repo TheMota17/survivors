@@ -2,21 +2,21 @@
 
     $game_items = [ // Предметы
         1 => [ // Others: food, wood and more...
-            1 => ['nm' => 'Мясо', 'eff' => ['hung' => 35, 'hp' => 10], 'move' => 'eat', 'chance' => 6, 'colvo' => 2, 'rare' => 1, 'img' => '/assets/items/others/meat.png', 'type' => 'Пища'],
-            2 => ['nm' => 'Вода', 'eff' => ['thirst' => 10, 'hp' => 2], 'move' => 'drink', 'chance' => 3, 'colvo' => 5, 'rare' => 1, 'img' => '/assets/items/others/water.png', 'type' => 'Пища'],
-            3 => ['nm' => 'Дрова', 'chance' => 2, 'colvo' => 5, 'rare' => 1, 'img' => '/assets/items/others/wood.png', 'type' => 'Материал'],
-            4 => ['nm' => 'Палка', 'chance' => 2, 'colvo' => 3, 'rare' => 1, 'img' => '/assets/items/others/stick.png', 'type' => 'Материал'],
-            5 => ['nm' => 'Камень', 'chance' => 4, 'colvo' => 4, 'rare' => 1, 'img' => '/assets/items/others/rock.png', 'type' => 'Материал'],
+            1 => ['nm' => 'Мясо', 'eff' => ['hung' => 35, 'hp' => 10], 'move' => 'eat', 'rare' => 1, 'img' => '/assets/items/others/meat.png', 'type' => 'Пища'],
+            2 => ['nm' => 'Вода', 'eff' => ['thirst' => 10, 'hp' => 2], 'move' => 'drink', 'rare' => 1, 'img' => '/assets/items/others/water.png', 'type' => 'Пища'],
+            3 => ['nm' => 'Дрова', 'rare' => 1, 'img' => '/assets/items/others/wood.png', 'type' => 'Материал'],
+            4 => ['nm' => 'Палка', 'rare' => 1, 'img' => '/assets/items/others/stick.png', 'type' => 'Материал'],
+            5 => ['nm' => 'Камень', 'rare' => 1, 'img' => '/assets/items/others/rock.png', 'type' => 'Материал'],
             6 => ['nm' => 'Заточенный камень', 'rare' => 1, 'img' => '/assets/items/others/grin_rock.png', 'type' => 'Материал'],
-            7 => ['nm' => 'Веревка', 'chance' => 4, 'colvo' => 3, 'rare' => 1, 'img' => '/assets/items/others/rope.png', 'type' => 'Материал'],
+            7 => ['nm' => 'Веревка', 'rare' => 1, 'img' => '/assets/items/others/rope.png', 'type' => 'Материал'],
             8 => ['nm' => 'Крепкая веревка', 'rare' => 1, 'img' => '/assets/items/others/dur_rope.png', 'type' => 'Материал'],
             9 => ['nm' => 'Стрела', 'rare' => 1, 'img' => '/assets/items/others/arrow.png', 'type' => 'Боеприпас'],
-            10 => ['nm' => 'Крафт 2', 'move' => 'read', 'chance' => 6, 'colvo' => 1, 'rare' => 2, 'craft_lvl' => 2, 'img' => '/assets/items/others/craft_book2.png', 'type' => 'Книга'],
-            11 => ['nm' => 'Крафт 3', 'move' => 'read', 'chance' => 15, 'colvo' => 1, 'rare' => 3, 'craft_lvl' => 3, 'img' => '/assets/items/others/craft_book3.png', 'type' => 'Книга'],
-            12 => ['nm' => 'Крафт 4', 'move' => 'read', 'chance' => 20, 'colvo' => 1, 'rare' => 4, 'craft_lvl' => 4, 'img' => '/assets/items/others/craft_book4.png', 'type' => 'Книга'],
-            13 => ['nm' => 'Хлеб', 'eff' => ['hung' => 10, 'hp' => 3], 'move' => 'eat', 'chance' => 3, 'colvo' => 5, 'rare' => 1, 'img' => '/assets/items/others/bread.png', 'type' => 'Пища'],
-            14 => ['nm' => 'Консервы', 'eff' => ['hung' => 20, 'hp' => 5], 'move' => 'eat', 'chance' => 4, 'colvo' => 3, 'rare' => 1, 'img' => '/assets/items/others/canned.png', 'type' => 'Пища'],
-            15 => ['nm' => 'Газировка', 'eff' => ['thirst' => 25, 'hp' => 5], 'move' => 'drink', 'chance' => 4, 'colvo' => 3, 'rare' => 1, 'img' => '/assets/items/others/soda.png', 'type' => 'Пища'],
+            10 => ['nm' => 'Крафт 2', 'move' => 'read', 'rare' => 2, 'craft_lvl' => 2, 'img' => '/assets/items/others/craft_book2.png', 'type' => 'Книга'],
+            11 => ['nm' => 'Крафт 3', 'move' => 'read', 'rare' => 3, 'craft_lvl' => 3, 'img' => '/assets/items/others/craft_book3.png', 'type' => 'Книга'],
+            12 => ['nm' => 'Крафт 4', 'move' => 'read', 'rare' => 4, 'craft_lvl' => 4, 'img' => '/assets/items/others/craft_book4.png', 'type' => 'Книга'],
+            13 => ['nm' => 'Хлеб', 'eff' => ['hung' => 10, 'hp' => 3], 'move' => 'eat', 'rare' => 1, 'img' => '/assets/items/others/bread.png', 'type' => 'Пища'],
+            14 => ['nm' => 'Консервы', 'eff' => ['hung' => 20, 'hp' => 5], 'move' => 'eat', 'rare' => 1, 'img' => '/assets/items/others/canned.png', 'type' => 'Пища'],
+            15 => ['nm' => 'Газировка', 'eff' => ['thirst' => 25, 'hp' => 5], 'move' => 'drink', 'rare' => 1, 'img' => '/assets/items/others/soda.png', 'type' => 'Пища'],
             16 => ['nm' => 'Обработанное дерево', 'rare' => 1, 'img' => '/assets/items/others/treated_wood.png', 'type' => 'Материал'],
             17 => ['nm' => 'Металлолом', 'rare' => 1, 'img' => '/assets/items/others/scrap.png', 'type' => 'Материал'],
             18 => ['nm' => 'Металл', 'rare' => 1, 'img' => '/assets/items/others/metall.png', 'type' => 'Материал'],
@@ -36,9 +36,12 @@
             4 => ['nm' => 'Лук', 'move' => 'nadet', 'ammu' => [['i' => 9, 't' => 1]], 'power' => 18, 'dmgmin' => 12, 'dmgmax' => 14, 'rare' => 1, 'img' => '/assets/items/weaps/bow.png', 'class' => 'item-bow', 'type' => 'Оружие'],
             5 => ['nm' => 'Арбалет', 'move' => 'nadet', 'ammu' => [['i' => 9, 't' => 1]], 'power' => 24, 'dmgmin' => 14, 'dmgmax' => 18, 'rare' => 2, 'img' => '/assets/items/weaps/rebalet.png', 'class' => 'item-rebalet', 'type' => 'Оружие']
         ],
-        5 => [ // Refuge items
-            1 => ['nm' => 'Печка', 'move' => 'place', 'rare' => 2, 'img' => '/assets/items/refuge/pech.png', 'type' => 'Убежище', 'reftype' => 1],
-            2 => ['nm' => 'Верстак', 'move' => 'place', 'rare' => 2, 'img' => '/assets/items/refuge/crafttable.png', 'type' => 'Убежище', 'reftype' => 1]
+        5 => [ // Refuge tools items
+            1 => ['nm' => 'Печка', 'type_nm' => 'tools', 'move' => 'place', 'rare' => 2, 'img' => '/assets/items/refuge/pech.png', 'type' => 'Убежище'],
+            2 => ['nm' => 'Верстак', 'type_nm' => 'tools', 'move' => 'place', 'rare' => 2, 'img' => '/assets/items/refuge/crafttable.png', 'type' => 'Убежище']
+        ],
+        6 => [ // Refuge defense items
+
         ]
     ];
 
@@ -129,9 +132,9 @@
     ];
 
     $game_refuges = [ // Убежища
-        1 => ['nm' => 'Шалаш', 'img' => '/assets/locs/refuges/hut.png', 'class' => 'hut', 'maxhp' => 50, 'dmgabs' => 1, 'tools' => 0, 'prot' => 0, 'pech' => false, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 20], ['item' => 4, 'type' => 1, 'colvo' => 20], ['item' => 7, 'type' => 1, 'colvo' => 5] ]],
-        2 => ['nm' => 'Дом из дерева', 'img' => '/assets/locs/refuges/house1.png', 'class' => 'house1', 'maxhp' => 70, 'dmgabs' => 4, 'tools' => 1, 'prot' => 0, 'pech' => false, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 100], ['item' => 4, 'type' => 1, 'colvo' => 50], ['item' => 7, 'type' => 1, 'colvo' => 25] ]],
-        3 => ['nm' => 'Дом с дымоходом', 'img' => '/assets/locs/refuges/house2.png', 'class' => 'house2', 'maxhp' => 100, 'dmgabs' => 7, 'tools' => 2, 'prot' => 1, 'pech' => true, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 250], ['item' => 4, 'type' => 1, 'colvo' => 100], ['item' => 8, 'type' => 1, 'colvo' => 20], ['item' => 5, 'type' => 1, 'colvo' => 20] ]],
+        1 => ['nm' => 'Шалаш', 'img' => '/assets/refuges/hut.png', 'class' => 'hut', 'maxhp' => 50, 'dmgabs' => 1, 'tools' => 0, 'prots' => 0, 'pech' => false, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 20], ['item' => 4, 'type' => 1, 'colvo' => 20], ['item' => 7, 'type' => 1, 'colvo' => 5] ]],
+        2 => ['nm' => 'Дом из дерева', 'img' => '/assets/refuges/house1.png', 'class' => 'house1', 'maxhp' => 70, 'dmgabs' => 4, 'tools' => 1, 'prots' => 0, 'pech' => false, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 100], ['item' => 4, 'type' => 1, 'colvo' => 50], ['item' => 7, 'type' => 1, 'colvo' => 25] ]],
+        3 => ['nm' => 'Дом с дымоходом', 'img' => '/assets/refuges/house2.png', 'class' => 'house2', 'maxhp' => 100, 'dmgabs' => 7, 'tools' => 2, 'prots' => 1, 'pech' => true, 'craft_items' => [ ['item' => 3, 'type' => 1, 'colvo' => 250], ['item' => 4, 'type' => 1, 'colvo' => 100], ['item' => 8, 'type' => 1, 'colvo' => 20], ['item' => 5, 'type' => 1, 'colvo' => 20] ]],
     ];
 
     $pers_styles = [

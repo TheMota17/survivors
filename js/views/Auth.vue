@@ -42,7 +42,7 @@
                 </div>
             </div>
 
-            <div v-else class='auth-enter flex j-c ai-c fl-di-co'>
+            <div v-else class='auth-enter'>
                 <div class='auth-enter-form flex ai-c fl-di-co pb5'>
                     <div class='mt10'>
                         <input type='text' placeholder='Ник' class='input' v-model='enterData.name' required>
@@ -52,7 +52,7 @@
                         <input type='password' placeholder='Пароль' class='input' v-model='enterData.pass' required>
                     </div>
 
-                    <div class='flex j-c mt10'>
+                    <div class='mt10'>
                         <button name='enter' class='enter-button' @click='enter'>Войти</button>
                     </div>
 

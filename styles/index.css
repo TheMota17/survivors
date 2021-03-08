@@ -84,7 +84,7 @@ img 	{vertical-align: middle;}
 	.beard2 {width: 40px; height: 32px; background: url('/assets/man/beard/2.png') no-repeat top/cover; position: absolute; top: 25px; z-index: 7}
 	.beard3 {width: 16px; height:  8px; background: url('/assets/man/beard/3.png') no-repeat top/cover; position: absolute; top: 33px; z-index: 7}
 	.beard4 {width: 16px; height: 16px; background: url('/assets/man/beard/4.png') no-repeat top/cover; position: absolute; top: 33px; z-index: 7}
-	.beard5 {width: 16px; height: 11px; background: url('/assets/man/beard/5.png') no-repeat top/cover; position: absolute; top: 34px; z-index: 7}
+	.beard5 {width: 16px; height: 12px; background: url('/assets/man/beard/5.png') no-repeat top/cover; position: absolute; top: 33px; z-index: 7}
 
 	/* ВЕРХ */
 	.cloth1 {width: 80px; height: 52px; background: url('/assets/man/clothes/1.png') no-repeat top/cover; position: absolute; top: 41px; z-index: 5}

@@ -15,7 +15,7 @@
 		    </div>
 		</div>
 
-		<div class='flex j-c'>
+		<div class='flex j-c ai-c fl-di-co mt5'>
 		    <div class='game-location backgr2 pb5'>
 		        <div class='flex j-c ai-c pt5 pb5 fnt15'>
 		            <img src='/assets/icons/loc.png' class='item14-1 mr5' />
@@ -71,11 +71,9 @@
 	                    </div>
 	                </div>
 	            </div>
-		    </div>
-		</div>
 
-		<div class='flex j-c'>
-		    <sleep></sleep>
+	            <sleep></sleep>
+		    </div>
 		</div>
 
 		<surv></surv>

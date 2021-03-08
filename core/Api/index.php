@@ -139,10 +139,10 @@
                     {
                         switch($s['type'])
                         {
-                            case 1:
+                            case 5:
                                 array_push($this->tools, $s);
                                 break;
-                            case 2:
+                            case 6:
                                 array_push($this->prots, $s);
                                 break;
                         }
