@@ -15,14 +15,14 @@
     <link rel='stylesheet' href='/styles/index.css?_=<?=time()?>'>
     <link rel='stylesheet' href='/styles/style.css?_=<?=time()?>'>
 
-    <meta name='keywords' content='survivors, survs, srvs, выжившие, онлайн игра, выживание, браузерная игра, игра'>
     <meta charset='UTF-8'>
+    <meta name='keywords' content='survivors, survs, srvs, выжившие, онлайн игра, выживание, браузерная игра, игра'>
     <meta name='viewport' content='width=device-width, minimum-scale=1, maximum-scale=1' />
 
     <script src='/js/libs/vue.js' defer></script>
     <script src='/js/libs/httpVueLoader.js' defer></script>
     <script src='/js/libs/vue-router.js' defer></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js' defer></script>
+    <script src='/js/libs/axios.js' defer></script>
 
     <title>The Survivors | Выжившие</title>
 </head>
