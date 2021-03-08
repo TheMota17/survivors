@@ -7,11 +7,13 @@
             </div>
         </div>
         <div class='auth-reg flex j-c ai-c fl-di-co'>
-            <div class='auth-reg-zag flex j-c ai-c bolder fnt14 mt5' :class='{mess: regModel}' @click='regModelMoves'>
-                Начать путь
-            </div>
-            <div class='auth-enter-zag flex j-c ai-c bolder fnt14 mt5' :class='{mess: !regModel}' @click='regModelMoves'>
-                Войти
+            <div class='wdth100 flex j-c'>
+                <div class='auth-reg-zag flex j-c ai-c bolder fnt14 mt5' :class='{mess: regModel}' @click='regModelMoves'>
+                    Начать путь
+                </div>
+                <div class='auth-enter-zag flex j-c ai-c bolder fnt14 mt5 ml5' :class='{mess: !regModel}' @click='regModelMoves'>
+                    Войти
+                </div>
             </div>
             <div v-if='regModel' class='wdth100 auth-reg-form flex ai-c fl-di-co mt10'>
                 <div class='relative'>

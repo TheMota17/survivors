@@ -92,12 +92,12 @@ input::placeholder {padding: 8px; color: var(--main-3-color);}
 .auth-info {text-align: center; font-size: 15px; transform: translateY(-20px); text-shadow: 0 0 1px var(--main-mess-color);}
 
 .auth-reg {width: 90%; border-radius: 5px 5px 0px 0px;}
-.auth-reg-zag {width: 100%; height: 26px; background: var(--main-2-back); clip-path: polygon(5% 0%, 85% 0%, 90% 0%, 85% 100%, 15% 100%, 10% 0%); cursor: pointer;}
+.auth-reg-zag {width: 50%; height: 26px; background: var(--main-2-back); cursor: pointer;}
 .reg-button {width: 150px; height: 25px; outline: none; border: none; background: var(--main-3-color); transition: .2s; cursor: pointer;}
 .reg-button:active {position: relative; top: 1px;}
 
 .auth-enter {width: 90%; border-radius: 0px 0px 5px 5px;}
-.auth-enter-zag {width: 100%; height: 26px; background: var(--main-2-back); clip-path: polygon(15% 0%, 85% 0%, 90% 100%, 85% 100%, 15% 100%, 10% 100%); cursor: pointer;}
+.auth-enter-zag {width: 50%; height: 26px; background: var(--main-2-back); cursor: pointer;}
 .auth-enter-form {width: 100%; border-radius: 0px 0px 5px 5px;}
 .enter-button {width: 150px; height: 25px; outline: none; border: none; background: var(--main-3-color); transition: .2s; cursor: pointer;}
 .enter-button:active {position: relative; top: 1px;}
