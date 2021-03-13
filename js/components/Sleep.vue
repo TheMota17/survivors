@@ -18,8 +18,8 @@
                     <input class='sleep-range-input mt10' type='range' min='1' max='24' step='1' value='1' v-model='hours'>
                 </div>
                 <div class='flex j-c mt10'>
-                    <button class='cost-ready-btn mr10' @click='activate'>Отмена</button>
-                    <button class='cost-ready-btn' @click='sleep'>Спать</button>
+                    <button class='cost-ready-btn ml5 mr10' @click='activate'>Отмена</button>
+                    <button class='cost-ready-btn mr5' @click='sleep'>Спать</button>
                 </div>
             </div>
         </div>

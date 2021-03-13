@@ -75,13 +75,13 @@
 		            this.GameLive = new GameLive(this);
 
 		            this.Enemys   = [];
-		            this.Player   = new Player(this, this.sprites['pl'], this.getUserFromPlayers(ajaxData.players));
+		            this.Player   = new Player(this, this.getUserFromPlayers(ajaxData.players));
 
 		            for (let i = 0; i < ajaxData.players.length; i++)
 		            {
 		            	if (!ajaxData.players[i].you)
 		            	{
-		            		this.Enemys.push(new Enemy(this, this.sprites['pl'], ajaxData.players[i]));
+		            		this.Enemys.push(new Enemy(this, ajaxData.players[i]));
 		            	}
 		            }
 
@@ -103,7 +103,6 @@
 		    		.then((response) =>
 		    		{
 		                let sprites = [
-		                    {nm: 'pl', path: '/assets/game/'},
 		                    {nm: 'loc_' + Game.getUserFromPlayers(response.data.players).loc, path: '/assets/game/'}
 		                ];
 

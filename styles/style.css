@@ -110,7 +110,7 @@ input::placeholder {color: var(--main-3-color);}
 .cost-message {width: 96%; border-radius: 5px; color: var(--main-mess-color);}
 .cost-elem-name {width: 160px; background: var(--main-1-color); border-radius: 3px; padding-top: 3px; padding-bottom: 3px;}
 .cost-prevnext-btn {min-width: 30px; height: 22px; display: flex; justify-content: center; align-items: center; border-radius: 5px; background: var(--main-3-color); color: var(--main-1-color); padding-left: 5px; padding-right: 5px;}
-.cost-ready-btn {width: 150px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); transition: 0.2s; cursor: pointer;}
+.cost-ready-btn {width: 100%; padding: 0px 10px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); transition: 0.2s; cursor: pointer;}
 .cost-ready-btn:active {position: relative; top: 1px;}
 
 .cost-confirm-btn {width: 60px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
@@ -167,7 +167,7 @@ input::placeholder {color: var(--main-3-color);}
 .item-div {width: 96%; border-radius: 5px; padding: 5px; box-shadow: 0px 2px 4px black;}
 .item-div:hover {text-decoration: none;}
 .ivent-item-name {white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
-.item-colvo {min-width: 32px; height: 32px; border-radius: 5px; padding: 0 3px;}
+.item-colvo {width: 32px; height: 32px; padding: 0 3px;}
 .item-colvo-min {height: 15px; border-radius: 50%; padding: 0 5px; color: var(--main-1-color); background: var(--main-3-color); position: absolute; top: -5px; left: 20px;}
 
 .ivent-nav {width: 100%;}

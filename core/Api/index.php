@@ -31,6 +31,7 @@
                         json_encode([
                             'game' => $this->game,
                             'items' => $this->items,
+                            'rares' => $this->rares,
                             'locs' => $this->locs
                         ])
                     );

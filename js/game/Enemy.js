@@ -9,9 +9,8 @@ class Enemy {
 		this.hp      = playerData.hp;
 		this.nm      = playerData.login;
 
-		this.img     = img;
-		this.width   = img.width;
-		this.height  = img.height;
+		this.width   = 40;
+		this.height  = 40;
 	}
 
 	input(e)
@@ -150,7 +149,11 @@ class Enemy {
 		this.game.getCtx().fillStyle = 'green';
 		this.game.getCtx().fillRect(this.x - 10, this.y - 14, this.hpPercent(), 1);
 
-		this.game.getCtx().drawImage(this.img, 0, 0, this.width, this.height, this.x, this.y, this.width, this.height);
+		this.game.getCtx().beginPath();
+			this.game.getCtx().arc(this.x + this.width/2, this.y + this.height/2, 10, 0, 2 * Math.PI, false);
+			this.game.getCtx().fillStyle = '#212121';
+			this.game.getCtx().fill();
+		this.game.getCtx().stroke();
 	}
 
 	hpPercent()

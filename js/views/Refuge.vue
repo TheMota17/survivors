@@ -5,7 +5,7 @@
                 Убежище
             </div>
 	        <div class='refuge-no backgr2 flex j-c ai-c fl-di-co mt5 pb5'>
-	            <div class='refuge-back flex j-c ai-c' :style='{background: "url(" + locs[ 1 ][`img`] + ") no-repeat top/cover"}'>
+	            <div class='refuge-back flex j-c ai-c' :style='{background: "url(" + locs[ 1 ][`prev_img`] + ") no-repeat top/cover"}'>
 	                <div class='refuge-no-mess backgr1 flex j-c ai-c'>
 	                    <img src='/assets/icons/mess.png' class='mr5' />
 	                    <span class='mess'>У вас нету убежища</span>
@@ -16,12 +16,8 @@
 	            </div>
 	            <div class='refuge-resource wdth86 backgr1 flex j-s ai-c mt5 mb5 pt5 pb5'>
 	                <div class='flex j-c ai-c ml5'>
-	                    <div v-for='(craft_i, idx) in refuges[ 1 ][`craft_items`]' class='flex j-c ai-c fl-di-co' :class='[(idx !== 0) ? `ml5` : ``]'>
-                            <div :class='rares[ items[ craft_i[`type`] ][ craft_i[`item`] ][`rare`] ][`border`]' class='flex j-c ai-c fl-di-co'>
-                                <router-link class='item-link' :to='{path: `item`, query: {item: craft_i[`item`], type: craft_i[`type`]}}'>
-                                    <img :src='items[ craft_i[`type`] ][ craft_i[`item`] ][`img`]' />
-                                </router-link>
-                            </div>
+	                    <div v-for='(craft_i, idx) in refuges[ 1 ][`craft_items`]' class='flex fl-di-co' :class='[(idx !== 0) ? `ml5` : ``]'>
+                            <item-output :items='[{item: craft_i[`item`], type: craft_i[`type`]}]' :sys-items='items' :sys-rares='rares'></item-output>
                             <div class='item-colvo backgr2 flex j-c ai-c'>
                             	{{ craft_i[`colvo`] }}
                             </div>
@@ -48,7 +44,7 @@
 		                    <span class='ml5'><img src='/assets/icons/abs.png' class='item14-1' /> Броня: {{ refuges[ refuge[`lvl`] ][`dmgabs`] }}</span>
 		                </div>
 		            </div>
-		            <div class='refuge-back relative flex j-c ai-e mt5' :style='{background: "url(" + locs[ 1 ][`img`] + ") no-repeat top/cover"}'>
+		            <div class='refuge-back relative flex j-c ai-e mt5' :style='{background: "url(" + locs[ 1 ][`prev_img`] + ") no-repeat top/cover"}'>
 		                <div class='refuge-hp-wrapper flex j-c'>
 		                    <div class='refuge-hp-bar' :style='{width: hpPercent + "%"}'></div>
 		                </div>
@@ -65,12 +61,8 @@
 		            </div>
 		            <div class='refuge-resource wdth86 backgr1 flex j-c ai-c mt5 mb5 pt5 pb5'>
 	                    <div v-if='refuges[ Math.floor(refuge[`lvl`]) + 1 ]' class='wdth100 flex j-s ai-c ml5'>
-	                        <div v-for='(craft_i, idx) in refuges[ Math.floor(refuge[`lvl`]) + 1 ][`craft_items`]' class='flex j-c ai-c fl-di-co' :class='[(idx !== 0) ? `ml5` : ``]'>
-	                            <div :class='rares[ items[ craft_i[`type`] ][ craft_i[`item`] ][`rare`] ][`border`]' class='flex j-c ai-c'>
-	                                <router-link  class='item-link' :to='{path: `item`, query: {item: craft_i[`item`], type: craft_i[`type`]}}'>
-	                                    <img :src='items[ craft_i[`type`] ][ craft_i[`item`] ][`img`]' />
-	                                </router-link>
-	                            </div>
+	                        <div v-for='(craft_i, idx) in refuges[ Math.floor(refuge[`lvl`]) + 1 ][`craft_items`]' class='flex fl-di-co' :class='[(idx !== 0) ? `ml5` : ``]'>
+	                            <item-output :items='[{item: craft_i[`item`], type: craft_i[`type`]}]' :sys-items='items' :sys-rares='rares'></item-output>
 	                            <div class='item-colvo backgr2 flex j-c ai-c'>
 	                            	{{ craft_i[`colvo`] }}
 	                            </div>
@@ -149,7 +141,7 @@
                             <div class='flex j-c ai-c'>
                                 <div class='item32-1'>
                                     <div v-if='items[ 5 ][ tool[`item`] ]' class='flex j-c ai-c' :class='rares[ items[ 5 ][ tool[`item`] ][`rare`] ][`border`]'>
-                                        <img :src='items[ 5 ][ tool[`item`] ][`img`]' />
+                                        <img :src='items[ 5 ][ tool[`item`] ][`prev_img`]' />
                                     </div>
                                     <img v-else src='/assets/icons/slot.png' />
                                 </div>
@@ -179,6 +171,7 @@
 
 <script>
 let date = Date.now();
+let ItemOutput = httpVueLoader('../components/ItemOutput.vue?_='+date)
 let EnterRefuge = httpVueLoader('../components/EnterRefuge.vue?_='+date)
 let UpRefuge    = httpVueLoader('../components/UpRefuge.vue?_='+date)
 
@@ -200,7 +193,7 @@ module.exports = {
 	}),
 	components:
 	{
-		EnterRefuge, UpRefuge
+		ItemOutput, EnterRefuge, UpRefuge
 	},
 	beforeMount()
 	{

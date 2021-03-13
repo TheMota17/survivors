@@ -6,12 +6,8 @@
 		    </div>
 		    <div class='item-iteminfo backgr2 pt5 pb5 mt5'>
 		        <div class='flex ml5 mt5'>
-		            <div class='iteminfo-img flex j-s'>
-		                <div class='item32-1 flex j-c ai-c ml5'>
-		                    <div class='flex j-c ai-c' :class='rares[ items[ item[`type`] ][ item[`item`] ][`rare`] ][`border`]'>
-		                        <img :src='items[ item[`type`] ][ item[`item`] ][`img`]' />
-		                    </div>
-		                </div>
+		            <div class='iteminfo-img flex j-s ml5'>
+		                <item-output :items='[{item: item[`item`], type: item[`type`]}]' :sys-items='items' :sys-rares='rares'></item-output>
 		            </div>
 		            <div class='flex fl-di-co'>
 		                <div class='iteminfo-name ml5'>
@@ -41,23 +37,32 @@
 		                </div>
 
 		                <div v-if='items[ item[`type`] ][ item[`item`] ][`eff`]' v-for='(eff, key) in items[ item[`type`] ][ item[`item`] ][`eff`]' class='wdth100 flex j-c ai-c fl-di-co'>
-	                		<div v-if='key == `hung`' class='iteminfo-div mt5'>
-                                <span class='ml5'>
+	                		<div v-if='key == `hung`' class='iteminfo-div flex mt5'>
+                                <div class='ml5'>
                                     <img src='/assets/icons/hung.png' class='item14-1' />
-                                    Голод: -{{ eff }}
-                                </span>
+                                    Голод:
+                                </div>
+                                <div class='fl1 flex j-e'>
+                                	<span class='mr5'>-{{ eff }}</span>
+                                </div>
                             </div>
-                            <div v-else-if='key == `thirst`' class='iteminfo-div mt5'>
-                                <span class='ml5'>
+                            <div v-else-if='key == `thirst`' class='iteminfo-div flex mt5'>
+                                <div class='ml5'>
                                     <img src='/assets/icons/thirst.png' class='item14-1' />
-                                    Жажда: -{{ eff }}
-                                </span>
+                                    Жажда:
+                                </div>
+                                <div class='fl1 flex j-e'>
+                                	<span class='mr5'>-{{ eff }}</span>
+                                </div>
                             </div>
-                            <div v-else-if='key == `hp`' class='iteminfo-div mt5'>
-                                <span class='ml5'>
+                            <div v-else-if='key == `hp`' class='iteminfo-div flex mt5'>
+                                <div class='ml5'>
                                     <img src='/assets/icons/hp.png' class='item14-1' />
-                                    Здоровье: +{{ eff }}
-                                </span>
+                                    Здоровье:
+                                </div>
+                                <div class='fl1 flex j-e'>
+                                	<span class='mr5'>+{{ eff }}</span>
+                                </div>
                             </div>
 	                	</div>
 
@@ -123,13 +128,7 @@
 		            <div class='flex j-c ai-c pt5 pb5'>
 		                <div class='wdth96 flex j-c'>
 		                    <div class='wdth96 flex j-s'>
-		                        <div v-for='ammu in items[ item[`type`] ][ item[`item`] ][`ammu`]' class='flex j-c ai-c fl-di-co mr5'>
-	                                <div :class='rares[ items[ ammu[`t`] ][ ammu[`i`] ][`rare`] ][`border`]'>
-	                                	<router-link :to='{path: `item`, query: {item: ammu[`i`], type: ammu[`t`], view: 1}}'>
-	                                		<img :src='items[ ammu[`t`] ][ ammu[`i`] ][`img`]' />
-	                                	</router-link>
-	                                </div>
-	                            </div>
+		                    	<item-output :items='items[ item[`type`] ][ item[`item`] ][`ammu`]' :sys-items='items' :sys-rares='rares'></item-output>
 		                    </div>
 		                </div>
 		            </div>
@@ -218,11 +217,12 @@
 
 <script>
 let date = Date.now();
-let Nadet = httpVueLoader('../components/Nadet.vue?_='+date)
-let Eat   = httpVueLoader('../components/Eat.vue?_='+date)
-let Drink = httpVueLoader('../components/Drink.vue?_='+date)
-let Read  = httpVueLoader('../components/Read.vue?_='+date)
-let Place = httpVueLoader('../components/Place.vue?_='+date)
+let ItemOutput = httpVueLoader('../components/ItemOutput.vue?_='+date)
+let Nadet      = httpVueLoader('../components/Nadet.vue?_='+date)
+let Eat        = httpVueLoader('../components/Eat.vue?_='+date)
+let Drink      = httpVueLoader('../components/Drink.vue?_='+date)
+let Read       = httpVueLoader('../components/Read.vue?_='+date)
+let Place      = httpVueLoader('../components/Place.vue?_='+date)
 
 module.exports = {
 	name: 'Item',
@@ -239,7 +239,7 @@ module.exports = {
 	}),
 	components:
 	{
-		Nadet, Eat, Drink, Read, Place
+		ItemOutput, Nadet, Eat, Drink, Read, Place
 	},
 	beforeMount()
 	{

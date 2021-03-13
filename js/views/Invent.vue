@@ -238,11 +238,7 @@
 			    </div>
 				<router-link v-for='item in paginatedData' v-if='invent.length && item.type == $root.invent.sortType || $root.invent.sortType == 0' :to='{ path: `item`, query: {id: item.id}}' class='item-div backgr1 flex j-sb mt5 mb5 pt5 pb5'>
 	                <div class='fl1 flex j-s ai-c'>
-	                    <div class='item32-2 flex j-c ai-c'>
-	                        <div class='item-link' :class='rares[ items[ item[`type`] ][ item[`item`] ][`rare`] ][`border`]'>
-	                            <img :src='items[ item[`type`] ][ item[`item`] ][`img`]' />
-	                        </div>
-	                    </div>
+	                    <item-output :items='[{item: item[`item`], type: item[`type`]}]' :sys-items='items' :sys-rares='rares'></item-output>
 	                </div>
 
 	                <div class='fl2 flex j-c fl-di-co color3 ml5'>
@@ -273,6 +269,9 @@
 </template>
 
 <script>
+let date = Date.now();
+let ItemOutput = httpVueLoader('../components/ItemOutput.vue?_='+date)
+
 module.exports = {
     name: 'Invent',
     data: () => ({
@@ -288,6 +287,9 @@ module.exports = {
     	max: 5,
     	page: 1
     }),
+    components: {
+		ItemOutput
+	},
 	beforeMount()
 	{
 		let params = new FormData();

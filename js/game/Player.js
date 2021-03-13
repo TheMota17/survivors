@@ -1,5 +1,5 @@
 class Player {
-	constructor(game, img, playerData)
+	constructor(game, playerData)
 	{
 		this.game       = game;
 
@@ -14,7 +14,6 @@ class Player {
 		this.loc          = playerData.loc;
 		this.loc_explored = playerData.loc_explored;
 
-		this.img     = img;
 		this.width   = 40;
 		this.height  = 40;
 
@@ -116,10 +115,9 @@ class Player {
 
 		this.game.getCtx().beginPath();
 			this.game.getCtx().arc(this.x + this.width/2, this.y + this.height/2, 10, 0, 2 * Math.PI, false);
-			this.game.getCtx().fillStyle = '#212121';
+			this.game.getCtx().fillStyle = 'rgb(52, 49, 42)';
 			this.game.getCtx().fill();
 		this.game.getCtx().stroke();
-		//this.game.getCtx().drawImage(this.img, 0, 0, this.width, this.height, this.x, this.y, this.width, this.height);
 	}
 
 	hpPercent()

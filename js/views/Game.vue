@@ -57,18 +57,12 @@
 
 	            <div class='flex j-c mt5'>
 	                <div class='loc-whatsrch'>
-	                    <div class='mb5 '>Можно найти:</div>
-	                    <div class='game-avai-items flex'>
-	                        <div v-for='item in locs[ game.loc ][`srch_items`]' class='item32-1 mr5 mb5 flex j-c ai-c'>
-	                            <router-link :to='{ path: `item`, query: {item: item[`i`], type: item[`t`]}}' class='item-link'>
-	                                <img :src='items[ item[`t`] ][ item[`i`] ][`img`]'/>
-	                            </router-link>
-	                        </div>
-	                    </div>
+	                    <div class='mb5'>Можно найти:</div>
+	                    <item-output :items='locs[ game.loc ][`srch_items`]' :sys-items='items' :sys-rares='rares'></item-output>
 	                </div>
 	            </div>
 
-	            <sleep></sleep>
+	            <sleep class='mt5'></sleep>
 		    </div>
 		</div>
 
@@ -78,6 +72,7 @@
 
 <script>
 let date = Date.now();
+let ItemOutput = httpVueLoader('../components/ItemOutput.vue?_='+date)
 let Sleep = httpVueLoader('../components/Sleep.vue?_='+date)
 let Surv  = httpVueLoader('../components/Surv.vue?_='+date)
 
@@ -87,11 +82,11 @@ module.exports = {
 		api: false,
 		game: undefined,
 		items: undefined,
+		rares: undefined,
 		locs: undefined
 	}),
-	components:
-	{
-		Sleep, Surv
+	components: {
+		ItemOutput, Sleep, Surv
 	},
 	beforeMount()
 	{
@@ -111,6 +106,7 @@ module.exports = {
 			{
 				this.game  = response.data.game;
 				this.items = response.data.items;
+				this.rares = response.data.rares;
 				this.locs  = response.data.locs;
 
 				this.$root.tablo.hp = this.game.hp;

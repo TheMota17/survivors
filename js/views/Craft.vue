@@ -24,9 +24,7 @@
 				</div>
 	            <div v-if='$root.craft.selected' class='craft-item backgr1 flex j-c fl-di-co mt5 mb5 pt5 pb5'>
 	                <div class='craft-first-info flex'>
-	                    <div class='flex j-c ai-c ml5' :class='rares[ items[ $root.craft.type ][ $root.craft.item ][`rare`] ][`border`]'>
-	                        <img :src='items[ $root.craft.type ][ $root.craft.item ][`img`]'>
-	                    </div>
+	                    <item-output :items='[{item: $root.craft.item, type: $root.craft.type}]' :sys-items='items' :sys-rares='rares'></item-output>
 	                    <div class='flex j-s fl-di-co'>
 	                        <div class='item-name ml5 flex j-s'>
 	                            {{ items[ $root.craft.type ][ $root.craft.item ][`nm`] }}
@@ -98,12 +96,8 @@
 	                    </div>
 	                    <div class='flex j-c mt5'>
 	                        <div class='wdth96 flex j-s'>
-	                            <div v-for='(craft_i, idx) in crafts[ $root.craft.id ][`craft_items`]' class='flex j-c ai-c fl-di-co' :class='[(idx !== 0) ? `ml5` : ``]'>
-                                    <div :class='rares[ items[ craft_i[`type`] ][ craft_i[`item`] ][`rare`] ][`border`]'>
-                                        <router-link :to='{path: `item`, query: {item: craft_i[`item`], type: craft_i[`type`]}}'>
-                                            <img :src='items[ craft_i[`type`] ][ craft_i[`item`] ][`img`]' />
-                                        </router-link>
-                                    </div>
+	                            <div v-for='(craft_i, idx) in crafts[ $root.craft.id ][`craft_items`]' class='flex fl-di-co' :class='[(idx !== 0) ? `ml5` : ``]'>
+                                   	<item-output :items='[{item: craft_i[`item`], type: craft_i[`type`]}]' :sys-items='items' :sys-rares='rares'></item-output>
                                     <div class='item-colvo backgr1 flex j-c ai-c'>
                                     	{{ craft_i[`colvo`] }}
                                     </div>
@@ -205,6 +199,9 @@
 </template>
 
 <script>
+let date = Date.now();
+let ItemOutput = httpVueLoader('../components/ItemOutput.vue?_='+date)
+
 module.exports = {
 	name: 'Craft',
 	data: () => ({
@@ -218,6 +215,9 @@ module.exports = {
 
 		colvo: 1
 	}),
+	components: {
+		ItemOutput
+	},
 	beforeMount()
 	{
 		let params = new FormData();
