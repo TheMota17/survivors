@@ -1,5 +1,8 @@
 <template>
-	<button class='moves-btn' @click='read'>
+	<button class='moves-btn flex j-s ai-c' @click='read'>
+        <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
+            <img src='/assets/icons/lut.png' />
+        </div>
         <span>Читать</span>
     </button>
 </template>

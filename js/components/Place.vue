@@ -1,5 +1,8 @@
 <template>
-	<button class='moves-btn' @click='place'>
+	<button class='moves-btn flex j-s ai-c' @click='place'>
+        <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
+            <img src='/assets/icons/menu/refuge.png' />
+        </div>
         <span>Поместить</span>
     </button>
 </template>

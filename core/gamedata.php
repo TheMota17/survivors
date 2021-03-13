@@ -22,12 +22,12 @@
             18 => ['nm' => 'Металл', 'rare' => 1, 'img' => '/assets/items/others/metall.png', 'type' => 'Материал'],
         ],
         2 => [ // Helms
-            1 => ['nm' => 'Шапка из дерева', 'move' => 'nadet', 'power' => 2, 'dmgabs' => 2, 'rare' => 1, 'img' => '/assets/man/helms/wood-cap.png', 'class' => 'item-wood_cap', 'type' => 'Шлем'],
-            2 => ['nm' => 'Деревянный шлем', 'move' => 'nadet', 'power' => 4, 'dmgabs' => 4, 'rare' => 1, 'img' => '/assets/man/helms/wood-helm.png', 'class' => 'item-wood_helm', 'type' => 'Шлем']
+            1 => ['nm' => 'Шапка из дерева', 'move' => 'nadet', 'power' => 2, 'dmgabs' => 2, 'rare' => 1, 'img' => '/assets/items/helms/wood-cap.png', 'class' => 'item-wood_cap', 'type' => 'Шлем'],
+            2 => ['nm' => 'Деревянный шлем', 'move' => 'nadet', 'power' => 4, 'dmgabs' => 4, 'rare' => 1, 'img' => '/assets/items/helms/wood-helm.png', 'class' => 'item-wood_helm', 'type' => 'Шлем']
         ],
         3 => [ // Armors
-            1 => ['nm' => 'Накидка', 'move' => 'nadet', 'power' => 2, 'dmgabs' => 2, 'rare' => 1, 'img' => '/assets/man/arms/nakidka.png', 'class' => 'item-nakidka', 'type' => 'Броня'],
-            2 => ['nm' => 'Броня из дерева', 'move' => 'nadet', 'power' => 4, 'dmgabs' => 4, 'rare' => 1, 'img' => '/assets/man/arms/wood-arm.png', 'class' => 'item-wood_arm', 'type' => 'Броня']
+            1 => ['nm' => 'Накидка', 'move' => 'nadet', 'power' => 2, 'dmgabs' => 2, 'rare' => 1, 'img' => '/assets/items/arms/nakidka.png', 'class' => 'item-nakidka', 'type' => 'Броня'],
+            2 => ['nm' => 'Броня из дерева', 'move' => 'nadet', 'power' => 4, 'dmgabs' => 4, 'rare' => 1, 'img' => '/assets/items/arms/wood-arm.png', 'class' => 'item-wood_arm', 'type' => 'Броня']
         ],
         4 => [ // Weaps
             1 => ['nm' => 'Нож', 'move' => 'nadet', 'power' => 5, 'dmgmin' => 2, 'dmgmax' => 4, 'rare' => 1, 'img' => '/assets/items/weaps/knife.png', 'class' => 'item-knife', 'type' => 'Оружиe'],

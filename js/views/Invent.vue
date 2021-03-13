@@ -88,7 +88,7 @@
 					<div class='nadeto-helm backgr1 flex mt5'>
 						<div class='flex j-c ai-c'>
 							<div v-if='nadeto[`helm`] > 0' class='flex ai-c j-c' :class='rares[ items[2][ nadeto[`helm`] ][`rare`] ][`border`]'>
-	                            <img class='item30' :src='items[ 2 ][ nadeto[`helm`] ][`img`]' />
+	                            <img class='item30-1' :src='items[ 2 ][ nadeto[`helm`] ][`img`]' />
 	                        </div>
 	                        <img v-else src='/assets/icons/ivent-helm.png' />
 					        <div class='flex j-c'>
@@ -127,7 +127,7 @@
 					<div class='nadeto-arm backgr1 flex mt5'>
 						<div class='flex j-c ai-c'>
 							<div v-if='nadeto[`arm`] > 0' class='flex j-c ai-c' :class='rares[ items[3][ nadeto[`arm`] ][`rare`] ][`border`]'>
-	                        	<img class='item30' :src='items[ 3 ][ nadeto[`arm`] ][`img`]' />
+	                        	<img class='item30-1' :src='items[ 3 ][ nadeto[`arm`] ][`img`]' />
 	                        </div>
 	                        <img v-else src='/assets/icons/ivent-arm.png' />
 					        <div class='flex j-c fl-di-co'>
@@ -166,7 +166,7 @@
 					<div class='nadeto-weap backgr1 flex mt5 mb5'>
 						<div class='flex j-c ai-c'>
 							<div v-if='nadeto[`weap`] > 0' class='flex j-c ai-c' :class='rares[ items[4][ nadeto[`weap`] ][`rare`] ][`border`]'>
-	                        	<img class='item30' :src='items[ 4 ][ nadeto[`weap`] ][`img`]' />
+	                        	<img class='item30-1' :src='items[ 4 ][ nadeto[`weap`] ][`img`]' />
 	                        </div>
 	                        <img v-else src='/assets/icons/ivent-weap.png' />
 				            <div class='flex j-c fl-di-co'>
@@ -214,7 +214,7 @@
 				<div class='wdth100 flex j-c ai-c fl-di-co mt5'>
 			        <div class='sort-menu flex j-s ai-c'>
 				        <button @click='changeType(2)' class='flex j-c ai-c mr5'>
-				        	<img class='item14-1' src='/assets/items/helms/wood-helm.png' />
+				        	<img class='item14-1' src='/assets/man/helms/wood-helm.png' />
 				    	</button>
 				        <button @click='changeType(3)' class='flex j-c ai-c mr5'>
 				        	<img class='item14-1' src='/assets/icons/abs.png' />

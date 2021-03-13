@@ -5,7 +5,7 @@
                 Убежище
             </div>
 	        <div class='refuge-no backgr2 flex j-c ai-c fl-di-co mt5 pb5'>
-	            <div class='refuge-back flex j-c ai-c' :style='{background: "url(" + locs[ 1 ][`prev_img`] + ") no-repeat top/cover"}'>
+	            <div class='refuge-back flex j-c ai-c'>
 	                <div class='refuge-no-mess backgr1 flex j-c ai-c'>
 	                    <img src='/assets/icons/mess.png' class='mr5' />
 	                    <span class='mess'>У вас нету убежища</span>
@@ -44,7 +44,7 @@
 		                    <span class='ml5'><img src='/assets/icons/abs.png' class='item14-1' /> Броня: {{ refuges[ refuge[`lvl`] ][`dmgabs`] }}</span>
 		                </div>
 		            </div>
-		            <div class='refuge-back relative flex j-c ai-e mt5' :style='{background: "url(" + locs[ 1 ][`prev_img`] + ") no-repeat top/cover"}'>
+		            <div class='refuge-back relative flex j-c ai-e mt5'>
 		                <div class='refuge-hp-wrapper flex j-c'>
 		                    <div class='refuge-hp-bar' :style='{width: hpPercent + "%"}'></div>
 		                </div>

@@ -1,6 +1,9 @@
 <template>
 	<div class='item-moves backgr2 flex j-c pt5 pb5'>
-        <button class='moves-btn' @click='eat'>
+		<button class='moves-btn flex j-s ai-c' @click='eat'>
+            <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
+                <img src='/assets/icons/hung.png' />
+            </div>
             <span>Есть</span>
         </button>
     </div>

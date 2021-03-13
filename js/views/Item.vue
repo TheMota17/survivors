@@ -68,9 +68,14 @@
 
 		                <div v-if='items[ item[`type`] ][ item[`item`] ][`dmgabs`]' class='iteminfo-div flex j-sb mt5'>
 	                        <div class='ml5'>
-	                            <img src='/assets/icons/abs.png' class='item14-1' /> Подавление урона: {{ items[ item[`type`] ][ item[`item`] ][`dmgabs`] }}
+	                            <img src='/assets/icons/abs.png' class='item14-1' /> Подавление урона:
 	                        </div>
-                            <div v-if='$route.query.id && nadeto[ nElems[ item[`type`] ] ]' class='ml5'>
+	                        <div class='fl1 flex j-e'>
+	                        	<span class='mr5'>
+	                        		{{ items[ item[`type`] ][ item[`item`] ][`dmgabs`] }}
+	                        	</span>
+	                        </div>
+                            <div v-if='$route.query.id && nadeto[ nElems[ item[`type`] ] ]'>
                                 <img v-if='items[ item[`type`] ][ item[`item`] ][`dmgabs`] > items[ item[`type`] ][ nadeto[ nElems[ item[`type`] ] ] ][`dmgabs`]' src='/assets/icons/better.png' class='item14-1 mr5' />
                               	<img v-else-if='items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`dmgabs`] == items[ item[`type`] ][ item[`item`] ][`dmgabs`]' src='/assets/icons/equally.png' class='item14-1 mr5' />
                                 <img v-else src='/assets/icons/worse.png' class='item14-1 mr5' />
@@ -182,11 +187,16 @@
 	                        	<span class='mr5'>{{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`type`] }}</span>
 	                        </div>
 	                    </div>
-	                    <div v-if='items[ item[`type`] ][ item[`item`] ][`dmgabs`]' class='iteminfo-div mt5'>
-	                        <span class='ml5'>
+	                    <div v-if='items[ item[`type`] ][ item[`item`] ][`dmgabs`]' class='iteminfo-div flex mt5'>
+	                        <div class='ml5'>
 	                            <img src='/assets/icons/abs.png' class='item14-1' />
-	                            Подавление урона: {{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`dmgabs`] }}
-	                        </span>
+	                            Подавление урона:
+	                        </div>
+	                        <div class='fl1 flex j-e'>
+	                        	<span class='mr5'>
+	                        		{{ items[ item[`type`] ][ nadeto[ nElems[item[`type`]] ] ][`dmgabs`] }}
+	                        	</span>
+	                        </div>
 	                    </div>
 	                    <div v-else class='iteminfo-div flex mt5'>
 	                        <div class='ml5'>

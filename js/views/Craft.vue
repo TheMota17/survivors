@@ -24,12 +24,12 @@
 				</div>
 	            <div v-if='$root.craft.selected' class='craft-item backgr1 flex j-c fl-di-co mt5 mb5 pt5 pb5'>
 	                <div class='craft-first-info flex'>
-	                    <item-output :items='[{item: $root.craft.item, type: $root.craft.type}]' :sys-items='items' :sys-rares='rares'></item-output>
+	                    <item-output class='ml5' :items='[{item: $root.craft.item, type: $root.craft.type}]' :sys-items='items' :sys-rares='rares'></item-output>
 	                    <div class='flex j-s fl-di-co'>
-	                        <div class='item-name ml5 flex j-s'>
+	                        <div class='item-name flex j-s'>
 	                            {{ items[ $root.craft.type ][ $root.craft.item ][`nm`] }}
 	                        </div>
-	                        <div class='item-rare ml5 flex j-s'>
+	                        <div class='item-rare flex j-s'>
 	                            <span :class='rares[ items[ $root.craft.type ][ $root.craft.item ][`rare`] ][`class`]'>
 	                                {{ rares[ items[ $root.craft.type ][ $root.craft.item ][`rare`] ][`word`] }}
 	                            </span>
