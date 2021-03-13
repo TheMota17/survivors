@@ -11,6 +11,10 @@ class Player {
 		this.thirst     = playerData.thirst;
 		this.fatigue    = playerData.fatigue;
 
+		this.time       = Number(playerData.time);
+		this.weather    = Number(playerData.weather);
+		this.temp       = Number(playerData.temp);
+
 		this.loc          = playerData.loc;
 		this.loc_explored = playerData.loc_explored;
 

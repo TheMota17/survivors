@@ -1,8 +1,8 @@
 <template>
-	<script type='module' defer>
+	<script type='module'>
 		import {Utils} from '../js/game/Utils.js';
 		import {Resources} from '../js/game/Resources.js';
-		import {PageDateUpdater} from '../js/game/PageDateUpdater.js';
+
 
 		import {GameLive} from '../js/game/GameLive.js';
 		import {Camera} from '../js/game/Camera.js';
@@ -25,17 +25,31 @@
 
 		            Game.lastDt = Date.now();
 
-		            if (window.location.pathname == '/') window.requestAnimationFrame(Game.loop);
+		            window.requestAnimationFrame(Game.loop);
 		        },
 		        update: function(dt)
 		        {
-		            this.GameLive.update(dt);
-		            this.Player.update(dt);
+		        	if (window.location.pathname == '/')
+		        	{
+		        		this.GameLive.update(dt);
+			            this.Player.update(dt);
 
-		            for(let i = 0; i < this.Enemys.length; i++)
-		            { this.Enemys[i].update(dt) }
+			            for(let i = 0; i < this.Enemys.length; i++)
+			            { this.Enemys[i].update(dt) }
 
-		            this.Camera.update(dt);
+			            this.Camera.update(dt);
+
+			            if (Utils.byId('time'))
+						{
+							Utils.byId('time').innerHTML = Utils.convertTime( this.Player.time );
+							Utils.byId('weather_name').innerHTML = this.weathers[ this.Player.weather ]['nm'];
+							Utils.byId('weather_img').src = this.weathers[ this.Player.weather ]['img'];
+							Utils.byId('temp').innerHTML = this.temps[ this.Player.temp ]['nm'];
+							Utils.byId('loc_name').innerHTML = this.locs[ this.Player.loc ]['nm'];
+							Utils.byId('loc_explored').innerHTML = this.Player.loc_explored;
+							Utils.byId('fps').innerHTML = Math.floor((1000 / dt) / 1000);
+						}
+		        	}
 		        },
 		        render(dt)
 		        {
@@ -151,3 +165,9 @@
 		})();
 	</script>
 </template>
+
+<script>
+module.exports = {
+	name: 'Surv'
+}
+</script>
