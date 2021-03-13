@@ -1,173 +1,125 @@
 class Player {
 	constructor(game, img, playerData)
 	{
-		this.game    = game;
+		this.game       = game;
 
-		this.x       = playerData.x;
-		this.y       = playerData.y
-		this.s       = playerData.speed;
-		this.hp      = playerData.hp;
-		this.hung    = playerData.hung;
-		this.thirst  = playerData.thirst;
-		this.fatigue = playerData.fatigue;
+		this.x          = Number(playerData.x);
+		this.y          = Number(playerData.y);
+		this.timeToStep = 0;
+		this.hp         = playerData.hp;
+		this.hung       = playerData.hung;
+		this.thirst     = playerData.thirst;
+		this.fatigue    = playerData.fatigue;
+
+		this.loc          = playerData.loc;
+		this.loc_explored = playerData.loc_explored;
 
 		this.img     = img;
-		this.width   = img.width;
-		this.height  = img.height;
+		this.width   = 40;
+		this.height  = 40;
 
-		this.left  = false;
-		this.right = false;
-		this.up    = false;
-		this.down  = false;
-
-		window.addEventListener('keydown', this.input.bind(this));
-		window.addEventListener('keyup', this.input.bind(this));
-		window.addEventListener('touchstart', this.input.bind(this));
-		window.addEventListener('touchend', this.input.bind(this));
+		this.game.getGameBtns().addEventListener('click', this.input.bind(this));
 	}
 
 	input(e)
 	{
-		switch(e.type[0])
+		switch(e.target.id)
 		{
-			case 't':
-				switch(e.target.id)
+			case 'left':
+				if (this.stepTime())
 				{
-					case 'up_l':
-						if (e.type == 'touchstart')
-						{
-							this.left = true;
-							this.up = true;
-						} else {
-							this.left = false;
-							this.up = false;
-						}
-					break;
-					case 'up_r':
-						if (e.type == 'touchstart')
-						{
-							this.right = true;
-							this.up = true;
-						} else {
-							this.right = false;
-							this.up = false;
-						}
-					break;
-					case 'down_l':
-						if (e.type == 'touchstart')
-						{
-							this.left = true;
-							this.down = true;
-						} else {
-							this.left = false;
-							this.down = false;
-						}
-					break;
-					case 'down_r':
-						if (e.type == 'touchstart')
-						{
-							this.right = true;
-							this.down = true;
-						} else {
-							this.right = false;
-							this.down = false;
-						}
-					break;
-					case 'left':
-						if (e.type == 'touchstart')
-						{
-							this.left = true;
-						} else this.left = false;
-						break;
-					case 'up':
-						if (e.type == 'touchstart')
-						{
-							this.up = true;
-						} else this.up = false;
-						break;
-					case 'right':
-						if (e.type == 'touchstart')
-						{
-							this.right = true;
-						} else this.right = false;
-						break;
-					case 'down':
-						if (e.type == 'touchstart')
-						{
-							this.down = true;
-						} else this.down = false;
-						break;
+					this.changeCoordinates('left');
+					this.sendPoint('left');
+					this.stepTimeChange();
 				}
-			break;
-			case 'k':
-				if (e.keyCode == 37)
+				break;
+			case 'up':
+				if (this.stepTime())
 				{
-					if (e.type == 'keydown')
-					{
-						this.left = true;
-					} else this.left = false;
+					this.changeCoordinates('up');
+					this.sendPoint('up');
+					this.stepTimeChange();
 				}
-				if (e.keyCode == 38)
+				break;
+			case 'right':
+				if (this.stepTime())
 				{
-					if (e.type == 'keydown')
-					{
-						this.up = true;
-					} else this.up = false;
+					this.changeCoordinates('right');
+					this.sendPoint('right');
+					this.stepTimeChange();
 				}
-				if (e.keyCode == 39)
+				break;
+			case 'down':
+				if (this.stepTime())
 				{
-					if (e.type == 'keydown')
-					{
-						this.right = true;
-					} else this.right = false;
+					this.changeCoordinates('down');
+					this.sendPoint('down');
+					this.stepTimeChange();
 				}
-				if (e.keyCode == 40)
-				{
-					if (e.type == 'keydown')
-					{
-						this.down = true;
-					} else this.down = false;
-				}
-			break;
+				break;
 		}
+	}
+
+	stepTime()
+	{
+		if (this.timeToStep <= 0) return true;
+	}
+
+	stepTimeChange()
+	{
+		this.timeToStep = 0.3;
+	}
+
+	changeCoordinates(dir)
+	{
+		switch(dir)
+		{
+			case 'left':
+				this.x -= 40;
+				break;
+			case 'up':
+				this.y -= 40;
+				break;
+			case 'right':
+				this.x += 40;
+				break;
+			case 'down':
+				this.y += 40;
+				break;
+		}
+	}
+
+	sendPoint(dir)
+	{
+		let params = new FormData();
+        params.append('token', localStorage.getItem('token'));
+		axios.post('/core/Game/?action=' + dir, params)
 	}
 
 	update(dt)
 	{
-		if (this.timeToFire < this.maxTimeToFire)
+		if (this.timeToStep > 0)
 		{
-			this.timeToFire += dt;
-		}
-
-		if (this.left && 0 < (this.x - this.width/2))
-		{
-			this.x += -1 * (this.s * dt);
-		}
-		if (this.right && (this.x + this.width/2) < this.game.getLoc().width)
-		{
-			this.x += 1 * (this.s * dt);
-		}
-		if (this.up && 0 < (this.y - this.height/2))
-		{
-			this.y += -1 * (this.s * dt);
-		}
-		if (this.down && (this.y + this.height/2) < this.game.getLoc().height)
-		{
-			this.y += 1 * (this.s * dt);
+			this.timeToStep -= dt;
 		}
 	}
 
 	render()
 	{
 		this.game.getCtx().fillStyle = '#dac09c';
-		this.game.getCtx().fillText('Вы', (this.x - this.game.getCtx().measureText('Вы').width/2), this.y - 16);
+		this.game.getCtx().fillText('Вы', ((this.x - this.game.getCtx().measureText('Вы').width/2) + this.width/2), this.y + 2);
 
 		this.game.getCtx().fillStyle = 'black';
-		this.game.getCtx().fillRect((this.x - this.width/2) - 12, this.y - 14, 43, 3);
+		this.game.getCtx().fillRect(this.x - 3, this.y + 5, 43, 3);
 		this.game.getCtx().fillStyle = 'green';
-		this.game.getCtx().fillRect((this.x - this.width/2) - 10, this.y - 14, this.hpPercent(), 1);
+		this.game.getCtx().fillRect(this.x - 1, this.y + 5, this.hpPercent(), 1);
 
-		this.game.getCtx().drawImage(this.img, 0, 0, this.width, this.height, this.x - this.width/2, this.y - this.height/2, this.width, this.height);
+		this.game.getCtx().beginPath();
+			this.game.getCtx().arc(this.x + this.width/2, this.y + this.height/2, 10, 0, 2 * Math.PI, false);
+			this.game.getCtx().fillStyle = '#212121';
+			this.game.getCtx().fill();
+		this.game.getCtx().stroke();
+		//this.game.getCtx().drawImage(this.img, 0, 0, this.width, this.height, this.x, this.y, this.width, this.height);
 	}
 
 	hpPercent()

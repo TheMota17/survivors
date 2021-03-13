@@ -5,7 +5,7 @@
                 Убежище
             </div>
 	        <div class='refuge-no backgr2 flex j-c ai-c fl-di-co mt5 pb5'>
-	            <div class='refuge-back flex j-c ai-c mt5' :style='{background: "url(" + locs[ 1 ][`img`] + ") no-repeat top/cover"}'>
+	            <div class='refuge-back flex j-c ai-c' :style='{background: "url(" + locs[ 1 ][`img`] + ") no-repeat top/cover"}'>
 	                <div class='refuge-no-mess backgr1 flex j-c ai-c'>
 	                    <img src='/assets/icons/mess.png' class='mr5' />
 	                    <span class='mess'>У вас нету убежища</span>

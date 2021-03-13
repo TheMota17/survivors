@@ -1,5 +1,5 @@
 <template>
-	<div v-if='show || !tabloNotShowFrst' class='hght25'>
+	<div v-if='$route.path !== "/auth" && $route.path !== "/costumize"' class='hght25'>
 	    <div class='info-table backgr2 flex j-s ai-c'>
 
 	        <div class='info-item flex j-c ai-c ml5'>
@@ -29,39 +29,5 @@
 <script>
 module.exports = {
 	name: 'Tablo',
-	data: () => ({
-		show: false,
-		notWorkedPages: ['/auth', '/costumize']
-	}),
-	methods: {
-		tabloNotShow(path)
-		{
-			for(let i = 0; i < this.notWorkedPages.length; i++)
-			{
-				if (this.notWorkedPages[i] == path) return true;
-			}
-		}
-	},
-	computed: {
-		tabloNotShowFrst()
-		{
-			for(let i = 0; i < this.notWorkedPages.length; i++)
-			{
-				if (this.notWorkedPages[i] == window.location.pathname) return true;
-			}
-		}
-	},
-	watch: {
-    	$route (to, from)
-    	{
-    		if (this.tabloNotShow(to))
-    		{
-    			this.show = false;
-    		} else
-    		{
-    			this.show = true;
-    		}
-    	}
-	}
 }
 </script>

@@ -3,7 +3,7 @@ body {background-image: url('/assets/bg.png'); background-position: center botto
 a {color: var(--main-3-color); cursor: pointer;}
 a:hover {text-decoration: underline;}
 button {cursor: pointer;}
-input::placeholder {padding: 8px; color: var(--main-3-color);}
+input::placeholder {color: var(--main-3-color);}
 
 :root {
     --main-1-color: rgb(24, 23, 23);
@@ -42,8 +42,7 @@ input::placeholder {padding: 8px; color: var(--main-3-color);}
 ::-webkit-scrollbar-track {background: var(--main-1-color);}
 ::-webkit-scrollbar-thumb {background: var(--main-2-back);}
 
-.input {width: 100%; height: 25px; outline: none; background: var(--main-2-back); color: var(--main-3-color); transition: .5s;}
-.input:focus {padding: 0px 15px;}
+.input {width: 100%; height: 25px; outline: none; background: var(--main-1-color); color: var(--main-3-color); transition: .5s; padding: 5px 10px;}
 
 .page-load-bar {width: 100%; height: 1.5px; position: fixed; top: 0; left: 0; background: var(--main-1-color); z-index: 10000}
 .load-bar {width: 20%; height: inherit; background: var(--main-3-color); transition: width ease-in-out .6s;}
@@ -91,13 +90,13 @@ input::placeholder {padding: 8px; color: var(--main-3-color);}
 .logo {width: 100%; border-radius: 5px;}
 .auth-info {text-align: center; font-size: 15px; transform: translateY(-20px); text-shadow: 0 0 1px var(--main-mess-color);}
 
-.auth-reg {width: 90%; border-radius: 5px 5px 0px 0px;}
-.auth-reg-zag {width: 50%; height: 26px; background: var(--main-2-back); cursor: pointer;}
+.form-wrapper {width: 100%; height: 200px; border-radius: 5px; display: flex; justify-content: center; align-items: center; background: var(--main-2-back); flex-direction: column;}
+
+.auth-reg {width: 100%; border-radius: 5px 5px 0px 0px;}
 .reg-button {width: 150px; height: 25px; outline: none; border: none; background: var(--main-3-color); transition: .2s; cursor: pointer;}
 .reg-button:active {position: relative; top: 1px;}
 
-.auth-enter {width: 90%; border-radius: 0px 0px 5px 5px;}
-.auth-enter-zag {width: 50%; height: 26px; background: var(--main-2-back); cursor: pointer;}
+.auth-enter {width: 100%; border-radius: 0px 0px 5px 5px;}
 .auth-enter-form {width: 100%; border-radius: 0px 0px 5px 5px;}
 .enter-button {width: 150px; height: 25px; outline: none; border: none; background: var(--main-3-color); transition: .2s; cursor: pointer;}
 .enter-button:active {position: relative; top: 1px;}
@@ -111,8 +110,8 @@ input::placeholder {padding: 8px; color: var(--main-3-color);}
 .cost-message {width: 96%; border-radius: 5px; color: var(--main-mess-color);}
 .cost-elem-name {width: 160px; background: var(--main-1-color); border-radius: 3px; padding-top: 3px; padding-bottom: 3px;}
 .cost-prevnext-btn {min-width: 30px; height: 22px; display: flex; justify-content: center; align-items: center; border-radius: 5px; background: var(--main-3-color); color: var(--main-1-color); padding-left: 5px; padding-right: 5px;}
-.cost-ready-btn {width: 150px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
-.cost-ready-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
+.cost-ready-btn {width: 150px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); transition: 0.2s; cursor: pointer;}
+.cost-ready-btn:active {position: relative; top: 1px;}
 
 .cost-confirm-btn {width: 60px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s;}
 .cost-confirm-btn:hover {cursor: pointer; box-shadow: 0 0 0 var(--main-1-color);}
@@ -122,12 +121,12 @@ input::placeholder {padding: 8px; color: var(--main-3-color);}
 .game-location {width: 100%;}
 .game-canvas {width: 100%; background-color: var(--main-1-color);}
 .game-canvas-loader {width: 100%; height: 100%; position: absolute; top: 0; left: 0;}
-.game-canvas-fps {width: 100%; height: 100%; position: absolute; top: 0; left: 0; color: var(--main-3-color);}
+.game-canvas-fps {width: 100%; height: 100%; position: absolute; top: 0; left: 0; color: var(--main-1-color); font-weight: bolder;}
 .fps-body {margin-left: 20px; margin-top: 5px;}
 .game-canvas-btns {width: 100%; height: 100%; position: absolute; top: 0; left: 0;}
-.game-canvas-btns-wdth {margin-right: 20px; margin-bottom: 10px; opacity: 0.3;}
-.game-btn-big {width: 20px; height: 20px; background: var(--main-4-color);}
-.game-btn-min {width: 14px; height: 14px; background: var(--main-4-color);}
+.game-canvas-btns-wdth {margin-right: 20px; margin-bottom: 10px;}
+.game-btn-big {width: 20px; height: 20px; background: var(--main-2-back); box-shadow: 0px 2px 4px black;}
+.game-btn-big:active {position: relative; top: 2px; box-shadow: none;}
 .game-avai-items {overflow-x: auto;}
 .loc-whatsrch {width: 96%;}
 

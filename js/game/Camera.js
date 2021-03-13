@@ -15,9 +15,9 @@ class Camera {
 		this.y = this.game.getPlayer().y - this.viewHeight / 2;
 
 		if (this.x <= 0) this.x = 0;
-		if (this.x + this.viewWidth >= this.game.getLoc().width) this.x = this.game.getLoc().width - this.viewWidth;
+		if (this.x + this.viewWidth >= this.game.getWorld().getWidth()) this.x = this.game.getWorld().getWidth() - this.viewWidth;
 		if (this.y <= 0) this.y = 0;
-		if (this.y + this.viewHeight >= this.game.getLoc().height) this.y = this.game.getLoc().height - this.viewHeight;
+		if (this.y + this.viewHeight >= this.game.getWorld().getHeight()) this.y = this.game.getWorld().getHeight() - this.viewHeight;
 	}
 }
 

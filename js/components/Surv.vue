@@ -1,12 +1,14 @@
 <template>
-	<script type='module'>
+	<script type='module' defer>
 		import {Utils} from '../js/game/Utils.js';
 		import {Resources} from '../js/game/Resources.js';
+		import {PageDateUpdater} from '../js/game/PageDateUpdater.js';
 
 		import {GameLive} from '../js/game/GameLive.js';
 		import {Camera} from '../js/game/Camera.js';
 		import {GameWorld} from '../js/game/GameWorld.js';
 		import {Player} from '../js/game/Player.js';
+		import {Enemy} from '../js/game/Enemy.js';
 
 		(function()
 		{
@@ -28,9 +30,10 @@
 		        update: function(dt)
 		        {
 		            this.GameLive.update(dt);
+		            this.Player.update(dt);
 
-		            for(let i = 0; i < this.Players.length; i++)
-		            { this.Players[i].update(dt) }
+		            for(let i = 0; i < this.Enemys.length; i++)
+		            { this.Enemys[i].update(dt) }
 
 		            this.Camera.update(dt);
 		        },
@@ -41,9 +44,9 @@
 		            this.ctx.translate(-this.Camera.x, -this.Camera.y);
 
 		                    this.World.render();
-
-		                    for(let i = 0; i < this.Players.length; i++)
-				            { this.Players[i].render(dt); }
+		                    this.Player.render();
+		                    for(let i = 0; i < this.Enemys.length; i++)
+				            { this.Enemys[i].render(); }
 
 		            this.ctx.restore();
 
@@ -58,6 +61,7 @@
 		        {
 		            // Sys
 		            this.canv                      = document.getElementById('game_canv');
+		            this.gameBtns                  = document.getElementById('game_btns');
 		            this.canv.width                = 400;
 		            this.canv.height               = 400;
 
@@ -68,18 +72,21 @@
 		            this.pause                     = false;
 
 		            // Game
-		            this.loc = {width: 1024, height: 1024};
-
 		            this.GameLive = new GameLive(this);
-		            this.Players  = [];
+
+		            this.Enemys   = [];
+		            this.Player   = new Player(this, this.sprites['pl'], this.getUserFromPlayers(ajaxData.players));
 
 		            for (let i = 0; i < ajaxData.players.length; i++)
 		            {
-		            	this.Players.push(new Player(this, this.sprites['pl'], ajaxData.players[i]));
+		            	if (!ajaxData.players[i].you)
+		            	{
+		            		this.Enemys.push(new Enemy(this, this.sprites['pl'], ajaxData.players[i]));
+		            	}
 		            }
 
-		            this.Camera   = new Camera(this);
-		            this.World    = new GameWorld(this, this.sprites);
+		            this.Camera = new Camera(this);
+		            this.World  = new GameWorld(this, this.sprites, ajaxData.sys.locs[ this.Player['loc'] ]['loc_width'], ajaxData.sys.locs[ this.Player['loc'] ]['loc_height']);
 
 		            this.weathers = ajaxData.sys.weathers;
 		            this.temps    = ajaxData.sys.temps;
@@ -95,11 +102,9 @@
 		    		axios.post('/core/Game/?action=getData', params)
 		    		.then((response) =>
 		    		{
-		    			Game.Player = Game.getUserFromPlayers(response.data.players);
-
 		                let sprites = [
 		                    {nm: 'pl', path: '/assets/game/'},
-		                    {nm: 'loc_' + Game.Player.loc, path: '/assets/game/'}
+		                    {nm: 'loc_' + Game.getUserFromPlayers(response.data.players).loc, path: '/assets/game/'}
 		                ];
 
 		                Game.sprites  = Resources.loadSprites(sprites);
@@ -117,6 +122,8 @@
 
 		        getCanv() { return this.canv },
 
+		        getGameBtns() { return this.gameBtns },
+
 		        getCtx() { return this.ctx },
 
 		        getPlayer() { return this.Player },
@@ -130,8 +137,6 @@
 		        getWorld() { return this.World },
 
 		        getAjaxData() { return this.ajaxData },
-
-		        getLoc() { return this.loc },
 
 		        getUserFromPlayers(Players)
 		        {

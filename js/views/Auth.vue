@@ -8,58 +8,62 @@
         </div>
         <div class='auth-reg flex j-c ai-c fl-di-co'>
             <div class='wdth100 flex j-c'>
-                <div class='auth-reg-zag flex j-c ai-c bolder fnt14 mt5' :class='{mess: regModel}' @click='regModelMoves'>
-                    Начать путь
-                </div>
-                <div class='auth-enter-zag flex j-c ai-c bolder fnt14 mt5 ml5' :class='{mess: !regModel}' @click='regModelMoves'>
-                    Войти
+                <div class='zag-style flex j-c ai-c bolder fnt14 mt5 pointer' @click='regModelMoves'>
+                    <span>
+                        <span :class='{mess: regModel}'>Начать путь</span> /
+                        <span :class='{mess: !regModel}'>Войти</span>
+                    </span>
                 </div>
             </div>
             <div v-if='regModel' class='wdth100 auth-reg-form flex ai-c fl-di-co mt10'>
-                <div class='relative'>
-                    <div class='error-star' v-if='!regData.name'>*</div>
-                    <input type='text' placeholder='Придумайте ник' class='input' v-model='regData.name' required>
-                </div>
+                <div class='form-wrapper'>
+                    <div class='relative'>
+                        <div class='error-star' v-if='!regData.name'>*</div>
+                        <input type='text' placeholder='Придумайте ник' class='input' v-model='regData.name' required>
+                    </div>
 
-                <div class='relative mt10'>
-                    <div class='error-star' v-if='!regData.pass'>*</div>
-                    <input type='password' placeholder='Придумайте пароль' class='input' v-model='regData.pass' required>
-                </div>
+                    <div class='relative mt10'>
+                        <div class='error-star' v-if='!regData.pass'>*</div>
+                        <input type='password' placeholder='Придумайте пароль' class='input' v-model='regData.pass' required>
+                    </div>
 
-                <div class='relative mt10'>
-                    <div class='error-star' v-if='!regData.mail'>*</div>
-                    <input type='mail' placeholder='Ваша почта' class='input' v-model='regData.mail' required>
-                </div>
+                    <div class='relative mt10'>
+                        <div class='error-star' v-if='!regData.mail'>*</div>
+                        <input type='mail' placeholder='Ваша почта' class='input' v-model='regData.mail' required>
+                    </div>
 
-                <div class='flex j-s bolder mt5'>
-                    {{ authCode }}
-                </div>
-                <div class='relative mt5'>
-                    <div class='error-star' v-if='!regData.authCode'>*</div>
-                    <input type='text' placeholder='Проверочный код' class='input' v-model='regData.authCode' required>
-                </div>
+                    <div class='flex j-s bolder mt5'>
+                        {{ authCode }}
+                    </div>
+                    <div class='relative mt5'>
+                        <div class='error-star' v-if='!regData.authCode'>*</div>
+                        <input type='text' placeholder='Проверочный код' class='input' v-model='regData.authCode' required>
+                    </div>
 
-                <div class='flex j-c mt10 mb5'>
-                    <button type='submit' class='reg-button' @click='reg'>Начать</button>
+                    <div class='flex j-c mt10 mb5'>
+                        <button type='submit' class='reg-button' @click='reg'>Начать</button>
+                    </div>
                 </div>
             </div>
 
             <div v-else class='auth-enter'>
-                <div class='auth-enter-form flex ai-c fl-di-co pb5'>
-                    <div class='mt10'>
-                        <input type='text' placeholder='Ник' class='input' v-model='enterData.name' required>
-                    </div>
+                <div class='auth-enter-form flex ai-c mt10'>
+                    <div class='form-wrapper'>
+                        <div class='mt10'>
+                            <input type='text' placeholder='Ник' class='input' v-model='enterData.name' required>
+                        </div>
 
-                    <div class='mt10'>
-                        <input type='password' placeholder='Пароль' class='input' v-model='enterData.pass' required>
-                    </div>
+                        <div class='mt10'>
+                            <input type='password' placeholder='Пароль' class='input' v-model='enterData.pass' required>
+                        </div>
 
-                    <div class='mt10'>
-                        <button name='enter' class='enter-button' @click='enter'>Войти</button>
-                    </div>
+                        <div class='mt10'>
+                            <button name='enter' class='enter-button' @click='enter'>Войти</button>
+                        </div>
 
-                    <div class='mt10'>
-                        <a href='#' class='bottom-line fnt12'>Забыли пароль?</a>
+                        <div class='mt10'>
+                            <a href='#' class='bottom-line fnt12'>Забыли пароль?</a>
+                        </div>
                     </div>
                 </div>
             </div>

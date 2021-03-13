@@ -72,7 +72,7 @@
                 $this->costumizeUser($user, $hair, $beard, $cloth, $pants, $fwear);
             }
 
-            $this->answer('page', '/');
+            $this->locateUserToPage('/');
         }
     }
 

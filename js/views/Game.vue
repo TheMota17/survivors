@@ -39,20 +39,16 @@
 		                </div>
 		            </div>
 		            <div class='game-canvas-btns flex j-e ai-e'>
-		                <div class='game-canvas-btns-wdth flex j-c ai-c fl-di-co'>
+		                <div class='game-canvas-btns-wdth flex j-c ai-c fl-di-co' id='game_btns'>
 		                    <div class='flex j-c ai-c'>
-		                        <button class='game-btn game-btn-min mb5 mr5' id='up_l'></button>
-		                            <button class='game-btn game-btn-big' id='up'></button>
-		                        <button class='game-btn game-btn-min mb5 ml5' id='up_r'></button>
+	                            <button class='game-btn game-btn-big' id='up'></button>
 		                    </div>
 		                    <div class='flex j-c'>
 		                        <button class='game-btn game-btn-big mr10' id='left'></button>
 		                        <button class='game-btn game-btn-big ml10' id='right'></button>
 		                    </div>
 		                    <div class='flex j-c'>
-		                        <button class='game-btn game-btn-min mt5 mr5' id='down_l'></button>
-		                            <button class='game-btn game-btn-big' id='down'></button>
-		                        <button class='game-btn game-btn-min mt5 ml5' id='down_r'></button>
+	                            <button class='game-btn game-btn-big' id='down'></button>
 		                    </div>
 		                </div>
 		            </div>

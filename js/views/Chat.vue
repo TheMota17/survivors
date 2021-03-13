@@ -1,11 +1,11 @@
 <template>
 	<div v-if='api'>
-        <div class='flex j-c mt5'>
-            <div class='chat-form flex j-c ai-c fl-di-co pt5 pb5'>
-                <div class='zag-style flex j-c ai-c'>
-                    Общий чат
-                </div>
-                <div class='flex j-c mt10'>
+        <div class='flex j-c ai-c fl-di-co mt5'>
+            <div class='zag-style flex j-c ai-c'>
+                Общий чат
+            </div>
+            <div class='chat-form flex j-c ai-c fl-di-co mt5 pt5 pb5'>
+                <div class='flex j-c mt5'>
                     <input type='text' class='chat-input' placeholder='Ваше сообщение' v-model='inputText' cols='10'>
                     <button class='chat-btn ml5' @click='sendMessage'>
                         <img src='/assets/icons/send.png' />

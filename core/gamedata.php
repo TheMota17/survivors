@@ -75,7 +75,10 @@
                 ['i' => 4, 't' => 1],
                 ['i' => 5, 't' => 1]
             ],
-            'img' => '/assets/locs/wasteland.jpg'
+            'prev_img' => '/assets/locs/wasteland.jpg',
+            'loc_img'  => '/assets/game/loc_1.png',
+            'loc_width' => 1000,
+            'loc_height' => 1000
         ],
         2 => [
             'id' => 2,
@@ -89,7 +92,10 @@
                 ['i' => 4, 't' => 1],
                 ['i' => 5, 't' => 1],
             ],
-            'img' => '/assets/locs/village.jpg'
+            'prev_img' => '/assets/locs/village.jpg',
+            'loc_img'  => '/assets/game/loc_1.png',
+            'loc_width' => 1000,
+            'loc_height' => 1000
         ],
         3 => [
             'id' => 3,
@@ -105,7 +111,10 @@
                 ['i' => 7, 't' => 1],
                 ['i' => 10, 't' => 1]
             ],
-            'img' => '/assets/locs/big_village.jpg'
+            'prev_img' => '/assets/locs/big_village.jpg',
+            'loc_img'  => '/assets/game/loc_1.png',
+            'loc_width' => 1000,
+            'loc_height' => 1000
         ]
     ];
 
