@@ -109,8 +109,7 @@
         1 => ['id' => 1, 'nm' => 'Ясно', 'img' => '/assets/icons/weather-1.png', 'onchange' => 'Погода прояснилась'],
         2 => ['id' => 2, 'nm' => 'Дождь', 'img' => '/assets/icons/weather-2.png', 'onchange' => 'Начался дождь'],
         3 => ['id' => 3, 'nm' => 'Гроза', 'img' => '/assets/icons/weather-3.png', 'bonustime' => 500, 'onchange' => 'Началась гроза'],
-        4 => ['id' => 4, 'nm' => 'Сильн. ветер', 'img' => '/assets/icons/weather-4.png', 'bonustime' => 700, 'onchange' => 'Сильный ветерок подул'],
-        5 => ['id' => 5, 'nm' => 'Снег', 'img' => '/assets/icons/weather-5.png', 'onchange' => 'Снега тут не хватало']
+        4 => ['id' => 4, 'nm' => 'Сильн. ветер', 'img' => '/assets/icons/weather-4.png', 'bonustime' => 700, 'onchange' => 'Сильный ветерок подул']
     ];
 
     $game_temps = [ // Температура

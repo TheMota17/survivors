@@ -41,14 +41,14 @@
 		            <div class='game-canvas-btns flex j-e ai-e'>
 		                <div class='game-canvas-btns-wdth flex j-c ai-c fl-di-co' id='game_btns'>
 		                    <div class='flex j-c ai-c'>
-	                            <button class='game-btn game-btn-big' id='up'></button>
+	                            <button class='game-btn game-btn-up' id='up'></button>
 		                    </div>
 		                    <div class='flex j-c'>
-		                        <button class='game-btn game-btn-big mr10' id='left'></button>
-		                        <button class='game-btn game-btn-big ml10' id='right'></button>
+		                        <button class='game-btn game-btn-left' id='left'></button>
+		                        <button class='game-btn game-btn-right' id='right'></button>
 		                    </div>
 		                    <div class='flex j-c'>
-	                            <button class='game-btn game-btn-big' id='down'></button>
+	                            <button class='game-btn game-btn-down' id='down'></button>
 		                    </div>
 		                </div>
 		            </div>

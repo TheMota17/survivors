@@ -125,9 +125,13 @@ input::placeholder {color: var(--main-3-color);}
 .game-canvas-fps {width: 100%; height: 100%; position: absolute; top: 0; left: 0; color: var(--main-1-color); font-weight: bolder;}
 .fps-body {margin-left: 20px; margin-top: 5px;}
 .game-canvas-btns {width: 100%; height: 100%; position: absolute; top: 0; left: 0;}
-.game-canvas-btns-wdth {margin-right: 20px; margin-bottom: 10px;}
-.game-btn-big {width: 20px; height: 20px; background: var(--main-2-back); box-shadow: 0px 2px 4px black;}
-.game-btn-big:active {position: relative; top: 2px; box-shadow: none;}
+.game-canvas-btns-wdth {margin-right: 20px; margin-bottom: 20px;}
+.game-btn {width: 20px; height: 20px; background: var(--main-2-back); box-shadow: 0px 2px 4px black;}
+.game-btn:active {position: relative; top: 2px; box-shadow: none;}
+.game-btn-up {margin-top: 0px;}
+.game-btn-down {margin-bottom: 0px;}
+.game-btn-left {margin-right: 0px;}
+.game-btn-right {margin-left: 24px;}
 .game-avai-items {overflow-x: auto;}
 .loc-whatsrch {width: 96%;}
 
