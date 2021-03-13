@@ -87,12 +87,10 @@
 
 					<div class='nadeto-helm backgr1 flex mt5'>
 						<div class='flex j-c ai-c'>
-							<div class='item32-1'>
-								<div v-if='nadeto[`helm`] > 0' class='flex j-c ai-c' :class='rares[ items[2][ nadeto[`helm`] ][`rare`] ][`border`]'>
-		                            <img :src='items[ 2 ][ nadeto[`helm`] ][`img`]' />
-		                        </div>
-		                        <img v-else src='/assets/icons/ivent-helm.png' />
-					        </div>
+							<div v-if='nadeto[`helm`] > 0' class='flex ai-c j-c' :class='rares[ items[2][ nadeto[`helm`] ][`rare`] ][`border`]'>
+	                            <img class='item30' :src='items[ 2 ][ nadeto[`helm`] ][`img`]' />
+	                        </div>
+	                        <img v-else src='/assets/icons/ivent-helm.png' />
 					        <div class='flex j-c'>
 					        	<div v-if='nadeto[`helm`] > 0' class='flex j-c fl-di-co'>
 					        		<div class='item-name ml5 flex j-s'>
@@ -128,12 +126,10 @@
 
 					<div class='nadeto-arm backgr1 flex mt5'>
 						<div class='flex j-c ai-c'>
-							<div class='item32-1'>
-		                        <div v-if='nadeto[`arm`] > 0' class='flex j-c ai-c' :class='rares[ items[3][ nadeto[`arm`] ][`rare`] ][`border`]'>
-		                        	<img :src='items[ 3 ][ nadeto[`arm`] ][`img`]' />
-		                        </div>
-		                        <img v-else src='/assets/icons/ivent-arm.png' />
-					        </div>
+							<div v-if='nadeto[`arm`] > 0' class='flex j-c ai-c' :class='rares[ items[3][ nadeto[`arm`] ][`rare`] ][`border`]'>
+	                        	<img class='item30' :src='items[ 3 ][ nadeto[`arm`] ][`img`]' />
+	                        </div>
+	                        <img v-else src='/assets/icons/ivent-arm.png' />
 					        <div class='flex j-c fl-di-co'>
 					        	<div v-if='nadeto[`arm`] > 0' class='flex j-c fl-di-co'>
 					        		<div class='item-name ml5 flex j-s'>
@@ -169,12 +165,10 @@
 
 					<div class='nadeto-weap backgr1 flex mt5 mb5'>
 						<div class='flex j-c ai-c'>
-							<div class='item32-1'>
-								<div v-if='nadeto[`weap`] > 0' class='flex j-c ai-c' :class='rares[ items[4][ nadeto[`weap`] ][`rare`] ][`border`]'>
-		                        	<img :src='items[ 4 ][ nadeto[`weap`] ][`img`]' />
-		                        </div>
-		                        <img v-else src='/assets/icons/ivent-weap.png' />
-				            </div>
+							<div v-if='nadeto[`weap`] > 0' class='flex j-c ai-c' :class='rares[ items[4][ nadeto[`weap`] ][`rare`] ][`border`]'>
+	                        	<img class='item30' :src='items[ 4 ][ nadeto[`weap`] ][`img`]' />
+	                        </div>
+	                        <img v-else src='/assets/icons/ivent-weap.png' />
 				            <div class='flex j-c fl-di-co'>
 				            	<div v-if='nadeto[`weap`] > 0' class='flex j-c fl-di-co'>
 					        		<div class='item-name ml5 flex j-s'>

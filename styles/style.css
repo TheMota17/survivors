@@ -72,6 +72,7 @@ input::placeholder {color: var(--main-3-color);}
 
 .item14-1 {width: 14px; height: 14px;}
 .item32-1 {width: 32px; height: 32px; border-radius: 3px; background: var(--main-1-color);}
+.item30 {height: 30px;}
 .item-link {display: flex; justify-content: center; align-items: center;}
 .item32-2 {width: 32px; height: 32px; border-radius: 3px; background: var(--main-2-back);}
 

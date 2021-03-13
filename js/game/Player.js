@@ -29,7 +29,7 @@ class Player {
 		switch(e.target.id)
 		{
 			case 'left':
-				if (this.stepTime())
+				if (this.stepTime() && (this.x - 40) >= 0)
 				{
 					this.changeCoordinates('left');
 					this.sendPoint('left');
@@ -37,7 +37,7 @@ class Player {
 				}
 				break;
 			case 'up':
-				if (this.stepTime())
+				if (this.stepTime() && (this.y - 40) >= 0)
 				{
 					this.changeCoordinates('up');
 					this.sendPoint('up');
@@ -45,7 +45,7 @@ class Player {
 				}
 				break;
 			case 'right':
-				if (this.stepTime())
+				if (this.stepTime() && (this.x + 40) < this.game.getWorld().getWidth())
 				{
 					this.changeCoordinates('right');
 					this.sendPoint('right');
@@ -53,7 +53,7 @@ class Player {
 				}
 				break;
 			case 'down':
-				if (this.stepTime())
+				if (this.stepTime() && (this.y + 40) < this.game.getWorld().getHeight())
 				{
 					this.changeCoordinates('down');
 					this.sendPoint('down');

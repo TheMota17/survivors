@@ -62,6 +62,15 @@
 	                </div>
 	            </div>
 
+	            <div class='flex j-c mt10'>
+	            	<button class='moves-btn flex j-s ai-c'>
+		                <div class='game-btn-icon ml5 mr5 flex j-c ai-c'>
+		                    <img src='/assets/icons/loc.png' />
+		                </div>
+		                <span>Искать другую локацию</span>
+		            </button>
+	            </div>
+
 	            <sleep class='mt5'></sleep>
 		    </div>
 		</div>

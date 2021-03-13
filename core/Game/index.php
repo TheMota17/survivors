@@ -63,20 +63,32 @@
             switch($action)
             {
                 case 'right':
-                    $point['x'] = $this->user['x'] + 40;
-                    $point['y'] = $this->user['y'];
+                    if (($this->user['x'] + 40) < $this->locs[ $this->user['loc'] ]['loc_width'])
+                    {
+                        $point['x'] = $this->user['x'] + 40;
+                        $point['y'] = $this->user['y'];
+                    }
                     break;
                 case 'left':
-                    $point['x'] = $this->user['x'] - 40;
-                    $point['y'] = $this->user['y'];
+                    if (($this->user['x'] - 40) >= 0)
+                    {
+                        $point['x'] = $this->user['x'] - 40;
+                        $point['y'] = $this->user['y'];
+                    }
                     break;
                 case 'up':
-                    $point['x'] = $this->user['x'];
-                    $point['y'] = $this->user['y'] - 40;
+                    if (($this->user['y'] - 40) >= 0)
+                    {
+                        $point['x'] = $this->user['x'];
+                        $point['y'] = $this->user['y'] - 40;
+                    }
                     break;
                 case 'down':
-                    $point['x'] = $this->user['x'];
-                    $point['y'] = $this->user['y'] + 40;
+                    if (($this->user['y'] + 40) < $this->locs[ $this->user['loc'] ]['loc_height'])
+                    {
+                        $point['x'] = $this->user['x'];
+                        $point['y'] = $this->user['y'] + 40;
+                    }
                     break;
             }
 
