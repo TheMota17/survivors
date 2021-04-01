@@ -1,3 +1,6 @@
+* {margin: 0; padding: 0; outline: none; border: none; text-decoration: none; box-sizing: border-box; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+ul {list-style-type: none;}
+img {vertical-align: middle;}
 body {color: var(--main-3-color); background: var(--main-1-color); max-width: 500px; min-width: 240px; margin: 0 auto; font-family: 'Montserrat', 'Courier new'; font-size: 13px; overflow-x: hidden;}
 body {background-image: url('/assets/bg.png'); background-position: center bottom; background-attachment: fixed;}
 a {color: var(--main-3-color); cursor: pointer;}
@@ -9,7 +12,7 @@ input::placeholder {color: var(--main-3-color);}
     --main-1-color: rgb(24, 23, 23);
     --main-2-color: rgb(52, 49, 42);
     --main-2-back: url('/assets/textures/2-color.png');
-    --main-3-color: rgb(127, 105, 85);
+    --main-3-color: #7f654d;
     --main-4-color: #dac09c;
     --main-red-color: #B22222;
     --main-red2-color: #b45252;
@@ -42,7 +45,7 @@ input::placeholder {color: var(--main-3-color);}
 ::-webkit-scrollbar-track {background: var(--main-1-color);}
 ::-webkit-scrollbar-thumb {background: var(--main-2-back);}
 
-.input {width: 100%; height: 25px; outline: none; background: var(--main-1-color); color: var(--main-3-color); transition: .5s; padding: 5px 10px;}
+.input {width: 100%; height: 35px; border-bottom: 2px solid var(--main-1-color); outline: none; background: var(--main-2-back); color: var(--main-3-color); transition: .5s; padding: 5px 10px;}
 
 .page-load-bar {width: 100%; height: 1.5px; position: fixed; top: 0; left: 0; background: var(--main-1-color); z-index: 10000}
 .load-bar {width: 20%; height: inherit; background: var(--main-3-color); transition: width ease-in-out .6s;}
@@ -54,11 +57,11 @@ input::placeholder {color: var(--main-3-color);}
 .close-btn {width: 90px; height: 25px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 5px 5px var(--main-1-color); transition: 0.2s; border-radius: 3px; margin-top: 15px;}
 .close-btn:active {position: relative; top: 1px; box-shadow: none;}
 
-.menu {position: fixed; top: 0; right: 0; width: 200px; height: 100vh; margin-top: 25px; background: var(--main-2-back); display: flex; align-items: center; justify-content: center; transition: 0.2s linear; transform: translateX(100%); z-index: 9999;}
+.menu {position: fixed; top: 0; right: 0; width: 200px; height: 100vh; margin-top: 25px; background: var(--main-2-back); display: flex; align-items: center; justify-content: center; transition: transform 0.2s linear; transform: translateX(100%); z-index: 9999;}
 .menu-list {width: 100%; height: 100%; overflow-y: auto;}
 .menu-zag {color: var(--main-3-color); font-weight: bold; background: var(--main-1-color); border-radius: 3px; padding-top: 2px; padding-bottom: 2px; box-shadow: 0px 2px 4px black;}
 .menu-a {width: 100%; height: 30px; display: flex; justify-content: flex-start; align-items: center; border-radius: 3px; transition: .2s;}
-.menu-a:hover {background: var(--main-1-color); text-decoration: none; box-shadow: 0px 2px 4px black;}
+.menu-a:hover {background: var(--main-1-color); text-decoration: none; box-shadow: 0px 2px 2px black;}
 .menu-btn {height: 25px; position: fixed; top: 0; right: 1px; z-index: 10000; cursor: pointer; transition: .1s;}
 .menu-btn:active {top: 2px;}
 .menu_active {transform: translateX(0%);}
@@ -86,14 +89,14 @@ input::placeholder {color: var(--main-3-color);}
 .sort-menu button {height: 25px; color: var(--main-3-color); background: var(--main-1-color); padding: 4px; border-radius: 3px; box-shadow: 0px 2px 4px black;}
 
 /* Регистрация, вход и т.д. */
-.error-star {display: block; color: var(--main-red-color); position: absolute; left: 1px; top: -2px;}
+.error-star {display: block; color: var(--main-red-color); position: absolute; left: -10px; top: 10px; text-shadow: 0px 0px 4px var(--main-red-color);}
 
-.logo {width: 100%; border-radius: 5px;}
+.logo {width: 100%; height: 180px; background: url('/assets/auth.png') no-repeat top/cover;}
 .auth-info {text-align: center; font-size: 15px; transform: translateY(-20px); text-shadow: 0 0 1px var(--main-mess-color);}
 
-.form-wrapper {width: 100%; height: 200px; border-radius: 5px; display: flex; justify-content: center; align-items: center; background: var(--main-2-back); flex-direction: column;}
+.form-wrapper {width: 100%; padding: 10px 0px; border-radius: 0px 0px 5px 5px; display: flex; justify-content: center; align-items: center; background: var(--main-2-back); flex-direction: column;}
 
-.auth-reg {width: 100%; border-radius: 5px 5px 0px 0px;}
+.auth-code {border-radius: 3px; background: var(--main-1-color); padding: 4px 20px;}
 .reg-button {width: 150px; height: 25px; outline: none; border: none; background: var(--main-3-color); transition: .2s; cursor: pointer;}
 .reg-button:active {position: relative; top: 1px;}
 
@@ -136,7 +139,6 @@ input::placeholder {color: var(--main-3-color);}
 .loc-whatsrch {width: 96%;}
 
 .game-srch {width: 100%;}
-
 .game-actions {width: 100%;}
 
 .sleep-range {background: var(--main-1-color);}
@@ -184,7 +186,7 @@ input::placeholder {color: var(--main-3-color);}
 .iteminfo-div {width: 100%; padding-top: 4px; padding-bottom: 4px; background: var(--main-1-color);}
 
 .item-moves {width: 100%;}
-.moves-btn {width: 86%; height: 30px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 2px 4px black; transition: 0.2s; border-radius: 3px;}
+.moves-btn {width: 86%; height: 30px; outline: none; border: none; color: var(--main-1-color); background: var(--main-3-color); box-shadow: 0 2px 4px black, inset 0 0 2px black; transition: 0.2s; border-radius: 3px;}
 .moves-btn:active {cursor: pointer; position: relative; top: 1px;}
 
 /* КРАФТ */
