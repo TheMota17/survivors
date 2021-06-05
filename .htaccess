@@ -1,0 +1,32 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^u([0-9]+)(/?)+$ index.php?id=profile&id=$1 [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.php [L]
+</IfModule>
+
+<FilesMatch ".(pl|php|cgi|spl|scgi|fcgi|js|css)$">
+Header unset Cache-Control
+</FilesMatch>
+
+DirectoryIndex index.php
+#php_flag display_startup_errors off
+#php_flag display_errors off
+#php_flag html_errors off
+
+# MIME тип по умолчанию
+php_value default_mimetype text/html
+
+# Магические кавычки
+php_flag magic_quotes_gpc Off
+php_flag magic_quotes_runtime Off
+php_flag magic_quotes_sybase Off
+
+# Не создаются переменные argc и argv
+php_flag register_argc_argv Off
+
+Options -Indexes
+AddDefaultCharset UTF-8
+php_value short_open_tag 1
