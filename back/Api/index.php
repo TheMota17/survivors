@@ -1,6 +1,6 @@
 <?php
 
-    require '../config.php';
+    require '../Cfg.php';
     require '../GameData.php';
     require '../Utils.php';
 

@@ -80,9 +80,9 @@
             <div class="flex j-c mt5">
               <div class="wdth96 flex j-s">
                 <div
-                  v-for="(craft_i, idx) in crafts[$root.craft.id][
-                    `craft_items`
-                  ]"
+                  v-for-="
+                    (craft_i, idx) in crafts[$root.craft.id][`craft_items`]
+                  "
                   :class="[idx !== 0 ? `ml5` : ``]"
                   class="flex fl-di-co"
                 >
@@ -109,7 +109,7 @@
               <div class="flex j-c mt5">
                 <div class="wdth96 flex j-s">
                   <div
-                    v-for="(tool, idx) in crafts[$root.craft.id][`tools`]"
+                    v-for-="(tool, idx) in crafts[$root.craft.id][`tools`]"
                     :class="[idx !== 0 ? `ml5` : ``]"
                     class="flex j-c ai-c fl-di-co"
                   >
@@ -135,9 +135,10 @@
                 <div class="wdth96 flex j-c">
                   <div class="wdth100 flex j-s">
                     <div
-                      v-for="(ammu, idx) in items[$root.craft.type][
-                        $root.craft.item
-                      ][`ammu`]"
+                      v-for-="
+                        (ammu, idx) in
+                        items[$root.craft.type][$root.craft.item][`ammu`]
+                      "
                       :class="[idx !== 0 ? `ml5` : ``]"
                       class="flex j-c ai-c fl-di-co"
                     >
@@ -195,7 +196,7 @@
               craft[`craft_lvl`] <= user[`craft_lvl`] &&
               $root.craft.sortType == craft[`type`]
             "
-            v-for="(craft, idx) in crafts"
+            v-for-="(craft, idx) in crafts"
             class="craft-item backgr1 flex j-c fl-di-co mt5 pt5 pb5"
           >
             <div class="craft-first-info flex">
@@ -258,6 +259,7 @@ module.exports = {
     items: null,
     crafts: null,
     rares: null,
+
     user: null,
 
     colvo: 1,
@@ -277,11 +279,11 @@ module.exports = {
 
       if (data?.moves?.page) this.$router.push(data.moves.page);
 
-      this.items = response.data.items;
-      this.crafts = response.data.crafts;
-      this.rares = response.data.rares;
+      this.items = data.items;
+      this.crafts = data.crafts;
+      this.rares = data.rares;
 
-      this.user = response.data.user;
+      this.user = data.user;
 
       this.api = true;
     });
