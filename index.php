@@ -27,7 +27,7 @@
         <?=date('H:i:s')?> по Мск.
     </div>
     <div class='flex j-c ai-c mt5'>
-        <img class='item14-1 mr5' src='/front/assets/favicon.png' /> © by <a class='ml5 mr5' href='https://vk.com/mota17'>Mota</a> 2020-2021, 18+
+        <img class='item14-1 mr5' src='/front/assets/favicon.png' /> © by <a class='ml5 mr5' href='https://vk.com/mota17'>Mota</a> 2020, 18+
     </div>
 </div>
 
